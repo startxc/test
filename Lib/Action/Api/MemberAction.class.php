@@ -276,7 +276,7 @@ class MemberAction extends MobileCommonAction{
 		if(empty($uid)){
 			$this->error("你还没有登录哦");
 		}
-		$address_id = $_GET['address_id'];
+		$address_id = $_POST['address_id'];
 		$member_address = M("Member_address");
 		$member_address->startTrans();
 		if($member_address->where("id={$address_id} && member_id={$uid} && is_default=1")->find()){
@@ -312,7 +312,62 @@ class MemberAction extends MobileCommonAction{
 
 	//设置默认收货地址
 	public function setDefaultAddress(){
-		
+		$uid = $_SESSION['uid'];
+		if(empty($uid)){
+			$this->error("你还没有登录哦");
+		}
+		$address_id = $_POST['address_id'];
+		$member_address = M("Member_address");
+		$member_address->startTrans();
+		if(!$member_address->where("member_id={$uid} && is_default=1")->setField("is_default",0)){
+			$member_address->rollback();
+			$this->error("设置默认收货地址失败");
+		}
+		if(!$member_address->where("id={$address_id} && member_id={$uid}")->setField("is_default",1)){
+			$member_address->rollback();
+			$this->error("设置默认收货地址失败");
+		}
+		$member_address_data = $member_address->where("id={$address_id}")->find();
+		$member_data = array(
+			"province_id"=>$member_address_data['province_id'],
+			"city_id"=>$member_address_data['city_id'],
+			"area_id"=>$member_address_data['area_id'],
+			"province_name"=>$member_address_data['province_name'],
+			"city_name"=>$member_address_data['city_name'],
+			"area_name"=>$member_address_data['area_name'],
+			"address"=>$member_address_data['address']
+		);
+		if(!M("Member")->where("id={$uid}")->save($member_data)){
+			$member_address->rollback();
+			$this->error("设置默认收货地址失败");
+		}	
+		$member_address->commit();
+		$this->success("设置默认收货地址成功");	
+	}
+
+	//绑定会员
+	public function setBindMember(){
+		$uid = $_SESSION['uid'];
+		if(empty($uid)){
+			$this->error("你还没有登录哦");
+		}
+		$data['bind_member'] = trim($_POST['bind_member']);
+		if(empty($data['bind_member'])){
+			$this->error("会员卡号不能为空哦");
+		}
+		if(M("Member")->where("id={$uid}")->save($data)){
+			$this->success("绑定会员成功");
+		}else{
+			$this->error("绑定会员失败");
+		}
+	}
+
+	//退出帐号
+	public function loginOut(){
+		$_SESSION['uid'] = null;
+		$_SESSION['mobile'] = null;
+		$_SESSION['nickname'] = null;
+		$this->success("退出成功");
 	}
 
 	//获取验证号，临时测试用，上线版本用短信接口获取

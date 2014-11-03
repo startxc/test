@@ -1083,3 +1083,28 @@
 [ 2014-11-03T17:59:59+08:00 ] /api | INFO: Tag[ view_end ] --START--
 [ 2014-11-03T17:59:59+08:00 ] /api | INFO: Run ShowPageTrace Behavior [ RunTime:0.002409s ]
 [ 2014-11-03T17:59:59+08:00 ] /api | INFO: Tag[ view_end ] --END-- [ RunTime:0.003527s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ route_check ] --START--
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run CheckRoute Behavior [ RunTime:0.000812s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ route_check ] --END-- [ RunTime:0.000912s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ app_begin ] --START--
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run ReadHtmlCache Behavior [ RunTime:0.000531s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run CheckLang Behavior [ RunTime:0.001072s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ app_begin ] --END-- [ RunTime:0.001725s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | NOTIC: [8] A session had already been started - ignoring session_start() CommonAction.class.php 第 9 行.
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ view_template ] --START--
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run LocationTemplate Behavior [ RunTime:0.000853s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ view_template ] --END-- [ RunTime:0.000975s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ view_parse ] --START--
+[ 2014-11-03T23:59:03+08:00 ] /Api | NOTIC: [8] Undefined index: user cdff254f97ce93ac6536c85176a3ef67.php 第 11 行.
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run ParseTemplate Behavior [ RunTime:0.012364s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ view_parse ] --END-- [ RunTime:0.012443s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ view_filter ] --START--
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run ContentReplace Behavior [ RunTime:0.000546s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run TokenBuild Behavior [ RunTime:0.000536s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run WriteHtmlCache Behavior [ RunTime:0.000313s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run ShowRuntime Behavior [ RunTime:0.000539s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ view_filter ] --END-- [ RunTime:0.002180s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ view_end ] --START--
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Run ShowPageTrace Behavior [ RunTime:0.000522s ]
+[ 2014-11-03T23:59:03+08:00 ] /Api | INFO: Tag[ view_end ] --END-- [ RunTime:0.000613s ]
+[ 2014-11-03T23:59:04+08:00 ] /favicon.ico | ERR: (ThinkException) 无法加载模块favicon.ico

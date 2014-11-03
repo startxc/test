@@ -1,15 +1,6 @@
 <?php
 class MobileCommonAction extends CommonAction{
-	protected $_group_name = 'Mobile';
-	protected function getUser(){
-		return $_SESSION['user'];
-	}
-	
-	protected function getUserId(){
-		$user = $this->getUser();
-		return $user['id'];
-	}
-	
+
 	public function _initialize(){
 		
 		#Log::write(var_export($_SERVER,true).var_export($_COOKIE,true));
@@ -23,54 +14,6 @@ class MobileCommonAction extends CommonAction{
 		parent::_initialize();
 		
 		$this->assign(CC('Mobile/config.tpl_val'));
-	}
-	
-	
-	public function getApiAction($action_name){
-		return A('Api/'.$action_name);
-	}
-	
-	
-	public function getUserById($uid=0){
-		static $users = array();
-		$uid = $uid?$uid:$_SESSION['user']['id'];
-		if(empty($users[$uid])){
-			$u = M('User')->where(array('id'=>$uid))->field('id,first_name,last_name,screen_name,account,avatar,quote')->find();
-			if(empty($u['avatar']) || !is_file(APP_DIR.$u['avatar'])){
-				$u['avatar'] = 'Upload/Avatar/default.png';
-			}
-			$users[$uid] = $u;
-		}
-		return $users[$uid]?$users[$uid]:array();
-	}
-	
-	public function getUserDetail($uid=0){
-		static $users = array();
-		$uid = $uid?$uid:$_SESSION['user']['id'];
-		if(empty($users[$uid])){
-			$user = M('User')->where(array('id'=>$this->getUserId()))->find();
-			if(empty($user['avatar']) || !is_file(APP_DIR.$user['avatar'])){
-				$user['avatar'] = 'Upload/Avatar/default.png';
-			}
-			$users[$uid] = $user;
-		}
-		return $users[$uid]?$users[$uid]:array();
-	}
-	
-	
-	
-	
-	public function getTeamById($team_id=0){
-		static $teams = array();
-		$team_id = $team_id?$team_id:$_SESSION['user']['team_id'];
-		if(empty($teams[$team_id])){
-			$team = M('Team')->where(array('t.id'=>$team_id))->alias('t')->join('quality_office o on t.office_id=o.id')->field('t.id,t.name,t.avatar,o.name as office_name')->find();
-			if(empty($team['avatar']) || !is_file(APP_DIR.$team['avatar'])){
-				$team['avatar'] = 'Upload/Avatar/defaultTeam.png';
-			}
-			$teams[$team_id] = $team;
-		}
-		return $teams[$team_id]?$teams[$team_id]:array();
 	}
 
 	//ajax返回信息
@@ -110,5 +53,6 @@ class MobileCommonAction extends CommonAction{
 		if(empty($data)){
 			$this->error($info);
 		}
-	}	
+	}
+	
 }
