@@ -1,0 +1,14 @@
+.wrapper-left p {line-height: 45px;}
+.order-detail-box .box-title {font-size: 18px;font-weight: bold;background: #4d4c4c;height: 40px;line-height: 40px;color: white;padding-left: 10px;}
+.order-detail-box .box-title span {display: inline-table;}
+.product-tab tr th {height: 60px;border-bottom: 1px solid #ccc;font-size: 14px;background: #e4e2e1;}
+.product-tab tr td {border-bottom: 1px solid #ccc;text-align: center;}
+.product-tab tr td a {color: blue;text-decoration: underline;}
+.box-title {background: #4d4c4c;height: 45px;font-weight: bold;line-height: 40px;}
+.box-title ul li {font-size: 16px;color: #fff;display: inline-table;width: 150px;float: left;}
+.head {font-size: 24px;color: #fff;float: left;margin-right: 40px;margin-left: 10px;}
+.sub-payment table {line-height: 50px;background: #fff;padding-top: 30px;}
+.sub-payment table select {font-size: 14px;background: #e9e8e8;padding: 5px;border: 1px solid #bbb;width: 290px;} 
+.sub-payment table .txt {width: 280px;padding: 7px;background: #ccc;border: 1px solid #bbb;}
+.sub-payment table textarea {background: #ccc;border: 1px solid #bbb;}
+.sub-payment table .sub-btn {background:#98cb00;width: 100px;height: 35px;color: #fff;font-size: 16px;margin-right: 20px;margin-bottom: 20px;};

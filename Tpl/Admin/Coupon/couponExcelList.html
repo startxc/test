@@ -1,0 +1,41 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+<div class="header">
+    <span class="action_title"><a href="__URL__">优惠券Excel </a></span><span class="action_module"> - 优惠券Excel列表  </span>
+    <!--<span class="action_span"> 
+        <a href="__URL__/addCouponType">添加优惠券类型</a>
+    </span>-->
+    <div class="clear"></div>
+</div>
+<div id="middle">
+	<div class="list_div">
+    	<table class="list_table" cellspacing="1" cellpadding="3">
+            <tr>
+                <th width="65">文件名</th>
+                <th>生成时间 </th>
+                <th>文件大小</th>
+            </tr>
+            <volist name="dirArray" id="vo">
+            <tr class="list_tr">
+                <td align="center">{$vo.name}</td>
+                <td align="center">{$vo.time}</td>
+                <td align="center">{$vo.size}</td>
+            </tr>
+        	</volist>
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+$(function() {
+	//表格变色
+	$('.list_tr').hover(function(){
+		$(this).find('td').css('background', '#F4FAFB');
+	}, function(){
+		if (!$(this).find('td').find('input').attr('checked')) {
+		    $(this).find('td').css('background', '#FFFFFF');
+		}
+	});
+});
+</script>
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

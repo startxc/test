@@ -1,0 +1,54 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<div class="header">
+    <span class="action_title"> <a href="#">菜单管理</a></span> <span class="action_module"> - 添加菜单  </span>
+    <span class="action_span" > <a href="__URL__/index">菜单列表</a> </span>
+    <div class="clear"> </div>
+</div>
+
+<div id="middle">
+    <form method="post" action="__URL__/insert">
+    <!--列表-->
+    <div class="list_div">
+        <table class="add_table" cellspacing="1" cellpadding="3">
+            <tr>
+                <td width="100" align="center"> 
+                    菜单名称
+                </td>
+                <td> <input type="text" class="add_input_text" name="name"> </td>
+            </tr>
+             <tr>
+                <td width="100" align="center"> 
+                    菜单链接
+                </td>
+                <td> <input type="text" class="add_input_text" name="url"> </td>
+            </tr>
+            <tr>
+                <td width="100" align="center"> 启用状态 </td>
+                <td> <input type="radio" name="status" value="1" checked="true" > 启用 <input type="radio" name="status" value="0" > 禁用 </td>
+            </tr>
+            <tr>
+                <td width="100" align="center"> 旗下栏目 </td>
+                <td> 
+                    <volist name="list" key="k" id="vo">
+                        <span><input type="checkbox" value="{$vo.id}" name="menu[]"> {$vo.title} </span> &nbsp; &nbsp;
+                    </volist>
+                </td>
+            </tr>
+        </table>
+       
+        <table class="submit_table">
+            <tr>
+                <td> 
+                    <span><input type="submit" value="提交保存" /></span>
+                    <span><input type="reset" value="全部重置" /></span>
+                </td>
+            </tr>                    
+        </table> 
+    </div>
+    </form>
+</div>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

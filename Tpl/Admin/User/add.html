@@ -1,0 +1,56 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<div class="header">
+    <span class="action_title"> <a href="#">用户管理</a></span> <span class="action_module"> - 添加用户  </span>
+    <span class="action_span" > <a href="__URL__/index">用户列表</a> </span>
+    <div class="clear"> </div>
+</div>
+
+<div id="middle">
+    <form method="post" action="__URL__/insert">
+        <!--列表-->
+        <div class="list_div">
+            <table class="add_table" cellspacing="1" cellpadding="3">
+                <tr>
+                    <td width="80" align="center"> 
+                        用户账号
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="username"> </td>
+                </tr>
+                <tr>
+                    <td width="80" align="center"> 
+                        用户密码
+                    </td>
+                    <td> <input type="password" class="add_input_text" name="password"> </td>
+                </tr>
+                <tr>
+                    <td width="80" align="center"> 
+                        用户昵称
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="nickname"> </td>
+                </tr>
+                <tr>
+                    <td width="80" align="center"> 用户状态 </td>
+                    <td> <input type="radio" name="status" value="1" checked="true" > 启用 <input type="radio" name="status" value="0" > 禁用</td>
+                </tr>
+                <tr>
+                    <td width="80" align="center"> 用户备注 </td>
+                    <td> <textarea name="remark" rows="5" style="width: 380px; height: 120px; border: 1px solid #C2D1D8; overflow:visible;"></textarea> </td>
+                </tr>
+            </table>
+
+            <table class="submit_table">
+                <tr>
+                    <td> 
+                        <span><input type="submit" value="提交保存" /></span>
+                        <span><input type="reset" value="全部重置" /></span>
+                    </td>
+                </tr>                    
+            </table> 
+        </div>
+    </form>
+</div>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

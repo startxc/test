@@ -1,0 +1,123 @@
+/* @override http://localhost/bxslider_v3_plugin/css/styles.css */
+
+/*
+ * To change the color scheme of slider change each 
+ * background property for each of the five styles below
+ */
+.bx-wrapper{
+	margin: 0 auto;
+}
+.bxSlider{
+	position: relative;
+	padding: 0;
+	margin: 0;
+	width: 602px;
+	height: 64px;
+	list-style: none;
+	border: 1px solid #d0d2d3;
+	border-top: 3px solid #d0d2d3;
+	background-color: #d0d2d3;
+	overflow: hidden;
+	text-align: center;
+	
+}
+.bxSlider li{
+	margin: 0;
+	padding: 0;
+	width: 85px;
+	height: 64px;
+	display: inline;
+}
+
+/*next button*/
+.bx-next {
+	position:absolute;
+	top:0;
+	right:-46px;
+	z-index:999;
+	width: 46px;
+	height: 64px;
+	border: 1px solid #d0d2d3;
+	border-top: 3px solid #d0d2d3;
+	text-indent: -999999px;
+	background: url(../../../Images/sps/Btn_Gallery_Right.png) no-repeat 0 0;
+}
+
+/*previous button*/
+.bx-prev {
+	position:absolute;
+	top:0;
+	left:-45px;
+	z-index:999;
+	width: 46px;
+	height: 68px;
+	text-indent: -999999px;
+	background: url(../../../Images/sps/Btn_Gallery_Left.png) no-repeat 0 0;
+	/*background: url(gray_prev.png) no-repeat 0 -30px;*/
+}
+
+/*pager links*/
+.bx-pager a {
+	margin-right: 5px;
+	color: #fff;
+	padding: 3px 8px 3px 6px;
+	font-size: 12px;
+	zoom:1;
+	/*background: url(gray_pager.png) no-repeat 0 -20px;*/
+}
+
+/*auto start button*/
+.bx-auto .start {
+	background: url(gray_auto.png) no-repeat 0 2px;
+	padding-left: 13px;
+}
+
+/*auto stop button*/
+.bx-auto .stop {
+	background: url(gray_auto.png) no-repeat 0 -14px;
+	padding-left: 13px;
+}
+
+/*
+ * End color scheme styles
+ */
+
+
+/*next/prev button hover state*/
+.bx-next:hover,
+.bx-prev:hover {
+	background-position: 0 0;
+}
+
+/*pager links hover and active states*/
+.bx-pager .pager-active,
+.bx-pager a:hover {
+	background-position: 0 0;
+}
+
+/*pager wrapper*/
+.bx-pager {
+	text-align:center;
+	padding-top: 7px;
+	font-size:12px;
+	color:#666;
+}
+
+/*captions*/
+.bx-captions {
+	text-align:center;
+	font-size: 12px;
+	padding: 7px 0;
+	color: #666;
+}
+
+/*auto controls*/
+.bx-auto {
+	text-align: center;
+	padding-top: 15px;
+}
+
+.bx-auto a {
+	color: #666;
+	font-size: 12px;
+}

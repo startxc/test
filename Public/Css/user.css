@@ -1,0 +1,30 @@
+.lt_userinfo .gz_btn,.lt_userinfo .sx_btn{height: 32px;line-height: 32px;display: inline-block;margin-right: 5px;text-align: center;background: none repeat scroll 0% 0% #EDEDED; width:78px; text-align:center; color: #999;border-radius: 2px;}
+.lt_userinfo .ygz_btn{height: 32px;line-height: 32px;display: inline-block;margin-right: 5px;text-align: center;background: none repeat scroll 0% 0% #cccccc; width:78px; text-align:center;color: #666;border-radius: 2px;}
+
+.review_box li{position:relative;width:252px;float:left;margin-right:9px;margin-bottom:9px; box-shadow:0 0 1px #eee;}
+.review_box .proimg{width:252px;height:200px;overflow:hidden;}
+.review_box .de_box{height:76px;width:232px; padding:0 10px;background:#1C1C1C;text-indent: 0;}
+.review_box .proname {color:#ffffff;font-size:14px;line-height:28px;overflow:hidden;text-overflow: ellipsis;white-space:nowrap;word-break:keep-all;width:230px; padding-top:3px;}
+.review_box .layer{display:none;}
+.review_box .opreatebox{position:absolute;top:60px;right:30px;}
+.review_box .graybg{height:200px;display:block;width:252px;background:none repeat scroll 0% 0% #000;top:0px;opacity:0.65;position:absolute;left:0px;}
+.opreatebox a {display:block;width:40px;height: 40px;background:url('/Public/Images/Home/btn_1.png') no-repeat scroll 0% 0% transparent;}
+.opreatebox a.commentbtn{background-position:-148px -3px;}
+.opreatebox a.commentbtn:hover{background-position:-148px  -3px}
+.opreatebox a.collectbtn{background-position:-53px -45px;}
+.opreatebox a.collectbtn:hover{background-position:-53px  -2px;}
+.opreatebox a.likebtn{background-position:-101px  -46px;}
+.opreatebox a.likebtn:hover{background-position:-101px -3px;}
+.opreatebox a.liked{background-position:-101px -3px;}
+.opreatebox a.collected{background-position:-53px  -2px;}
+.de_box span{display:block;position:absolute;right:10px;bottom:10px;color:#ddd;line-height:25px;height:25px;font-size:14px;}
+.de_box a.viewbtn {display:block;float:left;width:25px;height:25px;background:url('/Public/Images/Home/view.png') no-repeat scroll 0% 0% transparent; margin-right:3px;}
+.de_box .author{margin:0;position:absolute;left:10px;bottom:10px;color:#ddd;height:25px;line-height:25px;font-size:14px;}
+.de_box .author a{color:#bbb; font-size:12px;}
+.w1038{width: 1038px;}
+.pagec .uploadlink.tdnone{text-indent:3px;}
+.goodswapper{padding:30px 0 0 30px; width:1068px;}
+.review_box{width:1068px;}
+.paganation{margin-right:34px; margin-bottom:30px;}
+.opreatebox span{margin:10px 12px;}
+.re_info_works{background:url("/Public/Images/re_info.png") no-repeat scroll left -376px;}

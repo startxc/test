@@ -1,0 +1,72 @@
+/* 
+ * Document   : thinkmain.css
+ * Created on : 2012-6-2, 8:46:27
+ * Author     : kewen
+ * Description: 主样式表文件       
+*/
+
+/* 主界面锁定层 */
+#locker { display: none; width: 100%; height: 100%;  position: absolute; top: 0px; left: 0px; background-color: #3a6ea5; z-index: 2000;  }
+#locker .lock_pop { position: absolute; left: 50%; top: 50%; line-height: 150px; text-align: center; margin: -75px 0 0 -150px;  width: 300px; height: 150px; background: aliceblue; border: 1px solid blue; }
+
+/* 主界面顶部 */
+#header { height: 80px; background: #00A2D2 url("../Images/header_bg.gif") repeat-x; width: auto; }
+#logo_img { position: absolute; }
+#login_menu { height: 52px; padding-left: 10px; line-height: 53px; }
+#login_menu span{ margin-right: 10px; color: #FFF; }
+#login_menu span a { color: #FFF; }
+#main_menu { height: 27px; padding-left: 130px; border-bottom: 1px solid #DDEEF2; }
+#main_menu ul li { float: right; margin-right: 10px; background: #EBF4FD url("../Images/main_tab_bg.gif") repeat-x; border-left:1px solid #DDEEF2; border-right: 1px solid #DDEEF2; border-top: 1px solid #DDEEF2; }
+#main_menu ul li.chosed { background: #E2E9EA; margin-bottom: -1px; height: 27px; }
+#main_menu ul li.hoverd { background: #E2E9EA; }
+#main_menu ul li a { color: #275D96; display: block; height: 26px; line-height: 26px; padding: 0 10px 0 10px; }
+#main_menu ul li a:hover { text-decoration: none; }
+
+/* 主界面中间 */
+.col_left { float: left;  }
+.col_menu { position: relative; width: 145px; padding-top: 10px; overflow: hidden; display: block; }
+.col_main { overflow: hidden; _zoom:1; _float:left; } 
+.col_mr8 { margin-right: 8px;}
+
+/* 主界面中间左部 */
+#scroll_menu { width: 125px; float: left; padding: 0 2px 0 10px; overflow: hidden;}
+#open_close { width: 8px; height: 200px; float: right; background: url("../Images/bar_close.png") no-repeat 3px center; }
+
+.left_menu_on{ width:10px; padding:0;}
+.left_menu_on #scroll_menu{ display:none;}
+.left_menu a.close{ background-position:right center; width:10px}
+
+.left_menu h3 { border-bottom: 1px solid #D9E4EA; color: #275D96; font-weight: 700; height: 24px; line-height: 24px; margin-bottom: 5px; }
+.left_menu ul li { display: block; margin-right: 1px; color: #666666; }
+.left_menu ul li a { display: block; line-height: 24px; padding: 5px 0 5px 25px; text-decoration: none;  background: url("../Images/icons_sprite.gif") -40px -862px no-repeat; }
+.left_menu ul li a.hover { background: url("../Images/icons_sprite.gif") -40px -909px no-repeat; }
+/* 主界面中间右部 */
+#col_out { background: #FFF; border: 1px solid #F4F6F5;  }
+#nav_menu { height: 22px; line-height: 22px; font-size: 12px; }
+#content {border: 1px solid #C2D1D8; zoom:1;}
+
+/* 快捷菜单面板 */
+.panel_nav,.panel_nav span,.panel_nav a{height:28px;line-height:28px;background: url(../Images/panel_nav_bg.png) repeat-x left top;}
+.panel_nav {padding:0 0 0 5px;position: absolute; left:0;bottom:0px; width: auto;}
+.panel_nav span{background-position: right -78px;position:relative;display:block;float:left;background-repeat: no-repeat; padding-right:2px}
+.panel_nav div{ float:left}
+.panel_nav a{padding:0 20px 0 8px; display:block;float:left}
+.panel_nav a:hover,.panel_nav a.on{background-position: right -40px;text-decoration: none}
+.panel_nav a.panel_delete{padding-right:10px;background: url(../Images/cross.png) no-repeat;width:16px; height:16px; padding:0;background-position: center 3px;position:absolute; right:4px; top:7px; z-index:10}
+.panel_nav a.panel_add{background-position: right -120px; width:16px;  float:left; padding:0; margin-left:5px;_margin-left:3px}
+.panel_nav a.panel_add:hover{background-position: center -163px;}
+.panel_nav a.panel_delete:hover{background-position: center -46px;}
+.panel_nav a.panel_delete em,.panel_nav a.panel_add em{ display:none}
+
+.fav_help { height:26px; line-height:26px; float:none; background:#fff url(../Images/info.png) no-repeat 3px 6px; padding:0 5px 0 24px; position:absolute; top:2px; right:5px}
+.fav_help a{ background:none; height:auto; padding:0; margin:0 20px 0 0}
+.fav_help a.panel-delete{right:2px; top:5px; margin:0}
+.fav_help a:hover {color:#CC3300;}
+
+/* 菜单栏滚动按钮 */
+#btn_scroll { position: absolute; left: 10px; bottom: 14px; width: 120px; height: 17px; overflow: hidden; z-index: 2; }
+#btn_scroll a {  width: 48px; height: 17px; margin: 0 5px; background: url("../Images/scroll_bg.png") left top; }
+#btn_scroll .next { background-position: right top; }
+#btn_scroll a{ display:inline-block; zoom:1; *display:inline;}
+
+

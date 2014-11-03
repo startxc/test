@@ -1,0 +1,206 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<link type="text/css" rel="stylesheet" href="__PUBLIC__/Js/lhgcalendar-3.0.0/skins/lhgcalendar.css" />
+<div class="header">
+    <span class="action_title"> 编辑伙拼信息</span> 
+    <span class="action_span" > <a href="__URL__/group">伙拼列表</a> </span>
+    <div class="clear"> </div>
+</div>
+
+<div id="middle">
+        <!--列表-->
+        <div class="list_div">
+            <table class="add_table" cellspacing="1" cellpadding="3">
+                <tr>
+                    <td width="100" align="center"> 
+                        商品名称
+                    </td>
+                    <td> <input type="text" class="add_input_text" id="group_name" name="name" value="{$info.name}" style="width:150px;" /> </td>
+                </tr>
+                <tr>
+                    <td width="85" align="center"> 
+                        商品分类
+                    </td>
+                    <td> 
+                        <select id="goods_category">
+                            <volist name="category" id="vo">
+                                <option value="{$vo.id}" <if condition="$vo['id'] eq $info['category_id']">selected</if>>{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="85" align="center"> 
+                        商品产地
+                    </td>
+                    <td> 
+                        <select id="goods_production">
+                            <volist name="production" id="vo">
+                                <option value="{$vo.id}" <if condition="$vo['id'] eq $info['production_id']">selected</if>>{$vo.name}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>            
+                <tr>
+                    <td width="100" align="center"> 
+                        商品封面：
+                    </td>
+                    <td> <notempty name="info.image">
+                            <img id="group_image"  wid="{$info.image}" src="{$info.image|picture='','product'}" width="100" height="100" />
+                        <else/>
+                            <img style="display:none;" id="group_image"  wid="" src="" width="100" height="100" />
+                        </notempty>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
+                        添加图片：
+                    </td>
+                    <td> 
+                        <div style="position:relative;">
+                            <notempty name="groupApply.image">
+                                <input id="group_image_btn" type="button" value="更换图片" />
+                            <else/>
+                                <input id="group_image_btn" type="button" value="上传图片" />
+                            </notempty>
+                            <div style="position:absolute;top:0px;left:0px;">
+                                <input style="display:none;" type="file" id="file_upload_group_image" multiple />
+                            </div>
+                        </div>
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
+                        起订量
+                    </td>
+                    <td> <input type="text" class="add_input_text" id="order_moq" name="order_moq" value="{$info.order_moq}" style="width:80px;" /> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
+                        开始时间
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="start_time" id="start_time" value="{$info.start_time|date="Y-m-d",###}" style="width:180px;" /> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
+                        结束时间
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="end_time" id="end_time" value="{$info.end_time|date="Y-m-d",###}" style="width:180px;" /> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 显示状态 </td>
+                    <td> <input type="radio" name="status" value="1" <eq name="info['status']" value="1"> checked="true" </eq> > 显示 <input type="radio" name="status" value="0" <eq name="info['status']" value="0"> checked="true" </eq> /> 隐藏 </td>
+                </tr>
+            </table>
+
+            <table class="submit_table">
+                <tr>
+                    <td> 
+                        <span>
+                            <input type="hidden" id="group_id" value="{$info['id']}" name="id" />
+                            <input type="button" id="js_edit_group" value="提交保存" />
+                        </span>
+                    </td>
+                </tr>                    
+            </table> 
+        </div>
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/Js/lhgcalendar/lhgcore.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/lhgcalendar/lhgcalendar.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/image.js" ></script>
+<script type="text/javascript" src="__PUBLIC__/Js/verify.js"></script>
+<script type="text/javascript">
+    J(function(){
+        J("#start_time").calendar();
+        J("#end_time").calendar();
+    });
+    var isSubmitButton = false;
+    $(function(){
+            //上传封面图片
+            myImage.uploadImage(
+                $('#file_upload_group_image'),
+                {width:'59px',height:'21px'},
+                {'dir':'product'},
+                function(data){
+                    var res = eval(data);
+                    if (res.status === 0) {
+                        alert(res.info);  
+                    }else{
+                        $("#group_image").attr("src",res.src).attr("wid",res.name).show();
+                        $("#group_image_btn").val("更改图片");  
+                    }
+                }
+            );
+
+            $("#js_edit_group").click(function(){
+                var name = $("#group_name").val();
+                if(name == ""){
+                    alert("商品名称不能为空");
+                    $("#group_name").focus();
+                    return false;
+                }
+                var image = $("#group_image").attr("wid");
+                if(image == ""){
+                    alert("封面图片不能为空");
+                    return false;
+                }
+                var order_moq = $("#order_moq").val();
+                if(order_moq == ""){
+                    alert("起订量不能为空");
+                    $("#order_moq").focus();
+                    return false;
+                }
+                if(!isNumber(order_moq)){
+                    alert("起订量格式不对");
+                    $("#order_moq").focus();
+                    return false;
+                }
+                var start_time = $("#start_time").val();
+                if(start_time == ""){
+                    alert("开始日期不能为空");
+                    return false;
+                } 
+                var end_time = $("#end_time").val();
+                if(end_time == ""){
+                    alert("结束日期不能为空");
+                    return false;
+                }
+                var start = new Date(start_time.replace("-", "/").replace("-", "/"));
+                var end = new Date(end_time.replace("-", "/").replace("-", "/"));
+                if(start>end){
+                    alert("开始日期必须小于结束日期");
+                    return false;
+                }  
+                var id = $("#group_id").val();  
+                var category_id = $("#goods_category").val();
+                var production_id = $("#goods_production").val();
+                var status = $("input[name=status]:checked").val();
+
+                if(isSubmitButton === false){
+                    isSubmitButton = true;
+                    $.ajax({
+                        type:"post",
+                        url:"__URL__/groupUpdate",
+                        data:{id:id,category_id:category_id,production_id:production_id,name:name,image:image,order_moq:order_moq,start_time:start_time,end_time:end_time,status:status},
+                        async:false,
+                        success:function(data){
+                            var res = eval(data);
+                            if(res.status == 1){
+                                alert("修改成功");
+                                window.location.href = "__URL__/groupEdit/id/"+id;
+                            }else{
+                                alert("修改失败");
+                            }
+                        }
+                    });
+                    isSubmitButton = false;
+                }            
+            });
+    })
+</script>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

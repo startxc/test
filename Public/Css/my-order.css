@@ -1,0 +1,33 @@
+.order_detail i{ width:65px; display:inline-block;}
+.box-title {background: #4d4c4c;height: 45px;font-weight: bold;line-height: 40px;}
+.box-title ul li {font-size: 14px;color: #888;display: inline-table;width: 150px;float: left;}
+.ordernav .cur a{color:#99ccff;}
+.head {font-size: 18px;color: #fff;float: left;margin-right: 40px;margin-left: 58px;}
+.box-content {height: auto;padding: 40px 60px;background: #fff; border: 1px solid #E9E9E9}
+.box-content .title {font-size: 18px;font-weight: bold;margin: 0 25px;}
+.box-content div,.box-content form {float: left;line-height: 45px;}
+.box-content label{ width:80px; display:inline-block;}
+.more { display:inline-block;height: 35px;line-height: 35px;text-align: center;clear: none;font-size: 14px;margin-bottom: 15px; margin-left:10px; color:#999; position:relative; text-indent:20px}
+form .txt {vertical-align:middle;width: 200px; background:#fafafa; border:1px solid #ddd; height: 30px;text-indent: 6px;}
+form .search-btn-box {width: 120px;height: 34px; display:inline-block; position:relative }
+form .search-btn{font-size: 16px;width: 120px;height: 32px; position:absolute; top:12px;top/*\**/:15px; }
+.more-content {height: 150px;padding: 40px 60px;background: #fff;}
+.more-content img {float: left;margin: 40px 0px;}
+.normal_serch .more i{border-color:#fff #fff #fff #99ccff; border-style: solid; border-width:6px; font-size: 0; height: 0; line-height: 0; width: 0; vertical-align:middle; display:inline; cursor:pointer; position:absolute; top:12px; left:12px;} 
+.normal_serch a.cur i{border-color:#fff #fff #99ccff; top:9px; left:9px;}
+.more-content .title {font-size: 18px;font-weight: bold;margin: 40px;float: left;line-height: 70px;}
+.more-content .form-more {float: left;line-height: 45px;}
+.more-content .form-more .search-btn {margin-left: 10px;}
+.more-content .form-more .time-txt {margin-right: 20px;width: 112px;}
+select {font-size: 14px;background: #e9e8e8;padding: 5px;border: 1px solid #ccc;}
+.more-content .form-more select {width: 275px;margin-right: 5px;}
+.order-list table a {color: #888;}
+.order-list table th {background: #e4e2e1;height: 65px;font-size: 14px;}
+.order-list table tr td {text-align: center;border-bottom: 1px solid #E4E2E1; padding:10px;}
+.order-list table button {line-height:25px;width: 85px;color: #fff;margin: 2px 2px 5px;}
+.order-list table a.comGreen_btn{ display:inline-block; color:#ffffff;width: 85px; line-height:25px; padding:0}
+.order-list table .table-header td {background: #e4e2e1;border-top: 15px solid #f1f2f2;padding-left: 10px;}
+.mleft20{ margin-left:20px;}
+.form-more label span{ display:inline-block; width:80px;}
+.order-list{ margin-top:20px}
+.order-list a:hover{ color:#28A7E5;}

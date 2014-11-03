@@ -1,0 +1,23 @@
+.order_right {background: #fff;height: 300px;} 
+.product-info{float: left;padding: 30px;line-height: 30px;}
+.product-form {float: left;}
+.product-form ul {margin: 20px;text-align: center;}
+.product-form ul li {background: url("/Public/Images/Home/comed_star_default.png") no-repeat center;display: inline-table;width: 80px;height: 50px;line-height: 50px;vertical-align: middle;text-align: center;font-size: 16px;color: #fff;font-weight: bold;cursor: pointer;}
+.product-form ul li.selected {background: url("/Public/Images/Home/comed_star.png") no-repeat center;}
+.product-form .sub-btn {height: 35px;width: 120px;color: white;border: none;margin-right: 10px;margin-top: 30px;background: #98cb00;font-size: 16px;cursor: pointer;}
+.product-form textarea {background: #58585b;border: 1px solid #bbb;color: #fff;width: 560px;height: 80px;padding: 5px;}
+.main_right {background:#f1f2f2;}
+.main_right .container {margin: 0;padding: 0;border: 1px solid #f1f2f2;background: #fff;height: 385px;}
+.container .ads_img {float: left;width: 515px;height: 385px;}
+.container .right_content {float: left;margin-left: 30px;}
+.container .right_content .right_title {font-size: 26px;font-weight: bold;margin: 30px 0;}
+.container .right_content ul {margin: 30px 0;}
+.container .right_content ul li {font-size: 12px;color: gray;letter-spacing: 0.1em;line-height: 30px;}
+.container .right_content .warn {color: #FC880D;}
+.hot_sale ul,.product_buy ul,.product_col ul {margin-top: 5px;}
+.hot_sale ul li,.product_buy ul li,.product_col ul li {display: inline-table;list-style: none;margin-right:10px;background: #ffffff;position: relative;}
+.hot_sale .title,.product_buy .title,.product_col .title {height: 60px;background: #bcbdbd;line-height: 60px;font-size: 24px;font-weight: bold;color: #fff;padding-left: 15px;margin-top: 40px;font-family:"\u9ed1\u4f53";}
+.hot_sale {margin-top: 20px;}
+.title span {font-size: 12px;font-weight: normal;float: right;margin-right: 20px;}
+.hot_sale ul li div,.product_buy ul li div,.product_col ul li div {height: 40px;line-height: 40px;padding: 0 5px;font-size:16px;color:#333;font-family:"\u9ed1\u4f53";}
+.hot_sale ul li div span,.product_buy ul li div span,.product_col ul li div span {float: right;font-size: 24px;zoom:1;color:#333;}

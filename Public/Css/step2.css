@@ -1,0 +1,41 @@
+.paybox .title{ background:#e4e2e1; border-top:2px solid #52c0d4; color:#7b7b7d;}
+.curstep_right {font-size: 16px;font-weight: bold;}
+.fr {text-indent: 0px;font-size:12px;font-weight:normal;}
+.step_Orderbox{width: 576px; position:relative; }
+.fr .step_Orderbox{ padding-left:20px} 
+.fr .order-step {width: 438px; margin-right:20px;margin-top:8px;}
+.step_Orderbox .order-step .text4 {left: 475px;}
+.step_Orderbox .order-step .text2 {left: 154px;}
+
+.addressbox .left {width: 100%;clear: both;}
+.addressbox .left ul li {float:left;width: 242px;font-size: 14px;letter-spacing: 0.1em;}
+.addressbox .left ul li {background: url("../Images/Home/addbg2.png") no-repeat bottom;background-color: #FFF; position:relative;}
+.addressbox .left ul li.cur {background: url("../Images/Home/addbg.png") no-repeat bottom;background-color: #FFF}
+.addressbox .left ul li .edit_panel {height:15px;width: 100%;padding: 0; position:absolute; top:10px;}
+.addressbox .left ul li .edit_panel .btn {width: 80px;display: inline-table;line-height: 20px;text-align: center;margin-bottom: 10px;}
+.addressbox .left ul li .edit_panel .del{background:#d0eaf1 url("../Images/Home/del.png") no-repeat left;}
+.addressbox .left ul li .edit_panel .edit{background:#d0eaf1 url("../Images/Home/edit.png") no-repeat left;}
+.addressbox .left ul li .edit_panel .default{background:#d0eaf1 url("../Images/Home/default.png") no-repeat left;}
+.addressbox .left ul .new_addrbox {border: 1px solid #ccc;padding-top: 10px;}
+.addressbox .left ul .add_addr {background: url("../Images/Home/add_addr.png") no-repeat center;border: none;width: 62px;height: 62px;}  
+.edit_panel a:hover{color:#28A7E5;}
+.addressbox .left ul .new_addrbox .new_addrbtn {line-height: 60px;}
+.right form {padding-left: 40px;}
+.right form .lab {margin:5px;font-size: 10px;}
+.right form .item {margin: 35px 0;position: relative;}
+.right form .item select {font-size: 14px;background: #e9e8e8;padding: 5px;border: 1px solid #ccc;width: 90px;margin-right: 5px;}
+.right form .txt {width: 280px;background: #e9e8e8;padding: 10px 5px;border: 1px solid #ccc;}
+.right form .err {color: red;background: #dbfafa;}
+.right form .info b {color: #4cacc7;}
+.del-btn {background: #ada9a6;width: 129px;height: 35px;color: #fff;font-size: 16px;font-weight: bold;cursor: pointer;}
+.sub-btn {width: 129px;height: 35px;color: #fff;font-size: 16px;font-weight: bold;cursor: pointer; background: #52C0D4;}
+.product_info a {color: #52c0d4;font-size: 14px;}
+select {font-size: 14px;background: #e9e8e8;padding: 5px;border: 1px solid #ccc;width: 100px;}
+.prototal em {font-size: 16px;font-weight: bold;color: #52c0d4;}
+.prototal .total em {font-size: 18px;color: #f00;}
+.fr textarea {width:810px; height:64px;background: #ecebea;border: 1px solid #ccc; padding:5px 8px;}
+.bluebtn {background: -moz-linear-gradient(#52C0D4, #1597B1) repeat scroll 0 0 rgba(0, 0, 0, 0);background: -webkit-linear-gradient(#52C0D4, #1597B1) repeat scroll 0 0 rgba(0, 0, 0, 0);background: -ms-linear-gradient(#52C0D4, #1597B1) repeat scroll 0 0 rgba(0, 0, 0, 0);background: -o-linear-gradient(#52C0D4, #1597B1) repeat scroll 0 0 rgba(0, 0, 0, 0);}
+.charity_tips{ display:inline-block; width:277px; color:#52C0D4; float:right; text-align:left;}
+.chanity_choose{color:#00071B; margin-top:5px;}
+.chanity_choose label{ margin-right:20px; text-indent:30px;}
+.chanity_choose label input{ margin-right:5px;}

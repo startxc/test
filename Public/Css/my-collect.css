@@ -1,0 +1,13 @@
+.pagec_right {background: #f1f2f2;}
+.pagec_right .title {background:#bcbdbd;height: 60px;font-size: 24px;color: #fff;line-height: 60px;padding-left: 20px;font-family:"\u9ed1\u4f53";}
+.pagec_right .title span {float: right;margin-right: 20px;font-size: 12px;font-weight: normal;font-family:"\u5fae\u8f6f\u96c5\u9ed1";}
+.pagec_right .title span img {margin: 0 5px;margin-bottom: 5px;}
+.pagec_right .l {font-size:16px;color:#333;}
+.pagec_right ul {margin-top: 5px;}
+.pagec_right ul li {display: inline-table;list-style: none;margin: 3px;background: #ffffff;position: relative;padding:0;}
+.pagec_right ul li div {height: 40px;line-height: 40px;padding: 0 5px;}
+.pagec_right ul li div span {float: right;color: gray;font-size: 16px;zoom:1; margin-right:0;}
+.pagec_right ul li .del {width: 82px;height: 29px;background: #f00;color: #fff;text-align: center;display: none;line-height: 29px;cursor: pointer;z-index: 999;}
+.pagec_right ul li div.img {height: 230px; width:230px; background:#ffffff;margin: 0;padding:0;}
+.pagec_right ul li div.img img{ height:230px; padding:0; margin:0}
+.pagec_right ul li div.gray_bg {position: absolute;z-index: 99;background: #000;top: 0;left: 0;filter: alpha(opacity:60);opacity: 0.6;margin: 0;padding: 0;}

@@ -1,0 +1,68 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<div class="header">
+    <span class="action_title"> <a href="#">数据管理</a></span> <span class="action_module"> - 备份还原 </span>
+    <span class="action_span" > <a href="__URL__/restore">数据还原</a> </span>
+    <div class="clear"> </div>
+</div>
+
+<div id="middle">
+    <form method="post" action="__URL__/backup">
+        <!--列表-->
+        <div class="list_div">
+            <table class="add_table" cellspacing="1" cellpadding="3">
+                <tr id="radio_volume">
+                    <td width="100" align="center"> 是否分卷</td>
+                    <td> <input type="radio" name="volume" value="1" checked="true" > 是 <input type="radio" name="volume" value="0" > 否 </td>
+                </tr>
+                <tr id="size_volume">
+                    <td width="100" align="center"> 单卷大小</td>
+                    <td> 
+                        <input type="radio" name="volume_size" value="1" /> 512k
+                        <input type="radio" name="volume_size" value="2" checked="true"/> 1M 
+                        <input type="radio" name="volume_size" value="3" /> 2M 
+                    </td>
+                </tr>
+                <tr id="radio_choose">
+                    <td width="100" align="center"> 部分/全部</td>
+                    <td id="radio_table"> <input type="radio" name="type" value="0" checked="true" > 全部 <input type="radio" name="type" value="1" > 部分 </td>
+                </tr>
+                <tr id="list_table" style="display: none;">
+                    <td width="100" align="center"> 全部列表 </td>
+                    <td> 
+                <volist name="listTable" id="vo">
+                    <input type="checkbox" name="table[]" value="{$vo}" /> {$vo} &nbsp;  
+                </volist>
+                </td>
+                </tr>
+            </table>
+
+            <table class="submit_table">
+                <tr>
+                    <td> 
+                        <span><input type="submit" value="提交保存" /></span>
+                        <span><input type="reset" value="全部重置" /></span>
+                    </td>
+                </tr>                    
+            </table> 
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    
+    $(function(){
+        
+        $("#radio_table input").bind("click", function(){
+            $(this).val()==1 ? $("#list_table").show() : $("#list_table").hide();
+        });
+        
+        $("#radio_volume input").bind("click", function(){
+            $(this).val()==0 ? $("#size_volume").hide() : $("#size_volume").show();
+        });
+    });
+</script>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

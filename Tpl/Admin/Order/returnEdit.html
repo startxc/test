@@ -1,0 +1,690 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+<style type="text/css">
+.list_div input, select, textarea {
+	outline: none;
+}
+.list_div .add_input_text {
+	outline: none;
+	padding-left: 3px;
+}
+.input {
+	float: left;
+	height: 22px;
+	margin: 0 5px;
+	padding-left: 3px;
+	border: 1px solid #CCC;
+}
+.select {
+	float: left;
+	padding: 3px;
+	margin-right: 5px;
+	height: 24px;
+	line-height: 24px;
+}
+.special {
+	margin: 0 5px;
+	background: #DDEEF2;
+	height: 19px;
+	line-height: 19px;
+	display: inline-block;
+	float: left;
+	padding: 1px 5px;
+	border: 1px solid #91C4D0;
+	border-right: 2px solid #91C4D0;
+	border-bottom: 2px solid #91C4D0;
+}
+.list_div a.special:hover {
+	border: 1px solid #91C4D0;
+}
+.bright {
+	color:#f60;
+}
+.box_cat_list {
+	display: inline-block;
+	height: 24px;
+	line-height: 24px;
+	padding: 0 3px;
+	float: left;
+}
+.img {
+	display: inline-block;
+	margin-right: 3px;
+	vertical-align: middle;
+	width: 14px;
+	height: 14px;
+	border: 1px solid #E4E4E4;
+}
+.input_prompt {
+	margin-left: 10px;
+	color: #f60;
+}
+.box_basic_property, .box_sku_property {
+	width: 80%;
+	background: #F8F8F8;
+	border: 1px solid #ECECEC;
+	padding: 0 20px 20px 20px;
+}
+.box_basic_property ul li {
+	margin-top: 20px;
+}
+.box_basic_property ul li span {
+	float: left;
+	margin-right: 10px;
+	height: 18px;
+	line-height: 18px;
+	padding: 3px;
+	display: inline-block;
+}
+.box_sku_property input {
+	vertical-align: middle;
+}
+.box_sku_property .box_sku_group {
+	margin-top: 20px;
+}
+.box_sku_property ul li {
+	width: 140px;
+	height: 25px;
+	line-height: 25px;
+	float: left;
+}
+.box_sku_property ul li label.label_name {
+	white-space: nowrap;
+	display: inline-block;
+	vertical-align: middle;
+	width: 85px;
+	height: 22px;
+	line-height: 22px;
+	overflow: hidden;
+}
+.box_upload_icon {
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+.box_upload_icon table {
+	border-collapse: collapse;
+}
+.box_upload_icon table tr th {
+	background: #EDEDED;
+	font-weight:400;
+}
+.box_upload_icon table tr td, th {
+	padding: 5px 10px 5px 10px;
+	border: 1px solid #D7D7D7;
+}
+.btn_img {
+	padding-left: 0;
+	border: 1px solid #D7D7D7;
+	background: #F8F8F8;
+	padding: 3px 10px 3px 10px;
+	text-align: center;
+}
+.left_img {
+	margin-right: 7px;
+}
+.input_store {
+	width: 80px;
+	padding-left: 3px;
+	border: 1px solid #C2D1D8;
+	height: 20px;
+	line-height: 20px;
+}
+.box_img_list {
+	width: 100%;
+	border: 1px solid #ECECEC;
+}
+.box_header {
+	height: 32px;
+	padding: 10px 20px 0;
+	background: #F8F8F8;
+}
+.box_header span {
+	background: #ECECEC;
+	height: 32px;
+	line-height: 32px;
+	display: inline-block;
+	padding: 0 12px;
+	margin-right: 12px;
+	cursor: pointer;
+}
+.box_header span.hover {
+	background: #FFF;
+}
+.box_middle {
+}
+.box_button_upload {
+	height: 100px;
+	margin: 30px;
+}
+.box_button_upload .upload_field {
+	height: 25px;
+	line-height: 25px;
+}
+.box_button_upload .upload_field span {
+	position: relative;
+	display: inline-block;
+	width: 90px;
+	height: 25px;
+	overflow: hidden;
+}
+.box_button_upload .upload_field .file_upload_field {
+	opacity: 0;
+	position: absolute;
+	width: 200px;
+	right: 0;
+	height: 25px;
+}
+.box_button_upload .upload_prompt {
+	color: #AAA;
+	margin-top: 15px;
+}
+.box_button_upload .upload_prompt ol li {
+	margin-left: 14px;
+	margin-top: 8px;
+}
+.box_footer {
+	padding: 15px;
+	margin: 2px;
+	background: #F8F8F8;
+}
+.box_gallery ul li {
+	float: left;
+	position: relative;
+	margin-right: 10px;
+	margin-top: 15px;
+	width: 90px;
+	height: 90px;
+	text-align: center;
+	line-height: 90px;
+	border:1px solid #CDCDCD;
+}
+.box_gallery ul li span {
+	display: inline-block;
+	padding: 2px;
+	width: 86px;
+	height: 86px;
+	background: url(__ROOT__/Public/Images/loading3.gif) no-repeat center;
+}
+.box_gallery ul li.main {
+	border: 1px solid #FFC097;
+}
+.box_gallery ul li.first {
+	border: 1px solid #FFC097;
+}
+.box_gallery ul li .preview {
+	margin: 2px;
+	width: 86px;
+	height: 86px;
+	line-height: 86px;
+}
+.box_gallery ul li .control {
+	display: none;
+	background: #666;
+	position: absolute;
+	height: 20px;
+	width: 86px;
+	left: 2px;
+	bottom: 2px;
+}
+.box_gallery ul li .control a {
+	float: left;
+	font: "宋体";
+	font-size: 10px;
+	color: #FFF;
+	display: inline-block;
+	text-align: center;
+	width: 43px;
+	height: 20px;
+	line-height: 20px;
+}
+.box_gallery ul li .control a:hover {
+	color: #f60;
+}
+.box_gallery ul .hover .control {
+	display: inline-block;
+	opacity: 0.8;
+}
+.box_goods_gallery ul li .control a {
+	width: 28px;
+}
+.box_goods_gallery ul li .left_arrow {
+	background: url(__ROOT__/Public/Images/icon_control.png) no-repeat;
+	background-position: 0 0;
+}
+.box_goods_gallery ul li .delete_arrow {
+	background: url(__ROOT__/Public/Images/icon_control.png) no-repeat;
+	background-position: -28px 0;
+}
+.box_goods_gallery ul li .right_arrow {
+	background: url(__ROOT__/Public/Images/icon_control.png) no-repeat;
+	background-position: -56px 0;
+}
+.box_img_upload {
+	display: none;
+	margin-top: 10px;
+	border: solid 1px #AED3FF;
+}
+.box_img_upload .box_header {
+	background: #E7F4FD;
+}
+.box_prompt_msg {
+	margin-top: 10px;
+	display: inline-block;
+	background: #E5F4FE;
+	border: 1px solid #3FB2FE;
+	padding: 3px 5px 3px 3px;
+}
+.box_prompt_msg p {
+	float: left;
+	margin-left: 5px;
+}
+.icon_attention {
+	width: 16px;
+	height: 16px;
+	float: left;
+	line-height: 16px;
+	display:inline-block;
+	background: url(__ROOT__/Public/Images/prompt.png) no-repeat;
+	background-position:0 -60px;
+}
+.box_other_item ul li {
+	float: left;
+	height: 24px;
+	line-height: 24px;
+	width: 150px;
+	overflow: hidden;
+}
+.box_other_item ul li input {
+	vertical-align: middle;
+}
+.box_other_item ul li label {
+	display: inline-block;
+	width: 130px;
+	height: 22px;
+	line-height: 22px;
+	vertical-align: middle;
+	overflow: hidden;
+}
+/*编辑器自定义按钮*/
+    .ke-icon-selfimg {
+	background-image: url(__ROOT__/Public/Js/kindeditor-4.1.7/themes/default/default.gif);
+	background-position: 0px -495px;
+	width: 16px;
+	height: 16px;
+}
+.box_sku_img {
+	display: inline-block;
+	position: relative;
+	width: 70px;
+	height: 23px;
+}
+.box_sku_img .choose_sku_file {
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: 0;
+}
+.box_sku_ctrl {
+	display: none;
+}
+.box_sku_ctrl a {
+	float:right;
+	height:23px;
+	line-height:23px;
+	margin-left: 5px;
+}
+.textarea_border {
+	border-color:#1px solid #C2D1D8;
+	width:256px
+}
+.open {
+	display:none
+}
+</style>
+
+<div class="header"> <span class="action_title"> <a href="#">订单管理</a></span> <span class="action_module"> - 编辑订单 </span> <span class="action_span" > <a href="__URL__/returnList">申请列表</a> </span>
+  <div class="clear"> </div>
+</div>
+<div id="middle">
+<!--<form method="post" action="__URL__/insert" enctype="multipart/form-data" >--> 
+<!--列表-->
+<div class="list_div">
+<input id="text_gid" type="hidden" value="{$info['id']}" name="info[id]" />
+<table class="add_table" cellspacing="1" cellpadding="3"  style="padding: 10px 0;">
+  <tr>
+    <td width="80" align="center"> 订单编号 </td>
+    <td width="150">{$info.order_no}</td>
+    <td width="80" align="center">下单时间</td>
+    <td width="150">{$info.create_time|date='Y-m-d H:i',###}</td>
+    <!--<td width="80" align="center">订单状态</td>
+    <td><eq name="info.order_status" value="created">下单成功</eq>
+      <eq name="info.order_status" value="canceled">已取消</eq>
+      <eq name="info.order_status" value="payed">已付款</eq>
+      <eq name="info.order_status" value="remittance">已填写汇款单</eq>
+      <eq name="info.order_status" value="refund_appiled">已申请退款</eq>
+      <eq name="info.order_status" value="refund">已退款</eq>
+      <eq name="info.order_status" value="shipped">已全部发货</eq>
+      <eq name="info.order_status" value="shipped_part">已部分发货</eq>
+      <eq name="info.order_status" value="received">已收货</eq>
+      <eq name="info.order_status" value="commented">已评价</eq>
+      <eq name="info.order_status" value="sales_return_appiled">已申请退货</eq>
+      <eq name="info.order_status" value="sales_return_agree">同意退货</eq>
+      <eq name="info.order_status" value="sales_return">已退货</eq></td>-->
+  </tr>
+  <tr>
+    <td width="100" align="center">支付状态</td>
+    <td id="pay_status">
+    	<eq name="info.pay_status" value="0">未付款</eq>
+      <eq name="info.pay_status" value="1">已付款</eq>
+      <eq name="info.pay_status" value="2">已退款</eq></td>
+      <eq name="info.pay_status" value="3">已付定金</eq></td>
+    <td width="100" align="center"> 付款方式名称 </td>
+   <td><if condition="$info.pay_status eq 1"><eq name="info.pay_name" value="alipay">支付宝</eq><eq name="info.pay_name" value="offline">线下转账</eq></if></td>
+    <td width="100" align="center"> 付款时间 </td>
+    <td><notempty name="info.pay_time">{$info.pay_time|date='Y-m-d H:i',###}</notempty></td>
+  </tr>
+  <tr>
+    
+    <td width="100" align="center">订单类型</td>
+    <td width="100" ><eq name="info.order_type" value="2"> 批发
+        <else/>
+        零售 </eq></td>
+    <td width="100" align="center">商品总金额</td>
+    <td>{$info.goods_amount}</td>
+    <td align="center">订单总金额</td>
+    <td>{$info.order_amount}</td>
+  </tr>
+</table>
+<table class="control_table batch_table" id="action_ishot">
+    <tr>
+        <td>收货人信息</td>
+    </tr>            
+</table>
+<table class="add_table close" cellspacing="1" cellpadding="3"  style="padding: 10px 0; border-top:1px solid #BBDDE5">
+  <tr>
+    <td width="100" align="center"> 收货人 </td>
+    <td>{$info.consignee}</td>
+    <td></td>
+    <td clospan="2">
+      <eq name="info.order_status" value="created"><input id="edit_addr" type="reset" value="编辑收货地址" style="padding:3px 5px; float:right"/></eq>
+      <eq name="info.order_status" value="payed"><input id="edit_addr" type="reset" value="编辑收货地址" style="padding:3px 5px; float:right"/></eq></td>
+  </tr>
+  <tr>
+    <td width="100" align="center">收货地址</td>
+    <td colspan="3">{$info.province_id|getAreaName}{$info.city_id|getAreaName}{$info.area_id|getAreaName}-{$info.address}</td>
+  </tr>
+  <tr>
+    <td width="100" align="center"> 邮编 </td>
+    <td width="100">{$info.zipcode}</td>
+    <td width="100" align="center"> 电话 </td>
+    <td>{$info.tel}</td>
+  </tr>
+  <tr>
+    <td width="100" align="center"> 手机 </td>
+    <td>{$info.mobile}</td>
+    <td width="100" align="center"></td>
+    <td id="shipping_id"></td>
+  </tr>
+  <tr>
+  <tr>
+    <td width="100" align="center">买家留言</td>
+    <td>{$info.buyer_note}</td>
+  </tr>
+</table>
+<table class="control_table batch_table" id="action_ishot">
+    <tr>
+        <td>商品信息</td>
+        <td>申请时间:{$l.apply_return_time|date='Y-m-d H:i',###}</td>
+    </tr>            
+</table>
+<table class="add_table" cellspacing="1" cellpadding="3"  style="padding: 10px 0; border-top:1px solid #BBDDE5">
+  <tr>
+    <td>商品编号</td>
+    <td>商品名</td>
+    <td>数量</td>
+    <td>价格</td>
+    <td>选择物流</td>
+    <td>配送状态</td>
+    <td align="center">运单号</td>
+    <td align="center">发货时间</td>
+  </tr>
+    <tr height="80">
+      <td width="120">{$l.goods_sn}</td>
+      <td align="left"><span style="display:block;float:left"><img src="{$l.image|picture=64}" /></span><span style="display:block; margin-left:4px; width:150px; line-height:22px; float:left">{$l.goods_name}</span></td>
+      <td width="80">{$l.number}</td>
+      <td width="80">{$l.price}</td>
+      <td width="80"><eq name="l.shipping_id" value="0">德邦物流
+          <else/>
+          自己联系</eq></td>
+      <td width="135">
+        <eq name="l.shipping_status" value="4">已申请退货</eq>
+        <eq name="l.shipping_status" value="5">已同意退货</eq>
+        <eq name="l.shipping_status" value="6">已完成退货</eq>
+        <eq name="l.shipping_status" value="9">拒绝退货</eq>
+        </td>
+      <td width="170" align="center"><notempty name="l.shipping_no">{$l.shipping_no}</notempty></td>
+      <td width="120"><notempty name="l.shipping_time">{$l.shipping_time|date='Y-m-d H:i',###}</notempty></td>
+    </tr>
+</table>
+  <table class="add_table" cellspacing="1" cellpadding="3"  style="padding: 10px 0; border-top:1px solid #BBDDE5;">
+  	<tr>
+    	<td align="right" width="300px">退货原因：</td>
+    	<td >{$l.apply_return_desc}</td>
+  	</tr>
+    <neq name="l.shipping_status" value="4">
+    <tr>
+    	<td align="right" width="300px"><eq name="l.shipping_status" value="9">拒绝原因：<else/>同意备注：</eq></td>
+    	<td >{$l.reply_return_desc}</td>
+  	</tr>
+    </neq>
+    <form method="post" onsubmit="return save()">
+    <input type="hidden" name="data[order_id]" value="{$l.order_id}" />
+    <eq name="l.shipping_status" value="4">
+    <tr>
+      <td align="right" width="300px">选择操作</td>
+      <td id="check">
+      <input type="radio" name="data[shipping_status]" value="5" style=" vertical-align:middle"/>
+        &nbsp;同意退货&nbsp;<input type="radio" name="data[shipping_status]" value="9" style=" vertical-align:middle"/>
+        &nbsp;拒绝退货
+      </td>
+    </tr>
+    </eq>
+    <eq name="l.shipping_status" value="5">
+    <tr>
+      <td align="right" width="300px">选择操作</td>
+      <td id="check">
+      <input type="radio" name="data[shipping_status]" value="6" style=" vertical-align:middle"/>
+        &nbsp;退货完成
+      </td>
+    </tr>
+    </eq>
+    <if condition="$l.shipping_status eq 5 or $l.shipping_status eq 4">
+    <tr>
+      <td align="right" width="300px">操作备注</td>
+      <td align="left"></span>
+        <textarea rows="4" name="data[reply_return_desc]" class="textarea_border" id="note" style="width:500px"></textarea>
+        </td>
+    </tr>
+    </if>
+    <tr>
+      <td align="right" width="300px"></td>
+      <td align="center"><span>
+      	<input type="hidden" id="save_type" value="money"  />
+        <input type="hidden"  name="data[id]" id="" value="{$l.id}"  />
+        <if condition="$l.shipping_status eq 5 or $l.shipping_status eq 4">
+        <input id="save_status" type="submit" name="submit" value="提交保存" style="padding:3px 5px;"/>
+        </if>
+        </span></td>
+    </tr>
+    </form>
+  </table>
+</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script> 
+<script type="text/javascript" src="__PUBLIC__/Js/country.js"></script> 
+<script type = "text/javascript">
+var region = '{$regionjson}';
+var region = eval("("+region+")");
+	jQuery(function(){
+		initCACL('province','city','area','{$info.province_id}','{$info.city_id}','{$info.area_id}');
+	});
+</script> 
+<script type="text/javascript">
+	$(function(){
+		$("#shipping_status select option").each(function(i){
+			if($(this).val() == '{$info.shipping_status}') {
+				$(this).attr("selected",true);	
+			}							
+		})
+		$("#pay_status select option").each(function(i){
+			if($(this).val() == '{$info.pay_status}') {
+				$(this).attr("selected",true);	
+			}							
+		})
+		$("#shipping_id select option").each(function(i){
+			if($(this).val() == '{$info.shipping_id}') {
+				$(this).attr("selected",true);	
+			}							
+		})
+		
+		$("#edit_addr").click(function(){
+			$(".close").hide();
+			$(".open").show();		
+		})
+		$("#cannel_addr").click(function(){
+			$(".open").hide();
+			$(".close").show();		
+		})
+		
+		
+		//设为已付款setRefund
+		$("#setPayed").click(function(){
+			if ($("input[name='setPayed']").attr("checked") == false) {
+				alert('请选择操作项！'); 
+				return false;
+			} else {
+				if(confirm("确认设置为已付款吗？")) {
+				var action_note = $("#action_note").val();
+				var order_id = $("#text_gid").val();
+				$.post('__URL__/setPayed',{order_id:order_id,action_note:action_note},function(data){
+					var result = eval(data);
+					if (result.status == 0) {
+						alert(result.prompt)		
+					} else {
+						window.location.reload();
+					}
+				})	
+				}
+			}
+		})
+		//设置为已退款
+		$("#setRefund").click(function(){
+			if ($("input[name='setRefund']").attr("checked") == false) {
+				alert('请选择操作项！'); 
+				return false;
+			} else {
+				if(confirm("确认设置为已退款吗？")) {
+					var action_note = $("#action_note").val();
+					var order_id = $("#text_gid").val();
+					$.post('__URL__/setRefund',{order_id:order_id,action_note:action_note},function(data){
+						var result = eval(data);
+						if (result.status == 0) {
+							alert(result.prompt)		
+						} else {
+							window.location.reload();
+						}
+					})	
+				}
+			}
+		})
+		//延长收货
+		$("[id^='delay-']").toggle(function(){
+				$(this).val("取消")
+				var sid = $(this).attr("id").split("-");			
+				$(".date-"+sid[1]).css("display","block");
+			},function(){
+				$(this).val("延期")
+				var sid = $(this).attr("id").split("-");			
+				$(".date-"+sid[1]).css("display","none");
+			}	
+		)
+		//确认延长收货
+		$("[id^='changeDate-']").click(function(){
+			if(confirm("确认延期收货吗？")) {
+				var sure = $(this).attr("id").split("-");
+				var order_id = $("#text_gid").val();
+				var date = $("#date-"+sure[1]).val();
+				if (date == '') {
+					alert('请填写天数');
+					return false;
+				}
+				if (!testDate(date)) {
+					alert("请输入正确的天数");
+					return false;	
+				}
+				var order_id = $("#text_gid").val();
+				$.post('__URL__/delayConfirm',{id:sure[1],order_id:order_id,date:date},function(data){
+					var result = eval(data);
+					if (result.status == 0) {
+						alert(result.prompt)		
+					} else {
+						window.location.reload();
+					}
+				})	
+			}	
+		})
+		//同意退货
+		$("[id^='sales-']").click(function(){
+			if(confirm("确认同意退货吗？")) {
+				var sure = $(this).attr("id").split("-");
+				var order_id = $("#text_gid").val();
+				$.post('__URL__/salesAgree',{id:sure[1],order_id:order_id},function(data){
+					var result = eval(data);
+					if (result.status == 0) {
+						alert(result.prompt)		
+					} else {
+						window.location.reload();
+					}
+				})	
+			}	
+		})
+		//完成退货
+		$("[id^='return-']").click(function(){
+			if(confirm("确认同意退货吗？")) {
+				var sure = $(this).attr("id").split("-");
+				var order_id = $("#text_gid").val();
+				$.post('__URL__/salesReturn',{id:sure[1],order_id:order_id},function(data){
+					var result = eval(data);
+					if (result.status == 0) {
+						alert(result.prompt)		
+					} else {
+						window.location.reload();
+					}
+				})	
+			}	
+		})
+	})
+	function save() {
+		var leg = $("#check input:checked").length;
+		if(leg===0) {
+		   alert("请选择操作项");
+		   return false;
+		}
+		var note = $("#note").val();
+		if(note=="") {
+		   alert("请填写备注");
+		   return false;
+		}
+		return true;
+	}
+	function testMoney(str) {
+		var reg =/^[1-9]\d*\.\d{2}$/;
+		return reg.test(str);	
+	}
+	function testDate(str) {
+		var reg = /^[1-9]+$/;
+		return reg.test(str);	
+	}
+</script> 
+<!--加载页面脚部文件--> 
+<include file="Public:footer" />

@@ -1,0 +1,44 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>File Upload</title>
+<script type="text/javascript" src="__PUBLIC__/Js/Jquery/jquery-1.7.1.min.js"></script>
+</head>
+<body>
+<form method="post" id="api_form" target="api_ajax_frame" enctype="multipart/form-data" action="__APP__/Api/UploadFile/image">
+    	  <input type="file" name="image"/>
+    	  <input type="submit" value="Upload"/>
+</form>
+            
+<style>
+iframe{display:none;}
+</style>
+<script type="text/javascript">
+function getContent(){
+	var content = $('#api_ajax_frame').contents();
+	if(content){
+		var html = content.find('body').html();
+		if(html){
+			try{
+				eval('var data=('+html+');');
+				if(data.data){
+					var file = data.data;
+					var file_path = [];
+					for(var k in file){
+						file_path.push(file[k]['savename']);
+					}
+					if(opener){
+						var old_value = opener.current_dom.value;
+						opener.current_dom.value = (old_value?(old_value+','):'')+file_path.join(',');
+					    window.close();
+					}
+				}
+			}catch(e){alert(e);}
+		}
+	}
+}
+</script>
+<iframe name="api_ajax_frame" id="api_ajax_frame" onload="getContent()"></iframe>
+</body>
+</html>

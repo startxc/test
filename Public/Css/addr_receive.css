@@ -1,0 +1,21 @@
+.pagec_right {background: #f1f2f2; color: gray;}
+.pagec_right .title {background: #e6e7e8; font-size: 16px;height: 50px;line-height: 50px;padding-left: 18px;  color:#30ACC6;}
+.pagec_right .content {margin-bottom: 50px;}
+.pagec_right table {text-align: center;margin:15px 25px;margin-bottom: 0;}
+.pagec_right table tr {height: 60px;line-height: 60px;}
+.pagec_right table tr th {background: #eaeaea;font-size: 14px;font-weight: bold;}
+.pagec_right table tr td {font-size: 12px;border-bottom:1px solid #e4e2e1;}
+.pagec_right table tr td.opration{color:#bbb;}
+.pagec_right table tr td.opration a{color:#888;}
+.pagec_right table tr td.opration a:hover{color:#28A7E5;}
+.pagec_right table tr td.mark {background: #dcf3f6;}
+.pagec_right .table-bot {height: 20px;background: #eaeaea;width: 95%;text-align: right;margin: 0;}
+.pagec_right .content .lab {margin:5px;}
+.pagec_right .content .item {margin: 15px 0;position: relative;}
+.pagec_right .content .item select {font-size: 14px;background: #e9e8e8;padding: 5px;border: 1px solid #ddd; width: 115px;margin-right: 5px; color:#888888;}
+.pagec_right .content .txt {width: 339px;background: #e9e8e8;padding:8px;border: 1px solid #ddd;}
+.pagec_right .content .err {color: red;background: #dbfafa;}
+.pagec_right .content .info{ margin-left:12px; color:#999;}
+.pagec_right .content .info.redfont{color:#CA222E;}
+.pagec_right .content .info b {color: #28A7E5; font-weight:normal;}
+.pagec_right .content .sub-btn {width: 129px;height: 35px; margin:0 2px;}

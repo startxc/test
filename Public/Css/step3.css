@@ -1,0 +1,45 @@
+.curstep_right {font-size: 16px;font-weight: bold;}
+.fr {text-indent: 0px;font-size:12px;font-weight:normal;}  
+.step_Orderbox{width: 576px; position:relative; }
+.step_Orderbox .order-step .text4 {left: 475px;}
+.step_Orderbox .order-step .text2 {left: 154px;}
+.fr .step_Orderbox{ padding-left:20px} 
+.fr .order-step {width: 438px; margin-right:20px;margin-top:8px;}
+.order-info {font-size: 14px;padding-left:105px;}
+.order-info h1 {margin-bottom: 30px;}
+.order-info p {line-height: 30px;}
+.order-info p b {color: #f00;}
+.order-info div {font-size: 12px;margin-top: 20px;}
+.paychoose{ background:#f8f8f8; border-bottom:none; margin-bottom:0px; width:998px; background:#F1F2F2;} 
+.paychoose li {width: 24.9%; border-top:none; border-bottom:none;border-bottom: 1px solid #d1d1d1;}
+.banklist li {width: 248px;}
+.banklist li input{ margin-right:5px;vertical-align: calc(-2px);}
+.paychoose .paybchoose {*display:inline;_display:inline;width: 100%;}
+.sub-btn {width: 129px;height: 35px;color: #fff;font-size: 16px;cursor: pointer;}
+.zhifubao_bg{ display:inline-block; width:100px; height:31px; background:url(../Images/Home/zhifubao.png) no-repeat; vertical-align:top; margin-left:20px;}
+.paychoose li.licurr{ border-bottom: 1px solid #D0EAF1;}
+.de_paylist div {border: 1px solid #d1d1d1;border-top: none;height: auto;background: #f8f8f8;width: 998px; display:none; margin-bottom:60px;}
+.de_paylist ul.banklist li {border: none;background: #F8F8F8;padding: 10px 0px;width:19.9%; float:left; text-align:center; padding:20px 0;}
+.paychoose_2 p{ padding-top:43px; padding-bottom:34px; text-align:left; padding-left:100px}
+.paychoose_3 img{ margin:50px 94px; }
+.bank_more, .bank_more_up{ margin-right:76px; color:#4CACC7; cursor:pointer;}
+#BOCB2C{ background-position:0 -72px}
+#ICBCB2C{background-position:0 -900px}
+#CMB{ background-position:0 -396px}
+#CCB{ background-position:0 -253px}
+#ABC{ background-position:0 0px}
+#CIB{ background-position:0 -324px}
+#CMBC{ background-position:0 -434px}
+#CEBBANK{ background-position:0 -288px}
+#SPABANK{ background-position:0 -1261px}
+#POSTGC{ background-position:0 -1082px}
+#abc1003{ background-position:0 0px}
+#CITIC{background-position:0 -360px}
+#GDB{background-position:0 -612px}
+#SPDB{background-position:0 -1299px}
+#HZCBB2C{background-position:0 -864px}
+#SHBBANK{background-position:0 -1225px}
+#NBBANK{ background:url(../Images/Home/nbyh.png) no-repeat;}
+#BJRCB{ background:url(../Images/Home/bjns.png) no-repeat;}
+#FDB{ background:url(../Images/Home/fdyh.png) no-repeat;}
+#abc1003{ background:url(../Images/Home/visa.png) no-repeat;}

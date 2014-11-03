@@ -1,0 +1,134 @@
+@charset "utf-8";
+/* CSS Document */
+/*index top*/
+h2,h3,h4,h5,h6{font-weight: normal;}
+.marTop20{ margin-top:20px;}
+.font18{ font-size:18px;}
+/*mainnav*/
+.navOriginal p{ display:none; position:absolute; width:85px; font-size:14px; border:2px solid #adc500; border-radius:15px; background:#fff; line-height:20px; height:20px; z-index:-1;}
+.navOriginal p a{ color:#adc500; cursor: pointer;}
+.navOriginal .p1{ top:25px; left:-46px;text-indent: -26px;}
+.navOriginal .p2{ top:57px; left:-58px; text-indent:-22px;}
+.navOriginal .p3{ top:87px; left:-47px;text-indent:-19px;}
+.navOriginal span{ display:block; line-height:30px; }
+.mainNav{ margin-top:50px; margin-bottom:50px; padding-left:15px;}
+.mainNavlist{ background:url(../img/circleicon.png) no-repeat center center; font-size:20px; list-style:none; float:left; width:129px; height:130px; margin-left:50px; line-height:130px; text-align:center }
+.navOriginal{ background-position: 1px 1px; position:relative}
+.navInspiration{ background-position: -131px  1px;}
+.navDesigner{ background-position: -259px 1px;}
+.navhotSale{ background-position: -389px 1px;}
+.navFactory{ background-position: -518px 1px;}
+.navOEM{ background-position: -647px 1px;}
+.navSample{ background-position: -777px 1px;}
+
+.indexboxList{ margin-bottom:60px;}
+.leftBox{ width:449px; height:auto;float: left;}
+.rightBox{ width:820px; margin-left:11px; height:auto;float: left;}
+
+.leftBox h3{ width:449px;  background:#222; height:56px; line-height:56px; border-top:1px solid #919191;  border-bottom:1px solid #919191;text-indent: 90px; color:#fff; }
+.leftBox h3 a{  float:right; font-size:12px; padding-right:20px;}
+.rightBox h3{ width:100%; height:56px; line-height:56px; background:#bcbdbd; border-top:1px solid #d7d8d8;  border-bottom:1px solid #d7d8d8; color:#fff;text-indent: 10px;}
+.indexHotest{ float:right; margin-top:10px; width:356px; height:791px; background:#e4e2e1; position:relative;}
+.detailbox{ position:absolute; bottom:10px;}
+.indexHotest h4{line-height:25px; font-size:16px; text-indent:10px; color:#928d88;}
+.p_descriptions{ font-size:14px; text-indent:10px;color:#928d88; margin-bottom:10px; }
+.index_chouimg{ width:120px;float:left;height:127px; margin-left:10px;}
+.pledgeProcessbox{ width:216px;float:left; height:127px; vertical-align:bottom; margin-left:10px;}
+.pledgeProcessbox  .processbar{ width:190px; margin-left:10px}
+.detailsum{margin-top:60px; margin-left:10px; line-height:20px;}
+.indexHostestlist li{ width:234px; height:255px; float:left; list-style:none; background:#FFF; margin-right:10px; margin-top:10px; border:1px solid #e7e6e5; }
+.greenbg_p{ height:15px; background:#adc500; position:absolute; bottom:-75px;text-indent:75px; width: 233px; font-size:10px;}
+.authorimg{ position:absolute; bottom:-94px; left:9px;}
+.indxchoudetals{ padding-left:70px}
+.indxchoudetals p{ }
+.likebar a{ display:inline-block; background:url(../img/smallicon.png) no-repeat; color:#b3b3b3; font-size:10px; padding-left:16px; margin-top:5px; -webkit-transform:scale(0.875);}
+a.previewicon{ background-position:0 0; }
+a.likeicon{ background-position:0 -29px;}
+a.collectionicn{ background-position:0 -47px;}
+a.commenticon{ background-position:0 -14px;}
+.processbar{ border:1px solid #f2f2f2; height:5px; background:#fff;}
+.processbar span{ display:inline-block; background:#52c0d4; width:56%; height:5px;}
+.chousubcate{ line-height:20px; font-size:11px; color:#aaa6a2;-webkit-transform:scale(0.915);}
+.indxchoudetals .processbar{ width:160px;}
+.detaillist{ margin-top:10px;}
+.detaillist span{ display:inline-block; text-align:center; width:30%}
+.detaillist span a{ color:#b3b3b3; font-size:11px}
+
+/*table*/
+.indexprohot{ position:relative;}
+.indexprohot .priceLayer{ bottom:-85px; width:171px; display:none;}
+
+/*table center*/
+.indexregister{ width:195px; height:36px; line-height:36px;display:inline-block; background:#5b5a5a; border-bottom-left-radius:15px; border-top-left-radius:15px;  font-size:18px;}
+.indexenter{ width:195px; height:36px; line-height:36px;display:inline-block; background:#d3d3da; border-bottom-right-radius:15px; border-top-right-radius:15px;  font-size:18px;}
+.allsearchlist{ display:inline-block; background:#d3d3da; height:36px; width:100px; line-height:36px; border-bottom-left-radius:15px; border-top-left-radius:15px;   font-size:13px;margin-right:-3px; position:relative}
+.allsearchlist a{display:inline-block; background:url(../img/indexserch_02.gif) no-repeat  right center; padding-right:16px; height:36px; line-height:36px;color:#222;}
+.indexserchtext{ background:#5b5a5a; height:36px; line-height:36px; width:228px;display:inline-block;margin-right:-4px; padding-left:10px; }
+.allserchbtn{ background:#8cced9; width:60px; height:36px;display:inline-block; border-bottom-right-radius:15px; border-top-right-radius:15px; }
+.allsearchlist ul{ position:absolute; top:37px; right:0; background:#8CCED9; width:101px;}
+.allsearchlist ul li{ line-height:24px; padding:2px 10px; cursor:pointer; }
+
+/*inspiration*/
+.inspirationbox td img{ width:177px; height:172px; border:5px solid #fff; }
+td.tdcos img{ height:264px; }
+td.tdcos_1 img{ width:550px;}
+.inspiration .indexHotest{ height:628px;}
+.showimgbox{ padding-left:20px;}
+.showimgbox img{ margin-right:5px;}
+.indexinsprationhot{ position:relative;}
+.indexinsprationhot .priceLayer{ bottom: -78px;left: 5px;width: 175px; display:none;}
+.tdcos .indexinsprationhot .priceLayer{bottom: -125px;left: 5px;width:175px;}
+.tdcos_1 .indexinsprationhot .priceLayer{bottom: -125px;left: 5px;width:550px;}
+.blueBox{ background:#52c0d4; font-size:45px; color:#fff; display:inline-block; height:172px; width:177px; margin-left:5px; line-height:172px; text-align:center;}
+
+/*designer*/
+.designerIndexbox{ margin-top:10px;}
+.designerIndexbox td{ padding:0 15px 15px 0; position:relative}
+.designerIndexbox em{ font-size:18px;padding:8px; display:inline-block;}
+.indexdesignerlist{ float:left; width:615px; padding-left:5px; }
+.indexdesignerlist li{ float:left;padding-left:5px; padding-bottom:5px; height:88px;position:relative;}
+.lightred{ color:#f9a3a3;}
+.color22{ color:#222;}
+.designerIndexbox .textblue{margin-top:0; font-size:18px; font-weight:bold;}
+.bggreen{ position:absolute; background:#8adcb8; z-index:4; top:0; width:187px; height:87px; left:93px; text-indent:10px; display:none;}
+.bggreen p{ text-align:left; font-size:11px; color:#9E9E9E; }
+.bggreen .textblue{ margin-top:0; color:#51B8C7; font-size:15px;}
+.designerworks{ position:relative;}
+.designerworks .priceLayer{ width:142px; height:144px; position:absolute; bottom:-64px; display:none;}
+.designerworks .price_p{ text-indent:0px; padding:0; position:absolute; bottom:0; text-align:center}
+.price_p .spanlist{ float:left; font-size:10px;line-height:16px;}
+.price_p .spanlist em{padding:2px;font-size:16px; }
+.allearn{ position:absolute; top:0; color:#fff; text-align:center; width:140px;}
+
+/*oem*/
+.oem .indexHotest{ height:491px;}
+.oem .indexHotest li{ position:relative; text-indent:20px; font-size:24px; color:#fff; line-height:60px; font-size:20px;}
+.oem .suboemlist{ position:absolute; background:#edd6f4; height:491px; width:180px; top:0; right:0; z-index:2}
+.oem .suboemlist li.subli{ line-height:48px; font-size:16px; }
+.oem .arrow_index{ position:absolute; top:20px; left:163px; display:inline-block; width:27px; height:31px; background:url(../img/im_06.gif) no-repeat; }
+li.subli a{ color:#b2a3af; cursor:pointer;}
+li.subli a:hover{ color:#5a3683;}
+.oem  .rslides_nav{ margin-top:4px;}
+.oem .rslides_nav.next{background-position:-31px 0px; margin-right:94px;}
+
+/*sample*/
+.sampling .indexHotest{ height:491px;}
+.sampling .indexHotest li{ position:relative; text-indent:20px; font-size:24px; color:#fff; line-height:60px; font-size:20px;}
+.sampling .suboemlist{ position:absolute; background:#e2e9f4; height:491px; width:180px; top:0; right:0; z-index:2}
+.sampling .suboemlist li.subli{ line-height:48px; font-size:16px; }
+.sampling .arrow_index{ position:absolute; top:20px; left:163px; display:inline-block; width:27px; height:31px; background:url(../img/imgicon_03.gif) no-repeat; }
+
+/*products*/
+.products .indexHotest{ height:491px; position:relative}
+.products .indexHotest li{ position:relative; text-indent:20px; font-size:18px; color:#fff; line-height:48px; font-size:18px;}
+.stockpro .suboemlist{ position:absolute; background:#ecffff; height:261px; width:180px; top:0; right:0; z-index:2}
+.hotpro .suboemlist{ position:absolute; background:#ecffff; height:230px; width:180px; top:0; right:0; z-index:2}
+.products .suboemlist li.subli{ line-height:48px; font-size:16px; }
+.products  .arrow_index{ position:absolute; top:16px; left:163px; display:inline-block; width:27px; height:31px; background:url(../img/imgicon1_03.gif) no-repeat; }
+.hotpro .arrow_index{background:url(../img/imgicon1_02.gif) no-repeat; }
+li.stockpro_title{ background:#1595b8; font-size:20px;}
+li.hotpro_title{  background:#32c897; font-size:20px;}
+li.hotsalelibg{ background:#8adcb8;}
+.indexprolist_show{ width:772px; }
+.indexprolist_show li{ float:left; list-style:none; width:170px; height:241px; margin:0 20px 10px 0}
+.indexprolist_show li img{ width:170px; height:241px;}

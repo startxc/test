@@ -1,0 +1,106 @@
+@charset "utf-8";
+/* CSS Document */
+html,body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td{margin:0;padding:0; font-family:"微软雅黑"}
+input{ border:none; outline:none}
+a{ cursor:pointer; text-decoration:none}
+.relative{ position:relative}
+em{ font-style:normal;}
+/*清除浮动代码    父级div定义 伪类:after 和 zoom*/
+.clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+.clearfloat{zoom:1}
+body{ background:#f1f2f2}
+.user_login{ position:absolute; left:50%; top:50%; width:959px; margin-left:-494px; margin-top:-170px; background:#; height:340px; }
+.loginlogo{ float:left; margin-right:10px; cursor:pointer; }
+.loginlogo a img{ border:none}
+.loginbox{ float:left; width:600px;}
+.inputbox{ height:280px; background:#787f84;}
+.inputbox input[type="text"],.inputbox input[type="password"]{ background:url(../Images/Home/inputbg_login.png) no-repeat; width:238px; height:24px;line-height: 24px; padding:6px 20px; color:#ffffff; font-size:12px;}
+.loginbtnbox{ height:48px; margin-top:10px;}
+.loginbtnbox a{ display:inline-block;  width:295px; text-align:center; line-height:47px; color:#ffffff; background:#98cb00;} 
+.loginbtnbox input{ display:inline-block;  width:295px; text-align:center; padding:10px 0; color:#ffffff; background:#98cb00; font-size:18px; cursor:pointer;} 
+.loginbtnbox input:hover{ background:#8BBE0D}
+.loginbtnbox a.regbtn{ background: #52c0d4; margin-right:10px;}
+.loginbtnbox a.regbtn:hover{ background: #34A2B6; }
+.login div.username,.login div.password{ padding-left:150px; position:relative;  height:72px;}
+.login .pwdbox{padding-left:150px;}
+.login .username{ padding-top:70px; }
+.user_profile_box{ background:url(../Images/Home/re_user_bg.png) no-repeat; width:339px; height:339px; position:relative}
+.user_profile_box div{ position:absolute; left:20px; bottom:20px;}
+.user_profile_box h3, .user_profile_box p{ color:#ffffff;}
+.i_name{ display:inline-block;background:url(../Images/Home/input_ok.png) no-repeat; height: 23px;top: 105px; width: 23px; right:178px; display:inline-block; position:absolute}
+.i_pwd,.i_repeatpwd{ display:inline-block;background:url(../Images/Home/bgplus.png) no-repeat; height: 22px;top: 6px; width: 23px; right:178px; display:inline-block;position:absolute}
+.name_tips,.pwd_tips,.contirm_pwd_tips,.pwdRepeat_tips,.tips{ font-size:12px; color:#98cb00; text-indent:20px; line-height:18px;}
+.i_succe{display:inline-block;background:url(../Images/Home/sucess.png) no-repeat; height: 16px;top: 6px; width: 16px; right:37px; display:inline-block;position:absolute}
+.l_pwd{ color:#999999; position:absolute; top:9px; left:10px; font-size:14px; font-family: arial,"宋体";}
+
+
+.tips{ font-size:12px; color:#ffffff; text-indent:20px; line-height:18px; display:none;}
+.register .i_name, .register .i_pwd, .register .i_succe,.register .i_repeatpwd{ right:190px;}
+.f12{ font-size:12px;}
+.pwdbox{ text-indent:12px}
+#forpwd{ margin-right:10px; vertical-align:middle}
+.pwdbox label{ color:#ffffff}
+.pwdbox a{ color:#ffffff; margin-left:30px;}
+.register{ position:relative;}
+.register div{ padding-left:186px; position:relative;  height:54px;}
+.agreebox input{ margin-right:10px; vertical-align:middle}
+.agreebox{padding-left:186px; text-indent:20px; font-size:12px; color:#ffffff;}
+.agreebox span{ color:#5cb0c0}
+.choose{ position:absolute; width:100px; color:#ffffff; font-size:12px;left:6px; z-index:3}
+.choose a{ display:block; width:100px; margin-top:20px; text-align:center; padding:4px; background:url(../Images/Home/btn_4.png) no-repeat 0px -281px ; cursor:pointer; z-index:2;}
+.choose a.role_cur{ background:url(../Images/Home/btn_4.png) 0px 0px no-repeat;}
+.registerbtn  input.regbtn{ width:100%; background:#98cb00; cursor: pointer}
+.registerbtn  a.regbtn{ width:100%; background:#98cb00;cursor: pointer}
+.register .i_name{ top:27px}
+.forgetpwd .username{  margin-top:30px; padding-top:0px;}
+.forgetpwd .password,.forgetpwd .username{ height:56px;}
+.forgetpwd .i_name{ top:7px}
+.forgetstep{padding-left:10px;}
+.listitem{ display:inline-block; width:60px; font-size:12px; color:#ffffff; display:none}
+
+.codestate span{ display:inline-block; width:127px; height:8px;}
+.codestate_2{ background:url(../Images/Home/codestat2.png) no-repeat; }
+.password .relative label{ position:absolute; top:10px; left:20px; font-size:12px; color:#ffffff;}
+div.forgetstep{ width:516px; margin:0 auto; padding-left:0; padding-top:16px}
+.codestep{ width:516px; height:36px;}
+.codestep1{ background:url(../Images/Home/codestep1.png) no-repeat top center;}
+.codestep2{ background:url(../Images/Home/codestep2.png) no-repeat top center;}
+.codestep3{ background:url(../Images/Home/codestep3.png) no-repeat top center;}
+.codestep4{ background:url(../Images/Home/codestep4.png) no-repeat top center;}
+.coesteptips{ color:#ffffff; font-size:12px;}
+.marleft92{ margin-left:92px;}
+.resultbox{ font-size:12px; text-align:center; color:#ffffff; margin-top:100px;}
+.resultbox  span{ color:#35c7c9;}
+.welcome_item{ width:416px; height:auto; margin:0px auto; padding-top:30px; position:relative}
+.welcome_item span{ display:block; position:absolute; top:34px; left:-34px;}
+.welcome_ok{ width:24px; height:24px; background:url(../Images/Home/welcome_ok.png) no-repeat;}
+.welcome_user{ width:24px; height:24px; background:url(../Images/Home/welcome_user.png) no-repeat;}
+.welcome_item p{ color:#ffffff; font-size:12px;}
+.welcome_item h2{ color:#ffffff; line-height:34px; border-bottom:1px solid #ffffff; margin-bottom:10px; font-size:16px;}
+.wholse_user .inputbox{ background:#e6e7e8; color:#938e8a;}
+.wholse_user .inputbox p,.wholse_user .inputbox a{ color:#938e8a}
+.wholse_user .register  div{ padding-left:0px; min-height:60px;}
+.wholse_user .register  div.relative{min-height:100px; height:auto;}
+.register  div.over_srcoll{ height:210px;overflow-y:scroll; width:79%; overflow-x:hidden; padding-left:0px; margin-left:120px;position:absolute; top:25px; }
+.wholse_user .inputbox input[type='text'],.wholse_user .inputbox input[type='password']{ background:none; background-color:#cccccc; width:200px; height:30px; box-shadow: -1px -1px 1px #a1a1a1; color:#666666}
+.wholse_user .listitem{ display:block; width:170px; color:#938e8a; float:left}
+.wholse_user .password .relative label{ left:190px; color:#666666}
+.wholse_user .agreebox{ padding-left:55px;}
+.wholse_user .inputbox input[type='button']{ background:none; background-color:#98cb00; width:240px; height:30px; color:#ffffff; position:absolute; cursor:pointer;  }
+.wholse_user .inputbox input[type='file']{ z-index:99; background:none;  width:240px; height:30px; color:#ffffff; position:absolute;  left:70px;opacity: 0; filter:alpha(opacity=0); cursor:pointer}
+.img_upload{ padding:15px 0;}
+.img_upload span{ display:inline-block; float:left; margin-right:7px; margin-bottom:5px;}
+.img_upload img{ width:130px; height:100px;}
+.cate_list div{ padding:0;}
+.cate_list label{ margin-right:10px; font-size:12px; display:inline-block;}
+.cate_list label input{ margin-right:5px;}
+.wholse_user p.tips{ text-indent:190px; color:red}
+.over_srcoll{  height:210px;}
+.wholse_i_name{ display:inline-block;background:url(../Images/Home/input_ok.png) no-repeat; height: 23px;top: 105px; width: 23px; right:55px; display:inline-block; position:absolute}
+.wholse_i_pwd,.wholse_i_repeatpwd{ display:inline-block;background:url(../Images/Home/bgplus.png) no-repeat; height: 22px;top: 6px; width: 23px; right:55px; display:inline-block;position:absolute}
+.wholse_user .inputbox p.wholse_name_tips,.wholse_user .inputbox p.wholse_pwd_tips,.wholse_user .inputbox p.wholse_contirm_pwd_tips,.wholse_user .inputbox p.wholse_pwdRepeat_tips,.wholse_user .inputbox p.wholse_tips,.wholse_user .inputbox p.company_tips,.wholse_user .inputbox p.end_tips,.wholse_user .inputbox p.start_tips,.wholse_user .inputbox p.license_tips,.wholse_user .inputbox p.mobile_tips,.wholse_user .inputbox p.operate_tips,.wholse_user .inputbox p.id_card_tips,.wholse_user .inputbox p.category_tips{ font-size:12px; color:red; text-indent:190px; line-height:24px;}
+.wholse_i_succe{display:inline-block;background:url(../Images/Home/sucess.png) no-repeat; height: 16px;top: 6px; width: 16px; right:37px; display:inline-block;position:absolute}
+.wholse_l_pwd{ color:#999999; position:absolute; top:9px; left:10px; font-size:14px; font-family: arial,"宋体";}
+.code_yanzhen{ margin-top:-12px; color:#ffffff; }
+.code_yanzhen img{vertical-align:middle; margin-right:10px;}
+.dNone{ display:none;}

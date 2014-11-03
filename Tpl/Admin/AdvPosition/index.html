@@ -1,0 +1,84 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+<div class="header">
+    <span class="action_title"> <a href="__URL__">广告位置管理</a></span> <span class="action_module"> - 广告位置列表 </span>
+    <span class="action_span" > 
+        <a href="__URL__/add">添加广告位置</a>
+    </span>
+    <div class="clear"> </div>
+</div>
+<div id="middle">
+    <form method="post" action="__URL__/batch">
+        <div class="list_div">
+            <table class="list_table" cellspacing="1" cellpadding="3">
+                <tr>
+                    <th width="65"> 编号 </th>
+                    <th> 名称 </th>
+                    <th> 代号 </th>
+                    <th> 宽度 </th>
+                    <th> 高度 </th>
+                    <th width="120"> 操作选项 </th>
+                </tr>
+                <volist name="list" id="vo">
+                    <tr class="list_tr">
+                        <td align="center" style="padding: 0; text-align: center;"> {$vo.id} </td>
+                        <td> {$vo.name} </td>
+                        <td> {$vo.code}  </td>
+                        <td> {$vo.width}  </td>
+                        <td> {$vo.height}  </td>
+                        <td class="td_center_show"> 
+                            <span class="control_span">
+                                <a href="__APP__/Admin/Adv/add/pid/{$vo.id}" title="添加广告图片"><img border="0" src="__ROOT__/Public/Images/icon_add.gif"/></a>
+                                <a href="__URL__/edit/id/{$vo.id}" title="编辑广告位置"><img border="0" src="__ROOT__/Public/Images/icon_edit.gif"/></a>
+                                <a href="__APP__/Admin/Adv/index/pid/{$vo.id}" title="旗下广告"><img border="0" src="__ROOT__/Public/Images/icon_priv.gif"/></a>
+                                <a href="javascript:deletes({$vo.id});" title="删除该广告位置"><img border="0" src="__ROOT__/Public/Images/icon_drop.gif"/></a>
+                            </span>
+                        </td>
+                	</tr>
+                </volist>
+            </table>
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+function chooseAll() {
+	$(".td_items input").attr("checked", "checked");
+}
+function quitAll() {
+	$(".td_items input").removeAttr("checked");
+}
+function deletes(id) {
+	if (window.confirm("您确定删除此广告位置吗？")) {
+		window.location.href = "__URL__/delete/id/" + id;
+	}
+}
+$(function() {
+	//表格变色
+	$(".list_tr").hover(function() {
+		$(this).find("td").css("background", "#F4FAFB");
+	}, function() {
+		if (!$(this).find("td").find("input").attr("checked")) {
+			$(this).find("td").css("background", "#FFFFFF");
+		}
+	});
+	//checkbox的选择
+	$(".list_checkbox").click(function() {
+		if ($(this).attr("checked")) {
+			$(this).parent().parent().find("td").css("background", "#F4FAFB");
+		} else {
+			$(this).parent().parent().find("td").css("background", "#FFFFFF");
+		}
+	});
+	//批量操作
+	$(".batch_dothing").click(function() {
+		if ($(this).val() != "sort") {
+			$(".batcn_table").hide();
+			$("#action_" + $(this).val()).show();
+		} else {
+			$(".batcn_table").hide();
+		}
+	});
+});
+</script>
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

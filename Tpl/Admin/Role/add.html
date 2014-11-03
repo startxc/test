@@ -1,0 +1,55 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<div class="header">
+    <span class="action_title"> <a href="#">权限管理</a></span> <span class="action_module"> - <if condition="$level eq 1">添加应用</if>  <if condition="$level eq 2">添加模块</if>  <if condition="$level eq 3">添加操作</if>  </span>
+    <span class="action_span" > <a href="__URL__/index">角色列表</a> </span>
+    <div class="clear"> </div>
+</div>
+
+<div id="middle">
+    <form method="post" action="__URL__/insert">
+    <!--列表-->
+    <div class="list_div">
+        <table class="add_table" cellspacing="1" cellpadding="3">
+            <tr>
+                <td width="100" align="center"> 
+                    组别名称
+                </td>
+                <td> <input type="text" class="add_input_text" name="name"> </td>
+            </tr>
+             <tr>
+                <td width="100" align="center"> 上级组别 </td>
+                <td> 
+                    <select name="pid">
+                        <option value="">无上级组</option>
+                        <volist name="list" id="vo">
+                            <option value="{$vo.id}">{$vo.name}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="100" align="center"> 组别状态 </td>
+                <td> <input type="radio" name="status" value="1" checked="true" > 启用 <input type="radio" name="status" value="0" > 禁用 </td>
+            </tr>
+            <tr>
+                <td width="100" align="center"> 组别描述 </td>
+                <td> <textarea name="remark" rows="5" style="width: 380px; height: 120px; border: 1px solid #C2D1D8; overflow:visible;"></textarea> </td>
+            </tr>
+        </table>
+       
+        <table class="submit_table">
+            <tr>
+                <td> 
+                    <span><input type="submit" value="提交保存" /></span>
+                    <span><input type="reset" value="全部重置" /></span>
+                </td>
+            </tr>                    
+        </table> 
+    </div>
+    </form>
+</div>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

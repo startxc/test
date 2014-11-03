@@ -1,0 +1,38 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<div class="header">
+    <span class="action_title"> <a href="#">数据管理</a></span> <span class="action_module"> - 备份还原 </span>
+    <span class="action_span" > <a href="__URL__/index">数据备份</a> </span>
+    <div class="clear"> </div>
+</div>
+
+<div id="middle">
+    <form method="post" action="__URL__/import">
+        <!--列表-->
+        <div class="list_div">
+            <table class="add_table" cellspacing="1" cellpadding="3">
+                <tr id="list_table">
+                    <td width="100" align="center"> 文件列表 </td>
+                    <td> 
+                <volist name="listFile" id="vo">
+                    <input type="radio" name="filename" value="{$vo}" /> {$vo} &nbsp;  
+                </volist>
+                </td>
+                </tr>
+            </table>
+
+            <table class="submit_table">
+                <tr>
+                    <td> 
+                        <span><input type="submit" value="提交保存" /></span>
+                        <span><input type="reset" value="全部重置" /></span>
+                    </td>
+                </tr>                    
+            </table> 
+        </div>
+    </form>
+</div>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

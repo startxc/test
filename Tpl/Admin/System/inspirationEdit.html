@@ -1,0 +1,110 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<div class="header">
+    <span class="action_title"> <a href="#">分类管理</a></span> <span class="action_module"> - 编辑分类  </span>
+    <span class="action_span" > <a href="__URL__/index">分类列表</a> </span>
+    <div class="clear"> </div>
+</div>
+
+<div id="middle">
+    <form method="post" action="__URL__/inspirationUpdate" enctype="multipart/form-data" >
+        <!--列表-->
+        <div class="list_div">
+            <table class="add_table" cellspacing="1" cellpadding="3">
+                <tr>
+                    <td width="100" align="center"> 
+                        分类名称
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="name" value="{$info.name}"> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
+                        分类链接
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="url" value="{$info.url}"> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
+                        同级排序
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="pindex" value="{$info.pindex}"> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 启用状态 </td>
+                    <td> <input type="radio" name="status" value="1" <notempty name="info['status']"> checked="true" </notempty> > 启用 <input type="radio" name="status" value="0" <empty name="info['status']"> checked="true" </empty>> 禁用 </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center">
+                        更换图片
+                    </td>
+                    <td> 
+                        <span class="span_choose_file">
+                            <span class="span_upload_field" hidefocus="true" id="btn_choose_img"> 浏览图片 </span> 
+                            <input type="file" name="file" value="" hidefocus="true" class="input_file_upload" id="file_choose_img" /> 
+                        </span>
+                        <span class="span_choose_list">
+                            <small id="file_choose_name"> 点击浏览图片 </small>
+                            <a href="javascript:delete_image(this);" class="panel_delete" hidefocus="true"></a> 
+                        </span>
+                    </td>
+                </tr>
+                <notempty name="info['image']">
+                    <tr>
+                        <td width="100" align="center"> 
+                            分类图片
+                        </td>
+                        <td> 
+                            <span> <img style="width: 300px; height: auto;" src="__PUBLIC__/Uploads/Category/{$info['image']}"> </span>
+                        </td>
+                    </tr>
+                </notempty> 
+                <tr>
+                    <td width="100" align="center"> 
+                        分类描述
+                    </td>
+                    <td> <textarea name="description" class="textarea_desc_field" >{$info['description']}</textarea> </td>
+                </tr>
+            </table>
+
+            <table class="submit_table">
+                <tr>
+                    <td> 
+                        <span>
+                            <input type="hidden" value="{$info['id']}" name="id">
+                            <input type="hidden" value="{$info['image']}" name="img">
+                            <input type="hidden" value="{$info['level']}" name="level" />
+                            <input type="hidden" value="{$info['pid']}" name="pid" />
+                            <input type="hidden" value="{$info['porder']}" name="porder" />
+                            <input type="hidden" value="{$info['childs']}" name="childs" />
+                            <input type="submit" value="提交保存" />
+                        </span>
+                        <span><input type="reset" value="全部重置" /></span>
+                    </td>
+                </tr>                    
+            </table> 
+        </div>
+    </form>
+</div>
+
+<script type="text/javascript">
+    $(function(){
+        //图片上传按钮
+        $(".input_file_upload").css("opacity", 0);
+        $("#file_choose_img").bind("click", function(){
+            $(".span_choose_list").show();
+        });
+        $("#file_choose_img").bind("change", function(){
+            var value=$(this).val();
+            $("#file_choose_name").text(value);
+            $(".span_choose_list").show();
+        });
+    });
+    function delete_image() {
+        $(".span_choose_list").hide();
+        $("#file_choose_img").val("");
+    }
+</script>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

@@ -1,0 +1,170 @@
+@charset "utf-8";
+/* CSS charity 2014-1-15 */
+
+.charity_index_box{ width:1010px; margin:40px auto 80px; position:relative;}
+.bluetxt{ color:#52c0d4;}
+.yellowtxt{ color:#ffae40;}
+.greentxt{ color:#adc500;}
+.yellowbtn{ background:#f99c1b; background: -webkit-linear-gradient(#FFB629, #E7820D) repeat scroll 0 0 rgba(0, 0, 0, 0);background: -moz-linear-gradient(#FFB629, #E7820D) repeat scroll 0 0 rgba(0, 0, 0, 0);
+background: -ms-linear-gradient(#FFB629, #E7820D) repeat scroll 0 0 rgba(0, 0, 0, 0);background: -o-linear-gradient(#FFB629, #E7820D) repeat scroll 0 0 rgba(0, 0, 0, 0); border-radius: 3px; padding:10px 50px;}
+.graybtn{ color:#ffffff;background:#b4b2b0; background: -webkit-linear-gradient(#cacaca, #9e9a96) repeat scroll 0 0 rgba(0, 0, 0, 0);background: -moz-linear-gradient(#cacaca, #9e9a96) repeat scroll 0 0 rgba(0, 0, 0, 0);
+background: -ms-linear-gradient(#cacaca, #9e9a96) repeat scroll 0 0 rgba(0, 0, 0, 0);background: -o-linear-gradient(#cacaca, #9e9a96) repeat scroll 0 0 rgba(0, 0, 0, 0); border-radius: 5px; padding:10px 50px;}
+.yellowbtn:hover{ color:#ffffff; background:#f99c1b;}
+.graybtn:hover{color:#ffffff; background:#b4b2b0;}
+.charity_index_h3,.charity_index_h3 a{ font-size:32px;color:#555555; height:44px; }
+.charity_index_pid{ margin-bottom:15px;}
+.charity_index_pid span{ margin-right:40px; }
+.charity_index_pid span a{ color:#666666;}
+.charity_index_descr{ width:444px; float:right; position:relative;}
+.charity_i_sum a{ color:#a5a19d;}
+.charity_i_sum a:hover{ color:#52c0d4;}
+.charity_i_money{ margin-top:8px;}
+.charity_i_money dt{ font-size:14px; color:#a5a19d;}
+.charity_i_money dd{ height:30px; line-height:30px; font-size:30px;}
+.charity_i_btn{ margin-top:24px;}
+.charity_i_btn .bluebtn{ padding:10px 50px; border:none; font-size:12px; margin-right:6px;}
+.charity_showbtn{ position:absolute; top:404px; right:510px;}
+.charity_showbtn a{ display:inline-block; margin-left:5px; height:10px; background:rgba(100, 110, 125, 0.3); width:55px}
+.charity_showbtn a.cur{background:rgba(0, 0, 0, 0.4); }
+.charity_showbtn a:hover{background:rgba(0, 0, 0, 0.4); }
+.position_box{ position:absolute; top:190px;}
+.nouse_class{}
+
+/*列表页*/
+.charity_banner{ width:100%; background:#52d1fe;}
+.charity_banner_descr{ width:1168px; margin:0 auto; padding-top:50px; padding-bottom:35px;background: #52d1fe url(../Images/Home/charitylogo.png) no-repeat right center;}
+.charity_banner_title{text-shadow: 0 1px 1px rgba(0, 0, 0, 0.3); font-size:60px; color:#ffffff; }
+.banner_content{ color:#0f8fc7; width:357px; line-height:20px; font-size:14px; margin-bottom:35px;}
+.v2_main .banner_content{ font-size: 17px; line-height: 28px; color:#0f8fc7; width:433px; }
+.charity_banner_descr h3{ color:#1594cb; font-size:28px; margin-top:10px;}
+.charity_banner_descr h3 span{ color:#ffffff;}
+.charity_n_show{ width:100%; height:auto; background:#f1f2f2; }
+.charity_n_list{ width:1168px; margin:0px auto; padding-top:80px; padding-bottom:50px;border-bottom:1px solid #cccccc;}
+.c_list_left{ float:left; width:738px; margin-right:20px;}
+.list_title{ font-size:30px; line-height:44px; margin-bottom:10px; color:#666666;}
+.list_describ_box{ position:relative;}
+.list_describ_list{ float:left; width:256px;  margin-left:20px;}
+.list_describ_list p{ height:100px;text-overflow:ellipsis;overflow:hidden; line-height:17px;}
+.list_describ_list .position{ position:absolute; top:115px;}
+.list_describ_list .position dl{ border-bottom: 1px dashed #cccccc; padding-bottom:15px;}
+.list_describ_list .position dt{ font-size:14px; font-weight:bold; color:#666666; margin-top:10px;}
+.list_describ_list .position dd{ font-size:20px; }
+.c_list_right{ float:right; width:390px;}
+.list_describ_list .position dl.bor_none{ border:none;}
+.c_showbtn{ padding-left:10px;}
+.c_showbtn a{ font-size:12px; margin-right:5px;}
+.charity_class{ margin-top:32px; margin-bottom:30px;font-size:14px;text-indent:10px;}
+.c_list_right .h24{ line-height:24px; margin-top:10px; padding-left:10px;}
+.charity_class dd{ margin-top:10px;}
+.c_view_more{ height:30px; margin-top:17px; margin-bottom:5px;text-indent:10px; }
+.c_view_more .fl{ font-size:18px;}
+.c_view_more .fr{ font-size:14px; color:#6a6a6a; }
+.c_view_img a{ display:inline-block; width:117px; height:117px; margin-left:10px;}
+/*个人中心 慈善部分*/
+.charity_set_box{ background:none;}
+.charity_set_box .charity_banner_descr{width:967px; padding-left:40px; background:url(../Images/Home/charitylogo.png) no-repeat 700px center;}
+.charity_set_box .my_invite{ width:932px; margin-top:10px; background:#ffffff;}
+.img_txt_box a{ display:inline-block; float:left;}
+.img_n_box{ width:53px; height:53px;}
+.txt_n_box{ width:110px;}
+.charity_set_box .tfooter{ font-size:14px;}
+.charity_set_box .tfooter span{ font-size:20px;}
+.summ_invite_item td.light_bluebg{ background:#dcf3f6; border-bottom:#dcf3f6 1px solid;border-top:#dcf3f6 1px solid; }
+.ask_btn{ float:right;margin-right: 14px; padding: 7px 24px;}
+.set_charity_tips{ width:600px; margin-left:60px; margin-top:30px; margin-bottom:30px; background:url(../Images/Home/charitytips.png) no-repeat; height:140px; }
+.set_charity_tips p{ width: 378px; line-height:26px; margin-left:160px; font-size:14px;}
+.set_charity_tips h2{ width: 478px; padding-top:30px;margin-left:160px; font-size:24px; color:#949494;}
+.c_apply_item{ margin-bottom:60px; width:900px; margin-left:30px; }
+.c_apply_item dt{ width:300px; font-size:18px; font-weight:bold; float:left; text-align:right;}
+.c_apply_item dd{ float:left;width:480px; margin-left:80px; padding-bottom:0px; margin-top:5px; padding-bottom:30px;}
+.set_charity_choose label{ margin-right:25px;}
+.set_charity_choose input{ margin-right:5px; vertical-align:calc(-2px);}
+.goback{ padding:10px 25px;}
+/*慈善详情页*/
+.pro_summary_all{ width:100%;  background:#ffffff; }
+.pro_summary{ width:1168px; margin:0 auto; position:relative;}
+.pro_summary h5{ height:40px; font-size:14px; line-height:40px; margin-bottom:20px;}
+.pro_sumbox_left{ width:322px; float:left;}
+.pro_sumbox_left dl{ margin:20px 0;}
+.pro_sumbox_left dd{ margin-top:10px;}
+.pro_sumbox_left dd a{ display:inline-block; width:27px; height:32px; margin-right:2px; margin-bottom:15px;}
+.pro_sumbox_center{ width:480px; float:left; margin-left:36px;}
+.pro_sumbox_center h2{ font-size:26px; letter-spacing:2px;}
+.pro_sumbox_center p{ line-height:24px;  margin-top:20px;}
+.pro_sumbox_right{ width:234px; float:left;margin-left:36px; padding-top:40px; margin-bottom:40px;}
+.pro_sumbox_right dl{ margin-bottom:20px; border-bottom: 1px dashed #cccccc; padding-bottom:15px;}
+.pro_sumbox_right dt{ font-size:14px;}
+.pro_sumbox_right dd{ font-size:30px;}
+.harity_detail_all{ width:100%; background:#f1f2f2;border-top:1px solid #cccccc; }
+.charity_detail_list{ margin-bottom:60px;}
+.charity_detail_tab{ position:absolute; bottom:-22px; right:0px;}
+.charity_detail_tab a{ color:#666666; margin-right:30px; font-size:14px; display:inline-block; height:40px; line-height:40px; text-align:center; padding:0 20px;}
+.charity_detail_tab a.cur{ border-bottom:4px solid #52c0d4; color:#52c0d4; }
+.charity_detail_box{ width:1168px; margin:0 auto; padding-top:40px;}
+.charity_detail_box h5{ font-size:14px; margin-bottom:30px;}
+.c_detail_list_title .l_box{ width:268px; height:56px; float:left; line-height:56px; background:#77706a; color:#ffffff; font-size:24px; text-indent:20px; border:1px solid #979087; letter-spacing:2px;}
+.c_detail_list_title .r_box{ width:890px; height:40px;  line-height:40px; background:#ffffff; float:left; text-indent:100px; margin-left:-2px; margin-top:10px; font-size:14px;}
+.c_detail_list_title .r_box span,.c_detail_list_title .r_box em{ display:block; line-height:40px; height:40px; float:left; }
+.c_detail_list_title .r_box em{ font-size:28px;text-indent:0px;}
+.c_detail_list_title .r_box a{ float:right; color:#666666; margin-right:20px;}
+.c_detail_list_title .r_box a:hover{color:#52c0d4;}
+.c_detail_list_content{ width:736px; margin-left:370px; margin-top:30px;}
+.c_detail_list_content img{ max-width:500px;}
+.cahrity_link_pro{ width:100%; background:#ffffff; border-top:1px solid #cccccc;}
+.charity_link_pro_box{ width:1168px; margin:0 auto; padding-top:80px; padding-bottom:150px;}
+.charity_linkpro_list li{position:relative; width:246px; height:246px; float:left;  margin-right:15px; margin-bottom:15px;}
+.charity_linkpro_list li a.pro_img{ display:inline-block;width:246px; height:246px;}
+.charity_linkpro_list li img{width:246px; height:246px;}
+.charity_link_pro_box .l_box{ float:left; width:261px;}
+.charity_link_pro_box .r_box{ float:left; margin-left:120px; width:785px;}
+.charity_linkpro_list li .whitebg{ position:absolute; bottom:0; left:0; height:40px; line-height:40px; width:100%; background:#ffffff; opacity: 0.85; filter:alpha(opacity=85); }
+.charity_linkpro_list li dl{ position:absolute; bottom:0;height:40px; line-height:40px;}
+.charity_linkpro_list li dt{ float:left; width:105px; font-size:14px;  padding-left:4px;overflow: hidden; text-overflow: ellipsis; white-space: nowrap; height:30px;}
+.charity_linkpro_list li dt a{color:#000000; display:block;text-overflow:ellipsis;overflow:hidden;width:103px;  }
+.charity_linkpro_list li dt a:hover{color:#52c0d4;}
+.charity_linkpro_list li dd{ float:left; width:130px;text-overflow:ellipsis;overflow:hidden; font-size:20px;height:30px; text-align:right; padding-right:4px; color:#14ADD4 }
+.charity_link_pro_box .l_box h2{ font-size:30px; margin-bottom:30px;}
+.charity_link_pro_box p{ line-height:26px;}
+.charity_link_pro_box p.btnbox{ margin-top:60px;}
+.pro_link_box .c_detail_list_content{ width:810px;}
+.light_bluebg{ background:#dcf3f6;}
+.charity_money .c_detail_list_content{ width:810px;}
+.c_money_list th{ font-size:14px; height:46px; color:#8F8F8F; border-bottom:2px solid #cccccc;}
+.c_money_list td{ padding:10px; text-align:center;}
+.c_money_list tfoot td{ background:#E4E2E1;}
+.c_money_list td.fl{ text-align:left;}
+.c_money_list td.fl a{ display:inline-block; float:left;}
+.c_money_list .pro_img{ height:53px; width:53px; cursor:default;}
+.c_money_list .pro_name{ line-height:24px; width:98px;text-overflow:ellipsis;overflow:hidden; margin-left:10px; color:#4A4A4A;cursor:default;}
+.c_money_list .pro_name:hover{ color:#14ADD4;}
+.add_comment{  margin-bottom:60px;}
+.add_comment textarea{ float:left; padding:4px; text-indent:10px; width:507PX; height:47px;}
+.add_comment a{ display:block; float:left;  background:#ADC500; height:57px; width:57px; line-height:57px; text-align:center; }
+.add_comment a:hover{ color:#ffffff; background:#9DB507;}
+.c_detail_list_comment{ width:700px;  margin-left:369px; margin-top:30px;}
+.comments-item{ padding:5px 0; clear:both; margin-top:10px;}
+.comments-item dt{ width:53px; height:53px; float:left; margin-right:10px;}
+.item_follow{ margin-left:65px; margin-top:5px;}
+.item_follow_list{ padding:4px 0;}
+.c_list_s{ margin-right:5px; margin-left:5px; color:#50CCDD;}
+.item_comm_box{ margin-top:10px; position:relative;}
+.item_comm_box textarea{ padding:3px 7px; float:left; width:453px; height:32px;}
+.item_comm_box a{ display:block; float:left;  background:#ADC500; height:40px; width:40px; line-height:40px; text-align:center; }
+.follow_re{ color:#ADC500; margin-left:10px; }
+.item_comm_box span{ position:absolute; left:10px; top:4px;}
+.comm_up{ float:right; color:#6969FF; margin-left:20px;}
+.more_project{ background:#00a9e4; border:1px solid #ffffff; border-radius:5px; font-size:12px; padding:4px 15px; margin-top:-5px; margin-left:100px;}
+.charity_n_show .paganation{ padding-right:87px;}
+.harity_detail_all .paganation{ padding-right:87px;}
+td.product_link { text-align:right;}
+.product_link span{ display:block; float:left; width:53px; height:53px; margin-left:6px; background:#E4E4E4;}
+.dash_b{ border-top:1px dashed #e4e4e4;}
+.c_money_list .product_link  a.pro_img{ cursor:pointer;}
+td.img_txt_box{ text-align:left; padding-left:10px;}
+/*shouji fix*/
+.charity_banner .fix{ width:1280px; margin:0 auto; background:#52D1FE;}
+.pro_summary_all .fix{ width:1280px; margin:0 auto;background:#ffffff; padding-bottom:20px;}
+.harity_detail_all .fix{ width:1280px; margin:0 auto;background:#f1f2f2;padding-bottom:50px;}
+.cahrity_link_pro .fix{ width:1280px; margin:0 auto; background:#ffffff;}
+.charity_n_show .fix{ width:1280px; margin:0 auto; background:#f1f2f2;padding-bottom:200px;}
+

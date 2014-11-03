@@ -1,0 +1,13 @@
+.review_box .ads_img {float: left;width: 515px;height: 385px;}
+.review_box .right_content {float: left;margin-left: 30px;}
+.review_box .right_content .right_title {font-size: 26px;font-weight: bold;}
+.review_box .right_content ul {margin:20px 0;}
+.review_box .right_content ul li {font-size: 12px;color: gray;letter-spacing: 0.1em;line-height: 30px;}
+.review_box .right_content .warn {color: #FC880D;}
+.hot_sale ul,.product_buy ul,.product_col ul {margin-top: 5px;}
+.hot_sale ul li,.product_buy ul li,.product_col ul li {display: inline-table;list-style: none;margin-right:10px;background: #ffffff;position: relative;}
+.hot_sale .title,.product_buy .title,.product_col .title {height: 60px;background: #bcbdbd;line-height: 60px;font-size: 24px;font-weight: bold;color: #fff;padding-left: 12px;margin-top: 40px;font-family:"\u9ed1\u4f53";}
+.hot_sale {margin-top: 20px;}
+.title span {font-size: 12px;font-weight: normal;float: right;margin-right:12px;}
+.hot_sale ul li div,.product_buy ul li div,.product_col ul li div {height: 40px;line-height: 40px;font-size:16px;color:#333;}
+.hot_sale ul li div span,.product_buy ul li div span,.product_col ul li div span {float: right;font-size: 24px;zoom:1;color:#333;}

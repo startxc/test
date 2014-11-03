@@ -1,0 +1,42 @@
+@charset "utf-8";
+/*
+	弹层样式
+	2013-11-15
+ */
+.w_layer{ display:none}
+.layer_bg {background-color: #cccccc; height: 668px;left: 50%; margin-left:-450px; opacity: 0.4;filter:alpha(opacity=40);position: absolute; width: 901px; z-index: 3; margin-top:-318px;}
+.wrapper_layer{ width:780px; position: absolute;left: 50%; margin-left:50px; z-index:9;margin-left:-390px;margin-top:-258px; }
+.wrapper_layer .title{ font-size: 16px; color:#ffffff; height:60px; line-height:60px;text-align:center; background:#00CCFF;border-top-left-radius:10px;border-top-right-radius:10px; }
+.l_main{ background:#ffffff; padding:30px 0;}
+.toy_list{ margin-top:10px; min-height:50px;margin-left: 130px;}
+.toy_item{ float:left; width:230px}
+.toy_list input[type='text']{ line-height:30px; height:30px; background:#cccccc; box-shadow: -1px -1px 1px #A1A1A1;color:#666666; width:510px; text-indent:10px}
+.toy_list .span_item{ display:inline-block; width:100px; color:#434343; margin-bottom:10px }
+.toy_item input[type='text']{ width:227px;}
+.toy_list .tips{margin-top:5px; color:red}
+.toy_list textarea{ width:510px; height:100px; border-top:1px solid #b9b8b8;border-left:1px solid #b9b8b8;background:#cccccc; color:#666666; vertical-align:top}
+.toy_list input[type='button']{ width:80px; background:#cccccc; height:34px; line-height:34px;  margin-left:6px; color:#ffffff; cursor:pointer}
+.toy_list input[type='button'].comfirm{ background:#98cb00;}
+.toy_list input[type='button'].toy_colose:hover{ cursor:pointer; background:red;}
+.l_footer{ height:20px; background:#00CCFF; width:100%;border-bottom-right-radius:10px;border-bottom-left-radius:10px;}
+
+/*物流弹层*/
+.w_layer .wrapper_layer{ width:780px; position: absolute;left: 50%; margin-left:50px; z-index:9;margin-left:-390px; padding:30px; background:rgba(200,200,200,0.8);}
+.product-tab tr td a.w_check{ padding:4px 15px; color:#FFF; text-decoration:none}
+.w_layer .title span{ margin-right:30px; font-size:14px; color:#ffffff; margin-left:30px}
+.w_layer .l_main{ padding:20px 50px 50px;}
+.w_list{ margin-top:20px}
+.w_time{ display:inline-block; width:135px;}
+.w_list li{ line-height:30px;}
+.w_coloe{ padding:4px 20px; margin-top:30px; float:right; margin-bottom:30px; background:#FAA818; margin-left:10px }
+.w_coloe:hover{ color:#ffffff; background:#E99707}
+.w_comfirm{ background:#98CB00;}
+.w_comfirm:hover{ background:#78AB07;}
+
+/*注册协议弹层*/
+.agree_layer .agree_box{ height:370px; overflow-y:scroll; width:724px;}
+.agree_layer .toy_list{ margin-left:67px;}
+.agree_layer .toy_list p,.agree_layer .toy_list div{ font-size:12px; line-height:20px; margin-top:5px; text-indent:20px}
+
+.agree_layer ul li{ list-style:none; font-size:12px; text-indent:40px;}
+.tb_head_confirm{ background:url(../Images/Home/tips_confirm.png) no-repeat; line-height:30px}

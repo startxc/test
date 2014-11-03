@@ -1,0 +1,126 @@
+@charset "utf-8";
+/* CSS Document */
+
+/* 众筹和支付样式*/
+
+/*众筹第一步*/
+a{ color:#4cacc7;}
+a:hover{ color:#21819C;}
+.stepbox{ width:1000px; margin:00px auto;  margin-bottom:60px; padding-top:20px;}
+.allsteps{ height:95px; background:#cccccc;}
+.curstep{ height:100px; margin-bottom:6px; }
+.curstep_left{ height:100px; width:100px; background:#52c0d4 url(../Images/Home/icon_2.png) no-repeat 4px 8px; float:left; line-height:100px; color:#ffffff; text-align:center;font-size:20px; font-weight:bold; font-style:italic;}
+.cur_2{ background-position:2px -87px;}
+.cur_3{ background-position:0px -186px;}
+.cur_4{ background-position:0px -285px;}
+.cur_5{ background-position:0px -375px;}
+.curstep_right{ height:100px; width:900px; background:#cee7ed; float:left;line-height:100px; text-indent:20px; color:#3499b6; }
+.probox th{ background:#e4e2e1; height:36px; color:#7b7b7d; font-size:14px; font-style:normal}
+.border_bottom{  }
+.probox td{border-bottom:1px solid #cccccc;font-size:12px;}
+.bluetext{color:#4cacc7; font-size:14px;}
+.odd{background:#f8f8f8;}
+.proid{ margin-right:10px;}
+.prosum{ height:50px; line-height:50px; margin-top:10px;}
+.procoast{ color:#666666; font-size:12px; float:left; font-weight:bold; margin-left:20px;}
+.procoast input{ margin-top:10px;}
+.procoast .graybtn{ font-size:12px; font-weight:normal; margin-left:15px;}
+.stepnextbox{ float:right;}
+.stepnextbox .graybtn{ margin-right:20px;}
+.pledgelistbox td{ font-size:12px; height:60px; border-bottom:1px solid #e7e6e5}
+.center{ width:600px; margin:0 auto}
+.moneyinput{ border:1px #CCC solid; width:85px;margin-right:5px; color:#4CACC7}
+input[name='propledge']{ margin-right:10px;}
+.agreebox{ width:755px; margin:30px auto; border:1px solid #d3d2d0; position:relative; }
+.agrertxt{ font-size:12px; padding:10px 20px 60px 20px;}
+.agrertxt p{ text-indent:20px; line-height:25px;}
+.agrertxt h2{ text-align:center; line-height:60px}
+.agreebox .bluebtn{ position:absolute; bottom:-16px; left:50%; margin-left:-100px; padding:4px 30px;}
+.paystyle p{ height:32px; line-height:67px; color:#ffffff;}
+.addressbox{ position:relative; margin-bottom:30px;}
+.addressbox .left{ width:260px;}
+.addressbox ul li{ position: relative; width:250px; height:130px; background:url(../Images/Home/addbg.png) no-repeat bottom center; border:1px solid #cccccc; background-color:#f8f8f8; text-align:center;padding-top:20px; margin-bottom:15px;}
+.addressbox ul li p{ padding:4px 10px;}
+.addressbox .right{ width:740px; border:2px solid #e4e2e1; height:467px; background:#ffffff;}
+.addressbox ul li.new_addrbox{ background:url(../Images/Home/addbg_ad.png) no-repeat; width:276px; z-index:10; border:none; line-height:94px; position:absolute}
+.paychoose{ border:1px solid #d1d1d1; height: auto; margin-bottom:150px;position:relative;}
+.paychoose li{list-style:none; float:left; width:250px; background:#f1f2f2;line-height:35px;   border-bottom:1px solid #d1d1d1;border-top:1px solid #d1d1d1;border-right:1px solid #d1d1d1; text-align:center }
+.paybox{ margin-top:50px; }
+.paychoose a{ color:#77706a; display:inline-block; width:100%; }
+.paychoose li.licurr{  border-bottom:#ffffff;}
+.paychoose li.licurr a{ background:#d0eaf1;color:#4cacc7;}
+.paybox .title{ background:#77706a; height:35px; line-height:35px; color:#ffffff; text-indent:25px;}
+.paychoose li.rbor_none{border-right:none}
+.paychoose li div{ border:1px solid #d1d1d1; border-top:none; height:auto;  display:none; background:#ffffff; width:998px;}
+.paychoose li div ul{ margin-top:2px; width:1000px; height:164px;}
+.paychoose li ul.banklist li{ border:none;background:#ffffff; padding:10px 0px; text-align:left; text-indent:46px; }
+.paychoose li ul.banklist li label{cursor:pointer;}
+.paychoose li ul.banklist li label span{ background:url(../Images/Home/combo.png) no-repeat; display:inline-block; width:137px; height:30px; text-indent:-9999px;}
+.fapiao{ width:320px; border:1px solid #cccccc; height:32px; line-height:32px;  background:url(../Images/Home/inputbg.png) right center no-repeat #efeeed; color:#b8b4b1; margin-right:10px;}
+.address_addbox{ margin-left:45px; margin-bottom:60px;}
+.address_addbox td{ padding:4px }
+td.titile{ font-size:14px;}
+.right .caption{ margin-left:50px; line-height:30px; height:30px; margin-top:10px;}
+.new_addrbtn{ font-weight:bold; font-size:16px; color:#4CACC7;}
+input[name='daychoose']{ margin-right:5px;}
+.right .alignrignt{ text-align:right; margin-right:20px;}
+.right .alignrignt a{ display:inline-block; width:135px; margin-left:20px; text-align:center}
+.paybox .alignrignt{ text-align:right;}
+.paybox .alignrignt a{display:inline-block; width:135px; margin-left:20px; text-align:center}
+.allsteps .step i{ background:url(../Images/Home/stepicon.png) no-repeat; width:62px; height:62px; float:left; margin-top:19px; margin-left:10px;}
+.allsteps .step{ background:url(../Images/Home/stepicon1.png) no-repeat center left; width:249px; height:95px; float:left;}
+.allsteps .step1{ width:240px;background-position:172px -50px;}
+.allsteps .step2{ width:264px;background-position:200px -50px;}
+.allsteps .step3{ width:274px;background-position:210px -50px;}
+.allsteps .step4{ width:200px;}
+/*.bigstep4 .step1,.bigstep4 .step2,.bigstep4 .step3{ background-position:172px -50px;}*/
+.allsteps .step4{ background:none;}
+.allsteps p{ margin-top:27px; margin-left:82px;}
+.allsteps p em{ font-size:12px;}
+.bigstep1 .step2 i{ background-position:-65px 0px}
+.bigstep1 .step3 i{ background-position:-147px 0px}
+.bigstep1 .step4 i{ background-position:-227px 0px}
+
+.bigstep2 .step2 i{ background-position:-65px -61px}
+.bigstep2 .step3 i{ background-position:-147px 0px}
+.bigstep2 .step4 i{ background-position:-227px 0px}
+
+.bigstep3 .step2 i{ background-position:-65px -61px}
+.bigstep3 .step3 i{ background-position:-147px -61px}
+.bigstep3 .step4 i{ background-position:-227px -0px}
+
+.bigstep4 .step2 i{ background-position:-65px -61px}
+.bigstep4 .step3 i{ background-position:-147px -61px}
+.bigstep4 .step4 i{ background-position:-227px -61px}
+
+.mius{ display:inline-block; width:20px; height:20px; background:url(../Images/Home/mius.png) no-repeat;  vertical-align: text-bottom;}
+.plus{display:inline-block; width:20px; height:20px; background:url(../Images/Home/plus.png) no-repeat;  vertical-align: text-bottom;}
+.mius:hover{ background:url(../Images/Home/mius_over.png) no-repeat -1px 0;}
+.plus:hover{ background:url(../Images/Home/plus_over.png) no-repeat -1px 0;}
+.tips{ display:inline-block; width:18px; height:18px; background:url(../Images/Home/tip.png) no-repeat; margin-left:5px;}
+.protable th{ background:#e4e2e1; padding:10px; color:#77706a;font-weight: normal; font-size:14px;}
+.protable td{ background:#ffffff; padding:10px; text-align:center;border-bottom:1px solid #cccccc;font-size:12px;} 
+.protable td.bd_none{ border-bottom:none}
+.probox td{ background:#ffffff; padding:10px; text-align:center;border-bottom:1px solid #E9E9E9;font-size:12px;} 
+.probox td.bd_none{ border-bottom:none}
+.paybox caption,.probox caption{ font-size:16px; text-align:left; height:40px; line-height:40px; text-indent:10px}
+.notes .left{ width:167px; height:76px; line-height:76px; background:#d0eaf1; text-align:center}
+.prototal{background:#ffffff; padding-top:30px; padding-bottom:30px;}
+.prototal p{ text-align: right; margin-right:20px;}
+.prototal p em{color: #51B8C7; }
+.shoplist .indexHostestlist{width:1000px; margin:10px auto}
+.shoplist .indexHostestlist .layerNum{ top:225px;}
+.shoplist .indexHostestlist .layerContent .grayBg{ height:100%;}
+.shoplist .indexHostestlist .layerNum .grayBg{ height:30px;}
+.shoplist .indexHostestlist .layerNum .price_p{ position:absolute;  }
+.shoplist .indexHostestlist .layerNum .price_p em{ float:left; text-indent:10px}
+.shoplist .indexHostestlist .layerNum .price_p strong{ margin-right:10px; color:#35CEFF}
+.protbody_none a{ color:#51B8C7}
+.aDblock{ display:block}
+.shoplist .indexHostestlist li{ width:240px; background:#ffffff;}
+.shoplist .indexHostestlist li img{ width:240px; height:215px;}
+.shoplist .indexHostestlist .layerDescript{ width:205px;}
+.hot_title{ width:1000px; margin:20px auto; height:46px; line-height:46px; background:#e6e7e8;}
+.preOrder_table th{ background:#ffe199;}
+.dash_line{ height:1px; border-top:1px dashed #cccccc;border-bottom:1px dashed #ffffff; margin:15px 0}
+.licurr div{ border-bottom:1px solid #D0EAF1;}

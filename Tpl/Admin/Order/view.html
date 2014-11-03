@@ -1,0 +1,511 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+<style type="text/css">
+.list_div input, select, textarea {
+	outline: none;
+}
+.list_div .add_input_text {
+	outline: none;
+	padding-left: 3px;
+}
+.input {
+	float: left;
+	height: 22px;
+	margin: 0 5px;
+	padding-left: 3px;
+	border: 1px solid #CCC;
+}
+.select {
+	float: left;
+	padding: 3px;
+	margin-right: 5px;
+	height: 24px;
+	line-height: 24px;
+}
+.special {
+	margin: 0 5px;
+	background: #DDEEF2;
+	height: 19px;
+	line-height: 19px;
+	display: inline-block;
+	float: left;
+	padding: 1px 5px;
+	border: 1px solid #91C4D0;
+	border-right: 2px solid #91C4D0;
+	border-bottom: 2px solid #91C4D0;
+}
+.list_div a.special:hover {
+	border: 1px solid #91C4D0;
+}
+.bright {
+	color:#f60;
+}
+.box_cat_list {
+	display: inline-block;
+	height: 24px;
+	line-height: 24px;
+	padding: 0 3px;
+	float: left;
+}
+.img {
+	display: inline-block;
+	margin-right: 3px;
+	vertical-align: middle;
+	width: 14px;
+	height: 14px;
+	border: 1px solid #E4E4E4;
+}
+.input_prompt {
+	margin-left: 10px;
+	color: #f60;
+}
+.box_basic_property, .box_sku_property {
+	width: 80%;
+	background: #F8F8F8;
+	border: 1px solid #ECECEC;
+	padding: 0 20px 20px 20px;
+}
+.box_basic_property ul li {
+	margin-top: 20px;
+}
+.box_basic_property ul li span {
+	float: left;
+	margin-right: 10px;
+	height: 18px;
+	line-height: 18px;
+	padding: 3px;
+	display: inline-block;
+}
+.box_sku_property input {
+	vertical-align: middle;
+}
+.box_sku_property .box_sku_group {
+	margin-top: 20px;
+}
+.box_sku_property ul li {
+	width: 140px;
+	height: 25px;
+	line-height: 25px;
+	float: left;
+}
+.box_sku_property ul li label.label_name {
+	white-space: nowrap;
+	display: inline-block;
+	vertical-align: middle;
+	width: 85px;
+	height: 22px;
+	line-height: 22px;
+	overflow: hidden;
+}
+.box_upload_icon {
+	padding: 0;
+	margin: 10px 0 0 0;
+}
+.box_upload_icon table {
+	border-collapse: collapse;
+}
+.box_upload_icon table tr th {
+	background: #EDEDED;
+	font-weight:400;
+}
+.box_upload_icon table tr td, th {
+	padding: 5px 10px 5px 10px;
+	border: 1px solid #D7D7D7;
+}
+.btn_img {
+	padding-left: 0;
+	border: 1px solid #D7D7D7;
+	background: #F8F8F8;
+	padding: 3px 10px 3px 10px;
+	text-align: center;
+}
+.left_img {
+	margin-right: 7px;
+}
+.input_store {
+	width: 80px;
+	padding-left: 3px;
+	border: 1px solid #C2D1D8;
+	height: 20px;
+	line-height: 20px;
+}
+.box_img_list {
+	width: 100%;
+	border: 1px solid #ECECEC;
+}
+.box_header {
+	height: 32px;
+	padding: 10px 20px 0;
+	background: #F8F8F8;
+}
+.box_header span {
+	background: #ECECEC;
+	height: 32px;
+	line-height: 32px;
+	display: inline-block;
+	padding: 0 12px;
+	margin-right: 12px;
+	cursor: pointer;
+}
+.box_header span.hover {
+	background: #FFF;
+}
+.box_middle {
+}
+.box_button_upload {
+	height: 100px;
+	margin: 30px;
+}
+.box_button_upload .upload_field {
+	height: 25px;
+	line-height: 25px;
+}
+.box_button_upload .upload_field span {
+	position: relative;
+	display: inline-block;
+	width: 90px;
+	height: 25px;
+	overflow: hidden;
+}
+.box_button_upload .upload_field .file_upload_field {
+	opacity: 0;
+	position: absolute;
+	width: 200px;
+	right: 0;
+	height: 25px;
+}
+.box_button_upload .upload_prompt {
+	color: #AAA;
+	margin-top: 15px;
+}
+.box_button_upload .upload_prompt ol li {
+	margin-left: 14px;
+	margin-top: 8px;
+}
+.box_footer {
+	padding: 15px;
+	margin: 2px;
+	background: #F8F8F8;
+}
+.box_gallery ul li {
+	float: left;
+	position: relative;
+	margin-right: 10px;
+	margin-top: 15px;
+	width: 90px;
+	height: 90px;
+	text-align: center;
+	line-height: 90px;
+	border:1px solid #CDCDCD;
+}
+.box_gallery ul li span {
+	display: inline-block;
+	padding: 2px;
+	width: 86px;
+	height: 86px;
+	background: url(__ROOT__/Public/Images/loading3.gif) no-repeat center;
+}
+.box_gallery ul li.main {
+	border: 1px solid #FFC097;
+}
+.box_gallery ul li.first {
+	border: 1px solid #FFC097;
+}
+.box_gallery ul li .preview {
+	margin: 2px;
+	width: 86px;
+	height: 86px;
+	line-height: 86px;
+}
+.box_gallery ul li .control {
+	display: none;
+	background: #666;
+	position: absolute;
+	height: 20px;
+	width: 86px;
+	left: 2px;
+	bottom: 2px;
+}
+.box_gallery ul li .control a {
+	float: left;
+	font: "宋体";
+	font-size: 10px;
+	color: #FFF;
+	display: inline-block;
+	text-align: center;
+	width: 43px;
+	height: 20px;
+	line-height: 20px;
+}
+.box_gallery ul li .control a:hover {
+	color: #f60;
+}
+.box_gallery ul .hover .control {
+	display: inline-block;
+	opacity: 0.8;
+}
+.box_goods_gallery ul li .control a {
+	width: 28px;
+}
+.box_goods_gallery ul li .left_arrow {
+	background: url(__ROOT__/Public/Images/icon_control.png) no-repeat;
+	background-position: 0 0;
+}
+.box_goods_gallery ul li .delete_arrow {
+	background: url(__ROOT__/Public/Images/icon_control.png) no-repeat;
+	background-position: -28px 0;
+}
+.box_goods_gallery ul li .right_arrow {
+	background: url(__ROOT__/Public/Images/icon_control.png) no-repeat;
+	background-position: -56px 0;
+}
+.box_img_upload {
+	display: none;
+	margin-top: 10px;
+	border: solid 1px #AED3FF;
+}
+.box_img_upload .box_header {
+	background: #E7F4FD;
+}
+.box_prompt_msg {
+	margin-top: 10px;
+	display: inline-block;
+	background: #E5F4FE;
+	border: 1px solid #3FB2FE;
+	padding: 3px 5px 3px 3px;
+}
+.box_prompt_msg p {
+	float: left;
+	margin-left: 5px;
+}
+.icon_attention {
+	width: 16px;
+	height: 16px;
+	float: left;
+	line-height: 16px;
+	display:inline-block;
+	background: url(__ROOT__/Public/Images/prompt.png) no-repeat;
+	background-position:0 -60px;
+}
+.box_other_item ul li {
+	float: left;
+	height: 24px;
+	line-height: 24px;
+	width: 150px;
+	overflow: hidden;
+}
+.box_other_item ul li input {
+	vertical-align: middle;
+}
+.box_other_item ul li label {
+	display: inline-block;
+	width: 130px;
+	height: 22px;
+	line-height: 22px;
+	vertical-align: middle;
+	overflow: hidden;
+}
+/*编辑器自定义按钮*/
+    .ke-icon-selfimg {
+	background-image: url(__ROOT__/Public/Js/kindeditor-4.1.7/themes/default/default.gif);
+	background-position: 0px -495px;
+	width: 16px;
+	height: 16px;
+}
+.box_sku_img {
+	display: inline-block;
+	position: relative;
+	width: 70px;
+	height: 23px;
+}
+.box_sku_img .choose_sku_file {
+	position: absolute;
+	right: 0;
+	top: 0;
+	opacity: 0;
+}
+.box_sku_ctrl {
+	display: none;
+}
+.box_sku_ctrl a {
+	float:right;
+	height:23px;
+	line-height:23px;
+	margin-left: 5px;
+}
+.textarea_border {
+	border-color:#1px solid #C2D1D8;
+	width:256px
+}
+</style>
+
+<div class="header"> <span class="action_title"> <a href="#">订单管理</a></span> <span class="action_module"> - 查看订单 </span> <span class="action_span" > <a href="__URL__">订单列表</a> </span>
+  <div class="clear"> </div>
+</div>
+<div id="middle">
+<!--<form method="post" action="__URL__/insert" enctype="multipart/form-data" >--> 
+<!--列表-->
+<div class="list_div">
+<form method="post">
+<table class="add_table" cellspacing="1" cellpadding="3"  style="padding: 10px 0;">
+  <tr>
+    <td width="100" align="right"> 订单编号 </td>
+    <td>{$info.order_no}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">下单时间</td>
+    <td>{$info.create_time|date='Y-m-d H:i',###}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">订单状态</td>
+    <td><eq name="info[order_status]" value="0">
+        已完成
+        <else/>
+        待付款</eq>
+</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">物流状态</td>
+    <td>
+      	<eq name="info['shipping_status']" value="0">未发货 </eq>
+        <eq name="info['shipping_status']" value="1">已发货</eq>
+        <eq name="info['shipping_status']" value="2">已收货</eq>
+      </td>
+  </tr>
+  <tr>
+    <td width="100" align="right">支付状态</td>
+    <td id="pay_status">
+    	<eq name="info['pay_status']" value="0">未付款 </eq>
+        <eq name="info['pay_status']" value="1">已付款</eq></td>
+  </tr>
+  <tr>
+    <td width="100" align="right"> 收货人 </td>
+    <td>{$info.consignee}
+     </td>
+  </tr>
+  <tr>
+    <td width="100" align="right">收货地址</td>
+    <td>{$info.province_id|getAreaName}{$info.city_id|getAreaName}{$info.area_id|getAreaName}-{$info.address}</td>
+  </tr>
+ <tr>
+    <td width="100" align="right"> 邮编 </td>
+    <td>{$info.zipcode}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right"> 电话 </td>
+    <td>{$info.tel}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right"> 手机 </td>
+    <td>{$info.mobile}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right"> 邮箱 </td>
+    <td>{$info.email}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">最佳送货时间</td>
+    <td>
+        <eq name="info['best_time']" value="0">全天 </eq>
+        <eq name="info['best_time']" value="1">工作日</eq>
+        <eq name="info['best_time']" value="2">非工作日</eq>
+	</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">配送名称</td>
+    <td>
+      <eq name="info['shipping_id']" value="0">德邦物流</eq>
+      <eq name="info['shipping_id']" value="1">自定义</eq>
+      </td>
+      </tr>
+  <tr>
+  <tr>
+    <td width="100" align="right"> 发货时间 </td>
+    <td>{$info.shipping_time|date='Y-m-d H:i',###}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right"> 确认收货时间 </td>
+    <td>{$info.receive_time|date='Y-m-d H:i',###}</td>
+  </tr>
+    <td width="100" align="right"> 付款方式名称 </td>
+    <td>{$info.pay_name}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right"> 付款时间 </td>
+    <td>{$info.pay_time|date='Y-m-d H:i',###}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">商品总金额</td>
+    <td>{$info.goods_amount}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">运费</td>
+    <td>{$info.shipping_fee}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">订单总金额</td>
+    <td>{$info.order_amount}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">发票抬头</td>
+    <td>{$info.invoice_title}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">网站备注</td>
+    <td>{$info.note}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">买家留言</td>
+    <td>{$info.buyer_note}</td>
+  </tr>
+  <tr>
+    <td width="100" align="right">订单类型</td>
+    <td>
+    <eq name="info.order_type" value="1">
+    	批发
+    <else/>
+    	零售
+    </eq>
+    </td>
+  </tr>
+
+</table>
+<table class="submit_table">
+    <tr>
+        <td>商品编号</td>
+        <td>商品名</td>
+        <td>数量</td>
+        <td>市场价</td>
+        <td>价格</td>
+        <td>商品名</td>
+    </tr>
+    
+    <foreach name="list" item="l">
+    <tr height="80">
+        <td width="120">{$l.goods_no}</td>
+        <td><img src="{$l.goods_image|picture=50}" />{$l.goods_name}</td>
+        <td width="80">{$l.goods_number}</td>
+        <td width="80">{$l.market_price}</td>
+        <td width="80">{$l.price}</td>
+        <td>商品名</td>
+    </tr>
+    </foreach>	
+</table>
+<table class="submit_table">
+  <tr>
+    <td><span>
+      <input id="btn_preview" type="reset" value="编辑订单" onclick="goToEdit()"/>
+      </span></td>
+  </tr>
+</table>
+</div>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script> 
+<script type = "text/javascript">
+	function goToEdit(){
+		window.location.href="__URL__/edit/id/{$info.id}";
+	};
+</script> 
+
+<!--加载页面脚部文件--> 
+<include file="Public:footer" />

@@ -1,0 +1,21 @@
+.pagec_right {padding: 10px;}
+.pagec_right .title {border-bottom: 2px solid gray;margin-top: 20px;margin-bottom: 5px;height: 35px;line-height: 35px;font-size:18px;font-family:"\u9ed1\u4f53";color:#666;}
+.title .product_info {width: 39%;float: left;}
+.title .comment_info {width: 59%;float: left;}
+.pagec_right .item {color: gray;font-size: 12px;letter-spacing: 0.1em;}
+.item {padding: 20px;border-bottom: 2px solid #ccc;}
+.item .product_box {line-height: 25px;float: left;width: 39%;}
+.item .product_box img {float: left;}
+.item .product_box .detail {float: left;margin-left: 5px;font-size:14px;font-family:"\u9ed1\u4f53";color:#666;}
+.item .product_box .detail strong {color: #00c8ff;line-height: 32px;font-size:24px; font-weight:normal}
+.item .product_box .detail .re_comment {background: #98cb00;height: 20px;width: 70px;color: #fff;line-height: 20px;text-align: center;}
+.item .comment_box {float: left;width: 59%;}
+.comment_detail .detail,.reply_detail .detail {width: 30%;float: left;text-align: center;margin-top: 30px;}
+.comment_detail .content{color:#666;font-size:12px;}
+.comment_detail .content,.reply_detail .content {width: 65%;float: left;padding: 10px;}
+.comment_detail .detail .count_star {background: url("../Images/Home/com_star2.png") no-repeat center;height: 31px;color: #fff;line-height: 31px;font-size: 16px;font-weight: bold;}
+.comment_detail .detail,.reply_detail .detail .pub_date {text-align: center;width: auto;}
+.reply_detail {height: auto;padding-bottom: 20px;}
+.reply_detail .prefix {height: 15px;width: 25px;margin-left: 15px;margin-bottom: 2px;z-index: 999;}
+.reply_detail .content {background: #fff;border:1px solid gray;z-index: 1;color:#00c8ff;font-size:12px;font-family:"\u5fae\u8f6f\u96c5\u9ed1","\u9ed1\u4f53\u7ec6\u4f53";}
+.reply_detail .detail .reply_user {color: #01839d;}

@@ -1,0 +1,47 @@
+/* common */
+body{margin:0; padding:0; font-size:12px; font-family:"Microsoft YaHei",Arial,Verdana,Helvetica,sans-serif; background-color:#303030;-webkit-text-size-adjust:none;}
+div,ul,li,form,input,textarea,p,td,h1,h2,h3,h4,h5,h6,a{padding:0; margin:0;}
+ul,li{list-style-type:none;}
+a:link{text-decoration:none;}
+a:visited {text-decoration:none;}
+a:hover {text-decoration:none;}
+a:active {text-decoration:none;}
+img{ border:0px;}
+.clear{clear:both; font-size:0px; height:0px; overflow:hidden;}
+.paddingL5{ padding-left:5px;}
+.marginL8{ margin-left:8px;}
+.marginL15{ margin-left:15px;}
+.marginT8{ margin-top:8px;}
+.marginT20{ margin-top:20px;}
+.marginT13{ margin-top:13px;}
+.marginT5{ margin-top:5px;}
+
+/* container */
+#container{margin:0 auto;width:1280px; position:relative}
+
+/* header */
+#header{background-color:#484848; height:60px;}
+.top{margin:0 auto;width:1280px; height:60px; position:relative}
+.top a{ color:#FFFFFF; font-size:13px}
+.logo{ position:absolute; left:35px;top:8px; }
+.font1{ position:absolute; left:450px; top:23px;}
+.font1 span{ font-size:12px; color:#ffffff;}
+.font1 span a{ font-size:12px; }
+.font2{ position:absolute; left:680px; top:23px;}
+.font3{ position:absolute; left:780px; top:23px;}
+.font4{ position:absolute; left:1140px; top:23px;}
+.font5{ position:absolute; left:1185px; top:23px;}
+.input{ position:absolute; left:852px; top:18px; width:234px; height:26px; background-image:url(../Images/Home/search.jpg); background-repeat:no-repeat}
+.input input{ border:0px; margin-left:35px; height:25px; width:200px; background-color:#000000; color:#FFFFFF; line-height:25px;}
+.button{ position:absolute; left:1087px; top:18px;}
+.cart{ position:absolute; left:1230px; top:12px;}
+
+/* footer */
+#footer{height:145px;background-color:#272727; color:#FFFFFF}
+.bottom{ margin:0 auto;text-align:center; position:relative; width:1280px;}
+.bottom a{color:#FFFFFF}
+.bot_bg{ position: absolute; top:-28px; width:303px; height:55px; background-image: url(../Images/Home/footerlogo.png); left:495px; background-repeat:no-repeat}
+.font8{ font-size:18px; padding-top:44px;}
+.font9 {padding-top:8px;}
+.font9 a{ font-size:13px; color:#5FB39C; font-weight:bold; padding-top:6px;}
+.font10 {padding-top:29px;}

@@ -1,0 +1,59 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<div class="header">
+    <span class="action_title"> <a href="#">权限管理</a></span> <span class="action_module"> - 添加应用 </span>
+    <span class="action_span" > <a href="__URL__">应用列表</a> </span>
+    <div class="clear"> </div>
+</div>
+
+<div id="middle">
+    <form method="post" action="__URL__/update">
+    <!--列表-->
+    <div class="list_div">
+        <table class="add_table" cellspacing="1" cellpadding="3">
+            <tr>
+                <td width="100" align="center"> 名称 </td>
+                <td> <input type="text" class="add_input_text" name="name" value="{$vo.name}"> </td>
+            </tr>
+             <tr>
+                <td width="100" align="center"> 标题 </td>
+                <td> <input type="text" class="add_input_text" name="title" value="{$vo.title}"> </td>
+            </tr>
+             <tr>
+                <td width="100" align="center"> 隶属 </td>
+                <td> 
+                    <select name="group_id">
+                        <option value="">未分组</option>
+                        <volist name="list" id="li">
+                            <option value="{$li.id}" <if condition="$vo['group_id'] eq $li['id']"> selected="true" </if>>{$li.title}</option>
+                        </volist>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td width="100" align="center"> 状态 </td>
+                <td> <input type="radio" name="status" value="1" <if condition="$vo['status'] eq 1"> checked="true" </if> > 启用 <input type="radio" name="status" value="0" <if condition="$vo['status'] neq 1"> checked="true" </if> > 禁用</td>
+            </tr>
+            <tr>
+                <td width="100" align="center"> 描述 </td>
+                <td> <textarea name="remark" rows="5" style="width: 380px; height: 120px; border: 1px solid #C2D1D8; overflow:visible;">{$vo.remark}</textarea> </td>
+            </tr>
+        </table>
+        <table class="submit_table">
+            <tr>
+                <td> 
+                    <input type="hidden" name="id" value="{$vo.id}" >
+                    <!--<input type="hidden" name="ajax" value="1">-->
+                    <input type="hidden" name="pid" value="{$vo.pid}">
+                    <span><input type="submit" value="提交保存" /></span>
+                    <span><input type="reset" value="全部重置" /></span>
+                </td>
+            </tr>                    
+        </table> 
+    </div>
+    </form>
+</div>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

@@ -1,0 +1,29 @@
+td{padding:10px;line-height: 24px;}
+table input[type='text']{ border:1px solid #cccccc; width:105px;line-height:24px; color:#333333; text-align:center; margin-bottom: 10px;}
+.border_bottom{ font-size:14px;}
+.leftBox h3 a{ float:right;}
+.curstep_right {font-size: 16px;font-weight: bold;}
+.curstep .fr {width:576px;font-size: 12px;font-weight: normal;}
+.curstep .fr .progress {margin: 20px 15px;}
+.fr {text-indent: 0px;} 
+.step_Orderbox{width: 576px; position:relative; }
+.fr .order-step {width: 438px; margin-right:50px; margin-top:8px;}
+.step_Orderbox .order-step .text2 {left: 154px;}
+.step_Orderbox .order-step .text4 {left: 475px;}
+
+.indexboxList .indexHostestlist .whitebg {margin: 10px;}
+.indexboxList .indexHostestlist .whitebg .imglist img {width: 243px;height: 222px;}
+.indexboxList .indexHostestlist .whitebg .imglist .layerContent {width: 243px;height: 266px;}
+.button {width: 110px;height: 35px;cursor: pointer; line-height:27px;}
+.graybtn {background: #ccc;}
+.graybtn:hover {background: #cdd; color:#333;}
+.bluebtn {margin-left: 40px;}
+
+.hot_title {color: #01839d;border-bottom:none;}
+.hot_title a {color: #01839d;font-size: 12px;}
+td .input_count {height: 18px;padding: 0 1px;}
+.descriptbox {width: 100%;height: 29px;line-height: 29px;color: #fff;text-align: center;cursor: pointer;font-size: 16px;font-weight: bold;}
+.whitebg .layerNum {width: 243px;}
+.whitebg .layerNum .grayBg {background: #ccc;}
+.shoplist .indexHostestlist .layerNum .price_p {color: #000;}
+.shoplist .indexHostestlist .layerNum .price_p strong{color: gray;font-size: 18px;font-weight: bold;}

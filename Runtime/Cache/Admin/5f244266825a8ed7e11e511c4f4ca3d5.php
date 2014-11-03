@@ -1,0 +1,60 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>pansi</title>
+        <style type="text/css">
+            *{ margin:0;padding:0;}
+            html{ background:#fbfbfb!important;}
+            body{ font-family:sans-serif;font-size:12px;}
+            .button-primary{ font-family:sans-serif;padding:3px 10px;border:none;font-size:13px;border-width:1px;border-style:solid;-moz-border-radius:11px;-khtml-border-radius:11px;-webkit-border-radius:11px;border-radius:11px;cursor:pointer;text-decoration:none;margin-top:-3px;}
+            label{ color:#777;font-size:14px;}
+            h1 a { color: #666666;font-size: 14px;text-decoration: none;width: 320px;}
+            body form .input{ font-family:"HelveticaNeue-Light","Helvetica Neue Light","Helvetica Neue",sans-serif;font-weight:200;font-size:14px;border:1px solid #e5e5e5;background:#fbfbfb;outline:none;-moz-box-shadow:inset 1px 1px 2px rgba(200,200,200,0.2);-webkit-box-shadow:inset 1px 1px 2px rgba(200,200,200,0.2);box-shadow:inset 1px 1px 2px rgba(200,200,200,0.2);}
+            input{ color:#555;}
+            .box_login { width: 320px; margin: 0 auto; padding: 10px; border-radius: 10px; border: 1px solid #E8E8E8; background: #EEE; }
+            .box_login table tr td { padding: 5px; }
+            .box_login table tr td input { height: 22px; line-height: 22px; }
+            #js_verify_refresh { cursor: pointer; }
+        </style>
+        <script type="text/javascript" src="__ROOT__/Public/Js/jquery.min.js"></script>
+        <script type="text/javascript">
+           $(function(){
+                var h =  ($(document).height() - $('#box_login').height())/2-20;
+                $('#box_login').css("margin-top", h+"px");
+                $("#js_verify_refresh").bind("click", function(){
+                    $(this).attr("src", "__URL__/verify?"+Math.random());
+                });
+           });
+        </script>
+    </head>
+    <body>
+
+        <div id="login">
+            <div class="box_login" id="box_login">
+                <h1 style="margin-bottom:10px; text-align: center;"><a href="javascript:;" title="">PanSi Management Center</a></h1> 
+                <form accept-charset="utf-8" action="__URL__/checkLogin" method="post">
+                    <table>
+                        <tr>
+                            <td> 帐&nbsp;&nbsp;号： </td>
+                            <td colspan="2"> <input class="input" name="username" size="20" type="text" style="width:180px;"  /> </td>
+                        </tr>
+                        <tr>
+                            <td> 密&nbsp;&nbsp;码： </td>
+                            <td colspan="2"> <input class="input" name="password" size="20" type="password" style="width:180px;"  /> </td>
+                        </tr>
+                        <tr>
+                            <td>验证码：</td>
+                            <td><input class="input verify" name="verify" size="20" type="text" style="width:180px;" /> </td>
+                            <td><img id="js_verify_refresh" src="__URL__/verify" style="height:23px; margin-top: 2px;" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" align="center"> <input class="button-primary" style="width: 50px; height: 24px; line-height: 24px; padding: 0;" name="commit" type="submit" value="登录" /> </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+        
+    </body>
+</html>

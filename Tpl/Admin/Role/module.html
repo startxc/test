@@ -1,0 +1,84 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<script type="text/javascript">
+    $(function(){
+        $("#app_list_select").change(function(){ var a = $(this).val(); window.location.href="__URL__/module/groupId/{$selectGroupId}/appId/"+a; });
+        $("#group_list_select").change(function(){ var g = $(this).val(); var a = $("#app_list_select").val(); window.location.href="__URL__/module/groupId/"+g+"/appId/"+a; });
+        $("#btn_choose_all").click(function(){ $(".module_list_item").attr("checked", true); });
+        $("#btn_choose_none").click(function(){ $(".module_list_item").attr("checked", false); });
+        $("#btn_choose_other").click(function(){ $(".module_list_item").each(function(){ $(this).attr("checked", !$(this).attr("checked")); }) });
+    });
+</script>
+
+<div class="header">
+    <span class="action_title"> <a href="__URL__">权限管理</a></span> <span class="action_module"> - 角色管理  </span>
+
+    <span class="action_span" > 
+        <a href="__URL__">角色列表</a>
+    </span>
+    <div class="clear"> </div>
+</div>
+
+<div class="header" style="padding: 10px 10px 0 10px; margin: 0; ">
+    <ul>
+        <li> <a href="__URL__/app/groupId/{$selectGroupId}/"> 应用授权 </a> </li>
+        <li  class="current"> <a href="javascript:void();"> 模块授权 </a> </li>
+        <li> <a href="__URL__/action/groupId/{$selectGroupId}/appId/{$selectAppId}/"> 操作授权 </a> </li>
+    </ul>
+    <div class="clear"> </div>
+</div>
+
+<form action="__URL__/setModule/" method="post">
+    <div id="middle" style=" padding: 15px 15px 0 15px; border-left: 1px solid #BBDDE5; border-right: 1px solid #BBDDE5; border-bottom: 1px solid #BBDDE5; background: #FCFCFD;">
+        <div class="list_div" style="background: #FCFCFD; border: none;">
+            <table class="control_table">
+                <tr>
+                    <td width="60" class="td_title" style="border: 1px solid #BBDDE5;"> 当前组别 </td>
+                    <td valign="middle" style="padding: 10px; border: 1px solid #BBDDE5;">
+                        <select id="group_list_select" name="groupId">
+                            <volist name="groupList" id="vo">
+                                <option <if condition="$selectGroupId eq $key"> selected="selected" </if> value="{$key}">{$vo}</option>
+                            </volist>
+                        </select>
+                    </td>            
+                </tr> 
+                <tr>
+                    <td width="60" class="td_title" style="border: 1px solid #BBDDE5;"> 当前应用 </td>
+                    <td valign="middle" style="padding: 10px; border: 1px solid #BBDDE5;">
+                        <select id="app_list_select" name="appId">
+                            <option value="0"> 当前应用 </option>
+                            <volist name="appList" id="vo">
+                                <option <if condition="$selectAppId eq $key"> selected="selected" </if> value="{$key}">{$vo}</option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="60" class="td_title"  style="border: 1px solid #BBDDE5;"> 模块列表 </td>
+                    <td valign="middle" style="padding: 10px; border: 1px solid #BBDDE5;">
+                    <volist name="moduleList" key="k" id="vo">
+                        <div style="float: left; width: 145px;"><input type="checkbox" value="{$key}" <php> $chkey = $key; </php> <volist name="groupModuleList" id="gm"> <if condition="$chkey eq $key"> checked="checked" </if> </volist> class="module_list_item" name="groupModuleId[]"> <span style="padding: 0; margin: 0;  margin-right: 5px; margin-left: 3px;">   {$vo} </span> </div> 
+                    </volist>
+                    <div class="clear"></div>
+                    </td>
+                </tr> 
+            </table>
+
+            <table class="submit_table">
+                <tr>
+                    <td style="background: #FCFCFD; border-top: none;"> 
+                        <span><input type="submit" value="提交保存"/></span>
+                        <span><input type="reset" value="全部重置" /></span>
+                        <span><input type="button" id="btn_choose_all"  value="全选"/></span>
+                        <span><input type="button" id="btn_choose_none" value="全否" /></span>
+                        <span><input type="button" id="btn_choose_other" value="反选" /></span>
+                    </td>
+                </tr>                    
+            </table> 
+        </div>
+    </div>
+</form>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

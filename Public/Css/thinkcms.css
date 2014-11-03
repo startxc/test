@@ -1,0 +1,24 @@
+/* 
+ * Document   : thinkcms
+ * Created on : 2012-5-26, 11:18:38
+ * Author     : kewen
+ * Description: css样式表公用文件
+*/
+
+* { margin: 0; padding: 0; }
+body{ color:#444; height:100%; font: "宋体"; font-size: 12px;}
+html.off,html.off body { background: #e2e9ea url('../Images/left_bg.png') repeat-y -40px top; }
+html.on,html.on body{ background: #e2e9ea; background-image:none;}
+html.addbg,html.addbg body{ background:#e2e9ea}
+p, td, div { font: 12px "sans-serif", "Arial", "Verdana";}
+th { font: 12px "sans-serif", "Arial", "Verdana"; font-weight: bold;}
+input, textarea, select { font: 12px "courier new";}
+ul { list-style: none; }
+a{ text-decoration:none; color:#444}
+a:visited { color: #335B64; text-decoration: none;}
+a:link { color: #335B64; text-decoration: none;}
+a:hover { color: #EB8A3D; /*text-decoration: underline;*/}
+a:active { color: #EB8A3D; /*text-decoration: underline;*/}
+.clear { clear: both; float: none; font-size: 0px; margin: 0; padding: 0; display:block;}
+.nowrap { white-space:nowrap;} 
+.objbody{ overflow:hidden}
