@@ -2,14 +2,16 @@
 /**
  * @author mike
  */
-class CartAction extends ApiCommonAction {
+class CartApiAction extends ApiCommonAction {
 	
 	/**
      * 加入购物车
      */
     
     public function addToCart($goodsId, $goodsQty) {
-    	
+    	$cartModel = D('Cart');
+		$back = $cartModel->addToCart($goodsId, $goodsQty);
+		return $back;
     }
     
     /**
@@ -17,7 +19,9 @@ class CartAction extends ApiCommonAction {
      */
     
     public function getCartList() {
-    	
+    	$cartModel = D('Cart');
+		$cartArr = $cartModel->getCartList();
+		return $cartArr;
     }
     
     /**
@@ -25,7 +29,9 @@ class CartAction extends ApiCommonAction {
      */
     
     public function updateCart($cartId, $goodsQty) {
-    	
+    	$cartModel = D('Cart');
+		$flag = $cartModel->updateCart($cartId, $goodsQty);
+		return $flag;
     }
     
     /**
@@ -33,14 +39,8 @@ class CartAction extends ApiCommonAction {
      */
     
     public function deleteCart($cartId) {
-	    
-    }
-    
-    /**
-     * 清空购物车商品
-     */
-    
-    public function emptyCart() {
-    	
+	    $cartModel = D('Cart');
+	    $flag = $cartModel->deleteCart($cartId);
+	    return $flag;
     }
 }

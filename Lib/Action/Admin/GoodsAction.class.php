@@ -406,7 +406,6 @@ class GoodsAction extends CommonAction {
             ajax_return($back);
         }
         $group_apply_data = array(
-            "order_moq"=>intval($_POST['order_moq']),
             "group_id"=>$group_id,
             "status"=>3
         );

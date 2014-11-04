@@ -182,5 +182,57 @@ $apis[] = array(
 			),
 	 ),
 );
+
+//商品与伙拼相关接口
+$apis[] = array(
+	'category'=>'商品与伙拼相关接口',
+	'api'=>array(
+			'Goods/getGoodsByCategoryId'=>array(
+					'desc' => '获取某一分类下的商品',
+					'field'=>array(
+							'cid'=>array('desc'=>'分类id'),
+					),
+					'type'=>'GET',
+					'response'=>'{"status":1,"info":"",{id:1,category_id:1,production_id:1,name:"蔬菜1",price:10.00,image:201410305451ed907043a.jpg,description:"好吃的蔬菜",sale_count:0,spec:100}}',
+					'res_field'=>array(
+						array('field'=>'id','desc'=>'商品id'),
+						array('field'=>'category_id','desc'=>'分类id'),
+						array('field'=>'production_id','desc'=>'产地id'),
+						array('field'=>'name','desc'=>'商品名称'),
+						array('field'=>'price','desc'=>'商品价格'),
+						array('field'=>'image','desc'=>'商品图片'),
+						array('field'=>'description','desc'=>'商品描述'),
+						array('field'=>'sale_count','desc'=>'商品销量'),
+						array('field'=>'spec','desc'=>'商品规格')
+					)
+			),
+			'Goods/getCategoryList'=>array(
+					'desc' => '获取商品分类列表',
+					'type'=>'GET',
+					'response'=>'{"status":1,"info":"",{id:1,name:"叶菜类",image:""}}',
+					'res_field'=>array(
+						array('field'=>'id','desc'=>'分类id'),
+						array('field'=>'name','desc'=>'分类名称'),
+						array('field'=>'image','desc'=>'分类图片')
+					)
+			),
+			'Goods/getGoodsList'=>array(
+					'desc' => '获取商品列表',
+					'type'=>'GET',
+					'response'=>'{"status":1,"info":"",{id:1,category_id:1,production_id:1,name:"蔬菜1",price:10.00,image:201410305451ed907043a.jpg,description:"好吃的蔬菜",sale_count:0,spec:100}}',
+					'res_field'=>array(
+						array('field'=>'id','desc'=>'商品id'),
+						array('field'=>'category_id','desc'=>'分类id'),
+						array('field'=>'production_id','desc'=>'产地id'),
+						array('field'=>'name','desc'=>'商品名称'),
+						array('field'=>'price','desc'=>'商品价格'),
+						array('field'=>'image','desc'=>'商品图片'),
+						array('field'=>'description','desc'=>'商品描述'),
+						array('field'=>'sale_count','desc'=>'商品销量'),
+						array('field'=>'spec','desc'=>'商品规格')
+					)
+			),
+	)		
+);
 	
 return $apis;
