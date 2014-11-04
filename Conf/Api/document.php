@@ -232,6 +232,21 @@ $apis[] = array(
 						array('field'=>'spec','desc'=>'商品规格')
 					)
 			),
+			'Goods/applyGroup'=>array(
+					'desc' => '申请伙拼',
+					'type'=>'POST',
+					'field'=>array(
+							'goods_id'=>array('desc'=>'商品id'),
+							'production_id'=>array('desc'=>'产地id'),
+							'remark'=>array('desc'=>'个人说明'),
+							'member_type'=>array('desc'=>'广而告知对象'),
+					),
+					'response'=>'{"status":1,"info":"提交伙拼申请信息成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表提交伙拼申请信息成功，0代表提交伙拼申请信息失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			),
 	)		
 );
 	

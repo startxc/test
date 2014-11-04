@@ -386,23 +386,53 @@ class GoodsAction extends CommonAction {
         !$this->isAjax() && $this->error("非法访问");
         $id = intval($_POST['id']);
         $time = time();
+        $goods_id = intval($_POST['goods_id']);
+        $back = new stdClass();
+        if(M("Group")->where("goods_id={$goods_id}")->find()){
+            $back->status = 0;
+            $back->info = "已经存在该商品的伙拼信息啦";
+            ajax_return($back);
+        }
         $group_data = array(
-            "goods_id"=>intval($_POST['goods_id']),
+            "goods_id"=>$goods_id,
             "category_id"=>intval($_POST['category_id']),
             "production_id"=>intval($_POST['production_id']),
             "name"=>trim($_POST['name']),
+            "price"=>$_POST['price'],
+            "min_price"=>$_POST['min_price'],
+            "min_price_spec"=>$_POST['min_price_spec'],
+            "real_price"=>$_POST['price'],
             "image"=>trim($_POST['image']),
-            "order_moq"=>intval($_POST['order_moq']),
+            "description"=>trim($_POST['desc']),
+            "moq_spec"=>intval($_POST['moq_spec']),
             "start_time"=>strtotime("{$_POST['start_time']} 00:00:00"),
             "end_time"=>strtotime("{$_POST['end_time']} 23:59:59"),
-            "create_time"=>$time
+            "create_time"=>$time,
+            "update_time"=>$time
         );
         $group = M("Group");
         $group->startTrans();
-        $back = new stdClass();
         if(!$group_id = $group->add($group_data)){
             $back->status = 0;
             $back->info = "操作失败";
+            ajax_return($back);
+        }
+        $group_phase_data = array(
+            "group_id"=>$group_id,
+            "price"=>$_POST['price'],
+            "min_price"=>$_POST['min_price'],
+            "min_price_spec"=>$_POST['min_price_spec'],
+            "real_price"=>$_POST['price'],
+            "moq_spec"=>intval($_POST['moq_spec']),
+            "start_time"=>strtotime("{$_POST['start_time']} 00:00:00"),
+            "end_time"=>strtotime("{$_POST['end_time']} 23:59:59"),
+            "create_time"=>$time,
+            "update_time"=>$time
+        );
+        if(!M("Group_phase")->add($group_phase_data)){
+            $back->status = 0;
+            $back->info = "操作失败";
+            $group->rollback();
             ajax_return($back);
         }
         $group_apply_data = array(
