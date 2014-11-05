@@ -27,8 +27,8 @@
                     <td> <input type="text" class="add_input_text" name="order_index" value="0"> </td>
                 </tr>
                 <tr>
-                    <td width="100" align="center"> 启用状态 </td>
-                    <td> <input type="radio" name="status" value="1" checked="true" > 启用 <input type="radio" name="status" value="0" > 禁用 </td>
+                    <td width="100" align="center"> 是否显示 </td>
+                    <td> <input type="radio" name="is_show" value="1" checked="true" > 显示 <input type="radio" name="is_show" value="0" > 不显示 </td>
                 </tr>
                 <tr>
                     <td width="100" align="center"> 
@@ -95,14 +95,14 @@
                     return false;
                 }
                 var order_index = oForm.order_index.value;
-                var status = $("input[name=status]:checked").val();
+                var is_show = $("input[name=is_show]:checked").val();
                 var image = $("#category_image").attr("wid");
                 if(isSubmitButton === false){
                     isSubmitButton = true;
                     $.ajax({
                         type:"post",
                         url:"__URL__/insert",
-                        data:{name:name,order_index:order_index,status:status,image:image},
+                        data:{name:name,order_index:order_index,is_show:is_show,image:image},
                         async:false,
                         success:function(data){
                             var res = eval(data);

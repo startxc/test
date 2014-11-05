@@ -232,6 +232,51 @@ $apis[] = array(
 						array('field'=>'spec','desc'=>'商品规格')
 					)
 			),
+			'Goods/applyGroup'=>array(
+					'desc' => '申请伙拼',
+					'type'=>'POST',
+					'field'=>array(
+							'goods_id'=>array('desc'=>'商品id'),
+							'production_id'=>array('desc'=>'产地id'),
+							'remark'=>array('desc'=>'个人说明'),
+							'member_type'=>array('desc'=>'广而告知对象'),
+					),
+					'response'=>'{"status":1,"info":"提交伙拼申请信息成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表提交伙拼申请信息成功，0代表提交伙拼申请信息失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			),
+			'Goods/getGroupList'=>array(
+					'desc' => '获取伙拼商品列表',
+					'type'=>'GET',
+					'field'=>array(
+							'size'=>array('desc'=>'条数'),
+							'order'=>array('desc'=>'排序'),
+							'is_recommend'=>array('desc'=>'是否推荐：1推荐、0不推荐')
+					),
+					'response'=>'{"status":1,"info":"",{id:1,goods_id:1,category_id:1,production_id:3,name:"蔬菜2",description:"dddgda",price:30,min_price:15.00,min_price_spec:3000,real_price:30.00,image:"201410305451ed907043a.jpg",moq_spec:1000,sale_count:0,sale_spec:0,sale_total_count:0,sale_total_spec:0,start_time:1414684800,end_time:1418399999}}',
+					'res_field'=>array(
+						array('field'=>'id','desc'=>'伙拼商品id'),
+						array('field'=>'goods_id','desc'=>'商品id'),
+						array('field'=>'category_id','desc'=>'分类id'),
+						array('field'=>'production_id','desc'=>'产地id'),
+						array('field'=>'name','desc'=>'伙拼商品名称'),
+						array('field'=>'description','desc'=>'伙拼商品描述'),
+						array('field'=>'price','desc'=>'伙拼商品价格'),
+						array('field'=>'min_price','desc'=>'伙拼商品最低价格'),
+						array('field'=>'min_price_spec','desc'=>'伙拼商品最低价格对应的规格'),
+						array('field'=>'real_price','desc'=>'伙拼商品实际价格'),
+						array('field'=>'image','desc'=>'伙拼商品图片'),
+						array('field'=>'moq_spec','desc'=>'伙拼商品起拼规格'),
+						array('field'=>'sale_count','desc'=>'伙拼商品销售数量'),
+						array('field'=>'sale_spec','desc'=>'伙拼商品销售规格'),
+						array('field'=>'sale_total_count','desc'=>'伙拼商品总销售数量'),
+						array('field'=>'sale_total_spec','desc'=>'伙拼商品总销售规格'),
+						array('field'=>'start_time','desc'=>'伙拼商品开始日期'),
+						array('field'=>'end_time','desc'=>'伙拼商品结束日期')
+					)
+			),
 	)		
 );
 	

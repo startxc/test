@@ -62,24 +62,30 @@
                 <tr>
                     <th width="65"> 项目编号 </th>
                     <th width="150"> 商品名称 </th>
-                    <th width="60"> 起订量 </th>
-                    <th width="60"> 预订量 </th>
+                    <th width="150"> 商品价格 </th>
+                    <th width="60"> 起订规格 </th>
+                    <th width="60"> 销售规格 </th>
                     <th width="60"> 销售数量 </th>
+                    <th width="60"> 商品最低价格 </th>
+                    <th width="60"> 商品最低价格对应的规格 </th>
                     <th width="205"> 开始时间 </th>
                     <th width="205"> 结束时间 </th>
-                    <th width="205"> 显示状态 </th>
+                    <th width="205"> 是否显示 </th>
                     <th width="200">操作</th>
                 </tr>    
                 
                 <?php if(is_array($list)): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr class="list_tr">
                         <td class="td_items"> <?php echo ($vo["id"]); ?> </td>
                         <td> <?php echo ($vo["name"]); ?> </td>
-                        <td> <?php echo ($vo["order_moq"]); ?>  </td>
-                        <td> <?php echo ($vo["spec"]); ?> </td>
+                        <td> <?php echo ($vo["price"]); ?> </td>
+                        <td> <?php echo ($vo["moq_spec"]); ?>  </td>
+                        <td> <?php echo ($vo["sale_spec"]); ?> </td>
                         <td> <?php echo ($vo["sale_count"]); ?> </td>
+                        <td> <?php echo ($vo["min_price"]); ?> </td>
+                        <td> <?php echo ($vo["min_price_spec"]); ?> </td>
                         <td> <?php echo (date('Y-m-d',$vo["start_time"])); ?> </td>
                         <td> <?php echo (date('Y-m-d',$vo["end_time"])); ?> </td>
-                        <td><?php if(($vo["status"]) == "1"): ?>显示<?php else: ?>隐藏<?php endif; ?></td>
+                        <td><?php if(($vo["is_show"]) == "1"): ?>显示<?php else: ?>隐藏<?php endif; ?></td>
                         <td class="td_center_show"> 
                             <span class="control_span">
                                 <a href="__URL__/groupEdit/id/<?php echo ($vo["id"]); ?>" title="编辑伙拼"><img border="0" src="__ROOT__/Public/Images/icon_edit.gif"/></a>

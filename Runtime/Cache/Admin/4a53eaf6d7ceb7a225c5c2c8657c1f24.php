@@ -81,7 +81,7 @@
                     <th width="65"> 项目编号 </th>
                     <th width="100"> 产地名称 </th>
                     <th width="60"> 产地排序 </th>
-                    <th width="60"> 产地状态 </th>
+                    <th width="60"> 是否显示 </th>
                     <th width="150"> 操作选项 </th>
                 </tr>    
                 
@@ -90,7 +90,7 @@
                         <td align="center" style="padding: 0; text-align: center;"> <?php echo ($vo["id"]); ?> </td>
                         <td> <?php echo ($vo["name"]); ?> </td>
                         <td class="td_center_show"> <input class="list_sort" type="text" dataid=<?php echo ($vo["id"]); ?> name="sort[<?php echo ($vo["id"]); ?>]" value="<?php echo ($vo["order_index"]); ?>">  </td>
-                        <td class="td_center_show"> <a href="javascript:void();"> <?php if($vo['status'] == 1): ?><img border_index="0" src="__ROOT__/Public/Images/yes.gif"> <?php else: ?> <img border_index="0"  src="__ROOT__/Public/Images/no.gif"><?php endif; ?> </a> </td>
+                        <td class="td_center_show"> <a href="javascript:void();"> <?php if($vo['is_show'] == 1): ?><img border_index="0" src="__ROOT__/Public/Images/yes.gif"> <?php else: ?> <img border_index="0"  src="__ROOT__/Public/Images/no.gif"><?php endif; ?> </a> </td>
                         <td class="td_center_show"> 
                             <span class="control_span">   
                                 <a href="__URL__/edit/id/<?php echo ($vo["id"]); ?>" title="编辑产地"><img border_index="0" src="__ROOT__/Public/Images/icon_edit.gif"/></a>

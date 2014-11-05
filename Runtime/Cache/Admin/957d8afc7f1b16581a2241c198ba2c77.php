@@ -27,6 +27,12 @@
             <table class="add_table" cellspacing="1" cellpadding="3">
                 <tr>
                     <td width="100" align="center"> 
+                        商品价格
+                    </td>
+                    <td> <input type="text" class="add_input_text" id="group_price" name="price" value="<?php echo ($info["price"]); ?>" style="width:150px;" /> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
                         商品名称
                     </td>
                     <td> <input type="text" class="add_input_text" id="group_name" name="name" value="<?php echo ($info["name"]); ?>" style="width:150px;" /> </td>
@@ -78,9 +84,21 @@
                 </tr>
                 <tr>
                     <td width="100" align="center"> 
-                        起订量
+                        起订规格
                     </td>
-                    <td> <input type="text" class="add_input_text" id="order_moq" name="order_moq" value="<?php echo ($info["order_moq"]); ?>" style="width:80px;" /> </td>
+                    <td> <input type="text" class="add_input_text" id="moq_spec" name="moq_spec" value="<?php echo ($info["moq_spec"]); ?>" style="width:80px;" /> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
+                        最低价格
+                    </td>
+                    <td> <input type="text" class="add_input_text" id="min_price" name="min_price" value="<?php echo ($info["min_price"]); ?>" style="width:80px;" /> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
+                        最低价格对应的规格
+                    </td>
+                    <td> <input type="text" class="add_input_text" id="min_price_spec" name="min_price_spec" value="<?php echo ($info["min_price_spec"]); ?>" style="width:80px;" /> </td>
                 </tr>
                 <tr>
                     <td width="100" align="center"> 
@@ -96,7 +114,7 @@
                 </tr>
                 <tr>
                     <td width="100" align="center"> 显示状态 </td>
-                    <td> <input type="radio" name="status" value="1" <?php if(($info['status']) == "1"): ?>checked="true"<?php endif; ?> > 显示 <input type="radio" name="status" value="0" <?php if(($info['status']) == "0"): ?>checked="true"<?php endif; ?> /> 隐藏 </td>
+                    <td> <input type="radio" name="is_show" value="1" <?php if(($info['is_show']) == "1"): ?>checked="true"<?php endif; ?> > 显示 <input type="radio" name="is_show" value="0" <?php if(($info['is_show']) == "0"): ?>checked="true"<?php endif; ?> /> 隐藏 </td>
                 </tr>
             </table>
 
@@ -141,6 +159,17 @@
             );
 
             $("#js_edit_group").click(function(){
+                var price = $("#group_price").val();
+                if(price == ""){
+                    alert("商品价格不能为空");
+                    $("#group_price").focus();
+                    return false;
+                }
+                if(!isMoney(price)){
+                    alert("商品价格格式不对");
+                    $("#group_price").focus();
+                    return false;
+                }
                 var name = $("#group_name").val();
                 if(name == ""){
                     alert("商品名称不能为空");
@@ -152,15 +181,47 @@
                     alert("封面图片不能为空");
                     return false;
                 }
-                var order_moq = $("#order_moq").val();
-                if(order_moq == ""){
-                    alert("起订量不能为空");
-                    $("#order_moq").focus();
+                var moq_spec = $("#moq_spec").val();
+                if(moq_spec == ""){
+                    alert("起订规格不能为空");
+                    $("#moq_spec").focus();
                     return false;
                 }
-                if(!isNumber(order_moq)){
-                    alert("起订量格式不对");
-                    $("#order_moq").focus();
+                if(!isNumber(moq_spec)){
+                    alert("起订规格格式不对");
+                    $("#moq_spec").focus();
+                    return false;
+                }
+                var min_price = $("#min_price").val();
+                if(min_price == ""){
+                    alert("商品最低价格不能为空");
+                    $("#min_price").focus();
+                    return false;
+                }
+                if(!isMoney(min_price)){
+                    alert("商品最低价格格式不对");
+                    $("#min_price").focus();
+                    return false;
+                }
+                if(min_price>price){
+                    alert("商品最低价格不能大于商品价格");
+                    $("#min_price").focus();
+                    return false;
+                }
+                var min_price_spec = $("#min_price_spec").val();
+                if(min_price_spec == ""){
+                    alert("商品最低价格对应的规格不能为空");
+                    $("#min_price_spec").focus();
+                    return false;
+                }
+                if(!isNumber(min_price_spec)){
+                    alert("商品最低价格对应的规格格式不对");
+                    $("#min_price_spec").focus();
+                    return false;
+                }
+                if(min_price_spec<moq_spec){
+                    alert("商品最低价格对应的规格不能小于起订规格");
+                    $("#min_price_spec").focus();
                     return false;
                 }
                 var start_time = $("#start_time").val();
@@ -182,14 +243,14 @@
                 var id = $("#group_id").val();  
                 var category_id = $("#goods_category").val();
                 var production_id = $("#goods_production").val();
-                var status = $("input[name=status]:checked").val();
+                var is_show = $("input[name=is_show]:checked").val();
 
                 if(isSubmitButton === false){
                     isSubmitButton = true;
                     $.ajax({
                         type:"post",
                         url:"__URL__/groupUpdate",
-                        data:{id:id,category_id:category_id,production_id:production_id,name:name,image:image,order_moq:order_moq,start_time:start_time,end_time:end_time,status:status},
+                        data:{id:id,category_id:category_id,production_id:production_id,name:name,price:price,image:image,moq_spec:moq_spec,min_price:min_price,min_price_spec:min_price_spec,start_time:start_time,end_time:end_time,is_show:is_show},
                         async:false,
                         success:function(data){
                             var res = eval(data);

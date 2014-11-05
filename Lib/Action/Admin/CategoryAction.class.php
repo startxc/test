@@ -34,7 +34,7 @@ class CategoryAction extends CommonAction {
         $data = array();
         $data['name'] = trim($_POST['name']);
         $data['order_index'] = intval($_POST['order_index']);
-        $data['status'] = intval($_POST['status']);
+        $data['is_show'] = intval($_POST['is_show']);
         $data['image'] = trim($_POST['image']);
         $data['create_time'] = time();
         $category = M("Category");
@@ -55,7 +55,7 @@ class CategoryAction extends CommonAction {
         $id = intval($_POST['id']);
         $data = array();
         $data['name'] = trim($_POST['name']);
-        $data['status'] = intval($_POST['status']);
+        $data['is_show'] = intval($_POST['is_show']);
         $data['order_index'] = intval($_POST['order_index']);
         $data['image'] = trim($_POST['image']);
         $data['create_time'] = time();
@@ -104,6 +104,12 @@ class CategoryAction extends CommonAction {
             $back->info = "更新失败";
         }
         ajax_return($back);
+    }
+
+    //获得分类列表
+    public function getCategoryList(){
+        $category = M("Category")->where("is_show=1")->order("order_index desc")->select();
+        return $category;
     }
     
 }

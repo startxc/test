@@ -206,9 +206,9 @@
                 </tr>
                 <tr>
                     <td width="85" align="center"> 
-                        <i class='bright'>*</i>商品状态 
+                        <i class='bright'>*</i>是否显示 
                     </td>
-                    <td> <input type="radio" name="status" value="1" <?php if(($goods["status"]) == "1"): ?>checked<?php endif; ?> />启用&nbsp;&nbsp;<input type="radio" name="status" value="0" <?php if(($goods["status"]) == "0"): ?>checked<?php endif; ?> />禁用</td>
+                    <td> <input type="radio" name="is_show" value="1" <?php if(($goods["is_show"]) == "1"): ?>checked<?php endif; ?> />启用&nbsp;&nbsp;<input type="radio" name="is_show" value="0" <?php if(($goods["is_show"]) == "0"): ?>checked<?php endif; ?> />禁用</td>
                 </tr>
             </table>
 
@@ -334,15 +334,15 @@
                 $("#goods_order").focus();
                 return false;
             }
-            //商品状态
-            var status = $("input[name=status]").val();
+            //是否显示
+            var is_show = $("input[name=is_show]:checked").val();
             $(this).val("提交中...");
             if(isSubmitButton === false){
                 isSubmitButton = true;
                 $.ajax({
                     type:"post",
                     url:"__URL__/update",
-                    data:{id:id,old_name:old_name,cid:cid,pid:pid,name:name,price:price,spec:spec,images:images,desc:desc,order:order,status:status},
+                    data:{id:id,old_name:old_name,cid:cid,pid:pid,name:name,price:price,spec:spec,images:images,desc:desc,order:order,is_show:is_show},
                     async:false,
                     success:function(data){
                         var res = eval(data);

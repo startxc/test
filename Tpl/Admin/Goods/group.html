@@ -49,12 +49,15 @@
                 <tr>
                     <th width="65"> 项目编号 </th>
                     <th width="150"> 商品名称 </th>
-                    <th width="60"> 起订量 </th>
-                    <th width="60"> 预订量 </th>
+                    <th width="150"> 商品价格 </th>
+                    <th width="60"> 起订规格 </th>
+                    <th width="60"> 销售规格 </th>
                     <th width="60"> 销售数量 </th>
+                    <th width="60"> 商品最低价格 </th>
+                    <th width="60"> 商品最低价格对应的规格 </th>
                     <th width="205"> 开始时间 </th>
                     <th width="205"> 结束时间 </th>
-                    <th width="205"> 显示状态 </th>
+                    <th width="205"> 是否显示 </th>
                     <th width="200">操作</th>
                 </tr>    
                 
@@ -62,12 +65,15 @@
                     <tr class="list_tr">
                         <td class="td_items"> {$vo.id} </td>
                         <td> {$vo.name} </td>
-                        <td> {$vo.order_moq}  </td>
-                        <td> {$vo.spec} </td>
+                        <td> {$vo.price} </td>
+                        <td> {$vo.moq_spec}  </td>
+                        <td> {$vo.sale_spec} </td>
                         <td> {$vo.sale_count} </td>
+                        <td> {$vo.min_price} </td>
+                        <td> {$vo.min_price_spec} </td>
                         <td> {$vo.start_time|date='Y-m-d',###} </td>
                         <td> {$vo.end_time|date='Y-m-d',###} </td>
-                        <td><eq name="vo.status" value="1">显示<else/>隐藏</eq></td>
+                        <td><eq name="vo.is_show" value="1">显示<else/>隐藏</eq></td>
                         <td class="td_center_show"> 
                             <span class="control_span">
                                 <a href="__URL__/groupEdit/id/{$vo.id}" title="编辑伙拼"><img border="0" src="__ROOT__/Public/Images/icon_edit.gif"/></a>

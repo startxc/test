@@ -34,7 +34,7 @@ class ProductionAction extends CommonAction {
         $data = array();
         $data['name'] = trim($_POST['name']);
         $data['order_index'] = intval($_POST['order_index']);
-        $data['status'] = intval($_POST['status']);
+        $data['is_show'] = intval($_POST['is_show']);
         $data['create_time'] = time();
         $Production = M("Production");
         $back = new stdClass();
@@ -54,7 +54,7 @@ class ProductionAction extends CommonAction {
         $id = intval($_POST['id']);
         $data = array();
         $data['name'] = trim($_POST['name']);
-        $data['status'] = intval($_POST['status']);
+        $data['is_show'] = intval($_POST['is_show']);
         $data['order_index'] = intval($_POST['order_index']);
         $data['create_time'] = time();
         $back = new stdClass();
@@ -95,7 +95,13 @@ class ProductionAction extends CommonAction {
         }
         ajax_return($back);
     }
-    
+
+    //获得产地列表
+    public function getProductionList(){
+        $production = M("Production")->where("is_show=1")->order("order_index desc")->select();
+        return $production;
+    }
+   
 }
 
 ?>

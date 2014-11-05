@@ -8,11 +8,11 @@ class GoodsAction extends CommonAction {
 
     public function index() {
         //分类
-        $category = M("Category")->order("order_index desc")->select();
+        $category = A("Admin/Category")->getCategoryList();
         $this->assign("category",$category);
 
         $condition = array();
-        $condition['deleted'] = 0;       
+        $condition['is_deleted'] = 0;       
         $cid = intval($_GET['cid']);
         if($cid != 0){
             $condition['category_id'] = $cid;
@@ -42,11 +42,11 @@ class GoodsAction extends CommonAction {
     //添加商品页面
     public function add() {
         //取得分类        
-        $category = M("Category")->field("id,name")->order("order_index desc")->select();
+        $category = A("Admin/Category")->getCategoryList();
         $this->assign("category", $category); 
 
         //取得产地
-        $production = M("Production")->field("id,name")->order("order_index desc")->select();
+        $production = A("Admin/Production")->getProductionList();
         $this->assign("production", $production);   
         $this->display();
     }
@@ -62,14 +62,14 @@ class GoodsAction extends CommonAction {
         }
         $this->assign("goods",$goods);
 
-        $category = M("Category")->order("order_index desc")->select();
+        $category = A("Admin/Category")->getCategoryList();
         $this->assign("category", $category);  
 
         $goods_image = M("Goods_image")->where("goods_id={$goods['id']}")->select();
         $this->assign("goods_image",$goods_image);
 
         //取得产地
-        $production = M("Production")->field("id,name")->order("order_index desc")->select();
+        $production = A("Admin/Production")->getProductionList();
         $this->assign("production", $production);
 
         $this->display();
@@ -90,7 +90,7 @@ class GoodsAction extends CommonAction {
         $data['description'] = trim($_POST['desc']);
         $data['order_index'] = intval($_POST['order']);
         $data['create_time'] = $time;
-        $data['status'] = intval($_POST['status']);
+        $data['is_show'] = intval($_POST['is_show']);
 
         $back = new stdClass();
         $goods = M("Goods");
@@ -145,8 +145,8 @@ class GoodsAction extends CommonAction {
         $data['image'] = $images[0];
         $data['description'] = trim($_POST['desc']);
         $data['order_index'] = intval($_POST['order']);
-        $data['status'] = intval($_POST['status']);
-
+        $data['is_show'] = intval($_POST['is_show']);
+        $data['update_time'] = time();
         $back = new stdClass();
         $goods = M("Goods");
         $goods->startTrans();
@@ -193,7 +193,7 @@ class GoodsAction extends CommonAction {
         if (empty($id)) {
             $this->error("非法操作!");
         }
-        $sign = M("Goods")->where("id='{$id}'")->data(array('deleted' => 1))->save();
+        $sign = M("Goods")->where("id='{$id}'")->data(array('is_deleted' => 1))->save();
         if ($sign) {
             $this->success("添加到回收站成功!");
         } else {
@@ -204,11 +204,11 @@ class GoodsAction extends CommonAction {
 
     public function recover() {
         //分类
-        $category = M("Category")->order("order_index desc")->select();
+        $category = A("Admin/Category")->getCategoryList();
         $this->assign("category",$category);
 
         $condition = array();
-        $condition['deleted'] = 1;       
+        $condition['is_deleted'] = 1;       
         $cid = intval($_GET['cid']);
         if($cid != 0){
             $condition['category_id'] = $cid;
@@ -240,7 +240,7 @@ class GoodsAction extends CommonAction {
         if (empty($id)) {
             $this->error("非法操作!");
         }
-        $sign = M("Goods")->where("id='{$id}'")->data(array('deleted' => 0))->save();
+        $sign = M("Goods")->where("id='{$id}'")->data(array('is_deleted' => 0))->save();
         if ($sign) {
             $this->success("还原成功!");
         } else {
@@ -270,7 +270,7 @@ class GoodsAction extends CommonAction {
     //伙拼管理
     public function group(){
         $condition = array();
-        $condition['status'] = 1; 
+        //$condition['is_show'] = 1; 
         $keywords = trim($_GET['keywords']);
         if(!empty($keywords)){
             $condition['name'] = array("like","%{$keywords}%");
@@ -301,10 +301,10 @@ class GoodsAction extends CommonAction {
         if(empty($group)){
             $this->error("要编辑的伙拼信息不存在");
         }
-        $category = M("Category")->order("order_index desc")->select();
+        $category = A("Admin/Category")->getCategoryList();
         $this->assign("category", $category); 
 
-        $production = M("Production")->field("id,name")->order("order_index desc")->select();
+        $production = A("Admin/Production")->getProductionList();
         $this->assign("production", $production);
 
         $this->assign("info",$group);
@@ -315,25 +315,48 @@ class GoodsAction extends CommonAction {
     public function groupUpdate(){
         !$this->isAjax() && $this->error("非法访问");
         $id = intval($_POST['id']);
+        $time = time();
         $data = array();
+        $data['price'] = $_POST['price'];
         $data['name'] = trim($_POST['name']);
         $data['category_id'] = intval($_POST['category_id']);
         $data['production_id'] = intval($_POST['production_id']);
         $data['image'] = trim($_POST['image']);
-        $data['order_moq'] = intval($_POST['order_moq']);
+        $data['moq_spec'] = intval($_POST['moq_spec']);
+        $data['min_price'] = $_POST['min_price'];
+        $data['min_price_spec'] = $_POST['min_price_spec'];
         $data['start_time'] = strtotime("{$_POST['start_time']} 00:00:00");
         $data['end_time'] = strtotime("{$_POST['end_time']} 23:59:59");
-        $data['status'] = intval($_POST['status']);
+        $data['is_show'] = intval($_POST['is_show']);
+        $data['update_time'] = $time;
 
         $back = new stdClass();
-        if(M("Group")->where("id={$id}")->save($data)){
-            $back->status = 1;
-            $back->info = "修改成功";
-        }else{
+        $group = M("Group");
+        $group->startTrans();
+        if(!$group->where("id={$id}")->save($data)){
             $back->status = 0;
             $back->info = "修改失败";
+             ajax_return($back);
         }
-        $back->sql = M("Group")->getLastSql();
+        $group_phase_id = $group->where("id={$id}")->getField("group_phase_id");
+        $group_phase_data = array(
+            "price"=>$data['price'],
+            "min_price"=>$data['min_price'],
+            "min_price_spec"=>$data['min_price_spec'],
+            "moq_spec"=>$data['moq_spec'],
+            "start_time"=>$data['start_time'],
+            "end_time"=>$data['end_time'],
+            "update_time"=>$time
+        );
+        if(!M("Group_phase")->where("id={$group_phase_id}")->save($group_phase_data)){
+            $back->status = 0;
+            $back->info = "修改失败";
+            $group->rollback();
+            ajax_return($back);
+        }
+        $back->status = 1;
+        $back->info = "修改成功";
+        $group->commit();
         ajax_return($back);
     }
 
@@ -371,10 +394,10 @@ class GoodsAction extends CommonAction {
             $this->error("要审核的信息不存在");
             exit;
         }
-        $category = M("Category")->order("order_index desc")->select();
+        $category = A("Admin/Category")->getCategoryList();
         $this->assign("category", $category); 
 
-        $production = M("Production")->field("id,name")->order("order_index desc")->select();
+        $production = A("Admin/Production")->getProductionList();
         $this->assign("production", $production);
 
         $this->assign("groupApply",$groupApply);
@@ -386,23 +409,59 @@ class GoodsAction extends CommonAction {
         !$this->isAjax() && $this->error("非法访问");
         $id = intval($_POST['id']);
         $time = time();
+        $goods_id = intval($_POST['goods_id']);
+        $back = new stdClass();
+        if(M("Group")->where("goods_id={$goods_id}")->find()){
+            $back->status = 0;
+            $back->info = "已经存在该商品的伙拼信息啦";
+            ajax_return($back);
+        }
         $group_data = array(
-            "goods_id"=>intval($_POST['goods_id']),
+            "goods_id"=>$goods_id,
             "category_id"=>intval($_POST['category_id']),
             "production_id"=>intval($_POST['production_id']),
             "name"=>trim($_POST['name']),
+            "price"=>$_POST['price'],
+            "min_price"=>$_POST['min_price'],
+            "min_price_spec"=>$_POST['min_price_spec'],
+            "real_price"=>$_POST['price'],
             "image"=>trim($_POST['image']),
-            "order_moq"=>intval($_POST['order_moq']),
+            "description"=>trim($_POST['desc']),
+            "moq_spec"=>intval($_POST['moq_spec']),
             "start_time"=>strtotime("{$_POST['start_time']} 00:00:00"),
             "end_time"=>strtotime("{$_POST['end_time']} 23:59:59"),
-            "create_time"=>$time
+            "create_time"=>$time,
+            "update_time"=>$time
         );
         $group = M("Group");
         $group->startTrans();
-        $back = new stdClass();
         if(!$group_id = $group->add($group_data)){
             $back->status = 0;
             $back->info = "操作失败";
+            ajax_return($back);
+        }
+        $group_phase_data = array(
+            "group_id"=>$group_id,
+            "price"=>$_POST['price'],
+            "min_price"=>$_POST['min_price'],
+            "min_price_spec"=>$_POST['min_price_spec'],
+            "real_price"=>$_POST['price'],
+            "moq_spec"=>intval($_POST['moq_spec']),
+            "start_time"=>strtotime("{$_POST['start_time']} 00:00:00"),
+            "end_time"=>strtotime("{$_POST['end_time']} 23:59:59"),
+            "create_time"=>$time,
+            "update_time"=>$time
+        );
+        if(!$group_phase_id = M("Group_phase")->add($group_phase_data)){
+            $back->status = 0;
+            $back->info = "操作失败";
+            $group->rollback();
+            ajax_return($back);
+        }
+        if(!M("Group")->where("id={$group_id}")->setField("group_phase_id",$group_phase_id)){
+            $back->status = 0;
+            $back->info = "操作失败";
+            $group->rollback();
             ajax_return($back);
         }
         $group_apply_data = array(
