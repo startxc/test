@@ -1,0 +1,58 @@
+[ 2014-11-05T09:43:30+08:00 ] / | INFO: Tag[ app_begin ] --START--
+[ 2014-11-05T09:43:30+08:00 ] / | INFO: Run ReadHtmlCache Behavior [ RunTime:0.031564s ]
+[ 2014-11-05T09:43:30+08:00 ] / | INFO: Run CheckLang Behavior [ RunTime:0.057147s ]
+[ 2014-11-05T09:43:30+08:00 ] / | INFO: Tag[ app_begin ] --END-- [ RunTime:0.103922s ]
+[ 2014-11-05T09:43:30+08:00 ] / | SQL: SHOW COLUMNS FROM `lj_menu` [ RunTime:0.010118s ]
+[ 2014-11-05T09:43:30+08:00 ] / | SQL: SELECT `id`,`name`,`url`,`child` FROM `lj_menu` WHERE status=1 ORDER BY sort asc  [ RunTime:0.008836s ]
+[ 2014-11-05T09:43:30+08:00 ] / | SQL: SHOW COLUMNS FROM `lj_rbac_node` [ RunTime:0.014513s ]
+[ 2014-11-05T09:43:30+08:00 ] / | SQL: SELECT `id`,`name`,`title`,`pid` FROM `lj_rbac_node` WHERE pid=1 ORDER BY sort desc  [ RunTime:0.013045s ]
+[ 2014-11-05T09:43:30+08:00 ] / | NOTIC: [2] Invalid argument supplied for foreach() IndexAction.class.php 第 20 行.
+[ 2014-11-05T09:43:30+08:00 ] / | NOTIC: [2] unlink(./Runtime/Temp/~@4f5c6f858bd9d3d2f98c57840bf2150a.php) [<a href='function.unlink'>function.unlink</a>]: No such file or directory CacheFile.class.php 第 220 行.
+[ 2014-11-05T09:43:30+08:00 ] / | SQL: SHOW COLUMNS FROM `lj_quick` [ RunTime:0.009391s ]
+[ 2014-11-05T09:43:30+08:00 ] / | SQL: SELECT * FROM `lj_quick` WHERE uid=1  [ RunTime:0.008008s ]
+[ 2014-11-05T09:43:30+08:00 ] / | INFO: Tag[ view_template ] --START--
+[ 2014-11-05T09:43:30+08:00 ] / | INFO: Run LocationTemplate Behavior [ RunTime:0.021577s ]
+[ 2014-11-05T09:43:30+08:00 ] / | INFO: Tag[ view_template ] --END-- [ RunTime:0.023112s ]
+[ 2014-11-05T09:43:30+08:00 ] / | INFO: Tag[ view_parse ] --START--
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Run ParseTemplate Behavior [ RunTime:0.185983s ]
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Tag[ view_parse ] --END-- [ RunTime:0.187317s ]
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Tag[ view_filter ] --START--
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Run ContentReplace Behavior [ RunTime:0.016289s ]
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Run TokenBuild Behavior [ RunTime:0.011720s ]
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Run WriteHtmlCache Behavior [ RunTime:0.004245s ]
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Run ShowRuntime Behavior [ RunTime:0.005072s ]
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Tag[ view_filter ] --END-- [ RunTime:0.040469s ]
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Tag[ view_end ] --START--
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Run ShowPageTrace Behavior [ RunTime:0.002681s ]
+[ 2014-11-05T09:43:31+08:00 ] / | INFO: Tag[ view_end ] --END-- [ RunTime:0.003823s ]
+[ 2014-11-05T09:43:31+08:00 ] /Public/Images/panel_nav_bg.png | ERR: (ThinkException) 非法操作Images
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Tag[ route_check ] --START--
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Run CheckRoute Behavior [ RunTime:0.048756s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Tag[ route_check ] --END-- [ RunTime:0.054162s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Tag[ app_begin ] --START--
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Run ReadHtmlCache Behavior [ RunTime:0.012466s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Run CheckLang Behavior [ RunTime:0.018793s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Tag[ app_begin ] --END-- [ RunTime:0.037816s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Tag[ view_template ] --START--
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Run LocationTemplate Behavior [ RunTime:0.003548s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Tag[ view_template ] --END-- [ RunTime:0.004887s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Tag[ view_parse ] --START--
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Run ParseTemplate Behavior [ RunTime:0.107627s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Tag[ view_parse ] --END-- [ RunTime:0.108982s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Tag[ view_filter ] --START--
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Run ContentReplace Behavior [ RunTime:0.003137s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Run TokenBuild Behavior [ RunTime:0.003681s ]
+[ 2014-11-05T09:43:31+08:00 ] /Index/main | INFO: Run WriteHtmlCache Behavior [ RunTime:0.001630s ]
+[ 2014-11-05T09:43:32+08:00 ] /Index/main | INFO: Run ShowRuntime Behavior [ RunTime:0.004727s ]
+[ 2014-11-05T09:43:32+08:00 ] /Index/main | INFO: Tag[ view_filter ] --END-- [ RunTime:0.016527s ]
+[ 2014-11-05T09:43:32+08:00 ] /Index/main | INFO: Tag[ view_end ] --START--
+[ 2014-11-05T09:43:32+08:00 ] /Index/main | INFO: Run ShowPageTrace Behavior [ RunTime:0.002802s ]
+[ 2014-11-05T09:43:32+08:00 ] /Index/main | INFO: Tag[ view_end ] --END-- [ RunTime:0.004000s ]
+[ 2014-11-05T09:43:32+08:00 ] /Public/Images/bar_close.png | ERR: (ThinkException) 非法操作Images
+[ 2014-11-05T09:43:32+08:00 ] /Public/Images/left_bg.png | ERR: (ThinkException) 非法操作Images
+[ 2014-11-05T09:43:32+08:00 ] /Public/Images/scroll_bg.png | ERR: (ThinkException) 非法操作Images
+[ 2014-11-05T09:43:32+08:00 ] /Public/Images/header_bg.gif | ERR: (ThinkException) 非法操作Images
+[ 2014-11-05T09:43:32+08:00 ] /Public/Images/loading2.gif | ERR: (ThinkException) 非法操作Images
+[ 2014-11-05T09:43:32+08:00 ] /favicon.ico | ERR: (ThinkException) 无法加载模块favicon.ico
+[ 2014-11-05T09:43:32+08:00 ] /favicon.ico | ERR: (ThinkException) 无法加载模块favicon.ico
+[ 2014-11-05T09:43:32+08:00 ] /favicon.ico | ERR: (ThinkException) 无法加载模块favicon.ico
