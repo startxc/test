@@ -71,6 +71,7 @@
                     <th width="205"> 开始时间 </th>
                     <th width="205"> 结束时间 </th>
                     <th width="205"> 是否显示 </th>
+                    <th width="205"> 是否推荐 </th>
                     <th width="200">操作</th>
                 </tr>    
                 
@@ -86,6 +87,7 @@
                         <td> <?php echo (date('Y-m-d',$vo["start_time"])); ?> </td>
                         <td> <?php echo (date('Y-m-d',$vo["end_time"])); ?> </td>
                         <td><?php if(($vo["is_show"]) == "1"): ?>显示<?php else: ?>隐藏<?php endif; ?></td>
+                        <td><?php if(($vo["is_recommend"]) == "1"): ?>推荐<?php else: ?>不推荐<?php endif; ?></td>
                         <td class="td_center_show"> 
                             <span class="control_span">
                                 <a href="__URL__/groupEdit/id/<?php echo ($vo["id"]); ?>" title="编辑伙拼"><img border="0" src="__ROOT__/Public/Images/icon_edit.gif"/></a>

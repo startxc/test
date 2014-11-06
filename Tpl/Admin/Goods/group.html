@@ -58,6 +58,7 @@
                     <th width="205"> 开始时间 </th>
                     <th width="205"> 结束时间 </th>
                     <th width="205"> 是否显示 </th>
+                    <th width="205"> 是否推荐 </th>
                     <th width="200">操作</th>
                 </tr>    
                 
@@ -74,6 +75,7 @@
                         <td> {$vo.start_time|date='Y-m-d',###} </td>
                         <td> {$vo.end_time|date='Y-m-d',###} </td>
                         <td><eq name="vo.is_show" value="1">显示<else/>隐藏</eq></td>
+                        <td><eq name="vo.is_recommend" value="1">推荐<else/>不推荐</eq></td>
                         <td class="td_center_show"> 
                             <span class="control_span">
                                 <a href="__URL__/groupEdit/id/{$vo.id}" title="编辑伙拼"><img border="0" src="__ROOT__/Public/Images/icon_edit.gif"/></a>

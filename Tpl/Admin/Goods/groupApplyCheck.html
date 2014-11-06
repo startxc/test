@@ -242,7 +242,7 @@
                         $("#min_price").focus();
                         return false;
                     }
-                    if(min_price>price){
+                    if(parseFloat(min_price)>parseFloat(price)){
                         alert("伙拼最低价格不能大于商品价格");
                         $("#min_price").focus();
                         return false;
@@ -302,7 +302,7 @@
                                 alert("操作成功");
                                 window.location.href = "__URL__/groupApply";
                             }else{
-                                alert("操作失败");
+                                alert(res.info);
                             }
                         }
                     });

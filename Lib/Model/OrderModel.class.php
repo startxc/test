@@ -21,7 +21,7 @@ class OrderModel extends CommonModel {
 		$orderGoodsModel = M('OrderGoods');
 		$memberAddress = M('MemberAddress');
 		$cartModel = D('Cart');
-		$back = new \stdClass();
+		$back = new stdClass();
 		
 		$cartArr = $cartModel->getCartList();
 		if (empty($cartArr)) {
@@ -89,30 +89,6 @@ class OrderModel extends CommonModel {
 		$back->status = 1;
 	    return $back;
 	}
-	
-	/**
-	 * 订单发货
-	 * @param integer $orderId 订单ID
-	 * @return boolean
-	 */
-	
-	public function deliverOrder($orderId) {
-		$orderModel = M('Order');
-		
-    	$orderInfo = $orderModel->where(array('id' => $orderId))->find();
-    	if (!$orderInfo) {
-    		return false;
-    	}
-    	if ($orderInfo['order_status'] != 'created') {
-    		return false;
-    	}
-		
-		$id = $orderModel->where(array('id' => $orderId))->save(array('order_status' => 'shipped', 'shippint_time' => time()));
-    	if ($id === false) {
-    		return false;
-    	}
-    	return true;
-	}
 
 	/**
 	 * 确认收货
@@ -124,27 +100,21 @@ class OrderModel extends CommonModel {
 		$goodsModel = M('Goods');
 		$orderModel = M('Order');
 		$orderGoodsModel = M('OrderGoods');
-		
     	$orderInfo = $orderModel->where(array('id' => $orderId))->find();
     	if (!$orderInfo) {
     		return false;
     	}
-		if ($orderInfo['order_status'] != 'created') {
+		if ($orderInfo['order_status'] != 'shipped') {
     		return false;
     	}
-		
 		$id = $orderModel->where(array('id' => $orderId))->save(array('order_status' => 'received', 'confirm_time' => time()));
     	if ($id === false) {
     		return false;
     	}
-    	
     	$orderGoodsList = $orderGoodsModel->where(array('order_id' => $orderId))->field('goods_id, number')->select();
     	foreach ($orderGoodsList as $key => $orderGoods) {
     		//更新商品销量
-    		$id = $goodsModel->where(array('id' => $orderGoods['goods_id']))->setInc('sales_count', $orderGoods['number']);
-	    	if ($id === false) {
-	    		return false;
-	    	}
+    		$goodsModel->where(array('id' => $orderGoods['goods_id']))->setInc('sales_count', $orderGoods['number']);
     	}
     	return true;
 	}
@@ -156,8 +126,7 @@ class OrderModel extends CommonModel {
 	 */
 	
 	public function cancelOrder($orderId) {
-		$orderModel = M('order');
-		
+		$orderModel = M('Order');
     	$orderInfo = $orderModel->where(array('id' => $orderId))->find();
     	if (!$orderInfo) {
     		return false;
@@ -165,7 +134,6 @@ class OrderModel extends CommonModel {
     	if ($orderInfo['order_status'] != 'created') {
     		return false;
     	}
-		
 		$id = $orderModel->where(array('id' => $orderId))->save(array('order_status' => 'canceled'));
     	if ($id === false) {
     		return false;
@@ -180,8 +148,8 @@ class OrderModel extends CommonModel {
 	
 	private function createOrderNo() {
 		//订单号规则：店铺ID+年的后2位+月+日+订单数
-		$count = M('order')->count();
-		$orderNo = I('session.shopId') . substr(date('Ymd', time()), 2) . $count;
+		$count = M('Order')->count();
+		$orderNo = substr(date('Ymd', time()), 2) . $count;
 		return $orderNo;
 	}
 }

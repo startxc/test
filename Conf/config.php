@@ -6,7 +6,7 @@
 
 //'配置项'=>'配置值'
 return array(
-    'APP_GROUP_LIST'    => 'Api,Admin',   //项目分组设定
+    'APP_GROUP_LIST'    => 'Api,Admin,Mobile',   //项目分组设定
     'DEFAULT_GROUP'     => 'Admin',         //默认分组
     'TMPL_PARSE_STRING' => array('__PUBLIC__'    =>  '/Public'),
     

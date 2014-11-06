@@ -94,6 +94,44 @@
     .box_template_list ul li input { padding-left: 3px; width: 733px; height: 24px; border: 1px solid #CDCDCD; border-bottom: none; }
     .box_template_list ul li textarea { padding-left: 3px; width: 733px; height: 48px; border: 1px solid #CDCDCD;  }
     .box_template_list .box_image_out { width: 738px; height: 300px; overflow: hidden; }
+
+    .selected_production{position:relative;display:inline-block;}
+    .production_name{
+        background: linear-gradient(#fdfefd, #ebebec) repeat scroll 0 0 rgba(0, 0, 0, 0); 
+        font-size: 12px;    
+        border: 1px solid #cccccc;
+        border-radius: 3px;
+        color: #666;
+        display: inline-block;
+        height: 22px;
+        line-height: 22px;
+        margin-bottom: 6px;
+        margin-right: 8px;
+        padding: 0 8px;
+        outline: medium none;
+    }
+    .production_delete{
+        background: none repeat scroll 0 0 red;
+        border-radius: 10px;
+        color: #fff;
+        cursor: pointer;
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        height: 14px;
+        line-height: 12px;
+        position: absolute;
+        right: 2px;
+        text-align: center;
+        top: -5px;
+        width: 14px;       
+    }
+    a.production_name:hover{
+        color:#666;
+    }
+    a.production_delete:hover{
+        color:#fff;
+    }
     
 </style>
 
@@ -119,12 +157,22 @@
                 </tr>
                 <tr>
                     <td width="85" align="center"> 
-                        商品产地
+                        产地列表
                     </td>
                     <td> 
                         <select id="goods_production">
                             <?php if(is_array($production)): $i = 0; $__LIST__ = $production;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>"><?php echo ($vo["name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
                         </select>
+                        <input type="button" value="添加" id="add_production" />&nbsp;&nbsp;
+                    </td>
+                </tr>
+                <tr>
+                    <td width="85" align="center"> 
+                        已选产地
+                    </td>
+                    <td id="selected_production"> 
+                        
+
                     </td>
                 </tr>
                 <tr>
@@ -204,7 +252,13 @@
                     <td width="85" align="center"> 
                         <i class='bright'>*</i>是否显示 
                     </td>
-                    <td> <input type="radio" name="is_show" value="1" checked />启用&nbsp;&nbsp;<input type="radio" name="is_show" value="0" />禁用</td>
+                    <td> <input type="radio" name="is_show" value="1" checked />显示&nbsp;&nbsp;<input type="radio" name="is_show" value="0" />不显示</td>
+                </tr>
+                <tr>
+                    <td width="85" align="center"> 
+                        <i class='bright'>*</i>是否推荐 
+                    </td>
+                    <td> <input type="radio" name="is_recommend" value="1"  />推荐&nbsp;&nbsp;<input type="radio" name="is_recommend" value="0"  checked/>不推荐</td>
                 </tr>
             </table>
 
@@ -268,6 +322,21 @@
 
         );
 
+        $("#add_production").click(function(){
+            var production_name = $("#goods_production").find("option:selected").html();
+            var production_id = $("#goods_production").val();
+            if($("#selected_production").find(".selected_production[dataid="+production_id+"]").length<1){
+                var html =  "<span class='selected_production' dataid='"+production_id+"'>";
+                    html += "<a class='production_name'>"+production_name+"</a>";
+                    html += "<a class='production_delete'>-</a>";
+                    html += "</span>";
+                $("#selected_production").append(html);
+            }
+        });
+        $(".production_delete").live("click",function(){
+            $(this).parent().remove(); 
+        });
+
         //商品图片排序
         $('#box_goods_img_list ul').dragsort({dragSelector: "li"});
                           
@@ -276,7 +345,15 @@
             //商品分类
             var cid = $("#goods_category").val();
             //商品产地
-            var pid = $("#goods_production").val();
+            var $selected_production = $(".selected_production");
+            if($selected_production.length<1){
+                alert("商品产地不能为空哦");
+                return false;
+            }
+            var selected_production_id = "";
+            $selected_production.each(function(){
+                selected_production_id += $(this).attr("dataid")+",";
+            })
             //商品名称
             var name = $("#goods_name").val();
             if(name == ""){
@@ -326,13 +403,15 @@
             }
             //是否显示
             var is_show = $("input[name=is_show]:checked").val();
+            //是否推荐
+            var is_recommend = $("input[name=is_recommend]:checked").val();
             $(this).val("提交中...");
             if(isSubmitButton === false){
                 isSubmitButton = true;
                 $.ajax({
                     type:"post",
                     url:"__URL__/insert",
-                    data:{cid:cid,pid:pid,name:name,price:price,spec:spec,images:images,desc:desc,order:order,is_show:is_show},
+                    data:{cid:cid,selected_production_id:selected_production_id,name:name,price:price,spec:spec,images:images,desc:desc,order:order,is_show:is_show,is_recommend:is_recommend},
                     async:false,
                     success:function(data){
                         var res = eval(data);
