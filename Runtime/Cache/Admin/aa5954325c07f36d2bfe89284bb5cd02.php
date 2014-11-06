@@ -117,9 +117,9 @@
                         
                     </td>
                     <td>
-                        起订量：<input type="text" id="moq_spec" name="moq_spec" class="add_input_text" style="width:50px;" /> &nbsp;&nbsp;
+                        起订规格：<input type="text" id="moq_spec" name="moq_spec" class="add_input_text" style="width:50px;" /> &nbsp;&nbsp;
                         伙拼最低价格：<input type="text" id="min_price" name="min_price" class="add_input_text" style="width:50px;" /> &nbsp;&nbsp;
-                        伙拼最低价格对应的量：<input type="text" id="min_price_spec" name="min_price_spec" class="add_input_text" style="width:50px;" /> &nbsp;&nbsp;
+                        伙拼最低价格对应的规格：<input type="text" id="min_price_spec" name="min_price_spec" class="add_input_text" style="width:50px;" /> &nbsp;&nbsp;
                         开始日期：<input id="start_time" type="text" name="start_time" class="add_input_text" style="width:100px;" /> &nbsp;&nbsp;
                         结束日期: <input id="end_time" type="text" name="end_time" class="add_input_text" style="width:100px;" />
                     </td>
@@ -247,7 +247,7 @@
                         $("#min_price").focus();
                         return false;
                     }
-                    if(min_price>price){
+                    if(parseFloat(min_price)>parseFloat(price)){
                         alert("伙拼最低价格不能大于商品价格");
                         $("#min_price").focus();
                         return false;
@@ -307,7 +307,7 @@
                                 alert("操作成功");
                                 window.location.href = "__URL__/groupApply";
                             }else{
-                                alert("操作失败");
+                                alert(res.info);
                             }
                         }
                     });

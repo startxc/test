@@ -116,6 +116,10 @@
                     <td width="100" align="center"> 显示状态 </td>
                     <td> <input type="radio" name="is_show" value="1" <?php if(($info['is_show']) == "1"): ?>checked="true"<?php endif; ?> > 显示 <input type="radio" name="is_show" value="0" <?php if(($info['is_show']) == "0"): ?>checked="true"<?php endif; ?> /> 隐藏 </td>
                 </tr>
+                <tr>
+                    <td width="100" align="center"> 是否推荐 </td>
+                    <td> <input type="radio" name="is_recommend" value="1" <?php if(($info['is_recommend']) == "1"): ?>checked="true"<?php endif; ?> > 推荐 <input type="radio" name="is_recommend" value="0" <?php if(($info['is_recommend']) == "0"): ?>checked="true"<?php endif; ?> /> 不推荐 </td>
+                </tr>
             </table>
 
             <table class="submit_table">
@@ -244,13 +248,13 @@
                 var category_id = $("#goods_category").val();
                 var production_id = $("#goods_production").val();
                 var is_show = $("input[name=is_show]:checked").val();
-
+                var is_recommend = $("input[name=is_recommend]:checked").val();
                 if(isSubmitButton === false){
                     isSubmitButton = true;
                     $.ajax({
                         type:"post",
                         url:"__URL__/groupUpdate",
-                        data:{id:id,category_id:category_id,production_id:production_id,name:name,price:price,image:image,moq_spec:moq_spec,min_price:min_price,min_price_spec:min_price_spec,start_time:start_time,end_time:end_time,is_show:is_show},
+                        data:{id:id,category_id:category_id,production_id:production_id,name:name,price:price,image:image,moq_spec:moq_spec,min_price:min_price,min_price_spec:min_price_spec,start_time:start_time,end_time:end_time,is_show:is_show,is_recommend:is_recommend},
                         async:false,
                         success:function(data){
                             var res = eval(data);

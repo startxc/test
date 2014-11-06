@@ -62,15 +62,25 @@ class GoodsAction extends CommonAction {
         }
         $this->assign("goods",$goods);
 
+        //分类列表
         $category = A("Admin/Category")->getCategoryList();
         $this->assign("category", $category);  
 
         $goods_image = M("Goods_image")->where("goods_id={$goods['id']}")->select();
         $this->assign("goods_image",$goods_image);
 
-        //取得产地
+        //产地列表
         $production = A("Admin/Production")->getProductionList();
         $this->assign("production", $production);
+
+        //已选产地
+        $goods_production = M("Goods_production")->where("goods_id={$id}")->select();
+        $production_id = array();
+        foreach($goods_production as $value){
+            array_push($production_id,$value['production_id']);
+        }
+        $selected_production = M("Production")->where(array("id"=>array("in",$production_id)))->select();
+        $this->assign("selected_production",$selected_production);
 
         $this->display();
     }
@@ -82,15 +92,16 @@ class GoodsAction extends CommonAction {
 
         $images = explode(",",trim($_POST['images'],","));
         $data['category_id'] = intval($_POST['cid']);
-        $data['production_id'] = intval($_POST['pid']);
         $data['name'] = trim($_POST['name']);
         $data['price'] = $_POST['price'];
         $data['spec'] = intval($_POST['spec']);
+        $data['spec_unit'] = trim($_POST['spec_unit']);
         $data['image'] = $images[0];
         $data['description'] = trim($_POST['desc']);
         $data['order_index'] = intval($_POST['order']);
         $data['create_time'] = $time;
         $data['is_show'] = intval($_POST['is_show']);
+        $data['is_recommend'] = intval($_POST['is_recommend']);
 
         $back = new stdClass();
         $goods = M("Goods");
@@ -107,6 +118,19 @@ class GoodsAction extends CommonAction {
             $back->status = 0;
             $back->info = "添加商品失败";
             ajax_return($back);
+        }
+        $selected_production_id = explode(",",trim($_POST['selected_production_id'],","));
+        $goods_production = array();
+        foreach($selected_production_id as $key=>$value){
+            $goods_production[$key]['goods_id'] = $id;
+            $goods_production[$key]['production_id'] = $value;
+            $goods_production[$key]['create_time'] = $time;
+        }
+        if(!M("Goods_production")->addAll($goods_production)){
+            $back->status = 0;
+            $back->info = "添加商品产地失败";
+            $goods->rollback();
+            ajax_return($back); 
         }
 
         $goods_image = array();
@@ -138,14 +162,15 @@ class GoodsAction extends CommonAction {
 
         $images = explode(",",trim($_POST['images'],","));
         $data['category_id'] = intval($_POST['cid']);
-        $data['production_id'] = intval($_POST['pid']);
         $data['name'] = trim($_POST['name']);
         $data['price'] = $_POST['price'];
         $data['spec'] = intval($_POST['spec']);
+        $data['spec_unit'] = trim($_POST['spec_unit']);
         $data['image'] = $images[0];
         $data['description'] = trim($_POST['desc']);
         $data['order_index'] = intval($_POST['order']);
         $data['is_show'] = intval($_POST['is_show']);
+        $data['is_recommend'] = intval($_POST['is_recommend']);
         $data['update_time'] = time();
         $back = new stdClass();
         $goods = M("Goods");
@@ -165,10 +190,23 @@ class GoodsAction extends CommonAction {
             $back->info = "修改商品失败";
             ajax_return($back);
         }
-        if(!M("Goods_image")->where("goods_id={$id}")->delete()){
-            $back->status = 0;
-            $back->info = "修改商品图片失败";
+
+        M("Goods_production")->where("goods_id={$id}")->delete();
+        $selected_production_id = explode(",",trim($_POST['selected_production_id'],","));
+        $goods_production = array();
+        foreach($selected_production_id as $key=>$value){
+            $goods_production[$key]['goods_id'] = $id;
+            $goods_production[$key]['production_id'] = $value;
+            $goods_production[$key]['create_time'] = $time;
         }
+        if(!M("Goods_production")->addAll($goods_production)){
+            $back->status = 0;
+            $back->info = "修改商品产地失败";
+            $goods->rollback();
+            ajax_return($back); 
+        }
+
+        M("Goods_image")->where("goods_id={$id}")->delete();
         $goods_image = array();
         foreach($images as $key=>$value){
             $goods_image[$key]['goods_id'] = $id;
@@ -328,6 +366,7 @@ class GoodsAction extends CommonAction {
         $data['start_time'] = strtotime("{$_POST['start_time']} 00:00:00");
         $data['end_time'] = strtotime("{$_POST['end_time']} 23:59:59");
         $data['is_show'] = intval($_POST['is_show']);
+        $data['is_recommend'] = intval($_POST['is_recommend']);
         $data['update_time'] = $time;
 
         $back = new stdClass();
@@ -416,6 +455,7 @@ class GoodsAction extends CommonAction {
             $back->info = "已经存在该商品的伙拼信息啦";
             ajax_return($back);
         }
+        $spec_unit = M("Goods")->where("id={$goods_id}")->getField("spec_unit");
         $group_data = array(
             "goods_id"=>$goods_id,
             "category_id"=>intval($_POST['category_id']),
@@ -428,6 +468,7 @@ class GoodsAction extends CommonAction {
             "image"=>trim($_POST['image']),
             "description"=>trim($_POST['desc']),
             "moq_spec"=>intval($_POST['moq_spec']),
+            "spec_unit"=>$spec_unit,
             "start_time"=>strtotime("{$_POST['start_time']} 00:00:00"),
             "end_time"=>strtotime("{$_POST['end_time']} 23:59:59"),
             "create_time"=>$time,

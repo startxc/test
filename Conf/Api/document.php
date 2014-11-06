@@ -279,5 +279,277 @@ $apis[] = array(
 			),
 	)		
 );
+
+//购物车相关接口
+$apis[] = array(
+	'category'=>'购物车相关接口',
+	'api'=>array(
+			'Cart/addToCart'=>array(
+					'desc' => '商品加入购物车',
+					'type'=>'POST',
+					'field'=>array(
+						'goods_id'=>array('desc'=>'商品ID'),
+						'goods_qty'=>array('desc'=>'商品数量')
+					),
+					'response'=>'{"status":1,"info":"商品加入购物车成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表商品加入购物车成功，0代表商品加入购物车失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			),
+			'Cart/getCartList'=>array(
+					'desc' => '获取购物车商品',
+					'type'=>'POST',
+					'field'=>array(
+					),
+					'response'=>'{"status":1,"info":"","data":{"data":[{"cart_id":"3","goods_id":"1","goods_name":"\u8461\u8404","price":"10.00","number":"7","image":"image","subtotal":"70.00"}],"total":70,"total_goods_qty":7}}',
+					'res_field'=>array(
+						array('field'=>'data','desc'=>'cart_id：购物车ID，goods_id：商品ID，goods_name：商品名，price：价格，number：商品数量，image：商品图片，subtotal：小计'),
+						array('field'=>'total','desc'=>'订单总金额'),
+						array('field'=>'total_goods_qty','desc'=>'订单商品总数')
+					)
+			),
+			'Cart/updateCart'=>array(
+					'desc' => '更新购物车商品数量',
+					'type'=>'POST',
+					'field'=>array(
+						'cart_id'=>array('desc'=>'购物车ID'),
+						'goods_qty'=>array('desc'=>'商品数量')
+					),
+					'response'=>'{"status":1,"info":"商品加入购物车成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表商品加入购物车成功，0代表商品加入购物车失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			),
+			'Cart/deleteCart'=>array(
+					'desc' => '删除购物车商品',
+					'type'=>'POST',
+					'field'=>array(
+						'cart_id'=>array('desc'=>'购物车ID')
+					),
+					'response'=>'{"status":1,"info":"删除购物车商品成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表删除购物车商品成功，0代表删除购物车商品失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			)
+	)		
+);
+
+//订单相关接口
+$apis[] = array(
+	'category'=>'订单相关接口',
+	'api'=>array(
+			'Order/getOrderById'=>array(
+					'desc' => '根据订单ID获取订单',
+					'type'=>'GET',
+					'field'=>array(
+						'id'=>array('desc'=>'订单id')
+					),
+					'response'=>'',
+					'res_field'=>array(
+						array('field'=>'id','desc'=>'订单id'),
+						array('field'=>'combine_pay_no','desc'=>'合并支付号'),
+						array('field'=>'order_no','desc'=>'订单编号'),
+						array('field'=>'member_id','desc'=>'会员ID'),
+						array('field'=>'order_status','desc'=>'订单状态：created待付款，payed已付款，待发货，shipped已发货，received已收货，canceled已取消，refund已退款，refund_appiled申请退款'),
+						array('field'=>'shipping_status','desc'=>'发货状态：0未发货，1已发货'),
+						array('field'=>'shipping_no','desc'=>'快递单号'),
+						array('field'=>'shippint_time','desc'=>'发货时间'),
+						array('field'=>'pay_status','desc'=>'付款状态：0未付款，1已付款'),
+						array('field'=>'consignee','desc'=>'收货人'),
+						array('field'=>'province_id','desc'=>'省份ID'),
+						array('field'=>'city_id','desc'=>'城市ID'),
+						array('field'=>'area_id','desc'=>'区域ID'),
+						array('field'=>'address','desc'=>'详细地址'),
+						array('field'=>'tel','desc'=>'电话'),
+						array('field'=>'mobile','desc'=>'手机'),
+						array('field'=>'pay_method','desc'=>'付款方式'),
+						array('field'=>'goods_amount','desc'=>'商品的总金额'),
+						array('field'=>'order_amount','desc'=>'订单应付总金额'),
+						array('field'=>'payed_amount','desc'=>'支付总金额'),
+						array('field'=>'shipping_fee','desc'=>'配送费用'),
+						array('field'=>'invoice_title','desc'=>'发票抬头'),
+						array('field'=>'confirm_time','desc'=>'确认时间'),
+						array('field'=>'note','desc'=>'管理员备注'),
+						array('field'=>'buyer_note','desc'=>'买家留言'),
+						array('field'=>'pay_time','desc'=>'付款时间'),
+						array('field'=>'order_type','desc'=>'订单类型：normal普通订单，group伙拼订单'),
+						array('field'=>'expire_time','desc'=>'过期时间'),
+						array('field'=>'create_time','desc'=>'生成订单时间'),
+						array('field'=>'is_show','desc'=>'0：用户删除订单，1：默认显示')
+					)
+			),
+			'Order/getOrderByOrderNo'=>array(
+					'desc' => '根据订单编号获取订单',
+					'type'=>'GET',
+					'field'=>array(
+						'order_no'=>array('desc'=>'订单编号')
+					),
+					'response'=>'',
+					'res_field'=>array(
+						array('field'=>'id','desc'=>'订单id'),
+						array('field'=>'combine_pay_no','desc'=>'合并支付号'),
+						array('field'=>'order_no','desc'=>'订单编号'),
+						array('field'=>'member_id','desc'=>'会员ID'),
+						array('field'=>'order_status','desc'=>'订单状态：created待付款，payed已付款，待发货，shipped已发货，received已收货，canceled已取消，refund已退款，refund_appiled申请退款'),
+						array('field'=>'shipping_status','desc'=>'发货状态：0未发货，1已发货'),
+						array('field'=>'shipping_no','desc'=>'快递单号'),
+						array('field'=>'shippint_time','desc'=>'发货时间'),
+						array('field'=>'pay_status','desc'=>'付款状态：0未付款，1已付款'),
+						array('field'=>'consignee','desc'=>'收货人'),
+						array('field'=>'province_id','desc'=>'省份ID'),
+						array('field'=>'city_id','desc'=>'城市ID'),
+						array('field'=>'area_id','desc'=>'区域ID'),
+						array('field'=>'address','desc'=>'详细地址'),
+						array('field'=>'tel','desc'=>'电话'),
+						array('field'=>'mobile','desc'=>'手机'),
+						array('field'=>'pay_method','desc'=>'付款方式'),
+						array('field'=>'goods_amount','desc'=>'商品的总金额'),
+						array('field'=>'order_amount','desc'=>'订单应付总金额'),
+						array('field'=>'payed_amount','desc'=>'支付总金额'),
+						array('field'=>'shipping_fee','desc'=>'配送费用'),
+						array('field'=>'invoice_title','desc'=>'发票抬头'),
+						array('field'=>'confirm_time','desc'=>'确认时间'),
+						array('field'=>'note','desc'=>'管理员备注'),
+						array('field'=>'buyer_note','desc'=>'买家留言'),
+						array('field'=>'pay_time','desc'=>'付款时间'),
+						array('field'=>'order_type','desc'=>'订单类型：normal普通订单，group伙拼订单'),
+						array('field'=>'expire_time','desc'=>'过期时间'),
+						array('field'=>'create_time','desc'=>'生成订单时间'),
+						array('field'=>'is_show','desc'=>'0：用户删除订单，1：默认显示')
+					)
+			),
+			'Order/getOrderList'=>array(
+					'desc' => '获取用户所有订单',
+					'type'=>'GET',
+					'field'=>array(
+						'order_type'=>array('desc'=>'订单类型：normal普通订单，group伙拼订单'),
+						'order_status'=>array('desc'=>'订单状态：created待付款，payed待发货，shipped待收货')
+					),
+					'response'=>'',
+					'res_field'=>array(
+					)
+			),
+			'Order/getOrderStatusCount'=>array(
+					'desc' => '获取用户订单各状态统计',
+					'type'=>'GET',
+					'field'=>array(
+					),
+					'response'=>'{"status":1,"info":"","data":{"order_num":1,"created_num":1,"payed_num":0,"shipped_num":0}}',
+					'res_field'=>array(
+						array('field'=>'order_num','desc'=>'所有订单数'),
+						array('field'=>'created_num','desc'=>'待付款订单数'),
+						array('field'=>'payed_num','desc'=>'待发货订单数'),
+						array('field'=>'shipped_num','desc'=>'待收货订单数')
+					)
+			),
+			'Order/deleteOrder'=>array(
+					'desc' => '删除订单',
+					'type'=>'POST',
+					'field'=>array(
+						'id'=>array('desc'=>'订单id')
+					),
+					'response'=>'{"status":1,"info":"删除订单成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表删除订单成功，0代表删除订单失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			),
+			'Order/confirmOrder'=>array(
+					'desc' => '确认收货',
+					'type'=>'POST',
+					'field'=>array(
+						'id'=>array('desc'=>'订单id')
+					),
+					'response'=>'{"status":1,"info":"确认收货成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表确认收货成功，0代表确认收货失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			)
+	)		
+);
+
+//代金券相关接口
+$apis[] = array(
+	'category'=>'代金券相关接口',
+	'api'=>array(
+			'Coupon/addCoupon'=>array(
+					'desc' => '添加一张代金券',
+					'type'=>'POST',
+					'field'=>array(
+						'code'=>array('desc'=>'券号')
+					),
+					'response'=>'{"status":1,"info":"添加代金券成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表添加代金券成功，0代表添加代金券失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			),
+			'Coupon/getCouponById'=>array(
+					'desc' => '根据代金券ID获取一张代金券',
+					'type'=>'GET',
+					'field'=>array(
+						'id'=>array('desc'=>'代金券id')
+					),
+					'response'=>'',
+					'res_field'=>array(
+						array('field'=>'id','desc'=>'代金券id'),
+						array('field'=>'code','desc'=>'券号'),
+						array('field'=>'face_value','desc'=>'面额'),
+						array('field'=>'start_time','desc'=>'可用开始时间'),
+						array('field'=>'end_time','desc'=>'可用结束时间'),
+						array('field'=>'create_time','desc'=>'创建时间'),
+						array('field'=>'coupon_type_id','desc'=>'优惠券类型ID'),
+						array('field'=>'min_use_value','desc'=>'最小使用金额'),
+						array('field'=>'use_mid','desc'=>'使用者mid')
+					)
+			),
+			'Coupon/getCouponByCode'=>array(
+					'desc' => '根据券号获取一张代金券',
+					'type'=>'GET',
+					'field'=>array(
+						'code'=>array('desc'=>'券号')
+					),
+					'response'=>'',
+					'res_field'=>array(
+						array('field'=>'id','desc'=>'代金券id'),
+						array('field'=>'code','desc'=>'券号'),
+						array('field'=>'face_value','desc'=>'面额'),
+						array('field'=>'start_time','desc'=>'可用开始时间'),
+						array('field'=>'end_time','desc'=>'可用结束时间'),
+						array('field'=>'create_time','desc'=>'创建时间'),
+						array('field'=>'coupon_type_id','desc'=>'优惠券类型ID'),
+						array('field'=>'min_use_value','desc'=>'最小使用金额'),
+						array('field'=>'use_mid','desc'=>'使用者mid')
+					)
+			),
+			'Coupon/getCouponList'=>array(
+					'desc' => '获取用户所有代金券',
+					'type'=>'GET',
+					'field'=>array(
+						'coupon_status'=>array('desc'=>'代金券状态：use可用，used已使用，exceed已过期')
+					),
+					'response'=>'',
+					'res_field'=>array(
+					)
+			),
+			'Coupon/getCouponStatusCount'=>array(
+					'desc' => '获取用户代金券各状态统计',
+					'type'=>'GET',
+					'field'=>array(
+					),
+					'response'=>'{"status":1,"info":"","data":{"coupon_num":0,"use_num":0,"used_num":0,"exceed_num":0}}',
+					'res_field'=>array(
+						array('field'=>'coupon_num','desc'=>'所有代金券数'),
+						array('field'=>'use_num','desc'=>'可用代金券数'),
+						array('field'=>'exceed_num','desc'=>'已过期代金券数'),
+						array('field'=>'used_num','desc'=>'已使用代金券数')
+					)
+			),
+	)		
+);
 	
 return $apis;

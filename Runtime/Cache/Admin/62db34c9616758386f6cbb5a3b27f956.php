@@ -87,6 +87,7 @@
                     <th width="60"> 商品销量 </th>
                     <th width="60"> 商品排序 </th>
                     <th width="60"> 是否显示 </th>
+                    <th width="60"> 是否推荐 </th>
                     <th width="205"> 操作选项 </th>
                 </tr>    
                 
@@ -98,6 +99,7 @@
                         <td class="td_center_show"> <?php echo ($vo["sale_count"]); ?> </td>
                         <td class="td_center_show"> <input class="list_sort" type="text" dataid="<?php echo ($vo["id"]); ?>" name="sort[<?php echo ($vo["id"]); ?>]" value="<?php echo ($vo["order_index"]); ?>">  </td>
                         <td class="td_center_show"> <?php if($vo['is_show'] == 1): ?><img border="0" src="__ROOT__/Public/Images/yes.gif"> <?php else: ?> <img border="0"  src="__ROOT__/Public/Images/no.gif"><?php endif; ?>  </td>
+                        <td class="td_center_show"> <?php if($vo['is_recommend'] == 1): ?><img border="0" src="__ROOT__/Public/Images/yes.gif"> <?php else: ?> <img border="0"  src="__ROOT__/Public/Images/no.gif"><?php endif; ?>  </td>
                         <td class="td_center_show"> 
                             <span class="control_span">
                                 <a href="__APP__/Product/detail/id/<?php echo ($vo["id"]); ?>" target="_blank" title="查看商品"><img border="0" src="__ROOT__/Public/Images/icon_view.gif"/></a>

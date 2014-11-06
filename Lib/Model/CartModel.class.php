@@ -12,12 +12,12 @@ class CartModel extends CommonModel {
      * 加入购物车
 	 * @param integer $goodsId 商品ID
 	 * @param integer $goodsQty 商品数量
-	 * @return object $back status属性(1:加入购物车成功 0:商品不存在 1:商品数量有误 2:更新商品数量失败 3:加入购物车失败)
+	 * @return object $back status属性(1:加入购物车成功 0:商品不存在 2:商品数量有误 3:更新商品数量失败 4:加入购物车失败)
      */
     
     public function addToCart($goodsId, $goodsQty) {
     	$cartModel = M('Cart');
-    	$back = new \stdClass();
+    	$back = new stdClass();
     	
     	$goodsInfo = M('Goods')->where(array('id' => $goodsId, 'status' => 1, 'deleted' => 0))->find();
     	if (!$goodsInfo) {
@@ -26,7 +26,7 @@ class CartModel extends CommonModel {
     	}
     	
     	if (max(intval($goodsQty), 0) == 0) {
-    		$back->status = 1;
+    		$back->status = 2;
 	        return $back;
     	}
     	
@@ -46,7 +46,7 @@ class CartModel extends CommonModel {
     	if (!empty($_SESSION['uid'])) {
     		
 	    	//获取购物车的所有商品
-	    	$cartList = $cartModel->where(array('uid' => $_SESSION['uid']))->select();
+	    	$cartList = $cartModel->where(array('member_id' => $_SESSION['uid']))->select();
 	    	
 	    	//判断是否存在相同的商品
 		    if (is_array($cartList)) {
@@ -60,15 +60,15 @@ class CartModel extends CommonModel {
 		    
 		    //更新数量
 		    if ($cartId) {
-		    	$id = $cartModel->where(array('id' => $cartId))->save(array('number' => $goodsQty));
+		    	$id = $cartModel->where(array('id' => $cartId))->setInc('number', $goodsQty);
 		    	if ($id === false) {
-		    		$back->status = 2;
+		    		$back->status = 3;
 	        		return $back;
 		    	}
 		    } else {
 				$id = $cartModel->add($data);
 				if (!$id) {
-					$back->status = 3;
+					$back->status = 4;
 	        		return $back;
 				}
 		    }
@@ -116,7 +116,7 @@ class CartModel extends CommonModel {
     	if (!empty($_SESSION['uid'])) {
     		
 	    	//获取购物车的所有商品
-	    	$cartList = $cartModel->where(array('uid' => $_SESSION['uid']))->select();
+	    	$cartList = $cartModel->where(array('member_id' => $_SESSION['uid']))->select();
     	} else {
 	    	$cartList = unserialize(stripslashes(cookie('cartList')));
     	}
@@ -137,9 +137,9 @@ class CartModel extends CommonModel {
 		    		$cartArr['data'][$key]['price'] = $cart['price'];
 		    		$cartArr['data'][$key]['number'] = $cart['number'];
 		    		$cartArr['data'][$key]['image'] = $cart['image'];
-		    		$cartArr['data'][$key]['subtotal'] = $cart['number'] * $cart['price'];
+		    		$cartArr['data'][$key]['subtotal'] = number_format($cart['number'] * $cart['price'], 2, '.', '');
 		    		$cartArr['total'] += $cartArr['data'][$key]['subtotal'];
-		    		$cartArr['total_goods_qty'] += $cart['goods_qty'];
+		    		$cartArr['total_goods_qty'] += $cart['number'];
 	    		}
 	    	}
     	}
@@ -158,7 +158,7 @@ class CartModel extends CommonModel {
     	if (!empty($_SESSION['uid'])) {
     		$cartModel = M('Cart');
 	    	$id = $cartModel->where(array('id' => $cartId))->save(array('number' => $goodsQty));
-	    	if ($id === false) {
+	    	if (!$id) {
 	    		return false;
 	    	}
     	} else {
@@ -179,7 +179,7 @@ class CartModel extends CommonModel {
 	    if (!empty($_SESSION['uid'])) {
     		$cartModel = M('Cart');
 		    $id = $cartModel->where(array('id' => $cartId))->delete();
-	    	if ($id === false) {
+	    	if (!$id) {
 	    		return false;
 	    	}
     	} else {
