@@ -1,0 +1,92 @@
+<!--加载页面头部文件-->
+<include file="Public:header" />
+
+<style type="text/css">
+    .week{width:110px;float:left;margin-left:5px;}
+    .week li{width:100px;height:30px;line-height:30px;text-align:center;padding:5px;background:#ccc;color:#000;}
+    .week li.first{background:#000;color:#fff;font-weight:bold;}
+
+</style>
+
+<div class="header">
+    <span class="action_title"> <a href="__URL__/group">一周菜谱</a></span> <span class="action_module"> - 菜谱列表 </span>
+    <div class="clear"> </div>
+</div>
+
+
+<div id="middle">
+    <ul class="week">
+        <li class="first">星期一</li>
+        <volist name="weekmenuList[1]" id="vo">
+            <li>{$vo.goods_name}&nbsp;&nbsp;
+                <input type="button" value="删除" class="delete_goods" dataid="1-{$vo.goods_id}">
+            </li>
+        </volist>
+        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="1" /></li>
+    </ul>
+    <ul class="week">
+        <li class="first">星期二</li>
+        <volist name="weekmenuList[2]" id="vo">
+            <li>{$vo.goods_name}&nbsp;&nbsp;
+                <input type="button" value="删除" class="delete_goods" dataid="2-{$vo.goods_id}">
+            </li>
+        </volist>
+        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="2" /></li>
+    </ul>
+    <ul class="week">
+        <li class="first">星期三</li>
+        <volist name="weekmenuList[3]" id="vo">
+            <li>{$vo.goods_name}&nbsp;&nbsp;
+                <input type="button" value="删除" class="delete_goods" dataid="3-{$vo.goods_id}">
+            </li>
+        </volist>
+        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="3" /></li>
+    </ul>
+    <ul class="week">
+        <li class="first">星期四</li>
+        <volist name="weekmenuList[4]" id="vo">
+            <li>{$vo.goods_name}&nbsp;&nbsp;
+                <input type="button" value="删除" class="delete_goods" dataid="4-{$vo.goods_id}">
+            </li>
+        </volist>
+        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="4" /></li>
+    </ul>
+    <ul class="week">
+        <li class="first">星期五</li>
+        <volist name="weekmenuList[5]" id="vo">
+            <li>{$vo.goods_name}&nbsp;&nbsp;
+                <input type="button" value="删除" class="delete_goods" dataid="5-{$vo.goods_id}">
+            </li>
+        </volist>
+        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="5" /></li>
+    </ul>
+    <ul class="week">
+        <li class="first">星期六</li>
+        <volist name="weekmenuList[6]" id="vo">
+            <li>{$vo.goods_name}&nbsp;&nbsp;
+                <input type="button" value="删除" class="delete_goods" dataid="6-{$vo.goods_id}">
+            </li>
+        </volist>
+        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="6" /></li>
+    </ul>
+    <ul class="week">
+        <li class="first">星期日</li>
+        <volist name="weekmenuList[7]" id="vo">
+            <li>{$vo.goods_name}&nbsp;&nbsp;
+                <input type="button" value="删除" class="delete_goods" dataid="7-{$vo.goods_id}">
+            </li>
+        </volist>
+        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="7" /></li>
+    </ul>
+</div>
+
+<ul  id="goods_list">
+    <li>商品一&nbsp;&nbsp;<input type="button" value="添加" />
+</ul>
+<script type="text/javascript">
+
+    
+</script>
+
+<!--加载页面脚部文件-->
+<include file="Public:footer" />

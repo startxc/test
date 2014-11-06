@@ -54,6 +54,7 @@ class MemberAction extends MobileCommonAction{
 		}
 		$data['nickname'] = trim($_POST['nickname']);
 		$this->isEmpty($data['nickname'],"昵称不能为空");
+		$data['create_time'] = time();
 		if($id = M('Member')->add($data)){
 			$_SESSION['uid'] = $id;
 			$_SESSION['mobile'] = $data['mobile'];

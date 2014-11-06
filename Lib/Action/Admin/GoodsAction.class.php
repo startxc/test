@@ -537,6 +537,33 @@ class GoodsAction extends CommonAction {
         }
         ajax_return($back);
     }
+
+    //一周菜谱
+    public function weekmenu(){
+        $weekmenu = M("Weekmenu")->select();
+        $weekmenuList = array(
+            1=>array(),
+            2=>array(),
+            3=>array(),
+            4=>array(),
+            5=>array(),
+            6=>array(),
+            7=>array()
+        );
+        foreach($weekmenu as $value){
+            switch($value['week']){
+                case 1:$weekmenuList[1][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 2:$weekmenuList[2][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 3:$weekmenuList[3][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 4:$weekmenuList[4][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 5:$weekmenuList[5][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 6:$weekmenuList[6][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 7:$weekmenuList[7][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+            }
+        }
+        $this->assign("weekmenuList",$weekmenuList);
+        $this->display();
+    }
 }
 
 ?>
