@@ -29,6 +29,7 @@ img{vertical-align:top;}
 .h-pos{position:absolute; bottom:3px; right:0; padding-right:8px; margin:0; text-align:right;}
 .h-pos li{width:10px;height:10px;margin:0 3px;display:inline-block;-webkit-border-radius:5px;border-radius:5px;background:#555;}
 .h-pos li.cur{background-color:#fff;}
+.h-pos li.tscons-nav-item-cur{background-color:#fff;}
 .img-ads{ display: block; width: 100%;  height: auto; max-height:160px;}
 
 .ads-layer{position:absolute; left:0; top:0; width:34%; height:100%; background:rgba(246, 172, 47, 0.8);}
@@ -50,25 +51,26 @@ img{vertical-align:top;}
 .h-img{width:100%; height:auto; overflow:hidden; display:block;}
 .tbl-cell:last-child a.tbl-mt{margin-top:8px; position:absolute; right:0; bottom:0;}
 
-.pro-item{min-width:320px; width:100%; padding-top:2%;}
+.pro-item{width:300px; margin:0 auto; padding-top:2%;}
 .pro-item:last-child{padding-bottom:6%;}
 .pro-item h2{font-size:22px; text-align:center; display:block; padding:5% 0 2%;}
-.pro-itemcon{padding:0 4.5%;}
+.pro-itemcon{float:left; width:300px; margin:0 auto;}
 .pro-itemcon li{margin:1% auto 0;}
 .pro-itemcon li:last-child{margin-top:4%;}
 .pro-itemcon li .item{margin-right:4%; width:48%; float:left; max-width:262px; position:relative;}
 .pro-itemcon li .item:last-child{margin-right:0; float:right;}
-.pro-itemcon:last-child li:last-child .item:last-child a{font-size:22px; color:#f6ac2f;}
+.pro-itemcon:last-child li:last-child .item:last-child a{font-size:22px; color:#f6ac2f; height:142px; text-align:center; line-height:142px; display:block;}
 .pro-itemcon li .item img{width:100%; display:block;}
 .pro-itemcon .pro-info{position:absolute; left:0; bottom:0; width:100%; background:rgba(246, 172, 47, 0.8); padding:2% 3%;box-sizing: border-box;}
 .pro-itemcon .pro-info .tit{font-size:16px; color:#6b3d01;}
 .pro-itemcon .pro-info .pris{font-size:16px; color:#fbff0a; font-weight:bold; line-height:1.3;}
 .pro-itemcon .pro-info .pris .pri{font-size:18px;}
 .pro-itemcon .pro-info .iteminfob{font-size:12px; color:#fff;}
+.com-home .pro-item .tscons-viewport{overflow:hidden; position:relative;}
 
 .pro-pos{width:100%; text-align:center; margin:1.5% 0 0;}
 .pro-pos li{background:#292929; width:10px; height:10px; -webkit-border-radius:5px; border-radius:5px; display:inline-block; margin:0 4px;}
-.pro-pos li.cur{background:#f6ac2f;}
+.pro-pos li.tscons-nav-item-cur{background:#f6ac2f;}
 
 .body-setinfo{background:url(../images/bg_600x1000.jpg) no-repeat; background-size:100%;  background-attachment:fixed; width:100%; height:100%;}
 .com-setinfo{padding:14px;}
@@ -138,7 +140,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .seepaycard{padding:10px 20px; display:inline-block; color:#f39800; text-decoration:underline;}
 .mt10{margin-top:10px;}
 .btn-orange{background-color:#eb6100;}
-.nextstep{padding:0 20px;}
+.nextstep{padding:0 20px; margin-bottom:40px;}
 .mt60{margin-top:60px;}
 .rcn-timg{text-align:center; display:block; margin:10px 0;}
 .rcn-timg img{max-width:375px; margin:0 auto;}
@@ -161,7 +163,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .rcn-infos .checkbox span{margin-left:10px; color:#888;}
 
 .cart-con{margin-bottom:90px;}
-.cart-item{background-color:#fff; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; padding:12px 0; position:relative; margin-top:20px;}
+.cart-item{background-color:#fff; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; padding:12px 0; position:relative; margin-top:14px;}
 .cart-item .iconlink a{position:absolute; left:20px; width:26px; height:26px; display:block;}
 .cart-item .i-select{background-position:-29px -70px; top:22px;}
 .cart-item .i-selected{background-position:-2px -70px; top:22px;}
@@ -169,7 +171,6 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .i-delete{ background-position:-57px -70px; width:26px; height:26px; display:block;}
 .proinfos{margin-left:150px; margin-right:20px; position:relative; display:block;}
 .cart-item .pic{position:absolute; left:66px; top:18px;}
-.proinfos .proinfor{}
 .cart-item .pic img{border-radius:100%; width:74px;}
 .proinfor .tit{height:44px; overflow:hidden;}
 .proinfor .proinfotxt{width:70%; display:inline-block;}
@@ -256,19 +257,51 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .noorder .icon3{background-position:-138px -204px;}
 
 .noordertip{text-align:center; color:#a0a0a0;}
+.cash-div{border-top:1px solid #e1e1e1; border-bottom:1px solid #e1e1e1; margin:0 20px 14px; background:#fff url(../images/cashbg.png) no-repeat 0 -81px; background-size:88px; height:79px; position:relative;}
+.cash-div .addcash{padding:0 16px; margin-right:84px;}
+.addcash .cash-tit{font-size:15px; color:#8b4f29; margin:6px 0 6px;}
+.addcash .text-input{border:1px solid #c8b39f; background-color:#f2eedf; height:32px; line-height:32px; padding:0 8px; width:100%; box-sizing:border-box;}
+.cashdiv-l .cash-tit{font-size:16px; color:#cc4f00;}
+.cashdiv-l .otherinfo{color:#959595; white-space:nowrap; overflow:hidden;}
+.cashdiv-r{background:url(../images/cashbg.png) no-repeat 0 0; background-size:88px; width:88px; height:81px; display:block; position:absolute; right:0; top:-1px; text-align:center; line-height:81px; color:#fff; font-size:22px;}
+.cashdiv-r .i-add{height:30px; line-height:28px; width:30px; display:block; border-radius:100%; background-color:#fff; position:absolute; text-align:center; font-size:30px; color:#f39800; left:28px; top:24px; font-weight:bold;}
+.cash-tip{border:2px solid #f39800; margin:0 20px; margin-bottom:14px; color:#8b4f29; text-align:center; height:32px; line-height:32px;}
+.cashdiv-l{padding:0 20px; margin-right:84px;}
+.cashdiv-l .cash-tit{margin:4px 0 4px;}
+.oldcashinfo .cash-tit{color:#444;}
+.bgoldcash{background-position:0 -160px;}
 
+.cashdt-tip{background-color:#cc4f00; height:54px; color:#fff; padding:0 20px;}
+.cashdt-tip .tit{margin-left:20px; top:22px; position:relative;}
+.cashgtcon{padding:0 20px; margin-top:10px;}
+.cashdt-info{height:79px; position:relative; background:#f39800 url(../images/cashbg2.png) no-repeat right 20px; background-size:88px;}
+.cashgtcon .cashdt-r{position:absolute; right:0; top:26px; font-size:24px; color:#fff; width:94px; text-align:center;}
+.cashdt-l{padding:0 20px; margin-right:94px;}
+.cashdt-l .cash-tit{color:#cc4f00; font-size:16px; padding:4px 0;}
+.cashdt-l .otherinfo{color:#fff;}
+.cashdt-des{border:1px solid #e1e1e1; border-top:none; border-bottom:none; background-color:#fff; padding:20px 20px 30px;}
+.cashdt-des .tit{color:#cc4f00;}
+.cashdt-des .con{font-size:12px; color:#959595; margin-top:16px;}
+.cashbbg{background:url(../images/cashbg3.png) repeat-x 0 29px; background-size:11px; height:40px; width:100%; display:block; border-left:1px solid #e1e1e1; border-right:1px solid #e1e1e1; background-color:#fff; box-sizing:border-box;}
+.btn-yellow{background-color:#f39800; border-radius:2px;}
+.mt30{margin-top:30px;}
+.oldcashdt{background:#7d7d7d url(../images/cashbg2.png) no-repeat right -88px; background-size:88px;}
+.oldcashdt .cash-tit{color:#000;}
+.cashbresult{border-left:1px solid #e1e1e1; border-right:1px solid #e1e1e1; box-sizing:border-box; background:#e7e7e7 url(../images/cashbg3.png) repeat-x 0 -41px; background-size:11px; margin-bottom:30px;}
+.cashbresult-box{padding:20px 20px 30px; background:url(../images/cashbg3.png) repeat-x 0 -260px; background-size:11px;}
+.cashbresult dt{color:#cc4f00;}
+.cashbresult dd{color:#959595; margin-top:16px; font-size:12px;}
 
+.huopin-div .cart-item .pic{left:20px;}
+.huopin-div .proinfos{margin-left:106px;}
 
+.huopinedimg{position:relative;}
+.huopinedimg img{width:100%;}
+.huopinedimg .tit{position:absolute; left:0; bottom:20px; font-size:18px; color:#fff; background:rgba(0,0,0,0.6); height:30px; line-height:30px; padding:2px 10px;}
 
 @media (min-width: 768px){
 .ads-layer .tit02{font-size:22px; letter-spacing:6px;}
 .ads-layer .tit03{font-size:18px;}
-.pro-itemcon .pro-info .tit{font-size:24px;}
-.pro-itemcon .pro-info .pris{font-size:18px; line-height:1.5;}
-.pro-itemcon .pro-info .pris .pri{font-size:24px;}
-.pro-itemcon .pro-info .iteminfob{font-size:16px;}
-.pro-item h2{font-size:28px;}
-.pro-itemcon:last-child li:last-child .item:last-child a{font-size:28px;}
 }
 @media (min-width: 768px){
     .manager-view li label{width:15%;}

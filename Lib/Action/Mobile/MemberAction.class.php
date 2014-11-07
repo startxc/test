@@ -5,8 +5,40 @@
  */
 class MemberAction extends CommonAction {
     
+	public function _initialize() {
+        parent::_initialize();
+        //登录判断   
+        $actionName = ACTION_NAME;
+        $moduleName = MODULE_NAME;
+        //不需要登录可以访问的模块方法
+        $module_action = array(); 
+        if (empty($_SESSION['uid']) && !in_array($moduleName."-".$actionName,$module_action)) {
+            $this->redirect('Index/index');
+        } else {
+            //用户信息
+			$memberInfo = M('Member')->where("id={$_SESSION['uid']}")->find();
+			$this->assign('score', intval($memberInfo['score']));
+    		$this->assign('money', number_format($memberInfo['money'], 2, '.', ''));
+        }
+    }
+	
 	public function index(){
 		$this->myInfo();
+    }
+    
+	/**
+     * 我的
+     */
+    
+    public function myInfo() {
+    	$memberCouponModel = M('MemberCoupon');
+    	$groupApplyModel = M('GroupApply');
+    	$couponNum = intval($memberCouponModel->where(array('member_id' => $_SESSION['uid']))->count('id'));
+    	$groupNum = intval($groupApplyModel->where(array('member_id' => $_SESSION['uid']))->count('id'));
+    	$this->assign('couponNum', $couponNum);
+    	$this->assign('groupNum', $groupNum);
+    	$this->assign('title', '我的');
+    	$this->display('myInfo');
     }
     
 	/**
@@ -44,15 +76,6 @@ class MemberAction extends CommonAction {
 	}
 	
 	/**
-     * 获取订单统计
-     */
-    
-    public function getOrderStatusCount() {
-    	$order = A('Api/Order');
-    	$order->getOrderStatusCount();
-    }
-	
-	/**
      * 我的代金券
      */
     
@@ -81,39 +104,17 @@ class MemberAction extends CommonAction {
     public function couponInfo() {
     	$coupon = A('Api/Coupon');
     	$memberCouponInfo = $coupon->getCouponById();
+    	if ($memberCouponInfo['used'] == 1) {
+    		$memberModel = M('Member');
+    		$orderModel = M('Order');
+    		$mobile = $memberModel->where(array('id' => $_SESSION['uid']))->getField('mobile');
+    		$orderNo = $orderModel->where(array('coupon_code' => $memberCouponInfo['coupon_code']))->getField('order_no');
+    		$this->assign('mobile', $mobile);
+    		$this->assign('order_no', $orderNo);
+    	}
     	$this->assign('memberCouponInfo', $memberCouponInfo);
     	$this->assign('title', '代金券详情');
 		$this->display();
-    }
-	
-	/**
-     * 获取代金券统计
-     */
-    
-    public function getCouponStatusCount() {
-    	$coupon = A('Api/Coupon');
-    	$coupon->getCouponStatusCount();
-    }
-    
-    /**
-     * 我的
-     */
-    
-    public function myInfo() {
-    	$memberModel = M('Member');
-    	$memberCouponModel = M('MemberCoupon');
-    	$groupApplyModel = M('GroupApply');
-    	
-    	$memberInfo = $memberModel->where(array('id' => $_SESSION['uid']))->field('score, money')->find();
-    	$couponNum = $memberCouponModel->where(array('id' => $_SESSION['uid']))->count('id');
-    	$groupNum = $groupApplyModel->where(array('id' => $_SESSION['uid']))->count('id');
-    	
-    	$this->assign('score', intval($memberInfo['score']));
-    	$this->assign('money', number_format($memberInfo['money'], 2, '.', ''));
-    	$this->assign('couponNum', $couponNum);
-    	$this->assign('groupNum', $groupNum);
-    	$this->assign('title', '我的');
-    	$this->display('myInfo');
     }
 }
 ?>

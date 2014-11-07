@@ -1,6 +1,6 @@
 <?php
 /**
- * 优惠券管理
+ * 代金券管理
  */
 class CouponAction extends CommonAction {
 	private $listRows = 20;
@@ -11,7 +11,7 @@ class CouponAction extends CommonAction {
 	}
 	
 	public function index() {
-    	$this->couponList();
+    	$this->couponTypeList();
     }
     
     public function excelList() {
@@ -61,6 +61,7 @@ class CouponAction extends CommonAction {
 			$data['start_time'] = strtotime($_POST['start_time']);
 			$data['end_time'] = strtotime($_POST['end_time']);
 			$data['min_use_value'] = $_POST['min_use_value'];
+			$data['intro'] = $_POST['intro'];
 			$id = $couponTypeModel->add($data);
 			if (!$id) {
 				$back->status = 0;
@@ -97,6 +98,7 @@ class CouponAction extends CommonAction {
 				$data['create_time'] = time();
 				$data['coupon_type_id'] = $couponTypeInfo['id'];
 				$data['min_use_value'] = $couponTypeInfo['min_use_value'];
+				$data['intro'] = $couponTypeInfo['intro'];
 				$id = $couponModel->add($data);
 				if (!$id) {
 					$model->rollback();
@@ -134,6 +136,7 @@ class CouponAction extends CommonAction {
 			$data['start_time'] = strtotime($_POST['start_time']);
 			$data['end_time'] = strtotime($_POST['end_time']);
 			$data['min_use_value'] = $_POST['min_use_value'];
+			$data['intro'] = $_POST['intro'];
 			$id = $couponTypeModel->where(array('id' => $_POST['id']))->save($data);
 			if ($id === false) {
 				$back->status = 0;

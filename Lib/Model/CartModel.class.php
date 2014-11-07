@@ -19,7 +19,7 @@ class CartModel extends CommonModel {
     	$cartModel = M('Cart');
     	$back = new stdClass();
     	
-    	$goodsInfo = M('Goods')->where(array('id' => $goodsId, 'status' => 1, 'deleted' => 0))->find();
+    	$goodsInfo = M('Goods')->where(array('id' => $goodsId, 'is_deleted' => 0))->find();
     	if (!$goodsInfo) {
     		$back->status = 0;
 	        return $back;
@@ -123,8 +123,8 @@ class CartModel extends CommonModel {
     	
     	if (is_array($cartList)) {
 	    	foreach ($cartList as $key => $cart) {
-	    		$goodsInfo = $goodsModel->where(array('id' => $cart['goods_id']))->field('status, deleted')->find();
-	    		if ($goodsInfo['status'] == 0 || $goodsInfo['deleted'] == 1) {
+	    		$goodsInfo = $goodsModel->where(array('id' => $cart['goods_id']))->field('is_deleted')->find();
+	    		if ($goodsInfo['is_deleted'] == 1) {
 	    			
 	    			//将该商品从购物车中删除
 	    			$cartModel->where(array('id' => $cart['id']))->delete();
@@ -197,7 +197,7 @@ class CartModel extends CommonModel {
     public function emptyCart() {
     	if (!empty($_SESSION['uid'])) {
     		$cartModel = M('Cart');
-		    $id = $cartModel->where(array('uid' => $_SESSION['uid']))->delete();
+		    $id = $cartModel->where(array('member_id' => $_SESSION['uid']))->delete();
 	    	if ($id === false) {
 	    		return false;
 	    	}

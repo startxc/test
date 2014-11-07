@@ -3,9 +3,18 @@
 
 <style type="text/css">
     .week{width:110px;float:left;margin-left:5px;}
-    .week li{width:100px;height:30px;line-height:30px;text-align:center;padding:5px;background:#ccc;color:#000;}
-    .week li.first{background:#000;color:#fff;font-weight:bold;}
-
+    .week li{width:100px;height:30px;line-height:30px;text-align:left;padding:5px;background:#ccc;color:#000;}
+    .week li input{float:right;}
+    .week li.last{text-align:center;}
+    .week li.last input{float:none;}
+    .week li.first{background:#000;color:#fff;font-weight:bold;text-align:center;}
+    
+    #goods_list{width:250px;position:absolute;left:100px;top:200px;display:none;}
+    #goods_list a,#goods_list a:hover{color:#ccc;}
+    #goods_list li{height:30px;line-height:30px;text-align:left;background:#ccc;color:#000;padding:0 5px;}
+    #goods_list li.first{background:#000;color:#fff;font-weight:bold;text-align:center;}
+    #goods_list li input{float:right;}
+    #goods_list li.first span{float:right;cursor:pointer;}
 </style>
 
 <div class="header">
@@ -18,72 +27,195 @@
     <ul class="week">
         <li class="first">星期一</li>
         <volist name="weekmenuList[1]" id="vo">
-            <li>{$vo.goods_name}&nbsp;&nbsp;
-                <input type="button" value="删除" class="delete_goods" dataid="1-{$vo.goods_id}">
+            <li>
+                <a href="#">{$vo.goods_name}</a>
+                <input type="button" value="删除" class="delete_goods" dataid="{$vo.id}">
             </li>
         </volist>
-        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="1" /></li>
+        <li class="last"><input class="show_goods" type="button" value="添加商品" dataid="1" /></li>
     </ul>
     <ul class="week">
         <li class="first">星期二</li>
         <volist name="weekmenuList[2]" id="vo">
-            <li>{$vo.goods_name}&nbsp;&nbsp;
-                <input type="button" value="删除" class="delete_goods" dataid="2-{$vo.goods_id}">
+            <li>
+                <a href="#">{$vo.goods_name}</a>
+                <input type="button" value="删除" class="delete_goods" dataid="{$vo.id}">
             </li>
         </volist>
-        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="2" /></li>
+        <li class="last"><input class="show_goods" type="button" value="添加商品" dataid="2" /></li>
     </ul>
     <ul class="week">
         <li class="first">星期三</li>
         <volist name="weekmenuList[3]" id="vo">
-            <li>{$vo.goods_name}&nbsp;&nbsp;
-                <input type="button" value="删除" class="delete_goods" dataid="3-{$vo.goods_id}">
+            <li>
+                <a href="#">{$vo.goods_name}</a>
+                <input type="button" value="删除" class="delete_goods" dataid="{$vo.id}">
             </li>
         </volist>
-        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="3" /></li>
+        <li class="last"><input class="show_goods" type="button" value="添加商品" dataid="3" /></li>
     </ul>
     <ul class="week">
         <li class="first">星期四</li>
         <volist name="weekmenuList[4]" id="vo">
-            <li>{$vo.goods_name}&nbsp;&nbsp;
-                <input type="button" value="删除" class="delete_goods" dataid="4-{$vo.goods_id}">
+            <li>
+                <a href="#">{$vo.goods_name}</a>
+                <input type="button" value="删除" class="delete_goods" dataid="{$vo.id}">
             </li>
         </volist>
-        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="4" /></li>
+        <li class="last"><input class="show_goods" type="button" value="添加商品" dataid="4" /></li>
     </ul>
     <ul class="week">
         <li class="first">星期五</li>
         <volist name="weekmenuList[5]" id="vo">
-            <li>{$vo.goods_name}&nbsp;&nbsp;
-                <input type="button" value="删除" class="delete_goods" dataid="5-{$vo.goods_id}">
+            <li>
+                <a href="#">{$vo.goods_name}</a>
+                <input type="button" value="删除" class="delete_goods" dataid="{$vo.id}">
             </li>
         </volist>
-        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="5" /></li>
+        <li class="last"><input class="show_goods" type="button" value="添加商品" dataid="5" /></li>
     </ul>
     <ul class="week">
         <li class="first">星期六</li>
         <volist name="weekmenuList[6]" id="vo">
-            <li>{$vo.goods_name}&nbsp;&nbsp;
-                <input type="button" value="删除" class="delete_goods" dataid="6-{$vo.goods_id}">
+            <li>
+                <a href="#">{$vo.goods_name}</a>
+                <input type="button" value="删除" class="delete_goods" dataid="{$vo.id}">
             </li>
         </volist>
-        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="6" /></li>
+        <li class="last"><input class="show_goods" type="button" value="添加商品" dataid="6" /></li>
     </ul>
     <ul class="week">
         <li class="first">星期日</li>
         <volist name="weekmenuList[7]" id="vo">
-            <li>{$vo.goods_name}&nbsp;&nbsp;
-                <input type="button" value="删除" class="delete_goods" dataid="7-{$vo.goods_id}">
+            <li>
+                <a href="#">{$vo.goods_name}</a>
+                <input type="button" value="删除" class="delete_goods" dataid="{$vo.id}">
             </li>
         </volist>
-        <li class="last"><input class="add_goods" type="button" value="添加商品" dataid="7" /></li>
+        <li class="last"><input class="show_goods" type="button" value="添加商品" dataid="7" /></li>
     </ul>
 </div>
 
 <ul  id="goods_list">
-    <li>商品一&nbsp;&nbsp;<input type="button" value="添加" />
+    <li class="first"><a href="javascript:void(0);" id="prev_page">上一页</a>&nbsp;&nbsp;商品列表&nbsp;&nbsp;<a href="javascript:void(0);" id="next_page">下一页</a> <span id="close_goods_list">关闭</span></li>
 </ul>
 <script type="text/javascript">
+    var curr_week = 1;
+    var curr_page = 1;
+    var goods_list = [];
+    var totalPage = {$totalPage};
+    var isSubmitButton = false;
+    function getGoodsList(){
+        if(goods_list[curr_page] == undefined){ 
+            $.ajax({
+                type:"get",
+                url:"/Api/Goods/getGoodsList",
+                data:{size:10,p:curr_page},
+                async:false,
+                success:function(data){
+                    var res = $.parseJSON(data);
+                    //console.log(data);
+                    goods_list[curr_page] = res['data'];
+                }
+            });
+        }
+        var html = "";
+        for(var i in goods_list[curr_page]){
+            var goods = goods_list[curr_page][i];
+            html += '<li>'+goods['name']+'<input type="button" value="添加" class="add_goods" dataid="'+goods['id']+'"/></li>';
+        }
+        $("#goods_list").find("li:gt(0)").remove();
+        $("#goods_list").append(html);        
+    }
+    //显示商品列表
+    $(".show_goods").click(function(){
+        curr_week = $(this).attr("dataid");
+        getGoodsList();
+        $("#goods_list").css({
+            "left":$(this).offset().left+65,
+            "top":$(this).offset().top
+        }).show();
+    });
+    //关闭商品列表
+    $("#close_goods_list").click(function(){
+        curr_page = 1;
+        $("#goods_list").hide();
+    });
+    //下一页
+    $("#next_page").click(function(){
+        curr_page += 1;
+        if(curr_page>totalPage){
+            alert("已经是最后一页了");
+            curr_page = totalPage;
+            return false;
+        }
+        getGoodsList();
+    });
+    //上一页
+    $("#prev_page").click(function(){
+        curr_page -= 1;
+        if(curr_page == 0){
+            alert("已经是第一页了");
+            curr_page = 1;
+            return false;
+        }
+        getGoodsList();
+    });
+
+    //添加商品到菜谱
+    $(".add_goods").live("click",function(){
+        var goods_id = $(this).attr("dataid");
+        if(isSubmitButton === false){
+            isSubmitButton = true;
+            $.ajax({
+                type:"post",
+                url:"__URL__/addGoodsToMenu",
+                data:{goods_id:goods_id,week:curr_week},
+                async:false,
+                success:function(data){
+                    var res = eval(data);
+                    if(res.status === 1){
+                        var html = "<li>"+res.goods_name+"<input type='button' value='删除' class='delete_goods' dataid='"+res.id+"'></li>";
+                        $(".week").eq(curr_week-1).find(".last").before(html);
+                        $("#goods_list").css({
+                            "top":$(".week").eq(curr_week-1).find(".last").offset().top
+                        });                        
+                    }else{
+                        alert(res.info);
+                    }
+                }
+            });
+            isSubmitButton = false;
+        }
+    });
+
+    //从菜谱删除商品
+    $(".delete_goods").live("click",function(){
+        var id = $(this).attr("dataid");
+        var obj = $(this);
+        if(confirm("确定要把该商品从菜谱删除吗?")){
+            if(isSubmitButton === false){
+                isSubmitButton = true;
+                $.ajax({
+                    type:"post",
+                    url:"__URL__/deleteGoodsFromMenu",
+                    data:{id:id},
+                    async:false,
+                    success:function(data){
+                        var res = eval(data);
+                        if(res.status === 1){
+                            obj.parent().remove();                            
+                        }else{
+                            alert(res.info);
+                        }
+                    }
+                });
+                isSubmitButton = false;
+            }
+        }
+    }); 
+
+
 
     
 </script>

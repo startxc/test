@@ -60,13 +60,13 @@
 $(function() {
 	$.ajax({
 	    type: 'GET',
-	    url: '__URL__/getOrderCount',
+	    url: '__APP__/Api/Order/getOrderStatusCount',
 	    success: function(json) {
-        	var result = eval(json);
-    		$('.userorder li a').eq(0).html(result.created_num + '<br>待付款');
-    		$('.userorder li a').eq(1).html(result.payed_num + '<br>待发货');
-    		$('.userorder li a').eq(2).html(result.shipped_num + '<br>待收货');
-    		$('.user-links a').eq(0).find('div span').html('您已预购（' + result.order_num + '）');
+			var result = eval('('+json+')');
+    		$('.userorder li a').eq(0).html(result.data.created_num + '<br>待付款');
+    		$('.userorder li a').eq(1).html(result.data.payed_num + '<br>待发货');
+    		$('.userorder li a').eq(2).html(result.data.shipped_num + '<br>待收货');
+    		$('.user-links a').eq(0).find('div span').html('您已预购（' + result.data.order_num + '）');
 		}
 	});
 });

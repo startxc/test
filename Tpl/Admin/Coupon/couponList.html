@@ -1,9 +1,9 @@
 <!--加载页面头部文件-->
 <include file="Public:header" />
 <div class="header">
-    <span class="action_title"><a href="__URL__">优惠券</a></span><span class="action_module"> - 优惠券列表 </span>
+    <span class="action_title"><a href="__URL__">代金券</a></span><span class="action_module"> - 代金券列表 </span>
     <!--<span class="action_span"> 
-        <a href="__URL__/addCouponType">添加优惠券</a>
+        <a href="__URL__/addCouponType">添加代金券</a>
     </span>-->
     <div class="clear"></div>
 </div>
@@ -16,7 +16,7 @@
                 <th>面值</th>
                 <th>有效期</th>
                 <th>已被使用</th>
-                <th width="120">操作选项</th>
+                <!--<th width="120">操作选项</th>-->
             </tr>
             <volist name="couponList" id="vo">
             <tr class="list_tr">
@@ -27,11 +27,11 @@
                 <td align="center">
                 	<gt name='vo.use_mid' value='0'>是<else/>否</gt>
                 </td>
-                <td align="center" class="td_center_show"> 
+                <!--<td align="center" class="td_center_show"> 
                 	<span class="control_span">
                       	<a href="#" title="删除"><img border="0" src="__ROOT__/Public/Images/icon_drop.gif"/></a>
                     </span>
-                </td>
+                </td>-->
             </tr>
         	</volist>
 		</table>

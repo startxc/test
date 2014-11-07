@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>注册</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+</head>
+
+<body class="body-setinfo">
+<div class="com-setinfo">
+	<div class="setinfo-con">
+    	<div class="setinfot-link">
+        	<span><a href="__URL__/forgetpassword">忘记密码？</a></span>
+            <span class="tr"><a href="__URL__/login">直接登录</a></span>
+        </div>
+        <form>
+        	<dl class="setinfodl">
+            	<dd>
+                	<span class="dl-tit">手机号</span>
+                    <span class="dl-input"><input id="mobile" class="text-input" type="text"></span>
+                </dd>
+            	<dd>
+                	<span class="dl-tit">验证号</span>
+                    <span class="dl-input dl-inputcode"><input id="verify" class="text-input" type="text"></span>
+                    <a class="get-code" href="javascript:void(0);" id="getVerify">获取验证</a>
+                </dd>
+            	<dd>
+                	<span class="dl-tit">设置密码</span>
+                    <span class="dl-input"><input id="password" class="text-input" type="password"></span>
+                </dd>
+            	<dd>
+                	<span class="dl-tit">确认密码</span>
+                    <span class="dl-input"><input id="confirm_password" class="text-input" type="password"></span>
+                </dd>
+            	<dd>
+                	<span class="dl-tit">姓名</span>
+                    <span class="dl-input"><input id="nickname" class="text-input" type="text"></span>
+                </dd>
+            </dl>
+			<input id="register" class="btn-green" type="button" value="注册">
+        </form>
+    </div>
+    
+</div>
+
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/verify.js"></script>
+<script type="text/javascript">
+    var isSubmitButton = false;
+    $(function(){
+
+        //获取验证号
+        $("#getVerify").click(function(){
+            var mobile = $("#mobile").val();
+            if(mobile == ""){
+                alertPop("手机号码不能为空");
+                $("#mobile").focus();
+                return false;
+            }
+            if(!isMobile(mobile)){
+                alertPop("手机号码格式不对");
+                $("#moblie").focus();
+                return false;
+            }
+            if(isSubmitButton === false){
+                isSubmitButton = true;
+                $.ajax({
+                    type:"get",
+                    url:"/Api/Member/getVerify",
+                    data:{mobile:mobile},
+                    success:function(data){
+                        var res = $.parseJSON(data);
+                        if(res.status == 1){
+                            alert("验证号为："+res.info);
+                        }else{
+                            alertPop(res.info);
+                        }
+                    }
+                });
+                isSubmitButton = false;
+            }
+        });
+
+        $("#register").click(function(){
+            var mobile = $("#mobile").val();
+            if(mobile == ""){
+                alertPop("手机号码不能为空");
+                $("#mobile").focus();
+                return false;
+            }
+            if(!isMobile(mobile)){
+                alertPop("手机号码格式不对");
+                $("#moblie").focus();
+                return false;
+            }
+            var verify = $("#verify").val();
+            if(verify == ""){
+                alertPop("验证号不能为空");
+                $("#verify").focus();
+                return false;
+            }
+            var password = $("#password").val();
+            if(password == ""){
+                alertPop("密码不能为空");
+                $("#password").focus();
+                return false;
+            }
+            var confirm_password = $("#confirm_password").val();
+            if(confirm_password == ""){
+                alertPop("确认密码不能为空");
+                $("#confirm_password").focus();
+                return false;
+            }
+            if(confirm_password != password){
+                alertPop("确认密码与密码不一致");
+                $("#confirm_password").focus();
+                return false;
+            }
+            var nickname = $("#nickname").val();
+            if(nickname == ""){
+                alertPop("姓名不能为空");
+                $("#nickname").focus();
+                return false;
+            }
+            if(isSubmitButton === false){
+                isSubmitButton = true;
+                $.ajax({
+                    type:"post",
+                    url:"/Api/Member/register",
+                    data:{mobile:mobile,verify:verify,password:password,confirm_password:confirm_password,nickname:nickname},
+                    async:false,
+                    success:function(data){
+                        var res = $.parseJSON(data);
+                        if(res.status == 1){
+                            window.location.href = "__APP__/Mobile/Member/index";
+                        }else{
+                            alertPop(res.info);
+                        }
+                    }
+                });
+                isSubmitButton = false;
+            }
+        });
+
+        
+    });
+</script>
+
+</body>
+</html>

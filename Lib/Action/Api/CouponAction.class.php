@@ -38,17 +38,19 @@ class CouponAction extends MobileCommonAction {
 		$data = array();
 		$data['member_id'] = $_SESSION['uid'];
 		$data['coupon_id'] = $couponInfo['id'];
+		$data['name'] = $couponInfo['name'];
 		$data['coupon_code'] = $couponInfo['code'];
 		$data['face_value'] = $couponInfo['face_value'];
 		$data['start_time'] = $couponInfo['start_time'];
 		$data['end_time'] = $couponInfo['end_time'];
+		$data['intro'] = $couponInfo['intro'];
 		$data['create_time'] = time();
 		$id = $memberCouponModel->add($data);
 		if (!$id) {
 			$model->rollback();
 			$this->error("亲,对不起,系统出现错误啦");
         	$back->status = 0;
-            $back->prompt = "亲,对不起,系统出现错误啦";
+            $back->prompt = "亲,对不起,系统出现错误啦".$memberCouponModel->getLastSql();
             return $back;
 		}
 		$id = $couponModel->where(array('id' => $couponInfo['id']))->save(array('use_mid' => $_SESSION['uid']));
@@ -104,6 +106,7 @@ class CouponAction extends MobileCommonAction {
 		if ($couponStatus == 'use') {
 			$map['start_time'] = array('elt', time());
 			$map['end_time'] = array('egt', time());
+			$map['used'] = 0;
 		}
 		if ($couponStatus == 'used') {
 			$map['used'] = 1;
@@ -133,7 +136,7 @@ class CouponAction extends MobileCommonAction {
     	$memberCouponModel = M('MemberCoupon');
     	$memberCouponList = $memberCouponModel->where(array('member_id' => $_SESSION['uid']))->field('id, start_time, end_time, used')->select();
     	foreach ($memberCouponList as $key => $memberCoupon) {
-    		if ($memberCoupon['start_time'] >= time() && $memberCoupon['end_time'] <= time()) {
+    		if ($memberCoupon['start_time'] <= time() && $memberCoupon['end_time'] >= time() && $memberCoupon['used'] == 0) {
     			$useArr[] = $memberCoupon;
     		} elseif ($memberCoupon['used'] == 1) {
     			$usedArr[] = $memberCoupon;
@@ -149,5 +152,22 @@ class CouponAction extends MobileCommonAction {
     	);
     	$this->ajaxRespon($couponStatusCount);
 		ajax_return($couponStatusCount);
+    }
+    
+    /**
+     * 获取即将过期的代金券数
+     */
+    
+    public function getExpireCouponNumber() {
+    	$memberCouponModel = M('MemberCoupon');
+    	$days = max(intval($_GET['days']), 0);
+    	$map = array();
+		$map['member_id'] = $_SESSION['uid'];
+		$map['start_time'] = array('elt', time());
+		$map['end_time'] = array(array('egt', time()), array('lt', time() + 3600 * 24 * $days));
+		$map['used'] = 0;
+		$couponNumber = $memberCouponModel->where($map)->count('id');
+		$this->ajaxRespon($couponNumber);
+		return $couponNumber;
     }
 }

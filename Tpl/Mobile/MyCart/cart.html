@@ -10,6 +10,12 @@
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
 </head>
 
+<if condition="empty($cartArr['data'])">
+<body class="bg-white">
+<div class="noorder"><i class="icon3"></i></div>
+<p class="noordertip">您的购物篮是空的</p>
+</body>
+<else />
 <body>
 <div class="cart-con">
 	<volist name="cartArr.data" id="vo">
@@ -44,8 +50,8 @@
 </div>
 <script type="text/javascript">
 $(function() {
-	
 });
 </script>
 </body>
+</if>
 </html>

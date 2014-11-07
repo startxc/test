@@ -552,17 +552,70 @@ class GoodsAction extends CommonAction {
         );
         foreach($weekmenu as $value){
             switch($value['week']){
-                case 1:$weekmenuList[1][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
-                case 2:$weekmenuList[2][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
-                case 3:$weekmenuList[3][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
-                case 4:$weekmenuList[4][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
-                case 5:$weekmenuList[5][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
-                case 6:$weekmenuList[6][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
-                case 7:$weekmenuList[7][] = array("goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 1:$weekmenuList[1][] = array("id"=>$value['id'],"goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 2:$weekmenuList[2][] = array("id"=>$value['id'],"goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 3:$weekmenuList[3][] = array("id"=>$value['id'],"goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 4:$weekmenuList[4][] = array("id"=>$value['id'],"goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 5:$weekmenuList[5][] = array("id"=>$value['id'],"goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 6:$weekmenuList[6][] = array("id"=>$value['id'],"goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
+                case 7:$weekmenuList[7][] = array("id"=>$value['id'],"goods_id"=>$value['goods_id'],"goods_name"=>$value['goods_name']);break;
             }
         }
+        $count = M("Goods")->where("is_show=1 && is_deleted=0")->count();
+        $this->assign("totalPage",ceil($count/10));
         $this->assign("weekmenuList",$weekmenuList);
         $this->display();
+    }
+
+    //添加商品到菜谱
+    public function addGoodsToMenu(){
+        !$this->isAjax() && $this->error("非法访问");
+        $goods_id = intval($_POST['goods_id']);
+        $week = intval($_POST['week']);
+        $back = new stdClass();
+        if(M("Weekmenu")->where("goods_id={$goods_id} && week={$week}")->find()){
+            $back->status = 0;
+            $back->info = "该商品已经添加过了";
+            ajax_return($back);
+        }
+        if(!$goods = M("Goods")->where("id={$goods_id}")->find()){
+            $back->status = 0;
+            $back->info = "要添加的商品不存在";
+            ajax_return($back);
+        }
+        $data = array(
+            "goods_id"=>$goods_id,
+            "goods_name"=>$goods['name'],
+            "goods_image"=>$goods['image'],
+            "week"=>$week,
+            "create_time"=>time()
+        );
+        if($id = M("Weekmenu")->add($data)){
+            $back->status = 1;
+            $back->id = $id;
+            $back->goods_name = $data['goods_name'];
+            $back->goods_id = $data['goods_id'];
+            ajax_return($back);
+        }else{
+            $back->status = 0;
+            $back->info = "添加失败";
+            ajax_return($back);
+        }
+    }
+
+    //从菜谱中删除商品
+    public function deleteGoodsFromMenu(){
+        !$this->isAjax() && $this->error("非法访问");
+        $id = intval($_POST['id']);
+        $back = new stdClass();
+        if(M("Weekmenu")->where("id={$id}")->delete()){
+            $back->status = 1;
+            $back->info = "删除成功";
+        }else{
+            $back->status = 0;
+            $back->info = "删除失败";
+        }
+        ajax_return($back);
     }
 }
 

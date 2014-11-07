@@ -14,15 +14,15 @@ class CartAction extends MobileCommonAction {
 		$goodsQty = max(intval($_POST['goods_qty']), 0);
 		$back = $cartModel->addToCart($goodsId, $goodsQty);
 		if ($back->status == 0) {
-			$this->success("商品不存在");
+			$this->error("商品不存在");
 		} elseif ($back->status == 1) {
 			$this->success("操作成功");
 		} elseif ($back->status == 2) {
-			$this->success("商品数量有误");
+			$this->error("商品数量有误");
 		} elseif ($back->status == 3) {
-			$this->success("更新商品数量失败");
+			$this->error("更新商品数量失败");
 		} elseif ($back->status == 4) {
-			$this->success("加入购物车失败");
+			$this->error("加入购物车失败");
 		}
 		return $back;
     }

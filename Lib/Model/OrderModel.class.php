@@ -13,7 +13,7 @@ class OrderModel extends CommonModel {
 	 * @param string $addressId 收货地址ID
 	 * @param integer $orderType 订单类型
 	 * @param string $buyerNote 买家备注
-	 * @return object $back status属性(0:购物车没有商品 1:提交订单成功 2:写入订单表失败 3:写入订单商品表失败 4:清空购物车商品失败)
+	 * @return object $back status属性(0:购物车没有商品 1:提交订单成功 2:收货地址不存在 3:写入订单表失败 4:写入订单商品表失败 5:清空购物车商品失败)
 	 */
 	
 	public function addOrder($addressId, $orderType, $buyerNote) {
@@ -21,6 +21,7 @@ class OrderModel extends CommonModel {
 		$orderGoodsModel = M('OrderGoods');
 		$memberAddress = M('MemberAddress');
 		$cartModel = D('Cart');
+		$orderType = in_array($orderType, array('normal', 'group')) ? $orderType : 'normal';
 		$back = new stdClass();
 		
 		$cartArr = $cartModel->getCartList();
@@ -32,7 +33,12 @@ class OrderModel extends CommonModel {
 		$orderAmount = $goodsAmount;
 		
 		//获取收货地址
-		$memberAddressInfo = $memberAddress->where(array('uid' => $_SESSION['uid'], 'is_default' => 1))->find();
+		$memberAddressInfo = $memberAddress->where(array('id' => $addressId, 'member_id' => $_SESSION['uid']))->find();
+		if (!$memberAddressInfo) {
+			$orderModel->rollback();
+			$back->status = 2;
+	        return $back;
+		}
 		
 		$orderModel->startTrans();
 		$data = array();
@@ -44,17 +50,18 @@ class OrderModel extends CommonModel {
 		$data['city_id'] = $memberAddressInfo['city_id'];
 		$data['area_id'] = $memberAddressInfo['area_id'];
 		$data['address'] = $memberAddressInfo['address'];
-		$data['tel'] = $memberAddressInfo['tel'];
 		$data['mobile'] = $memberAddressInfo['mobile'];
 		$data['goods_amount'] = $goodsAmount;
 		$data['order_amount'] = $orderAmount;
-		$data['buyer_note'] = $buyerNote;
+		if (!empty($buyerNote)) {
+			$data['buyer_note'] = $buyerNote;
+		}
 		$data['order_type'] = $orderType;
 		$data['create_time'] = time();
 		$orderId = $orderModel->add($data);
 		if (!$orderId) {
 			$orderModel->rollback();
-			$back->status = 2;
+			$back->status = 3;
 	        return $back;
 		}
 		
@@ -67,11 +74,11 @@ class OrderModel extends CommonModel {
 			$data['image'] = $cart['image'];
 			$data['number'] = $cart['number'];
 			$data['price'] = $cart['price'];
-			$data['create_time'] = $cart['create_time'];
+			$data['create_time'] = time();
 			$id = $orderGoodsModel->add($data);
 			if (!$id) {
 				$orderModel->rollback();
-				$back->status = 3;
+				$back->status = 4;
 	        	return $back;
 			}
 		}
@@ -79,7 +86,7 @@ class OrderModel extends CommonModel {
 		$bool = $cartModel->emptyCart();
 		if (!$bool) {
 			$orderModel->rollback();
-			$back->status = 4;
+			$back->status = 5;
 	        return $back;
 		}
 		

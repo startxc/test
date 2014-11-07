@@ -1,9 +1,9 @@
 <!--加载页面头部文件-->
 <include file="Public:header" />
 <div class="header">
-    <span class="action_title"><a href="__URL__">优惠券类型</a></span><span class="action_module"> - 优惠券类型列表 </span>
+    <span class="action_title"><a href="__URL__">代金券类型</a></span><span class="action_module"> - 代金券类型列表 </span>
     <span class="action_span"> 
-        <a href="__URL__/addCouponType">添加优惠券类型</a>
+        <a href="__URL__/addCouponType">添加代金券类型</a>
     </span>
     <div class="clear"></div>
 </div>
@@ -28,10 +28,10 @@
                 <td align="center" class="td_center_show"> 
                 	<span class="control_span">
                       	<a href="__URL__/updateCouponType/id/{$vo.id}" title="编辑"><img border="0" src="__ROOT__/Public/Images/icon_edit.gif"/></a>
-                    	<a href="__URL__/couponList/id/{$vo.id}" title="查看优惠券"><img border="0" src="__ROOT__/Public/Images/icon_view.gif"/></a>
-                    	<a href="__URL__/createCoupon/id/{$vo.id}" title="生成优惠券"><img border="0" src="__ROOT__/Public/Images/icon_add.gif"/></a>
+                    	<a href="__URL__/couponList/id/{$vo.id}" title="查看代金券"><img border="0" src="__ROOT__/Public/Images/icon_view.gif"/></a>
+                    	<a href="__URL__/createCoupon/id/{$vo.id}" title="生成代金券"><img border="0" src="__ROOT__/Public/Images/icon_add.gif"/></a>
                     	<!--<a href="#" title="删除"><img border="0" src="__ROOT__/Public/Images/icon_drop.gif"/></a>-->
-                    	<a class="createCouponExcel" href="__URL__/createCouponExcel/id/{$vo.id}" title="生成Excel"><img border="0" src="__ROOT__/Public/Images/icon_docs.gif"/></a>
+                    	<a  id="createCouponExcel-{$vo.id}" href="__URL__/createCouponExcel/id/{$vo.id}" title="生成Excel"><img border="0" src="__ROOT__/Public/Images/icon_docs.gif"/></a>
                     </span>
                 </td>
             </tr>
@@ -41,13 +41,14 @@
 </div>
 <script type="text/javascript">
 $(function() {
-	$('.createCouponExcel').click(function() {
-		var r = confirm("是否要生成excel表格？")
-		if (r == true) {
-			window.location.href = $(this).attr('src');
-		}
+	$('[id^="createCouponExcel-"]').click(function() {
+        var id = $(this).attr('id').split('-')[1];
+        var r = confirm("你确认要生成excel表格吗?")
+        if (r == true) {
+        	window.location.href = '__URL__/createCouponExcel/id/' + id;
+        }
 		return false;
-	});
+    });
 	//表格变色
 	$('.list_tr').hover(function(){
 		$(this).find('td').css('background', '#F4FAFB');

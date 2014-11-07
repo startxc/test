@@ -445,6 +445,20 @@ $apis[] = array(
 						array('field'=>'shipped_num','desc'=>'待收货订单数')
 					)
 			),
+			'Order/addOrder'=>array(
+					'desc' => '提交订单',
+					'type'=>'POST',
+					'field'=>array(
+						'address_id'=>array('desc'=>'收货地址ID'),
+						'order_type'=>array('desc'=>'订单类型'),
+						'buyer_note'=>array('desc'=>'买家备注')
+					),
+					'response'=>'{"status":1,"info":"提交订单成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表提交订单成功，0代表提交订单失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			),
 			'Order/deleteOrder'=>array(
 					'desc' => '删除订单',
 					'type'=>'POST',
@@ -549,6 +563,16 @@ $apis[] = array(
 						array('field'=>'used_num','desc'=>'已使用代金券数')
 					)
 			),
+			'Coupon/getExpireCouponNumber'=>array(
+					'desc' => '获取即将过期的代金券数',
+					'type'=>'GET',
+					'field'=>array(
+						'days'=>array('desc'=>'还剩n天过期')
+					),
+					'response'=>'',
+					'res_field'=>array(
+					)
+			)
 	)		
 );
 	

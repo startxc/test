@@ -30,7 +30,7 @@ class OrderAction extends CommonAction {
         if(!empty($keywords)) {
             $condition['order_no'] = array('like', '%' . $keywords . '%');
         }
-        $count = $orderModel->where($condition)->count('id');     
+        $count = $orderModel->where($condition)->count('id');
         if ($count > 0) {
             import("@.ORG.Util.Page");
             $p = new Page($count, $this->listRows);

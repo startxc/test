@@ -31,6 +31,7 @@ class GoodsAction extends MobileCommonAction{
 
 	//获取普通商品列表
 	public function getGoodsList($size=19,$order="create_time desc"){
+		$size = empty($_GET['size'])?intval($size):intval($_GET['size']);
 		$condition = array(
 			"is_show"=>1,
 			"is_deleted"=>0

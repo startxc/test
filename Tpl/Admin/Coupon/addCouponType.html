@@ -4,8 +4,8 @@
 table tr td .tip{ padding-left:5px; color:#999;}
 </style>
 <div class="header">
-	<span class="action_title"><a href="#">优惠券类型</a></span> <span class="action_module"> - 添加优惠券类型</span>
-	<span class="action_span"><a href="__URL__/couponTypeList">优惠券类型列表</a></span>
+	<span class="action_title"><a href="#">代金券类型</a></span> <span class="action_module"> - 添加代金券类型</span>
+	<span class="action_span"><a href="__URL__/couponTypeList">代金券类型列表</a></span>
 	<div class="clear"></div>
 </div>
 <div id="middle">
@@ -13,24 +13,28 @@ table tr td .tip{ padding-left:5px; color:#999;}
 		<div class="list_div">
             <table class="add_table" cellspacing="1" cellpadding="3">
                 <tr>
-                    <td width="100" align="center">优惠券名称</td>
-                    <td><input type="text" class="add_input_text" id="name" name="name"><span class="tip">请为此组优惠券命名</span></td>
+                    <td width="100" align="center">代金券名称</td>
+                    <td><input type="text" class="add_input_text" id="name" name="name"><span class="tip">请为此组代金券命名</span></td>
                 </tr>
                 <tr>
-                    <td width="100" align="center">优惠券面值</td>
-                    <td><input type="text" class="add_input_text" id="face_value" name="face_value"><span class="tip">请填写此组优惠券所能抵销的金额</span></td>
+                    <td width="100" align="center">代金券面值</td>
+                    <td><input type="text" class="add_input_text" id="face_value" name="face_value"><span class="tip">请填写此组代金券所能抵销的金额</span></td>
                 </tr>
                 <tr>
                     <td width="100" align="center">有效时间段</td>
                     <td>
                     	<input type="text" class="add_input_text" id="start_time" name="start_time"> - 
                     	<input type="text" class="add_input_text" id="end_time" name="end_time">
-                    	<span class="tip">此组优惠券的使用时间段</span>
+                    	<span class="tip">此组代金券的使用时间段</span>
                     </td>
                 </tr>
                 <tr>
                     <td width="100" align="center">最小使用金额</td>
-                    <td><input type="text" class="add_input_text" id="min_use_value" name="min_use_value"><span class="tip">当购物车总金额达到所填写的现金额度时优惠券生效</span></td>
+                    <td><input type="text" class="add_input_text" id="min_use_value" name="min_use_value"><span class="tip">当购物车总金额达到所填写的现金额度时代金券生效</span></td>
+                </tr>
+                <tr>
+                    <td width="100" align="center">使用说明</td>
+                    <td><textarea id="intro" name="intro" style=" width: 700px; margin-right: 2px; height: 200px;" class="textarea_desc_field" ></textarea><span class="tip">请填写此组代金券的使用说明</span></td>
                 </tr>
             </table>
             <table class="submit_table">
@@ -46,23 +50,35 @@ table tr td .tip{ padding-left:5px; color:#999;}
 </div>
 <script type="text/javascript" src="__PUBLIC__/Js/lhgcalendar/lhgcore.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/lhgcalendar/lhgcalendar.min.js"></script>
+<link rel="stylesheet" href="__PUBLIC__/Js/kindeditor-4.1.7/themes/default/default.css" />
+<script type="text/javascript" src="__PUBLIC__/Js/kindeditor-4.1.7/kindeditor-min.js"></script>
 <script type="text/javascript">
 $(function() {
 	J('#start_time').calendar();
 	J('#end_time').calendar();
+	//编辑器
+    ED = KindEditor.create(
+            'textarea[name="intro"]', 
+            {items:['source', '|', 'undo', 'redo', '|','plainpaste', 'wordpaste', '|', 
+                    'formatblock', 'fontname', 'fontsize', '|', 'forecolor', 'hilitecolor', 'bold',
+                    'italic', 'underline', '|', 'emoticons','link', 'unlink','preview','fullscreen'],
+            filterMode:false
+            }
+    );
 	$('#addCouponType').click(function() {
+		ED.sync();
 		var name = $('#name');
 		var faceValue = $('#face_value');
 		var startTime = $('#start_time');
 		var endTime = $('#end_time');
 		if ($.trim(name.val()) == '') {
 			name.focus();
-			alert('请填写优惠券名称');
+			alert('请填写代金券名称');
 			return false;
 		}
 		if ($.trim(faceValue.val()) == '') {
 			faceValue.focus();
-			alert('请填写优惠券面值');
+			alert('请填写代金券面值');
 			return false;
 		}
 		if ($.trim(startTime.val()) == '') {

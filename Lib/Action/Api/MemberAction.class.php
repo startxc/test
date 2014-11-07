@@ -27,7 +27,7 @@ class MemberAction extends MobileCommonAction{
 
 			$this->success("登录成功");
 		}else{
-			$this->error("登录失败");
+			$this->error("用户名或者密码错误");
 		}
 	}
 
@@ -52,14 +52,15 @@ class MemberAction extends MobileCommonAction{
 		if($data['password'] != $confirm_password){
 			$this->error("确认密码与设置密码不一致");
 		}
+		$data['password'] = md5($data['password']);
 		$data['nickname'] = trim($_POST['nickname']);
-		$this->isEmpty($data['nickname'],"昵称不能为空");
+		$this->isEmpty($data['nickname'],"姓名不能为空");
 		$data['create_time'] = time();
+		$_SESSION['verify'] = null;
 		if($id = M('Member')->add($data)){
 			$_SESSION['uid'] = $id;
 			$_SESSION['mobile'] = $data['mobile'];
 			$_SESSION['nickname'] = $data['nickname'];
-
 			$this->success("注册成功");
 		}else{
 			$this->error("注册失败");
@@ -374,9 +375,11 @@ class MemberAction extends MobileCommonAction{
 	//获取验证号，临时测试用，上线版本用短信接口获取
 	public function getVerify(){
 		$mobile = trim($_GET['mobile']);
+		$this->isEmpty($mobile,"手机号码不能为空");
 		$verify = rand(0,9).rand(0,9).rand(0,9).rand(0,9);
 		$_SESSION['verify'] = $mobile.$verify;
-		echo $verify;
+		//echo $verify;
+		$this->success($verify);
 	}	
 }
 ?>
