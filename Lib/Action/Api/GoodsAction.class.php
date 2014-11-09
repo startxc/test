@@ -3,7 +3,6 @@
 *@author:bruce
 *@desc:商品与伙拼相关接口
 */
-
 class GoodsAction extends MobileCommonAction{
 
 	//获取伙拼商品列表

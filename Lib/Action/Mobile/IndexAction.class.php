@@ -8,7 +8,7 @@ class IndexAction extends Action{
 	public function index(){
 		//伙拼水果
 
-		//特价彩色
+		//特价菜色
 
 		//热门菜谱
 
@@ -17,10 +17,12 @@ class IndexAction extends Action{
 		$category = A("Api/Goods")->getCategoryList();
 		$goodsList = array();
 		foreach($category as $value){
+			$goods = A("Api/Goods")->getGoodsByCategoryId($value['id'],19);
 			$goodsList[] = array(
 				              "cid"=>$value['id'],
 				              "cname"=>$value['name'],
-				              "goods"=>A("Api/Goods")->getGoodsByCategoryId($value['id'],19)
+				              "goods"=>$goods,
+				              "count"=>count($goods)
 				           );
 		}
 		$this->assign("goodsList",$goodsList);

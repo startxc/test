@@ -12,12 +12,12 @@
 
 <body>
 <div class="userinfos">
-	<a href="javascript:;">
+	<a href="__URL__/editInfo">
     	<div class="infobox clearfix">
             <span class="infohead fl"><img src="__PUBLIC__/Images/avater_76x76.jpg"></span>
             <div class="infotxt fl">
-                <p class="txt01">用户名/注册/登录</p>
-                <p class="txt02">我在社区1</p>
+                <p class="txt01">{$memberinfo.nickname}</p>
+                <p class="txt02"><notempty name='memberinfo.area_name'>我在{$memberinfo.area_name}</notempty></p>
                 <p class="txt03 mt">账户余额：<span class="red">{$money} 元</span></p>
                 <p class="txt03">会员积分：<span class="red">{$score} 分</span></p>
             </div>

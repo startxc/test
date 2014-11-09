@@ -4,44 +4,7 @@ class CommonAction extends Action {
 	protected $_not_auth_action = array();
 	protected $_group_name = '';
 	
-	function _initialize() {
-		
-		session_start();
-		
-		if(isset($_REQUEST['offset']) || isset($_SESSION['timezoneOffset'])){
-			//设置成0时区
-			date_default_timezone_set('UTC');
-		}
-		
-		// 用户权限检查
-		if (C ( 'USER_AUTH_ON' ) && 
-			!in_array(MODULE_NAME,explode(',',C('NOT_AUTH_MODULE'))) 
-			&& (property_exists($this, '_not_auth_action') && !in_array(ACTION_NAME, $this->_not_auth_action))
-			) {
-			import ( 'ORG.RBAC' );
-			$groupName = empty($this->_group_name) ? APP_NAME : $this->_group_name;
-			if (! RBAC::AccessDecision ($groupName) ) {
-				//检查认证识别号
-				if (! $_SESSION [C ( 'USER_AUTH_KEY' )]) {
-					$this->_setLoginLink();
-					//跳转到认证网关
-					redirect ( PHP_FILE . C ( 'USER_AUTH_GATEWAY' ) );
-				}
-				// 没有权限 抛出错误
-				if (C ( 'RBAC_ERROR_PAGE' )) {
-					// 定义权限错误页面
-					redirect ( C ( 'RBAC_ERROR_PAGE' ) );
-				} else {
-					if (C ( 'GUEST_AUTH_ON' )) {
-						$this->assign ( 'jumpUrl', PHP_FILE . C( 'USER_AUTH_GATEWAY' ) );
-					}
-					// 提示错误信息
-					$module = defined('P_MODULE_NAME')?  P_MODULE_NAME   :   MODULE_NAME;
-					$this->error ( L ( '_VALID_ACCESS_' ).':'.$groupName.'_'.$module.'_'.ACTION_NAME );
-				}
-			}
-		}
-	}
+
 	public function index() {
 		//列表过滤器，生成查询Map对象
 		$map = $this->_search ();

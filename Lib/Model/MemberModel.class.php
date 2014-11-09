@@ -43,7 +43,13 @@ class MemberModel extends CommonModel {
             S("h_all_regions", $province, C('DATA_CACHE_TIME'));    
         }                
         return $province;
-    }          
+    } 
+
+    //获取收货地址列表
+    public function getAddress($member_id){
+        $address = M("Member_address")->where("member_id={$member_id}")->order("is_default desc,create_time desc")->select();
+        return $address;
+    }         
 }
 
 ?>
