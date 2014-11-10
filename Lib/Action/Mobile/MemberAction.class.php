@@ -168,5 +168,22 @@ class MemberAction extends CommonAction {
         $this->assign("address",$address);
         $this->display();
     }
+
+
+    //我的伙拼
+    public function groupApply(){
+        $uid = $_SESSION['uid'];
+        $status = empty($_GET['status'])?0:intval($_GET['status']);
+        if($status<1 || $status>3){
+            $$status = 0;
+        } 
+        $groupApply = D("Goods")->getMyGroupApply($uid,$status);
+        $this->assign("groupApply",$groupApply);
+
+        $groupApplyNum = D("Goods")->countMyGroupApply($uid);
+        $this->assign("groupApplyNum",$groupApplyNum);
+
+        $this->display();
+    }
 }
 ?>

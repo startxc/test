@@ -9,14 +9,15 @@
 <div>
 Current User：
   <php>
+   function addCategory(&$item, $k, $cate){
+        $item['cate']=$cate;
+	}
    echo $_SESSION['user']['screen_name'];
    $api_with_key = array();
-   foreach($api as $cate_id=> $value){
+   foreach($api as $cate_id => $value){
        if($value['api'] && is_array($value['api'])){
-          array_walk($value['api'],function(&$item,$k,$cate){
-              $item['cate'] = $cate;
-          },$cate_id);
-       	  $api_with_key = array_merge($api_with_key,$value['api']);
+        array_walk($value['api'], 'addCategory', $cate_id);
+        $api_with_key = array_merge($api_with_key,$value['api']);
        }
    }
   </php>

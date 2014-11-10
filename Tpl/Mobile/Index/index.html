@@ -11,89 +11,89 @@
 
 <body>
 <div class="content com-home">
+  <notempty name="index_group">
     <div class="ads">
       <div class="tscons tscons-demo">
           <div class="swipe tscons-viewport" id="mySwipe" style="visibility:visible;">
             <div id="slider1" class="swipe-wrap" style="width:2400px;">
-              <div class="tscons-item" style="width:360px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home_600x160.jpg"/></a></div>
-              <div class="tscons-item" style="width:360px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home2_600x160.jpg"/></a></div>
-              <div class="tscons-item" style="width:360px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home3_600x160.jpg"/></a></div>
-              <div class="tscons-item" style="width:360px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home2_600x160.jpg"/></a></div>
+              <volist name="index_group" id="vo">
+              <div class="tscons-item" style="width:360px;"><a href="{$vo.link}"><img class="img-ads" src="{$vo.image|picture='','adv'}"/></a></div>
+              </volist>
             </div>
           </div>
           <ul class="h-pos">
-            <li class="tscons-nav-item tscons-nav-item-cur"></li>
-            <li class="tscons-nav-item"></li>
-            <li class="tscons-nav-item"></li>
-            <li class="tscons-nav-item"></li>
+            <volist name="index_group" id="vo">
+              <li class="tscons-nav-item <eq name='i' value='1'>tscons-nav-item-cur</eq>"></li>
+            </volist>
           </ul>
       </div>
       <div class="ads-layer">
-      	<a href="#">
+      	<a href="javascript:void(0);">
         	<span class="tit01"><img src="__PUBLIC__/Images/hatit1.png"></span>
         	<span class="tit02">只吃进口水果</span>
         	<span class="tit03">112人已经购买</span>
         </a>
       </div>
     </div>
+  </notempty>
     
+  <notempty name="index_goods">
     <div class="ads mt">
       <div class="tscons tscons-demo">
           <div class="swipe tscons-viewport" id="mySwipe" style="visibility:visible;">
             <div class="swipe-wrap" style="width:2400px;">
-              <div class="tscons-item" style="width:600px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home2_600x160.jpg"/></a></div>
-              <div class="tscons-item" style="width:600px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home2_600x160.jpg"/></a></div>
-              <div class="tscons-item" style="width:600px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home3_600x160.jpg"/></a></div>
-              <div class="tscons-item" style="width:600px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home2_600x160.jpg"/></a></div>
+              <volist name="index_goods" id="vo">
+              <div class="tscons-item" style="width:360px;"><a href="{$vo.link}"><img class="img-ads" src="{$vo.image|picture='','adv'}"/></a></div>
+              </volist>
             </div>
           </div>
           <ul class="h-pos">
-            <li class="tscons-nav-item tscons-nav-item-cur"></li>
-            <li class="tscons-nav-item"></li>
-            <li class="tscons-nav-item"></li>
-            <li class="tscons-nav-item"></li>
+            <volist name="index_goods" id="vo">
+              <li class="tscons-nav-item <eq name='i' value='1'>tscons-nav-item-cur</eq>"></li>
+            </volist>
           </ul>
       </div>
       <div class="ads-layer">
-      	<a href="#">
+      	<a href="javascript:void(0);">
         	<span class="tit01"><img src="__PUBLIC__/Images/hatit2.png"></span>
         	<span class="tstit"><img src="__PUBLIC__/Images/hatit4.png"></span>
         	<span class="tit03">112人已经购买</span>
         </a>
       </div>
     </div>
-    
+  </notempty>
+  
+  <notempty name="index_weekmenu">  
     <div class="ads mt">
     	<div class="tscons tscons-demo">
           <div class="swipe tscons-viewport" id="mySwipe" style="visibility:visible;">
             <div class="swipe-wrap" style="width:2400px;">
-              <div class="tscons-item" style="width:600px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home3_600x160.jpg"/></a></div>
-              <div class="tscons-item" style="width:600px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home2_600x160.jpg"/></a></div>
-              <div class="tscons-item" style="width:600px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home3_600x160.jpg"/></a></div>
-              <div class="tscons-item" style="width:600px;"><a href="javascript:;"><img class="img-ads" src="__PUBLIC__/Images/home2_600x160.jpg"/></a></div>
+              <volist name="index_weekmenu" id="vo">
+              <div class="tscons-item" style="width:360px;"><a href="{$vo.link}"><img class="img-ads" src="{$vo.image|picture='','adv'}"/></a></div>
+              </volist>
             </div>
           </div>
           <ul class="h-pos js-pos">
-            <li class="tscons-nav-item tscons-nav-item-cur"></li>
-            <li class="tscons-nav-item"></li>
-            <li class="tscons-nav-item"></li>
-            <li class="tscons-nav-item"></li>
+            <volist name="index_weekmenu" id="vo">
+              <li class="tscons-nav-item <eq name='i' value='1'>tscons-nav-item-cur</eq>"></li>
+            </volist>
           </ul>
       </div>
       <div class="ads-layer">
-      	<a href="#">
+      	<a href="javascript:void(0);">
         	<span class="tit01"><img src="__PUBLIC__/Images/hatit3.png"></span>
         	<span class="tstit"><img src="__PUBLIC__/Images/hatit4.png"></span>
         	<span class="tit03">112人已经购买</span>
         </a>
       </div>
     </div>
+  </notempty>
     
     <div class="home-ads mt2">
-    	<span class="tbl-cell"><a href="#"><img class="h-img" src="__PUBLIC__/Images/ads_290x290.jpg"></a></span>
+    	<span class="tbl-cell"><a href="{$index_middle_left.link}"><img class="h-img" src="{$index_middle_left.image|picture='','adv'}"></a></span>
     	<span class="tbl-cell">
-        	<a href="#"><img class="h-img" src="__PUBLIC__/Images/ads_290x135.jpg"></a>
-            <a class="tbl-mt" href="#"><img class="h-img" src="__PUBLIC__/Images/ads2_290x135.jpg"></a>
+        	<a href="{$index_middle_rightTop.link}"><img class="h-img" src="{$index_middle_rightTop.image|picture='','adv'}"></a>
+            <a class="tbl-mt" href="{$index_middle_rightBottom.link}"><img class="h-img" src="{$index_middle_rightBottom.image|picture='','adv'}"></a>
         </span>
     </div>
 

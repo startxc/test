@@ -166,7 +166,7 @@ class OrderAction extends MobileCommonAction {
     
     public function getOrderStatusCount() {
     	$orderModel = M('Order');
-    	$orderList = $orderModel->where(array('id' => $_SESSION['uid'], 'is_show' => '1'))->field('id, order_status')->select();
+    	$orderList = $orderModel->where(array('member_id' => $_SESSION['uid'], 'is_show' => '1'))->field('id, order_status')->select();
     	foreach ($orderList as $key => $order) {
     		if ($order['order_status'] == 'created') {
     			$createdArr[] = $order;

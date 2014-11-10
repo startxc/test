@@ -1,122 +1,186 @@
 <!--加载页面头部文件-->
 <include file="Public:header" />
+
 <style type="text/css"> 
-input,select,textarea{outline:0}input,textarea{padding-left:3px;padding:3px}
+    input,select, textarea { outline: none; }
+    input,textarea { padding-left: 3px; padding: 3px; }
 </style>
+
 <div class="header">
-	<span class="action_title"><a href="#">广告图片管理</a></span><span class="action_module"> - 添加广告图片  </span>
-	<span class="action_span"><a href="__URL__">广告图片列表</a></span>
-	<div class="clear">
-	</div>
+    <span class="action_title"> <a href="#">广告图片管理</a></span> <span class="action_module"> - 添加广告图片  </span>
+    <span class="action_span" > <a href="__URL__">广告图片列表</a> </span>
+    <div class="clear"> </div>
 </div>
+
 <div id="middle">
-	<form method="post" action="__URL__/update" enctype="multipart/form-data">
-		<div class="list_div">
-			<table class="add_table" cellspacing="1" cellpadding="3">
-			<tr>
-				<td width="100" align="center">
+    <form method="post" name="adv_form" action="__URL__/update" enctype="multipart/form-data" >
+        <!--列表-->
+        <div class="list_div">
+            <table class="add_table" cellspacing="1" cellpadding="3">
+                <tr>
+                    <td width="100" align="center"> 
                         所属广告位置
-				</td>
-				<td>
-					<select name="position" style="padding: 3px;">
-						<option value="0"> 请选择... </option>
-						<volist name="position" id="vo">
-						<option value="{$vo.id}" <eq name="info['position_id']" value="$vo['id']"> selected="selected" </eq> > {$vo.name} </option>
-						</volist>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="center">
+                    </td>
+                    <td> 
+                        <select id="position" name="position" style="padding: 3px;"> 
+                            <option value="0"> 请选择... </option>
+                            <volist name="position" id="vo">
+                                <option value="{$vo.id}" width="{$vo.width}" height="{$vo.height}" <eq name="info['position_id']" value="$vo['id']"> selected="selected" </eq> > {$vo.name} </option>
+                            </volist>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
                         广告图片名称
-				</td>
-				<td>
-					<input type="text" class="add_input_text" name="name" value="{$info['name']}">
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="center">
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="name" value="{$info['name']}"> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
                         广告图片链接
-				</td>
-				<td>
-					<input type="text" class="add_input_text" name="link" value="{$info['link']}">
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="center">
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="link" value="{$info['link']}"> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
                         图片同级排序
-				</td>
-				<td>
-					<input type="text" class="add_input_text" name="sort" value="{$info['sort']}">
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="center">
-					 图片启用状态
-				</td>
-				<td>
-					<input type="radio" name="enabled" value="1" <eq name="info['enabled']" value="1"> checked="checked" </eq> > 启用 <input type="radio" name="enabled" value="0" <eq name="info['enabled']" value="0"> checked="checked" </eq>> 禁用
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="center">
-                        广告图片图片
-				</td>
-				<td>
-					<span class="span_choose_file">
-					<span class="span_upload_field" hidefocus="true" id="btn_choose_img"> 浏览图片 </span>
-					<input type="file" name="file" value="" hidefocus="true" class="input_file_upload" id="file_choose_img"/>
-					</span>
-					<span class="span_choose_list">
-					<small id="file_choose_name"> 点击浏览图片 </small>
-					<a href="javascript:delete_image(this);" class="panel_delete" hidefocus="true"></a>
-					</span>
-					<br/>
-					<br/>
-					<img width="200" src="{$info.image|picture=###,'',adv}"/>
-				</td>
-			</tr>
-			<tr>
-				<td width="100" align="center">
+                    </td>
+                    <td> <input type="text" class="add_input_text" name="sort" value="{$info['sort']}"> </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 图片启用状态 </td>
+                    <td> <input type="radio" name="enabled" value="1" <eq name="info['enabled']" value="1"> checked="checked" </eq> > 启用 <input type="radio" name="enabled" value="0" <eq name="info['enabled']" value="0"> checked="checked" </eq>> 禁用 </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 广告图片 </td>
+                    <td>
+                        <notempty name="info['image']">
+                            <img src="{$info.image|picture='','adv'}" width=100 height=100 wid="{$info.image}" id="adv_img" />
+                        <else/>
+                            <img src="" width=100 height=100 wid="" id="adv_img" style="display:none;" />
+                        </notempty>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
+                        上传广告图片
+                    </td>
+                    <td> 
+                        <span class="span_choose_file" style="position:relative;">
+                            <input type="button" value="上传图片" id="upload_btn" />
+                            <div style="position:absolute;left:0;top:0">
+                                <input type="file" style="display:none;" id="file_upload" /> 
+                            </div>
+                        </span>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="100" align="center"> 
                         广告图片描述
-				</td>
-				<td>
-					<textarea name="description" class="textarea_desc_field">{$info.description}</textarea>
-				</td>
-			</tr>
-			</table>
-			<table class="submit_table">
-			<tr>
-				<td>
-					<span>
-					<input type="hidden" name="id" value="{$id}"/>
-					<input type="hidden" name="img" value="{$info.image}"/>
-					<input type="submit" value="提交保存"/>
-					</span>
-					<span><input type="reset" value="全部重置"/></span>
-				</td>
-			</tr>
-			</table>
-		</div>
-	</form>
+                    </td>
+                    <td> <textarea name="description" class="textarea_desc_field" >{$info.description}</textarea> </td>
+                </tr>
+            </table>
+
+            <table class="submit_table">
+                <tr>
+                    <td> 
+                        <span>
+                            <input type="hidden" name="id" value="{$id}" />
+                            <input type="hidden" name="img" value="{$info.image}" />
+                            <input type="submit" id="submit" value="提交保存" />
+                        </span>
+                    </td>
+                </tr>                    
+            </table> 
+        </div>
+    </form>
 </div>
+
+<include file="Home:Public:cutImage" />
+<script type="text/javascript" src="__PUBLIC__/Js/image.js"></script>
 <script type="text/javascript">
-$(function() {
-	//图片上传按钮
-	$(".input_file_upload").css("opacity", 0);
-	$("#file_choose_img").bind("click", function() {
-		$(".span_choose_list").show();
-	});
-	$("#file_choose_img").bind("change", function() {
-		var value = $(this).val();
-		$("#file_choose_name").text(value);
-		$(".span_choose_list").show();
-	});
-});
-function delete_image() {
-	$(".span_choose_list").hide();
-	$("#file_choose_img").val("");
-}
+    $(function(){
+        var isSubmitButton = false;
+        $("#submit").click(function(){
+            var position = parseInt(adv_form.position.value);
+            if(position === 0){
+                alert('请选择广告位置');
+                return false;
+            }
+            var name = adv_form.name.value;
+            if(name === ""){
+                alert("广告名称不能为空");
+                return false;
+            }
+            var link = adv_form.link.value;
+            if(link === ""){
+                alert("广告链接不能为空");
+                return false;
+            }
+            var sort = adv_form.sort.value;
+            if(sort === ""){
+                sort = 0;
+            }
+            var enabled = $("input[name='enabled']:checked").val();
+            var description = adv_form.description.value;
+            var imgname = $("#adv_img").attr("wid");
+            if(imgname === ""){
+                alert("广告图片不能为空");
+                return false;
+            }
+            var id = adv_form.id.value;
+            var oldimgname = adv_form.img.value;
+            if(isSubmitButton === false){
+                isSubmitButton = true;
+                $.ajax({
+                    type:"post",
+                    url:"__URL__/update",
+                    async:false,
+                    data:{id:id,oldimgname:oldimgname,position:position,name:name,link:link,sort:sort,enabled:enabled,description:description,imgname:imgname},
+                    success:function(data){
+                        var res = eval(data);
+                        if(res.status === 1){
+                            alert("修改成功");
+                            window.location.href = "__URL__/index";
+                        }else{
+                            alert("修改失败");
+                        }
+                    }
+                });
+                isSubmitButton = false;
+            }
+            return false;
+        });
+        var obj = $("#file_upload");
+        myImage.uploadImage(
+            obj,
+            {width:66,height:29,multi:'single'},
+            {dir:'adv'},
+            function(data){
+                var res = eval(data);
+                if(res.status === 0){
+                    alert(res.info);
+                }else{
+                    $("#adv_img").attr("src",res.src).attr("wid",res.name).show();
+                    $("#upload_btn").val("更改图片");
+                }
+            }
+        );
+        $("#adv_img").live("click",function(){
+            var width = parseInt($("#position option:selected").attr("width"));
+            var height = parseInt($("#position option:selected").attr("height"));
+            if(width === 0 || height === 0){
+                alert("该广告位置的宽度与高度未设置");
+            }else{
+                var obj = $(this);
+                myImage.cutImage(obj.attr("src"),{width:width,height:height},"adv",obj);
+            }
+        });        
+    });
+
 </script>
+
 <!--加载页面脚部文件-->
 <include file="Public:footer" />

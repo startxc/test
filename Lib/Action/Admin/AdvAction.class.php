@@ -1,6 +1,8 @@
 <?php
+
 /**
  * 广告管理
+ *
  * @author kewen
  */
 class AdvAction extends CommonAction {
@@ -14,6 +16,7 @@ class AdvAction extends CommonAction {
             $w = "position_id='{$pid}'";
         }
         $list = M("Adv")->where($w)->order("id desc")->select();
+        
         $this->assign("list", $list);
         $this->assign("pid", $pid);
         $this->display();
@@ -111,4 +114,5 @@ class AdvAction extends CommonAction {
         $this->success('操作完成!');
     }
 }
+
 ?>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>我发起的火拼</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+</head>
+
+<body>
+<ul class="userorder fouritem2 mb10 clearfix">
+	<li><a href="__URL__/groupApply/status/0">{$groupApplyNum.all}<br>所有</a></li>
+	<li><a href="__URL__/groupApply/status/3">{$groupApplyNum.success}<br>成功发起</a></li>
+	<li><a href="__URL__/groupApply/status/1">{$groupApplyNum.wait}<br>等待审核</a></li>
+	<li><a href="__URL__/groupApply/status/2">{$groupApplyNum.fail}<br>发起失败</a></li>
+</ul>
+<volist name="groupApply" id="vo">
+    <div class="huopin-div">
+        <notempty name="vo.group">
+            <div class="cart-item">
+				<span class="pic"><a class="pro-img" href="__APP__/Mobile/Goods/groupDetail/id/{$vo['group'].id}"><img src="{$vo.group.image|picture='','product'}"></a></span>
+				<div class="proinfos clearfix">
+					<div class="proinfor">
+						<a class="proinfotxt" href="__APP__/Mobile/Goods/groupDetail/id/{$vo.group.id}">
+							<p class="tit">{$vo.group.name}</p>
+							<p class="total"><span class="total-l">起订量：{$vo.group.moq_spec}</span>&nbsp;&nbsp;<span class="total-r">已订量：{$vo.group.sale_spec}</span></p>
+							<p class="status">剩余时间：{$vo.group.end_time|diffTime}<br>购买人数：{$vo.group.sale_count}</p>
+						</a>
+					</div>
+					<span class="pri">{$vo.group.price}元</span>
+				</div>
+            </div>
+        <else/>
+            <div class="cart-item">
+                <span class="pic"><a class="pro-img" href="__APP__/Mobile/Goods/detail/id/{$vo.goods_id}"><img src="{$vo.image|picture='','product'}"></a></span>
+                <div class="proinfos clearfix">
+                    <div class="proinfor">
+                        <a class="proinfotxt" href="__APP__/Mobile/Goods/detail/id/{$vo.goods_id}">
+                            <p class="tit">{$vo.name}</p>
+                        </a>
+                    </div>
+                    <span class="pri">{$vo.price}元</span>
+                </div>
+            </div>        
+        </notempty>
+    </div>
+</volist>
+</body>
+</html>

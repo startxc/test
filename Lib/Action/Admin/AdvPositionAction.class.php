@@ -1,12 +1,14 @@
 <?php
+
 /**
  * 广告管理
+ *
  * @author kewen
  */
 class AdvPositionAction extends CommonAction {
     
     public function index() {
-        $list = M('AdvPosition')->select();
+        $list = M("Adv_position")->select();
         $this->assign("list", $list);
         $this->display();
     }
@@ -30,7 +32,6 @@ class AdvPositionAction extends CommonAction {
         $data['width'] = intval($_POST['width']);
         $data['height'] = intval($_POST['height']);
         $data['description'] = trim($_POST['description']);
-        
         //查找是否存在代号
         $AdvPosition = M("Adv_position");
         $tip = $AdvPosition->where("code='{$data['code']}'")->find();
@@ -83,5 +84,7 @@ class AdvPositionAction extends CommonAction {
             $this->success("删除失败哦!");
         }
     }
+    
 }
+
 ?>

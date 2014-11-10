@@ -344,7 +344,7 @@ function picture($pic, $width='', $type='product') {
     // 是否取缩略图
     
     $directory = (empty($width) || (strtolower(substr($pic,-3)) == "gif"))? $type :'thumbs/'.$type;
-    $host = (rand(1, 99)%2==0) ? "http://img1.lvjie.com/{$directory}/" : "http://img2.lvjie.com/{$directory}/";
+    $host = "http://imglv.pansi.com/{$directory}/";
     
     return $host . $dir2;
 }
@@ -368,7 +368,7 @@ function local_picture($pic, $width='', $type='product') {
 
 //头像
 function avatar($pic){
-    $host = (rand(1, 99)%2==0) ? "http://img1.lvjie.com/member/" : "http://img2.lvjie.com/member/";
+    $host = "http://imglv.pansi.com/member/";
     if(empty($pic)) return $host."201401/01/20140101default_face.png"; 
     $dir0 = substr($pic, 0, 6);
     $dir1 = substr($pic, 6, 2);
@@ -532,13 +532,14 @@ function my_serialize( $obj ){
 function my_unserialize($txt){
     return unserialize(gzuncompress(base64_decode($txt)));
 }
-//计算两个时间相隔的天数
-function timeDiff($time1,$time2){
-    if($time2-$time1 > 86400){
-        return ceil(($time2-$time1)/86400)."天";
-    }
-    if(($time2-$time1 < 86400) && ($time2-$time1 > 0)){
-        return "最后一天了";
+
+
+//计算剩余时间
+function diffTime($time){
+    if(time()>$time){
+        return "已结束";
+    }else{
+        return ceil(($time-time())/3600/24)."天";
     }
 }
 

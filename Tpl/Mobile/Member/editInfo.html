@@ -11,12 +11,14 @@
 
 <body>
 <div class="infoedit">
+<eq name="memberinfo.member_type" value="normal">
 	<a href="__URL__/recharge">
     	<span class="tit">充值</span><span class="arrow"></span><span class="des fr">进入充值</span>
     </a>
 	<a href="__URL__/setPayPassword">
     	<span class="tit">支付密码</span><span class="arrow"></span><span class="des fr"><empty name="memberinfo.pay_password">未设置<else/>修改</empty></span>
     </a>
+</eq>
 	<a href="__URL__/setNickname">
     	<span class="tit fl">昵称</span><span class="titinfo">{$memberinfo.nickname}</span><span class="arrow"></span><span class="des fr">修改</span>
     </a>
@@ -26,12 +28,14 @@
 	<a href="__URL__/setMobile">
     	<span class="tit fl">绑定手机</span><span class="titinfo">{$memberinfo.mobile}</span><span class="arrow"></span><span class="des fr">更换</span>
     </a>
+<eq name="memberinfo.member_type" value="normal">
 	<a href="__URL__/setBindMember">
     	<span class="tit fl">绑定会员</span><span class="titinfo">{$memberinfo.bind_member}</span><span class="arrow"></span><span class="des fr"><empty name="memberinfo.bind_member">未设置<else/>更换</empty></span>
     </a>
 	<a href="__URL__/setAddress">
     	<span class="tit fl">收货地址</span><span class="titinfo">{$memberinfo.address}</span><span class="arrow"></span><span class="des fr">更换/添加</span>
     </a>
+</eq>
 </div>
 <div class="exit"><a class="bigbtn btn-red" href="javascript:void(0);" id="loginOut">退出系统</a></div>
 

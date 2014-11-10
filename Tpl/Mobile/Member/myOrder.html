@@ -89,13 +89,13 @@
 $(function() {
 	$.ajax({
 	    type: 'GET',
-	    url: '__URL__/getOrderStatusCount',
+	    url: '__APP__/Api/Order/getOrderStatusCount',
 	    success: function(json) {
-        	var result = eval(json);
-        	$('.userorder li a').eq(0).html(result.order_num + '<br>所有');
-    		$('.userorder li a').eq(1).html(result.created_num + '<br>待付款');
-    		$('.userorder li a').eq(2).html(result.payed_num + '<br>待发货');
-    		$('.userorder li a').eq(3).html(result.shipped_num + '<br>待收货');
+			var result = eval('('+json+')');
+        	$('.userorder li a').eq(0).html(result.data.order_num + '<br>所有');
+    		$('.userorder li a').eq(1).html(result.data.created_num + '<br>待付款');
+    		$('.userorder li a').eq(2).html(result.data.payed_num + '<br>待发货');
+    		$('.userorder li a').eq(3).html(result.data.shipped_num + '<br>待收货');
 		}
 	});
 	$('[id^="deleteOrder-"]').click(function() {
