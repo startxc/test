@@ -13,7 +13,7 @@ class IndexAction extends Action{
 		//热门菜谱
 
 		//每个分类下的商品
-		
+
 		$category = A("Api/Goods")->getCategoryList();
 		$goodsList = array();
 		foreach($category as $value){

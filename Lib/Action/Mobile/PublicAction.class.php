@@ -50,7 +50,8 @@ class PublicAction extends CommonAction{
 			$back->status = 1;
 			$_SESSION['resetpassword'] = 1;
 			$_SESSION['resetmobile'] = $mobile;
-				ajax_return($back);
+			$_SESSION['verify'] = null;
+			ajax_return($back);
 		}else{
 			if($_SESSION['resetpassword'] == 1){
 				$this->display();
