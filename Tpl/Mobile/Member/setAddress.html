@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>修改收货地址</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+</head>
+
+<body>
+<volist name="address" id="vo">
+    <div class="sd-item">
+    	<p class="tit"><a href="javascript:void(0);" class="default_address" dataid={$vo.id}><i class="<eq name='vo.is_default' value='1'>i-aselected<else/>i-aselect</eq>"></i><span>默认地址</span></a></p>
+        <div class="addresscon">
+        	<div class="perinfos">
+                <p class="address">{$vo.province_name}{$vo.city_name}{$vo.area_name}<br>{$vo.address}</p>
+                <p class="perinfo"><span class="name">{$vo.consignee}</span><span class="phone">{$vo.mobile}</span></p>
+            </div>
+            <span class="f-edit"><a class="i-edit" href="javascript:void(0);"></a></span>
+            <span class="f-delete"><a class="i-delete" href="javascript:void(0);" dataid="{$vo.id}"></a></span>
+        </div>
+    </div>
+</volist>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<script type="text/javascript">
+    var isSubmitButton = false;
+    $(function(){
+        //设置默认收货地址
+        $(".default_address").click(function(){
+            if($(this).find(".i-aselect").length>0){
+                if(confirmPop("确认设置这个地址为默认地址?")){                 
+                    if(isSubmitButton === false){
+                        isSubmitButton = true;
+                        var obj = $(this);
+                        var address_id = obj.attr("dataid");
+                        $.ajax({
+                            type:"post",
+                            url:"/Api/Member/setDefaultAddress",
+                            data:{address_id:address_id},
+                            async:false,
+                            success:function(data){
+                                var res = $.parseJSON(data);
+                                if(res.status === 1){
+                                    alertPop("修改默认收货地址成功");
+                                    $(".i-aselected").attr("class","i-aselect");
+                                    obj.find(".i-aselect").attr("class","i-aselected");
+                                }else{
+                                    alertPop(res.info);
+                                }
+                            }
+                        });
+                        isSubmitButton = false;
+                    }
+                }
+            }
+        });
+
+        //删除收货地址
+        $(".i-delete").click(function(){
+            if(confirmPop("确认要删除这个收货地址?")){
+                if(isSubmitButton === false){
+                    isSubmitButton = true;
+                    var address_id = $(this).attr("dataid");
+                    $.ajax({
+                        type:"post",
+                        url:"/Api/Member/deleteAddress",
+                        data:{address_id:address_id},
+                        async:false,
+                        success:function(data){
+                            var res = $.parseJSON(data);
+                            if(res.status === 1){
+                                window.location.href = "__URL__/setAddress";
+                            }else{
+                                alertPop(res.info);
+                            }
+                        }
+                    })
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

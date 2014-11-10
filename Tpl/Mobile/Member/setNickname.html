@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>设置账户</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+</head>
+
+<body>
+<div class="acc-head">
+	<a class="acchead-box" href="javascript:;"><img src="__PUBLIC__/Images/head_216x216.jpg">
+    <span class="iconbox"><i class="icon"></i></span></a>
+</div>
+<div class="acc-input">
+	<span class="tit">昵称</span>
+    <span class="name"><input class="text-input" type="text" value="{$memberinfo.nickname}" id="nickname"></span>
+    <input type="hidden" value="{$memberinfo.nickname}" id="oldnickname"> 
+</div>
+<div class="fixsteps">
+	<a class="bigbtn btn-green" href="javascript:void(0);" id="sure">确认</a>
+	<a class="bigbtn btn-gray" href="javascript:void(0);" id="cancel">取消</a>
+</div>
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<script type="text/javascript">
+    var isSubmitButton = false;
+    $("#cancel").click(function(){
+    	window.history.back();
+    });
+    $("#sure").click(function(){
+    	var nickname = $("#nickname").val();
+    	if(nickname == ""){
+    		alertPop("昵称不能为空");
+    		$("#nickname").focus();
+    		return false;
+    	}
+    	var oldnickname = $("#oldnickname").val();
+    	if(oldnickname == nickname){
+    		alertPop("昵称没有修改哦");
+    		$("#nickname").focus();
+    		return false;
+    	}
+    	if(isSubmitButton === false){
+    		isSubmitButton = true;
+    		$.ajax({
+    			type:"post",
+    			url:"/Api/Member/setNickname",
+    			data:{nickname:nickname},
+    			async:false,
+    			success:function(data){
+    				var res = $.parseJSON(data);
+    				if(res.status == 1){
+    					alertPop("修改昵称成功");
+    					window.location.href = "__URL__/editInfo";
+    				}else{
+    					alertPop(res.info);
+    				}
+    			}
+    		});
+    		isSubmitButton = false;
+    	}
+    });  
+</script>  
+</body>
+</html>

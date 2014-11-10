@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>信息编辑</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+</head>
+
+<body>
+<div class="infoedit">
+	<a href="__URL__/recharge">
+    	<span class="tit">充值</span><span class="arrow"></span><span class="des fr">进入充值</span>
+    </a>
+	<a href="__URL__/setPayPassword">
+    	<span class="tit">支付密码</span><span class="arrow"></span><span class="des fr"><empty name="memberinfo.pay_password">未设置<else/>修改</empty></span>
+    </a>
+	<a href="__URL__/setNickname">
+    	<span class="tit fl">昵称</span><span class="titinfo">{$memberinfo.nickname}</span><span class="arrow"></span><span class="des fr">修改</span>
+    </a>
+	<a href="__URL__/setPassword">
+    	<span class="tit">登录密码</span><span class="arrow"></span><span class="des fr">修改</span>
+    </a>
+	<a href="__URL__/setMobile">
+    	<span class="tit fl">绑定手机</span><span class="titinfo">{$memberinfo.mobile}</span><span class="arrow"></span><span class="des fr">更换</span>
+    </a>
+	<a href="__URL__/setBindMember">
+    	<span class="tit fl">绑定会员</span><span class="titinfo">{$memberinfo.bind_member}</span><span class="arrow"></span><span class="des fr"><empty name="memberinfo.bind_member">未设置<else/>更换</empty></span>
+    </a>
+	<a href="__URL__/setAddress">
+    	<span class="tit fl">收货地址</span><span class="titinfo">{$memberinfo.address}</span><span class="arrow"></span><span class="des fr">更换/添加</span>
+    </a>
+</div>
+<div class="exit"><a class="bigbtn btn-red" href="javascript:void(0);" id="loginOut">退出系统</a></div>
+
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<script type="text/javascript">
+    var isSubmitButton = false;
+    $(function(){
+        $("#loginOut").click(function(){
+            if(confirmPop("确定要退出系统?")){
+                if(isSubmitButton == false){
+                    isSubmitButton = true;
+                    $.ajax({
+                        type:"get",
+                        url:"/Api/Member/loginOut",
+                        success:function(){
+                            window.location.href = "/Mobile/Public/login";
+                        }
+                    });
+                    isSubmitButton = false;
+                }
+            }
+        });
+    });
+</script>
+</body>
+</html>

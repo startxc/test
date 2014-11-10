@@ -64,5 +64,10 @@ function alertPop(content, callback) {
 
 //确认窗口
 function confirmPop(content, callback) {
-	
+	if(confirm(content)){
+		callback && callback();
+		return true;
+	}else{
+		return false;
+	}
 }

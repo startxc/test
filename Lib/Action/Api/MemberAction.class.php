@@ -3,7 +3,6 @@
 *@author: bruce
 *@desc: 会员相关接口
 */
-
 class MemberAction extends MobileCommonAction{
 	
 	//登录
@@ -133,6 +132,20 @@ class MemberAction extends MobileCommonAction{
 		}
 	}
     
+	//修改昵称
+	public function setNickname(){
+		$uid = $_SESSION['uid'];
+		if(empty($uid)){
+			$this->error("你还没有登录哦");
+		}
+		$nickname = trim($_POST['nickname']);
+		if(M("Member")->where("id={$uid}")->setField("nickname",$nickname)){
+			$this->success("修改昵称成功");
+		}else{
+			$this->error("修改昵称失败");
+		}
+	}
+
 	//修改手机号码
 	public function setMobile(){
 		$uid = $_SESSION['uid'];
@@ -155,6 +168,7 @@ class MemberAction extends MobileCommonAction{
 		}
 		if(M("Member")->where("id={$uid}")->save($data)){
 			$_SESSION['mobile'] = $data['mobile'];
+			$_SESSION['verify'] = null;
 			$this->success("修改手机号码成功");
 		}else{
 			$this->error("修改手机号码失败");
@@ -167,7 +181,7 @@ class MemberAction extends MobileCommonAction{
 		if(empty($uid)){
 			$this->error("你还没有登录哦");
 		}
-		$address = M("Member_address")->where("member_id={$uid}")->order("is_default desc,create_time desc")->select();
+		$address = D("Member")->getAddress($uid);
 		$this->ajaxRespon($address);
 		return $address;
 
@@ -357,6 +371,9 @@ class MemberAction extends MobileCommonAction{
 		if(empty($data['bind_member'])){
 			$this->error("会员卡号不能为空哦");
 		}
+		if(M("Member")->where("bind_member='{$data['bind_member']}'")->find()){
+			$this->error("该会员卡号已经被绑定了");
+		}
 		if(M("Member")->where("id={$uid}")->save($data)){
 			$this->success("绑定会员成功");
 		}else{
@@ -376,6 +393,14 @@ class MemberAction extends MobileCommonAction{
 	public function getVerify(){
 		$mobile = trim($_GET['mobile']);
 		$this->isEmpty($mobile,"手机号码不能为空");
+
+		$verifytime = $_SESSION['verifytime'];
+		$difftime = time()-$verifytime;
+		if($difftime<60){
+			$this->error("要等待".(60-$difftime)."秒后才能再次获取验证码");
+		}
+		$_SESSION['verifytime'] = time();
+
 		$verify = rand(0,9).rand(0,9).rand(0,9).rand(0,9);
 		$_SESSION['verify'] = $mobile.$verify;
 		//echo $verify;

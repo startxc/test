@@ -1,20 +1,7 @@
 <?php
-class MobileCommonAction extends CommonAction{
+class MobileCommonAction extends Action{
 
-	public function _initialize(){
-		
-		#Log::write(var_export($_SERVER,true).var_export($_COOKIE,true));
-		$token = $this->_request('token');
-		if($token){
-			#setcookie('PHPSESSID',$token,time()-86400);
-			$_COOKIE['PHPSESSID'] = $token;
-			setcookie('PHPSESSID',$token,time()+86400,'/',$_SERVER['HTTP_HOST']);
-		}
-		
-		parent::_initialize();
-		
-		$this->assign(CC('Mobile/config.tpl_val'));
-	}
+
 
 	//ajax返回信息
 	public function ajaxRespon($data, $status = 1, $info = '',$extend = array()) {
