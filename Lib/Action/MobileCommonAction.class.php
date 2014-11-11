@@ -11,7 +11,7 @@ class MobileCommonAction extends Action{
 			$result['info'] =  $info;
 			//去除null值，防止json在ios中出错
 			function walkfunc(&$item, &$key){
-				if(is_null($item))$item = '';
+				if(is_null($item)) $item = '';
 			}
 			array_walk_recursive($data, 'walkfunc');
 			$result['data'] = $data;

@@ -15,10 +15,10 @@
     	<p class="tit"><a href="javascript:void(0);" class="default_address" dataid={$vo.id}><i class="<eq name='vo.is_default' value='1'>i-aselected<else/>i-aselect</eq>"></i><span>默认地址</span></a></p>
         <div class="addresscon">
         	<div class="perinfos">
-                <p class="address">{$vo.province_name}{$vo.city_name}{$vo.area_name}<br>{$vo.address}</p>
+                <p class="address">{$vo.province_name}{$vo.city_name}{$vo.area_name}<br>{$vo.community_name}{$vo.address}</p>
                 <p class="perinfo"><span class="name">{$vo.consignee}</span><span class="phone">{$vo.mobile}</span></p>
             </div>
-            <span class="f-edit"><a class="i-edit" href="javascript:void(0);"></a></span>
+            <span class="f-edit"><a class="i-edit" href="__URL__/editAddress/id/{$vo.id}"></a></span>
             <span class="f-delete"><a class="i-delete" href="javascript:void(0);" dataid="{$vo.id}"></a></span>
         </div>
     </div>

@@ -5,28 +5,7 @@
 */
 class GoodsAction extends MobileCommonAction{
 
-	//获取伙拼商品列表
-	public function getGroupList($size=19,$order="create_time desc",$is_recommend=0){
-		//$size = empty($_GET['size'])?$size:intval($_GET['size']);
-		//$order = empty($_GET['order'])?$order:trim($_GET['order']);
-		//$is_recommend = $_GET['is_recommend']==1?1:0;
-		$time = time();
-		$condition = array(
-			"is_show"=>1,
-			"start_time"=>array("lt",$time),
-			"end_time"=>array("gt",$time),
-			"is_recommend"=>$is_recommend
-		);
-		$count = M("Group")->where($condition)->count();
-		$groupList = array();
-		if($count>0){
-			import("@.ORG.Util.Page");  
-            $p = new Page($count, $size);
-            $groupList = M("Group")->where($condition)->limit($p->firstRow . ',' . $p->listRows)->order($order)->select();
-		}
-		$this->ajaxRespon($groupList);
-		return $groupList;
-	}
+
 
 	//获取普通商品列表
 	public function getGoodsList($size=19,$order="create_time desc"){
@@ -116,7 +95,7 @@ class GoodsAction extends MobileCommonAction{
 	//获取伙拼列表
 	public function getGroupList(){
 		$date = empty($_POST['date'])?date("Y-m-d"):trim($_POST['date']);
-		$is_recommend = $_POST['is_recommend'] == 1?1:0
+		$is_recommend = $_POST['is_recommend'] == 1?1:0;
 		$size = empty($_POST['size'])?10:intval($_POST['size']);
 		$order = empty($_POST['order'])?"create_time desc":trim($_POST['order']);
 		$groupList = D("Goods")->getGroupList($date,$is_recommend,$size,$order);
