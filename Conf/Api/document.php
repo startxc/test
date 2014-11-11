@@ -289,11 +289,26 @@ $apis[] = array(
 					'type'=>'POST',
 					'field'=>array(
 						'goods_id'=>array('desc'=>'商品ID'),
-						'goods_qty'=>array('desc'=>'商品数量')
+						'goods_qty'=>array('desc'=>'商品数量'),
+						'delivery_time'=>array('desc'=>'配送日期20141111')
 					),
 					'response'=>'{"status":1,"info":"商品加入购物车成功"}',
 					'res_field'=>array(
 						array('field'=>'status','desc'=>'1代表商品加入购物车成功，0代表商品加入购物车失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			),
+			'Cart/batchAddToCart'=>array(
+					'desc' => '商品批量加入购物车',
+					'type'=>'POST',
+					'field'=>array(
+						'goods_id'=>array('desc'=>'商品ID,商品ID'),
+						'goods_qty'=>array('desc'=>'商品数量,商品数量'),
+						'delivery_time'=>array('desc'=>'配送日期20141111,配送日期20141111')
+					),
+					'response'=>'{"status":1,"info":"商品批量加入购物车成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表商品批量加入购物车成功，0代表商品批量加入购物车失败'),
 						array('field'=>'info','desc'=>'提示信息')
 					)
 			),
@@ -331,6 +346,17 @@ $apis[] = array(
 					'response'=>'{"status":1,"info":"删除购物车商品成功"}',
 					'res_field'=>array(
 						array('field'=>'status','desc'=>'1代表删除购物车商品成功，0代表删除购物车商品失败'),
+						array('field'=>'info','desc'=>'提示信息')
+					)
+			),
+			'Cart/emptyCart'=>array(
+					'desc' => '清空购物车商品',
+					'type'=>'POST',
+					'field'=>array(
+					),
+					'response'=>'{"status":1,"info":"清空购物车商品成功"}',
+					'res_field'=>array(
+						array('field'=>'status','desc'=>'1代表清空购物车商品成功，0代表清空购物车商品失败'),
 						array('field'=>'info','desc'=>'提示信息')
 					)
 			)

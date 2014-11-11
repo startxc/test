@@ -169,6 +169,15 @@ class MemberAction extends CommonAction {
         $this->display();
     }
 
+    //编辑收货地址
+    public function editAddress(){
+        $uid = $_SESSION['uid'];
+        $id = intval($_GET['id']);
+        $address = M("Member_address")->where("member_id={$uid} && id={$id}")->find();
+        $this->assign("address",$address);
+        $this->display();
+    }
+
 
     //我的伙拼
     public function groupApply(){

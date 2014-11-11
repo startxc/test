@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>{$title}</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+</head>
+
+<body>
+<div class="cashdt-tip">
+	<span class="tit">
+	<if condition="$memberCouponInfo.used eq 0 AND $memberCouponInfo.start_time elt time() AND $memberCouponInfo.end_time egt time()">
+	可以使用
+	<elseif condition="$memberCouponInfo.end_time lt time()"/>
+	已过期
+	<elseif condition="$memberCouponInfo.used eq 1"/>
+	已使用
+	<elseif condition="$memberCouponInfo.start_time gt time()"/>
+	未到使用期
+	</if>
+	</span>
+</div>  
+<div class="cashgtcon">  
+    <div class="cashdt-info <if condition="$memberCouponInfo.used eq 1 OR $memberCouponInfo.end_time lt time()">oldcashdt</if>">
+            <div class="cashdt-l">
+                <p class="cash-tit">代金券：{$memberCouponInfo.name}</p>
+                <p class="otherinfo">编号：{$memberCouponInfo.coupon_code}<br>有效时间：{$memberCouponInfo.start_time|date='Y/m/d',###} - {$memberCouponInfo.end_time|date='Y/m/d',###}</p>
+            </div>
+            <span class="cashdt-r">￥{$memberCouponInfo.face_value}</span>
+    </div>
+    <div class="cashdt-des">
+    	<p class="tit">使用说明</p>
+        <p class="con">{$memberCouponInfo.intro}</p>
+    </div>
+    <if condition="$memberCouponInfo.used eq 1">
+    <div class="cashbresult">
+        <dl class="cashbresult-box">
+            <dt>使用结果</dt>
+            <dd>使用时间：{$memberCouponInfo.use_time|date='Y/m/d',###}</dd>
+            <dd>订单号： {$order_no}</dd>
+            <dd>用户信息：{$mobile}</dd>
+        </dl>
+    </div>
+    <else />
+    <div class="cashbbg"></div>
+    </if>
+</div>
+<if condition="$memberCouponInfo.used eq 0 AND $memberCouponInfo.start_time elt time() AND $memberCouponInfo.end_time egt time()">
+<div class="nextstep mt30"><a class="bigbtn btn-yellow" href="javascript:;">现在就使用</a></div>
+</if>
+</body>
+</html>

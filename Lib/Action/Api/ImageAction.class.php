@@ -3,7 +3,7 @@
  * @description:图片上传、图片裁剪接口
  * @author bruce
  */
-class ImageAction extends CommonAction{
+class ImageAction extends MobileCommonAction{
     //加上这个方法，可以不用调用父类的_initialize方法
     public function _initialize(){}
     /*

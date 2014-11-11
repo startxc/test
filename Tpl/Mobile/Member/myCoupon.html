@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>{$title}</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+</head>
+
+<body <if condition="empty($memberCouponList)">class="bg-white"</if>>
+<ul class="userorder fouritem2 mb10 clearfix">
+	<li><a href="__URL__/myCoupon">0<br>所有</a></li>
+	<li><a href="__URL__/myCoupon/coupon_status/use">0<br>可用代金券</a></li>
+	<li><a href="__URL__/myCoupon/coupon_status/exceed">0<br>已过期</a></li>
+	<li><a href="__URL__/myCoupon/coupon_status/used">0<br>已使用</a></li>
+</ul>
+<if condition="$coupon_status neq 'exceed' AND $coupon_status neq 'used'">
+<div class="cash-div">
+	<div class="addcash">
+    	<p class="cash-tit">添加代金券编号</p>
+        <p class="otherinfo"><input class="text-input" type="text" id="code" name="code"></p>
+    </div>
+    <a id="addCoupon" href="javascript:;"><span class="cashdiv-r"><i class="i-add">+</i></span></a>
+</div>
+<div class="cash-tip"></div>
+</if>
+<if condition="empty($memberCouponList)">
+<div class="noorder"><i class="icon2"></i></div>
+<p class="noordertip">暂无代金券</p>
+<else />
+<volist name="memberCouponList" id="vo">
+<div class="cash-div">
+	<a href="__URL__/couponInfo/id/{$vo.id}">
+        <div class="cashdiv-l">
+            <p class="cash-tit">代金券：{$vo.name}</p>
+            <p class="otherinfo">编号：{$vo.coupon_code}<br>有效时间：{$vo.start_time|date='Y/m/d',###} - {$vo.end_time|date='Y/m/d',###}</p>
+        </div>
+        <if condition="$vo.used eq '1' OR $vo.end_time lt time()">
+        <span class="cashdiv-r bgoldcash">￥{$vo.face_value}</span>
+        <else />
+        <span class="cashdiv-r">￥{$vo.face_value}</span>
+        </if>
+    </a>
+</div>
+</volist>
+</if>
+<script type="text/javascript">
+$(function() {
+	$.ajax({
+	    type: 'GET',
+	    url: '__APP__/Api/Coupon/getCouponStatusCount',
+	    success: function(json) {
+			var result = eval('('+json+')');
+        	$('.userorder li a').eq(0).html(result.data.coupon_num + '<br>所有');
+    		$('.userorder li a').eq(1).html(result.data.use_num + '<br>可用代金券');
+    		$('.userorder li a').eq(2).html(result.data.exceed_num + '<br>已过期');
+    		$('.userorder li a').eq(3).html(result.data.used_num + '<br>已使用');
+		}
+	});
+	<if condition="$coupon_status neq 'exceed' AND $coupon_status neq 'used'">
+	$.ajax({
+	    type: 'GET',
+	    url: '__APP__/Api/Coupon/getExpireCouponNumber/days/7',
+	    success: function(json) {
+			var result = eval('('+json+')');
+			$('.cash-tip').html('您还有'+result.data+'张券即将过期');
+		}
+	});
+	</if>
+	$('#addCoupon').click(function() {
+		var code = $('#code');
+		if ($.trim(code.val()) == '') {
+			code.focus();
+			alertPop('请填写券号');
+			return false;
+		}
+		$.ajax({
+		    type: 'POST',
+		    data: 'code=' + code.val(),
+		    url: '__APP__/Api/Coupon/addCoupon',
+		    success: function(json) {
+				var result = eval('('+json+')');
+	    		if (result.status == 0) {
+	    			alert(result.info);
+	        	} else if (result.status == 1)  {
+	        		window.location.href = '__URL__/myCoupon';
+	            }
+    		}
+		});
+		return false;
+	});
+});
+</script>
+</body>
+</html>

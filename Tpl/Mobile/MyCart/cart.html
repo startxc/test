@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
 <link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
 </head>
 
 <if condition="empty($cartArr['data'])">
@@ -18,39 +19,141 @@
 <else />
 <body>
 <div class="cart-con">
+	<form id="goToOrderForm" action="" method="post">
 	<volist name="cartArr.data" id="vo">
     <div class="cart-item">
-        <span id="js-selectcart" class="iconlink"><a class="i-selected" href="#"></a></span>
-        <span class="iconlink"><a class="i-delete" href="#"></a></span>
-        <span class="pic"><a class="pro-img" href="#"><img src="{$vo.image}"></a></span>
+        <span id="js-selectcart" class="iconlink"><a id="cart-{$vo.cart_id}" class="i-selected" href="javascript:"><input type="hidden" name="cart_id[]" value="{$vo.cart_id}" /></a></span>
+        <span class="iconlink"><a class="i-delete" href="javascript:" id="delete-{$vo.cart_id}"></a></span>
+        <span class="pic"><a class="pro-img" href="#"><img src="{$vo.image|picture='','product'}"></a></span>
         <div class="proinfos clearfix">
             <div class="proinfor">
-                <a class="proinfotxt" href="#">
+                <a class="proinfotxt" href="javascript:">
                     <p class="tit">{$vo.goods_name}</p>
-                    <p class="total">总量：250g</p>
+                    <p class="total">总量：{$vo.spec}{$vo.spec_unit}</p>
                 </a>
                 <div class="goods-num">
                     <span class="label">数量：</span>
-                    <span class="gn gn-l"><a href="#">-</a></span>
+                    <span class="gn gn-l"><a href="javascript:" id="subtract-{$vo.cart_id}-{$vo.price}">-</a></span>
                     <em class="num-data">{$vo.number}</em>
-                    <span class="gn gn-r"><a href="#">+</a></span>
+                    <span class="gn gn-r"><a href="javascript:" id="add-{$vo.cart_id}-{$vo.price}">+</a></span>
                 </div>
             </div>
-            <span class="pri">{$vo.subtotal}元</span>
+            <span class="pri" id="subtotal-{$vo.cart_id}-{$vo.subtotal}">{$vo.subtotal}元</span>
         </div>
     </div>
     </volist>
+    </form>
 </div>
 <div class="total-pris">
 	<div class="pricon">
     	<span class="tit">合计<br>包邮</span>
-        <span class="pri">{$cartArr.total}元</span>
+        <span class="pri" id="total-{$cartArr.total}">{$cartArr.total}元</span>
     </div>
-    <div class="end"><a href="javacript:;">结束（{$cartArr.total_goods_qty}）</a></div>
+    <div class="end"><a href="javascript:" id="total_goods_qty-{$cartArr.total_goods_qty}">结束（{$cartArr.total_goods_qty}）</a></div>
 </div>
 <script type="text/javascript">
 $(function() {
+	$('[id^="add-"]').click(function() {
+		updateCart($(this), 'add');
+        return false;
+	});
+	$('[id^="subtract-"]').click(function() {
+		updateCart($(this), 'subtract');
+		return false;
+	});
+	$('.i-selected').live('click', function() {
+		$(this).addClass('i-select').removeClass('i-selected');
+		$(this).html('');
+	});
+	$('.i-select').live('click', function() {
+		var cartId = parseInt($(this).attr('id').split('-')[1]);
+		$(this).addClass('i-selected').removeClass('i-select');
+		$(this).html('<input type="hidden" name="cart_id[]" value="' + cartId + '" />');
+	});
+	$('[id^="delete-"]').click(function() {
+		var thisobj = $(this);
+		var cartId = parseInt(thisobj.attr('id').split('-')[1]);
+		var r = confirm("确认删除选中商品？")
+        if (r == true) {
+        	$.ajax({
+    		    type: 'POST',
+    		    data: 'cart_id=' + cartId,
+    		    url: '__APP__/Api/Cart/deleteCart',
+    		    success: function(json) {
+    	        	var result = eval('(' + json + ')');
+    	    		if (result.status == 0) {
+    	    			alertPop(result.info);
+    	        	} else if (result.status == 1)  {
+    	        		thisobj.parents('.cart-item').remove();
+    	            }
+        		}
+    		});
+        }
+		return false;
+    });
+	$('[id^="total_goods_qty-"]').click(function() {
+		var cartId = $('input[name="cart_id[]"]');
+		var flag = false;
+		$.each(cartId, function(i, n) {
+			if ($(n).length > 0) {
+				flag = true;
+			}
+		});
+		if (!flag) {
+			alertPop('请至少选中一件商品');
+			return false;
+		}
+		$.ajax({
+		    type: 'POST',
+		    data: $('#goToOrderForm').serialize(),
+		    url: '__URL__/goToOrder',
+		    success: function(json) {
+	        	var result = eval(json);
+	    		if (result.status == 0) {
+	    			window.location.href = '__APP__/Mobile/Public/login';
+	        	} else if (result.status == 1)  {
+	        		window.location.href = '__URL__/confirmOrder';
+	            }
+    		}
+		});
+		return false;
+	});
 });
+function updateCart(thisobj, type) {
+	var cartId = parseInt(thisobj.attr('id').split('-')[1]);
+	var price = parseFloat(thisobj.attr('id').split('-')[2]);
+    if (type == 'add') {
+    	var goodsQty = parseInt(thisobj.parent().prev().html()) + 1;
+    	var subtotal = parseFloat($('[id^="subtotal-' + cartId + '-"]').attr('id').split('-')[2]) + price;
+    	var total = parseFloat($('[id^="total-"]').attr('id').split('-')[1]) + price;
+        var totalGoodsQty = parseInt($('[id^="total_goods_qty-"]').attr('id').split('-')[1]) + 1;
+    } else if (type == 'subtract') {
+    	var goodsQty = parseInt(thisobj.parent().next().html()) - 1;
+        var subtotal = parseFloat($('[id^="subtotal-' + cartId + '-"]').attr('id').split('-')[2]) - price;
+        var total = parseFloat($('[id^="total-"]').attr('id').split('-')[1]) - price;
+        var totalGoodsQty = parseInt($('[id^="total_goods_qty-"]').attr('id').split('-')[1]) - 1;
+        if (goodsQty == 0) {
+			return false;
+        }
+    } else {
+		return false;
+    }
+    $.ajax({
+        type: 'POST',
+        data: 'cart_id=' + cartId + '&goods_qty=' + (goodsQty),
+        url: "__APP__/Api/Cart/updateCart",
+        success: function(json) {
+    		if (type == 'add') {
+				thisobj.parent().prev().html(goodsQty);
+    		} else if (type == 'subtract') {
+    			thisobj.parent().next().html(goodsQty);
+    		}
+			$('[id^="total-"]').attr('id', 'total-' + total).html(total.toFixed(2) + '元');
+			$('[id^="subtotal-' + cartId + '-"]').attr('id', 'subtotal-' + cartId + '-' + subtotal).html(subtotal.toFixed(2) + '元');
+			$('[id^="total_goods_qty-"]').attr('id', 'total_goods_qty-' + totalGoodsQty).html('结束（' + totalGoodsQty + '）');
+        }
+    });
+}
 </script>
 </body>
 </if>

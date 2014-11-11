@@ -13,7 +13,6 @@ class CouponAction extends MobileCommonAction {
     	$model = M();
     	$couponModel = M('Coupon');
     	$memberCouponModel = M('MemberCoupon');
-		$back = new stdClass();
 		$code = $_POST['code'];
 		
 		$map = array();
@@ -23,15 +22,9 @@ class CouponAction extends MobileCommonAction {
 		$couponInfo = $couponModel->where($map)->find();
     	if (!$couponInfo) {
 			$this->error("代金券不存在或已失效");
-        	$back->status = 0;
-            $back->prompt = "代金券不存在或已失效";
-            return $back;
 		}
 		if ($couponInfo['use_mid'] != 0) {
 			$this->error("代金券已被使用");
-        	$back->status = 0;
-            $back->prompt = "代金券已被使用";
-            return $back;
 		}
 		
 		$model->startTrans();
@@ -49,23 +42,15 @@ class CouponAction extends MobileCommonAction {
 		if (!$id) {
 			$model->rollback();
 			$this->error("亲,对不起,系统出现错误啦");
-        	$back->status = 0;
-            $back->prompt = "亲,对不起,系统出现错误啦".$memberCouponModel->getLastSql();
-            return $back;
 		}
 		$id = $couponModel->where(array('id' => $couponInfo['id']))->save(array('use_mid' => $_SESSION['uid']));
 		if ($id === false) {
 			$model->rollback();
 			$this->error("亲,对不起,系统出现错误啦");
-        	$back->status = 0;
-            $back->prompt = "亲,对不起,系统出现错误啦";
-            return $back;
 		}
 		
 		$model->commit();
 		$this->success("操作成功");
-		$back->status = 1;
-		return $back;
     }
     
 	/**

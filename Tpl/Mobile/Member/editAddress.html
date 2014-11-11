@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>添加新地址</title>
+<link rel="stylesheet" href="css/bootstrap.css" />
+<link rel="stylesheet" href="css/layout.css" />
+</head>
+
+<body>
+<div class="acc-input">
+	<span class="tit">省份</span>
+    <div class="areadlcon js-hselcont">
+        <input class="select-txt" type="text" value="请选择">
+        <input type="hidden" id="marea_id" class="select-code" value="">
+        <span class="i-selarrow"></span>
+        <dl class="areadl">
+            <dd><a href="javascript:;">广东省</a></dd>
+            <dd><a href="javascript:;">山东省</a></dd>
+            <dd><a href="javascript:;">福建省</a></dd>
+        </dl>
+    </div>
+</div>
+<div class="acc-input">
+	<span class="tit">城市</span>
+    <div class="areadlcon js-hselcont">
+        <input class="select-txt" type="text" value="请选择">
+        <input type="hidden" id="marea_id" class="select-code" value="">
+        <span class="i-selarrow"></span>
+        <dl class="areadl">
+            <dd><a href="javascript:;">深圳市</a></dd>
+            <dd><a href="javascript:;">广州市</a></dd>
+        </dl>
+    </div>
+</div>
+<div class="acc-input">
+	<span class="tit">区县</span>
+    <div class="areadlcon js-hselcont">
+        <input class="select-txt" type="text" value="请选择">
+        <input type="hidden" id="marea_id" class="select-code" value="">
+        <span class="i-selarrow"></span>
+        <dl class="areadl">
+            <dd><a href="javascript:;">南山区</a></dd>
+            <dd><a href="javascript:;">福田区</a></dd>
+            <dd><a href="javascript:;">罗湖区</a></dd>
+        </dl>
+    </div>
+</div>
+<div class="acc-input">
+	<span class="tit">街道</span>
+    <div class="areadlcon js-hselcont">
+        <input class="select-txt" type="text" value="请选择">
+        <input type="hidden" id="marea_id" class="select-code" value="">
+        <span class="i-selarrow"></span>
+        <dl class="areadl">
+            <dd><a href="javascript:;">什邡市了算了是屡审屡犯绿色 是过来撒叫了声</a></dd>
+            <dd><a href="javascript:;">什邡市了算了是屡审屡犯绿色 是过来撒叫了声</a></dd>
+        </dl>
+    </div>
+</div>
+<div class="acc-input">
+	<span class="tit">详细地址</span>
+    <span class="name"><input class="text-input" type="text"></span>
+</div>
+<div class="acc-input">
+	<span class="tit">收件人</span>
+    <span class="name"><input class="text-input" type="text"></span>
+</div>
+<div class="acc-input">
+	<span class="tit">移动电话</span>
+    <span class="name"><input class="text-input" type="text"></span>
+</div>
+<div class="fixsteps">
+	<a href="#" class="bigbtn btn-green">确认</a>
+</div>
+<script src="js/jquery.min.js"></script>
+<script>
+$(".js-hselcont").click(function(event){
+event.stopPropagation();
+$(this).find(".areadl").toggle();
+$(this).parent().siblings().find(".areadl").hide();
+$(this).addClass("cur").parent().siblings().children().removeClass("cur");
+});
+$(document).click(function(event){
+var eo=$(event.target);
+if($(".J-hselcont").is(":visible") && eo.attr("class")!="dd" && !eo.parent(".areadl").length)
+;$('.areadl').hide(); 
+});
+
+$(".areadl dd").click(function(){
+var value=$(this).text();
+$(this).addClass("cur").siblings().removeClass("cur");
+$(this).parent().siblings(".select-code").val($(this).attr("value"));
+$(this).parent().siblings(".select-txt").val(value);
+});
+</script>
+</body>
+</html>

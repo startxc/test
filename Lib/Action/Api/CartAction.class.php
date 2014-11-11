@@ -12,7 +12,11 @@ class CartAction extends MobileCommonAction {
     	$cartModel = D('Cart');
     	$goodsId = max(intval($_POST['goods_id']), 0);
 		$goodsQty = max(intval($_POST['goods_qty']), 0);
-		$back = $cartModel->addToCart($goodsId, $goodsQty);
+		$deliveryTime = $_POST['delivery_time'];
+    	if (!empty($deliveryTime)) {
+    		$deliveryTime = strtotime($deliveryTime);
+    	}
+		$back = $cartModel->addToCart($goodsId, $goodsQty, $deliveryTime);
 		if ($back->status == 0) {
 			$this->error("商品不存在");
 		} elseif ($back->status == 1) {
@@ -25,6 +29,51 @@ class CartAction extends MobileCommonAction {
 			$this->error("加入购物车失败");
 		}
 		return $back;
+    }
+    
+    /**
+     * 商品批量加入购物车
+     */
+    
+    public function batchAddToCart() {
+    	$model = M();
+    	$cartModel = D('Cart');
+    	$back = new stdClass();
+    	$goodsIdArr = explode(',', $_POST['goods_id']);
+    	$goodsQtyArr = explode(',', $_POST['goods_qty']);
+    	$deliveryTimeArr = explode(',', $_POST['delivery_time']);
+    	
+    	if (empty($goodsIdArr) || empty($goodsQtyArr) || (count($goodsIdArr) != count($goodsQtyArr))) {
+    		$this->error("参数错误");
+    		$back->status = 0;
+    		$back->prompt = '参数错误';
+    		return $back;
+    	}
+    	
+    	$model->startTrans();
+    	foreach ($goodsIdArr as $key => $goodsId) {
+    		if (!empty($deliveryTimeArr[$key])) {
+    			$deliveryTime = strtotime($deliveryTimeArr[$key]);
+    		}
+    		$back = $cartModel->addToCart($goodsId, $goodsQtyArr[$key], $deliveryTime);
+    		if ($back->status != 1) {
+    			$model->rollback();
+    			if ($back->status == 0) {
+					$this->error("商品不存在");
+				}  elseif ($back->status == 2) {
+					$this->error("商品数量有误");
+				} elseif ($back->status == 3) {
+					$this->error("更新商品数量失败");
+				} elseif ($back->status == 4) {
+					$this->error("加入购物车失败");
+				}
+				return $back;
+    		}
+    	}
+    	
+    	$model->commit();
+    	$this->success("操作成功");
+    	return $back;
     }
     
 	/**
@@ -50,23 +99,37 @@ class CartAction extends MobileCommonAction {
     	if ($flag) {
     		$this->success("操作成功");
     	} else {
-    		$this->success("更新购物车失败");
+    		$this->error("更新购物车失败");
     	}
-		return $flag;
     }
     
 	/**
      * 删除购物车商品
      */
     
-    public function deleteCart($cartId) {
+    public function deleteCart() {
 	    $cartModel = D('Cart');
 	    $cartId = max(intval($_POST['cart_id']), 0);
 	    $flag = $cartModel->deleteCart($cartId);
 	    if ($flag) {
     		$this->success("操作成功");
     	} else {
-    		$this->success("删除购物车商品失败");
+    		$this->error("删除购物车商品失败");
+    	}
+		return $flag;
+    }
+    
+	/**
+     * 清空购物车商品
+     */
+    
+    public function emptyCart() {
+	    $cartModel = D('Cart');
+	    $flag = $cartModel->emptyCart();
+	    if ($flag) {
+    		$this->success("操作成功");
+    	} else {
+    		$this->error("删除购物车商品失败");
     	}
 		return $flag;
     }

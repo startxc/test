@@ -40,7 +40,7 @@ var myImage = (function(my){
                                  'fileTypeExts' : '*.gif; *.jpg; *.jpeg; *.png; *.JPG; *.JPEG; *.GIF',
                                  'auto'            : true,
                                  'swf'      : '/Public/Js/uploadify/uploadify.swf',
-                                 'uploader' : '/Image/uploadImage',
+                                 'uploader' : '/Api/Image/uploadImage',
                                  'width':opt.width,
                                  'height':opt.height,
                                  'multi':(opt.multi === "single")?false:true,

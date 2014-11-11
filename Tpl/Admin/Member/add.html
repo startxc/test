@@ -412,13 +412,16 @@
 	      <tr>
 			<tr>
 	        <td width="100" align="center">详细地址</td>
-	        <td colspan="3"><select name="info[province_id]" id="province" class="select">
+	        <td colspan="3"><select name="info[province_id]" id="province" class="select" title="省">
 	            <option value="" >-请选择-</option>
 	          </select>
-	          <select name="info[city_id]" id="city" class="select">
+	          <select name="info[city_id]" id="city" class="select" title="市">
 	            <option value="" >-请选择-</option>
 	          </select>
-	          <select name="info[area_id]" id="area" class="select">
+	          <select name="info[area_id]" id="area" class="select" title="区(县)">
+	            <option value="" >-请选择-</option>
+	          </select>
+	          <select name="info[community_id]" id="community" class="select" title="社区">
 	            <option value="" >-请选择-</option>
 	          </select>
 	          <input id="address" type="text" name="info[address]"   class="add_input_text"/></td>
@@ -439,18 +442,12 @@
 	 
 </div>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/Js/country.js"></script> 
-<script type = "text/javascript">
-var region = '{$regionjson}';
-var region = eval("("+region+")");
-	jQuery(function(){
-		initCACL('province','city','area','6','77','707');
-	});
-</script> 
+<script type="text/javascript" src="__PUBLIC__/Js/region.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/Js/verify.js"></script> 
 
 <script type="text/javascript">
 $(function(){
+	myRegion.init();
 	$("#js_add_member").click(function(){
 		if($("#nickname").val() == ""){
 			alert("会员昵称不能为空!");

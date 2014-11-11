@@ -37,26 +37,17 @@ class OrderAction extends MobileCommonAction {
 	
 	public function deleteOrder() {
 		$orderModel = M('Order');
-		$back = new stdClass();
 		$id = max(intval($_POST['id']), 0);
         $orderStatus = $orderModel->where(array('id' => $id, 'member_id' => $_SESSION['uid']))->getField('order_status');
         $orderStatusArr = array('created', 'canceled', 'refund', 'received');
         if (!in_array($orderStatus, $orderStatusArr)) {
         	$this->error("亲,对不起,系统出现错误啦");
-        	$back->status = 0;
-            $back->prompt = "亲,对不起,系统出现错误啦";
-            return $back;
         }
         $res = $orderModel->where(array('id' => $id, 'member_id' => $_SESSION['uid']))->setField('is_show', 0);
         if ($res === false) {
             $this->error("亲,对不起,系统出现错误啦");
-            $back->status = 0;
-            $back->prompt = "亲,对不起,系统出现错误啦";
-            return $back;
         }
         $this->success("操作成功");
-        $back->status = 1;
-		return $back;
     }
     
 	/**
@@ -67,28 +58,18 @@ class OrderAction extends MobileCommonAction {
 		$goodsModel = M('Goods');
 		$orderModel = M('Order');
 		$orderGoodsModel = M('OrderGoods');
-		$back = new stdClass();
 		$orderId = max(intval($_POST['id']), 0);
 		
     	$orderInfo = $orderModel->where(array('id' => $orderId))->find();
     	if (!$orderInfo) {
     		$this->error("亲,对不起,系统出现错误啦");
-    		$back->status = 0;
-            $back->prompt = "亲,对不起,系统出现错误啦";
-            return $back;
     	}
 		if ($orderInfo['order_status'] != 'shipped') {
     		$this->error("亲,对不起,系统出现错误啦");
-    		$back->status = 0;
-            $back->prompt = "亲,对不起,系统出现错误啦";
-            return $back;
     	}
 		$id = $orderModel->where(array('id' => $orderId))->save(array('order_status' => 'received', 'confirm_time' => time()));
     	if ($id === false) {
     		$this->error("亲,对不起,系统出现错误啦");
-    		$back->status = 0;
-            $back->prompt = "亲,对不起,系统出现错误啦";
-            return $back;
     	}
     	$orderGoodsList = $orderGoodsModel->where(array('order_id' => $orderId))->field('goods_id, number')->select();
     	foreach ($orderGoodsList as $key => $orderGoods) {
@@ -96,8 +77,6 @@ class OrderAction extends MobileCommonAction {
     		$goodsModel->where(array('id' => $orderGoods['goods_id']))->setInc('sales_count', $orderGoods['number']);
     	}
     	$this->success("操作成功");
-        $back->status = 1;
-		return $back;
 	}
 	
 	/**
@@ -151,7 +130,7 @@ class OrderAction extends MobileCommonAction {
             $orderList = $orderModel->where($map)->limit($p->firstRow . ',' . $p->listRows)->order('create_time desc')->select();
 	    	foreach ($orderList as $key => $order) {
 	    		$orderList[$key]['goodsList'] = $orderGoodsModel->where(array('order_id' => $order['id']))->select();
-	    	}   
+	    	}
         }
         $this->ajaxRespon($orderList);
         $this->assign('order_type', $orderType);

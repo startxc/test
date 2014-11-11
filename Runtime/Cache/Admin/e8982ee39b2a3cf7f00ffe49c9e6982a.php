@@ -434,6 +434,9 @@
 	          <select name="info[area_id]" id="area" class="select">
 	            <option value="" >-请选择-</option>
 	          </select>
+	          <select name="info[community_id]" id="community" class="select">
+	            <option value="" >-请选择-</option>
+	          </select>
 	          <input id="address" type="text" name="info[address]"   class="add_input_text" value="<?php echo ($info["address"]); ?>" /></td>
 	      </tr>
 	    </table>
@@ -454,18 +457,14 @@
 	 
 </div>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script> 
-<script type="text/javascript" src="__PUBLIC__/Js/country.js"></script> 
-<script type = "text/javascript">
-var region = '<?php echo ($regionjson); ?>';
-var region = eval("("+region+")");
-	jQuery(function(){
-		initCACL('province','city','area','<?php echo ($info["province_id"]); ?>','<?php echo ($info["city_id"]); ?>','<?php echo ($info["area_id"]); ?>');
-	});
-</script> 
+<script type="text/javascript" src="__PUBLIC__/Js/region.js"></script> 
 <script type="text/javascript" src="__PUBLIC__/Js/verify.js"></script> 
 
 <script type="text/javascript">
 $(function(){
+
+    myRegion.init('<?php echo ($info["province_id"]); ?>','<?php echo ($info["city_id"]); ?>','<?php echo ($info["area_id"]); ?>','<?php echo ($info["community_id"]); ?>');
+
 	$("#js_edit_member").click(function(){
 		if($("#nickname").val() == ""){
 			alert("会员昵称不能为空!");

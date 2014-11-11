@@ -54,6 +54,7 @@ class MemberAction extends CommonAction {
             $info['province_name'] = M("Region")->where("id={$info['province_id']}")->getField("name");
             $info['city_name'] = M("Region")->where("id={$info['city_id']}")->getField("name");
             $info['area_name'] = M("Region")->where("id={$info['area_id']}")->getField("name");
+            $info['community_name'] = M("Community")->where("id={$info['community_id']}")->getField("name");
             $info['create_time'] = time();
             $info['password'] = md5('123456');
 
@@ -69,9 +70,11 @@ class MemberAction extends CommonAction {
                 "province_id"=>$info['province_id'],
                 "city_id"=>$info['city_id'],
                 "area_id"=>$info['area_id'],
+                "community_id"=>$info['community_id'],
                 "province_name"=>$info['province_name'],
                 "city_name"=>$info['city_name'],
                 "area_name"=>$info['area_name'],
+                "community_name"=>$info['community_name'],
                 "address"=>$info['address'],
                 "mobile"=>$info['mobile'],
                 "is_default"=>1,
@@ -86,9 +89,6 @@ class MemberAction extends CommonAction {
                 return false;
             }
         } else {            
-            $model = D('Member');           
-            $provinceList = $model->getAllRegions();  
-            $this->assign("regionjson",json_encode($provinceList));
             $this->display();
         }
     }
@@ -107,7 +107,8 @@ class MemberAction extends CommonAction {
             } 
             $info['province_name'] = M("Region")->where("id={$info['province_id']}")->getField("name");
             $info['city_name'] = M("Region")->where("id={$info['city_id']}")->getField("name");
-            $info['area_name'] = M("Region")->where("id={$info['area_id']}")->getField("name");        
+            $info['area_name'] = M("Region")->where("id={$info['area_id']}")->getField("name");   
+            $info['community_name'] = M("Community")->where("id={$info['community_id']}")->getField("name");     
             $info['update_time'] = time();
             $memSave = $member->where("id = '{$info['id']}'")->save($info);
             if ($memSave === false) {
@@ -118,9 +119,11 @@ class MemberAction extends CommonAction {
                 "province_id"=>$info['province_id'],
                 "city_id"=>$info['city_id'],
                 "area_id"=>$info['area_id'],
+                "community_id"=>$info['community_id'],
                 "province_name"=>$info['province_name'],
                 "city_name"=>$info['city_name'],
                 "area_name"=>$info['area_name'],
+                "community_name"=>$info['community_name'],
                 "address"=>$info['address'],
                 "mobile"=>$info['mobile'],
             );
@@ -132,9 +135,6 @@ class MemberAction extends CommonAction {
                 return false;  
             }          
         } else {           
-            $model = D('Member');           
-            $provinceList = $model->getAllRegions();  
-            $this->assign("regionjson",json_encode($provinceList));
             $id = intval($_GET['id']);
             if (empty($id)) {
                 $this->error(L('OPERATION_WRONG'));

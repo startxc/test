@@ -51,5 +51,25 @@ class GoodsModel extends Model{
 		return $count;
 	}
 
+	//获取伙拼列表
+	public function getGroupList($date,$is_recommend=0,$size=10,$order="create_time desc"){
+		$start_time = strtotime("$date 00:00:00");
+		$end_time = strtotime("$date 23:59:59");
+		$condition = array(
+			"start_time"=>array("elt",$start_time),
+			"end_time"=>array("egt",$end_time),
+			"is_show"=>1,
+			"is_recommend"=>$is_recommend
+		);
+		$count = M("Group")->where($condition)->count();
+		$groupList = array();
+		if($count>0){
+			import("ORG.Util.Page");
+			$p = new Page($count,$size);
+			$groupList = M("Group")->where($condition)->order($order)->limit($p->firstRow.",".$p->listRows)->select();
+		}
+		return $groupList;
+	}
+
 }
 ?>

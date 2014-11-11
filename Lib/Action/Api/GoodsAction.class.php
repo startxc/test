@@ -112,5 +112,15 @@ class GoodsAction extends MobileCommonAction{
 			$this->error("提交伙拼申请失败");
 		}
 	}
+
+	//获取伙拼列表
+	public function getGroupList(){
+		$date = empty($_POST['date'])?date("Y-m-d"):trim($_POST['date']);
+		$is_recommend = $_POST['is_recommend'] == 1?1:0
+		$size = empty($_POST['size'])?10:intval($_POST['size']);
+		$order = empty($_POST['order'])?"create_time desc":trim($_POST['order']);
+		$groupList = D("Goods")->getGroupList($date,$is_recommend,$size,$order);
+		$this->ajaxRespon($groupList);
+	}
 }
 ?>

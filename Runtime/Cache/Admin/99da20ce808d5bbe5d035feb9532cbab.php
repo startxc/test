@@ -171,8 +171,7 @@
                         已选产地
                     </td>
                     <td id="selected_production"> 
-                        
-
+              
                     </td>
                 </tr>
                 <tr>
@@ -193,6 +192,12 @@
                         <i class='bright'>*</i>商品规格 
                     </td>
                     <td> <input id="goods_spec" type="text" class="add_input_text" name="spec"></td>
+                </tr>
+                <tr>
+                    <td width="85" align="center"> 
+                        <i class='bright'>*</i>商品规格单位 
+                    </td>
+                    <td> <input id="goods_spec_unit" type="text" class="add_input_text" name="spec_unit"></td>
                 </tr>
                 <tr>
                     <td width="85" align="center"> 
@@ -370,11 +375,18 @@
             }
             //商品规格
             var spec = $("#goods_spec").val();
-            if(!isPositiveInteger(spec)){
+            if(!isNumber(spec)){
                 alert("商品规格格式不对");
                 $("#goods_spec").focus();
                 return false;
-            }                     
+            } 
+            //商品规格单位
+            var spec_unit = $("#goods_spec_unit").val();
+            if(spec_unit == ""){
+                alert("商品规格单位不能为空");
+                $("#goods_spec_unit").focus();
+                return false;
+            }                    
            //商品图片
             var images = "";
             $("#box_goods_img_list ul").find("li").each(function(){
@@ -411,7 +423,7 @@
                 $.ajax({
                     type:"post",
                     url:"__URL__/insert",
-                    data:{cid:cid,selected_production_id:selected_production_id,name:name,price:price,spec:spec,images:images,desc:desc,order:order,is_show:is_show,is_recommend:is_recommend},
+                    data:{cid:cid,selected_production_id:selected_production_id,name:name,price:price,spec:spec,spec_unit:spec_unit,images:images,desc:desc,order:order,is_show:is_show,is_recommend:is_recommend},
                     async:false,
                     success:function(data){
                         var res = eval(data);

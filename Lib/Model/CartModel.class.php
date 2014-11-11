@@ -12,10 +12,11 @@ class CartModel extends CommonModel {
      * 加入购物车
 	 * @param integer $goodsId 商品ID
 	 * @param integer $goodsQty 商品数量
+	 * @param integer $deliveryTime 配送日期
 	 * @return object $back status属性(1:加入购物车成功 0:商品不存在 2:商品数量有误 3:更新商品数量失败 4:加入购物车失败)
      */
     
-    public function addToCart($goodsId, $goodsQty) {
+    public function addToCart($goodsId, $goodsQty, $deliveryTime='') {
     	$cartModel = M('Cart');
     	$back = new stdClass();
     	
@@ -39,6 +40,9 @@ class CartModel extends CommonModel {
 	    $data['number'] = $goodsQty;
 	    $data['image'] = $goodsInfo['image'];
 	    $data['create_time'] = time();
+	    if (!empty($deliveryTime)) {
+	    	$data['delivery_time'] = $deliveryTime;
+	    }
     	
 	    //相同的cartId
 	    $cartId = null;
@@ -82,7 +86,7 @@ class CartModel extends CommonModel {
 		    if (is_array($cartList)) {
 		    	foreach ($cartList as $key => $cart) {
 		    		if ($cart['goods_id'] == $goodsId) {
-		    			$cartId = $cart['id'];
+		    			$cartId = true;
 		    			$cartKey = $key;
 		    			break;
 		    		}
@@ -103,27 +107,42 @@ class CartModel extends CommonModel {
         return $back;
     }
     
+    /**
+	 * 合并购物车商品
+	 */
+	
+	public function merageCart() {
+		$cartList = unserialize(stripslashes(cookie('cartList')));
+		foreach ($cartList as $key => $cart) {
+			$this->addToCart($cart['goods_id'], $cart['number']);
+		}
+		cookie('cartList', null);
+	}
+    
 	/**
      * 获取购物车商品
      * @return array
      */
     
-    public function getCartList() {
+    public function getCartList($cartIds='') {
     	$cartModel = M('Cart');
     	$goodsModel = M('Goods');
     	$cartArr = array();
     	
     	if (!empty($_SESSION['uid'])) {
-    		
-	    	//获取购物车的所有商品
-	    	$cartList = $cartModel->where(array('member_id' => $_SESSION['uid']))->select();
+    		$map = array();
+    		$map['member_id'] = $_SESSION['uid'];
+    		if (!empty($cartIds)) {
+    			$map['id'] = array('in', $cartIds);
+    		}
+	    	$cartList = $cartModel->where($map)->select();
     	} else {
 	    	$cartList = unserialize(stripslashes(cookie('cartList')));
     	}
     	
     	if (is_array($cartList)) {
 	    	foreach ($cartList as $key => $cart) {
-	    		$goodsInfo = $goodsModel->where(array('id' => $cart['goods_id']))->field('is_deleted')->find();
+	    		$goodsInfo = $goodsModel->where(array('id' => $cart['goods_id']))->field('is_deleted, spec, spec_unit')->find();
 	    		if ($goodsInfo['is_deleted'] == 1) {
 	    			
 	    			//将该商品从购物车中删除
@@ -131,12 +150,18 @@ class CartModel extends CommonModel {
 	    			unset($cartList[$key]);
 	    			
 	    		} else {
+		    		//如果购物车ID为空，则赋值为$key
+	    			if (!$cart['id']) {
+	    				$cart['id'] = $key;
+	    			}
 	    			$cartArr['data'][$key]['cart_id'] = $cart['id'];
 		    		$cartArr['data'][$key]['goods_id'] = $cart['goods_id'];
 		    		$cartArr['data'][$key]['goods_name'] = $cart['goods_name'];
 		    		$cartArr['data'][$key]['price'] = $cart['price'];
 		    		$cartArr['data'][$key]['number'] = $cart['number'];
 		    		$cartArr['data'][$key]['image'] = $cart['image'];
+		    		$cartArr['data'][$key]['spec'] = $goodsInfo['spec'];
+		    		$cartArr['data'][$key]['spec_unit'] = $goodsInfo['spec_unit'];
 		    		$cartArr['data'][$key]['subtotal'] = number_format($cart['number'] * $cart['price'], 2, '.', '');
 		    		$cartArr['total'] += $cartArr['data'][$key]['subtotal'];
 		    		$cartArr['total_goods_qty'] += $cart['number'];
@@ -202,7 +227,7 @@ class CartModel extends CommonModel {
 	    		return false;
 	    	}
     	} else {
-    		cookie('cartList', '', time()-3600);
+    		cookie('cartList', null);
     	}
 	    return true;
     }

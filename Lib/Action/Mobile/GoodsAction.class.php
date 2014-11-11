@@ -14,7 +14,8 @@ class GoodsAction extends CommonAction{
 
 	//伙拼商品首页
 	public function group(){
-
+		$date = date("Y-m-d",time());
+		$groupList = D("Goods")->getGroupList($date,1);
 	}
 
 	//伙拼商品列表

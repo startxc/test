@@ -23,7 +23,10 @@ class MemberAction extends MobileCommonAction{
 				"last_login_time"=>time()	
 			);
 			M("Member")->where("id={$data['id']}")->save($update_info);
-
+			
+			$cartModel = D('Cart');
+			$cartModel->merageCart();
+			
 			$this->success("登录成功");
 		}else{
 			$this->error("用户名或者密码错误");

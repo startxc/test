@@ -1,7 +1,7 @@
 <?php
 class MobileCommonAction extends Action{
 
-
+	
 
 	//ajax返回信息
 	public function ajaxRespon($data, $status = 1, $info = '',$extend = array()) {
@@ -10,9 +10,10 @@ class MobileCommonAction extends Action{
 			$result['status']  =  $status;
 			$result['info'] =  $info;
 			//去除null值，防止json在ios中出错
-			array_walk_recursive($data, function(&$item, &$key){
+			function walkfunc(&$item, &$key){
 				if(is_null($item))$item = '';
-			});
+			}
+			array_walk_recursive($data, 'walkfunc');
 			$result['data'] = $data;
 		    
 		    // 返回JSON数据格式到客户端 包含状态信息
