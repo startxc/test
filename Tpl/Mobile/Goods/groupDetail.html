@@ -4,62 +4,99 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>已发伙拼</title>
+<title>伙拼详情</title>
 <link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
 <link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
 </head>
 
 <body class="bg-white">
 <div class="huopinedimg">
-	<span class="bgimg"><img src="{$group.image|picture='','product'}"></span>
+    <span class="bgimg"><img src="{$group.image|picture='','product'}"></span>
     <span class="tit">{$group.name}</span>
 </div>
 <div class="huopincon">
     <ul class="hp-deta">
         <li>
-            <i class="i-dot"></i>
             <div class="hpdetacon"><span class="tit">种类：</span><span class="con">{$category}</span>
             </div>
         </li>
-        <li class="ydot">
-            <div class="hpdetacon"><span class="tit">功效：</span><span class="con">{$group.description}</span></div>
+        <li>
+            <div class="hpdetacon"><span class="tit">描述：</span><span class="con">{$group.description}</span></div>
         </li>
         <li>
-            <i class="i-dot"></i>
             <div class="hpdetacon"><span class="tit">产地：</span><span class="con">{$production}</span></div>
         </li>
     </ul>
     <div class="progresscon">
-    	<div class="progress">
-        	<div class="bar" style="width:{$percent}%;">
-            	<span class="value i-arrow1"><span class="pri">¥</span>{$group.price}</span>
+        <div class="progressbox">
+            <div class="valuel">
+                <p class="pric"><span class="pri">¥</span>{$group.price|number_format=1}</p>
+                <p class="pweight">{$group.moq_spec}{$group.spec_unit}</p>
             </div>
-            <span class="valuel i-arrow1"><span class="pri">¥</span>{$group.real_price}</span>
-            <span class="valuer i-arrow2"><span class="pri">¥</span>{$group.min_price}</span>
+            <div class="progress">
+                <div class="bar" style="width:{$percent}%;">
+                    <div class="value i-arrow1"><span class="pri">¥</span>{$group.real_price|number_format=1}</div>
+                    <span class="bweight">{$group.sale_spec}{$group.spec_unit}</span>
+                </div>
+            </div>
+            <div class="valuer">
+                <p class="pric"><span class="pri">¥</span>{$group.min_price|number_format=1}</p>
+                <p class="pweight">{$group.min_price_spec}{$group.spec_unit}</p>
+            </div>
         </div>
-        <p class="pweight clearfix"><span class="fl">{$group.moq_spec}（{$group.spec_unit}）</span><span class="fr">{$group.sale_spec}/{$group.min_price_spec}（{$group.spec_unit}）</span></p>
         <span class="patit">起拼量</span>
     </div>
     <ul class="hp-deta">
-        <li class="nodot">
-            <i class="i-dot"></i>
-            <div class="hpdetacon"><span class="tit">剩余时间：</span><span class="con">{$group.end_time|diffTime}</span>
-            </div>
+        <li>
+            <div class="hpdetacon"><span class="tit">剩余时间：</span><span class="con">{$group.end_time|diffTime}</span></div>
+        </li>
+        <li>
+            <div class="hpdetacon"><span class="tit">已拼人数：</span><span class="con">{$group.sale_count}</span></div>
         </li>
     </ul>
-    <div class="pinnum">
-    	<p class="tit">已拼人数：{$group.sale_count}</p>
-        <div class="btns clearfix">
-        	<div class="numcon fl">
-            	<span class="numc numcl"><a href="javascript:;">-</a></span>
-                <em class="num-data">1</em>
-            	<span class="numc numcr"><a href="javascript:;">+</a></span>
-                <span class="totalnum">¥10</span>
-            </div>
-            <div class="buybtn fr"><a class="btn-buy" href="javascript:;">立即购买</a></div>
-        </div>
-        <p class="spec">规格：{$spec}（{$group.spec_unit}）</p>
-    </div>
 </div>
+<div class="pinnum">
+    <div class="btns clearfix">
+        <div class="numcon fl">
+            <span class="numc numcl"><a href="javascript:void(0);" id="minus">-</a></span>
+            <em class="num-data" id="count_num">1</em>
+            <span class="numc numcr"><a href="javascript:void(0);" id="plus">+</a></span>
+            <span class="totalnum" id="count_price">10</span>
+        </div>
+        <div class="buybtn fr"><a class="btn-buy" href="javascript:void(0);" id="add_to_cart">立即购买</a></div>
+    </div>
+    <p class="spec">规格：{$spec}{$group.spec_unit}</p>
+</div>
+<script src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript">
+    var price = "{$group.price|number_format=1}";
+    var num = 1;
+    var isSubmitButton = false;
+    var goods_id = "{$group.goods_id}"
+    $(function(){
+        $("#count_num").html(num);
+        $("#count_price").html(price);
+
+        $("#plus").click(function(){
+            num++;
+            var new_price = (price*num).toFixed(1);
+            $("#count_num").html(num);
+            $("#count_price").html(new_price);            
+        });
+        $("#minus").click(function(){
+            num--;
+            if(num<1){
+                num = 1;
+            }
+            var new_price = (price*num).toFixed(1);
+            $("#count_num").html(num);
+            $("#count_price").html(new_price);   
+        });
+        $("#add_to_cart").click(function(){
+            var goods_id = 
+            var goods_qty = num;
+        });
+    });
+</script>
 </body>
 </html>

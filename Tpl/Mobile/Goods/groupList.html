@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>所有伙拼</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+</head>
+
+<body>
+<div class="huopinsearch">
+	<input class="text-input" type="text">
+    <input class="text-btn" type="button">
+</div>
+<volist name="groupList" id="vo">
+    <div class="huopin-div">
+        <div class="cart-item">
+            <span class="pic"><a class="pro-img" href="__URL__/groupDetail/id/{$vo.id}"><img src="{$vo.image|picture='','product'}"></a></span>
+            <div class="proinfos clearfix">
+                <div class="proinfor">
+                    <a class="proinfotxt" href="__URL__/groupDetail/id/{$vo.id}">
+                        <p class="tit">{$vo.name}</p>
+                        <p class="total"><span class="total-l">起订量：{$vo.moq_spec}{$vo.spec_unit}</span><span class="total-r">已订量：{$vo.sale_spec}{$vo.spec_unit}</span></p>
+                        <p class="status">剩余时间：{$vo.end_time|diffTime}<br>购买人数：{$vo.sale_count}</p>
+                    </a>
+                </div>
+                <span class="pri">{$vo.price|number_format=1}元</span>
+            </div>
+        </div>
+    </div>
+</volist>
+</body>
+</html>
