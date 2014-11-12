@@ -16,7 +16,7 @@ class CartModel extends CommonModel {
 	 * @return object $back status属性(1:加入购物车成功 0:商品不存在 2:商品数量有误 3:更新商品数量失败 4:加入购物车失败)
      */
     
-    public function addToCart($goodsId, $goodsQty, $deliveryTime='') {
+    public function addToCart($goodsId, $goodsQty, $deliveryTime) {
     	$cartModel = M('Cart');
     	$back = new stdClass();
     	
@@ -40,9 +40,7 @@ class CartModel extends CommonModel {
 	    $data['number'] = $goodsQty;
 	    $data['image'] = $goodsInfo['image'];
 	    $data['create_time'] = time();
-	    if (!empty($deliveryTime)) {
-	    	$data['delivery_time'] = $deliveryTime;
-	    }
+	    $data['delivery_time'] = $deliveryTime;
     	
 	    //相同的cartId
 	    $cartId = null;
@@ -56,8 +54,10 @@ class CartModel extends CommonModel {
 		    if (is_array($cartList)) {
 		    	foreach ($cartList as $key => $cart) {
 		    		if ($cart['goods_id'] == $goodsId) {
-		    			$cartId = $cart['id'];
-		    			break;
+		    			if (date('Ymd', $cart['delivery_time']) == date('Ymd', $deliveryTime)) {
+		    				$cartId = $cart['id'];
+		    				break;
+		    			}
 		    		}
 		    	}
 		    }
@@ -86,9 +86,11 @@ class CartModel extends CommonModel {
 		    if (is_array($cartList)) {
 		    	foreach ($cartList as $key => $cart) {
 		    		if ($cart['goods_id'] == $goodsId) {
-		    			$cartId = true;
-		    			$cartKey = $key;
-		    			break;
+		    			if (date('Ymd', $cart['delivery_time']) == date('Ymd', $deliveryTime)) {
+		    				$cartId = true;
+			    			$cartKey = $key;
+			    			break;
+		    			}
 		    		}
 		    	}
 		    }
@@ -160,6 +162,7 @@ class CartModel extends CommonModel {
 		    		$cartArr['data'][$key]['price'] = $cart['price'];
 		    		$cartArr['data'][$key]['number'] = $cart['number'];
 		    		$cartArr['data'][$key]['image'] = $cart['image'];
+		    		$cartArr['data'][$key]['delivery_time'] = $cart['delivery_time'];
 		    		$cartArr['data'][$key]['spec'] = $goodsInfo['spec'];
 		    		$cartArr['data'][$key]['spec_unit'] = $goodsInfo['spec_unit'];
 		    		$cartArr['data'][$key]['subtotal'] = number_format($cart['number'] * $cart['price'], 2, '.', '');

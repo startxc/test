@@ -16,6 +16,19 @@ class GoodsAction extends CommonAction{
 	public function group(){
 		$date = date("Y-m-d",time());
 		$groupList = D("Goods")->getGroupList($date,1);
+		$this->assign("groupList",$groupList);
+		$this->display();
+	}
+
+	//发起伙拼页面
+	public function groupApply(){
+		$param = array(
+			"is_group"=>1,
+			"size"=>0
+		);
+		$goodsList = D("Goods")->getGoodsList($param);
+		$this->assign("goodsList",$goodsList);
+		$this->display();
 	}
 
 	//伙拼商品列表

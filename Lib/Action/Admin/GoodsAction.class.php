@@ -102,6 +102,7 @@ class GoodsAction extends CommonAction {
         $data['create_time'] = $time;
         $data['is_show'] = intval($_POST['is_show']);
         $data['is_recommend'] = intval($_POST['is_recommend']);
+        $data['is_group'] = intval($_POST['is_group']);
 
         $back = new stdClass();
         $goods = M("Goods");
@@ -171,6 +172,7 @@ class GoodsAction extends CommonAction {
         $data['order_index'] = intval($_POST['order']);
         $data['is_show'] = intval($_POST['is_show']);
         $data['is_recommend'] = intval($_POST['is_recommend']);
+        $data['is_group'] = intval($_POST['is_group']);
         $data['update_time'] = time();
         $back = new stdClass();
         $goods = M("Goods");

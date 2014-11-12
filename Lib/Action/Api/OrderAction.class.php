@@ -9,12 +9,13 @@ class OrderAction extends MobileCommonAction {
 	 * 提交订单
 	 */
 	
-	public function addOrder($addressId, $orderType, $buyerNote) {
+	public function addOrder($addressId, $communityId, $orderType, $buyerNote) {
 		$orderModel = D('Order');
 		$addressId = max(intval($_POST['address_id']), 0);
+		$communityId = max(intval($_POST['community_id']), 0);
     	$orderType = $_POST['order_type'];
     	$buyerNote = $_POST['buyer_note'];
-		$back = $orderModel->addOrder($addressId, $orderType, $buyerNote);
+		$back = $orderModel->addOrder($addressId, $communityId, $orderType, $buyerNote);
 		if ($back->status == 0) {
 			$this->error("购物车没有商品");
 		} elseif ($back->status == 1) {
@@ -28,7 +29,6 @@ class OrderAction extends MobileCommonAction {
 		} elseif ($back->status == 5) {
 			$this->error("清空购物车商品失败");
 		}
-		return $back;
 	}
 	
 	/**

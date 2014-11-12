@@ -256,6 +256,12 @@
                     </td>
                     <td> <input type="radio" name="is_recommend" value="1"  />推荐&nbsp;&nbsp;<input type="radio" name="is_recommend" value="0"  checked/>不推荐</td>
                 </tr>
+                <tr>
+                    <td width="85" align="center"> 
+                        <i class='bright'>*</i>是否可以伙拼 
+                    </td>
+                    <td> <input type="radio" name="is_group" value="1"  />可以&nbsp;&nbsp;<input type="radio" name="is_group" value="0"  checked/>不可以</td>
+                </tr>
             </table>
 
             <table class="submit_table">
@@ -408,13 +414,15 @@
             var is_show = $("input[name=is_show]:checked").val();
             //是否推荐
             var is_recommend = $("input[name=is_recommend]:checked").val();
+            //是否可以伙拼
+            var is_group = $("input[name=is_group]:checked").val();
             $(this).val("提交中...");
             if(isSubmitButton === false){
                 isSubmitButton = true;
                 $.ajax({
                     type:"post",
                     url:"__URL__/insert",
-                    data:{cid:cid,selected_production_id:selected_production_id,name:name,price:price,spec:spec,spec_unit:spec_unit,images:images,desc:desc,order:order,is_show:is_show,is_recommend:is_recommend},
+                    data:{cid:cid,selected_production_id:selected_production_id,name:name,price:price,spec:spec,spec_unit:spec_unit,images:images,desc:desc,order:order,is_show:is_show,is_recommend:is_recommend,is_group:is_group},
                     async:false,
                     success:function(data){
                         var res = eval(data);

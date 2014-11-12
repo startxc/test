@@ -85,10 +85,12 @@ $apis[] = array(
 						array('field'=>'consignee','desc'=>'收货人'),
 						array('field'=>'province_id','desc'=>'省份id'),
 						array('field'=>'city_id','desc'=>'城市id'),
-						array('field'=>'area_id','desc'=>'区号/县id'),
+						array('field'=>'area_id','desc'=>'区县id'),
+						array('field'=>'community_id','desc'=>'小区id'),
 						array('field'=>'province_name','desc'=>'省份名称'),
 						array('field'=>'city_name','desc'=>'城市名称'),
-						array('field'=>'area_name','desc'=>'区号/县名称'),
+						array('field'=>'area_name','desc'=>'区县名称'),
+						array('field'=>'community_name','desc'=>'小区名称'),
 						array('field'=>'address','desc'=>'详细地址'),
 						array('field'=>'mobile','desc'=>'手机号码'),
 						array('field'=>'is_default','desc'=>'是否默认地址')
@@ -101,11 +103,9 @@ $apis[] = array(
 							'consignee'=>array('desc'=>'收货人姓名'),
 							'mobile'=>array('desc'=>'收货人手机'),
 							'province_id'=>array('desc'=>'省份id'),
-							'province_name'=>array('desc'=>'省份名称'),
 							'city_id'=>array('desc'=>'城市id'),
-							'city_name'=>array('desc'=>'城市名称'),
-							'area_id'=>array('desc'=>'区号/县id'),
-							'area_name'=>array('desc'=>'区号/县名称'),
+							'area_id'=>array('desc'=>'区县id'),
+							'community_id'=>array('desc'=>'小区id'),
 							'address'=>array('desc'=>'详细地址'),
 					),
 					'response'=>'{"status":1,"info":"添加收货地址成功"}',
@@ -122,11 +122,9 @@ $apis[] = array(
 							'consignee'=>array('desc'=>'收货人姓名'),
 							'mobile'=>array('desc'=>'收货人手机'),
 							'province_id'=>array('desc'=>'省份id'),
-							'province_name'=>array('desc'=>'省份名称'),
 							'city_id'=>array('desc'=>'城市id'),
-							'city_name'=>array('desc'=>'城市名称'),
-							'area_id'=>array('desc'=>'区号/县id'),
-							'area_name'=>array('desc'=>'区号/县名称'),
+							'area_id'=>array('desc'=>'区县id'),
+							'community_id'=>array('desc'=>'小区id'),
 							'address'=>array('desc'=>'详细地址'),
 					),
 					'response'=>'{"status":1,"info":"修改收货地址成功"}',
@@ -216,9 +214,27 @@ $apis[] = array(
 						array('field'=>'image','desc'=>'分类图片')
 					)
 			),
+			'Goods/getProductionList'=>array(
+					'desc' => '获取商品产地列表',
+					'type'=>'GET',
+					'field'=>array(
+							'goods_id'=>array('desc'=>'商品id'),
+					),
+					'response'=>'{"status":1,"info":"",{id:2,name:"湖南"}}',
+					'res_field'=>array(
+						array('field'=>'id','desc'=>'产地id'),
+						array('field'=>'name','desc'=>'产地名称')
+					)
+			),
 			'Goods/getGoodsList'=>array(
 					'desc' => '获取商品列表',
-					'type'=>'GET',
+					'type'=>'get',
+					'field'=>array(
+							'is_recommend'=>array('desc'=>'是否推荐'),
+							'is_group'=>array('desc'=>'是否可以伙拼'),
+							'size'=>array('desc'=>'商品个数'),
+							'order'=>array('desc'=>'商品排序规则'),
+					),
 					'response'=>'{"status":1,"info":"",{id:1,category_id:1,production_id:1,name:"蔬菜1",price:10.00,image:201410305451ed907043a.jpg,description:"好吃的蔬菜",sale_count:0,spec:100}}',
 					'res_field'=>array(
 						array('field'=>'id','desc'=>'商品id'),

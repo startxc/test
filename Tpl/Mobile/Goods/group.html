@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>拼水果/所有伙拼</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+</head>
+
+<body>
+<div class="huopintimg">
+	<span class="lbtn ltbtn"><a href="__URL__/groupApply">发起伙拼<span class="ricon ricon1"><i class="i-fqhp"></i></span></a></span>
+	<span class="lbtn lbbtn"><a href="#">伙拼规则<span class="ricon ricon2"><i class="i-hpgz"></i></span></a></span>
+    <div class="ldate">
+    	<em class="day">14</em>
+        <p class="time">2014 sep</p>
+        <p class="tip"><i class="i-linel"></i><span>今日火拼推荐</span><i class="i-liner"></i></p>
+    </div>
+</div>
+<ul class="huopinlists">
+	<volist name="groupList" id="vo">
+		<li><a href="__URL__/groupDetail/id/{$vo.id}"><img src="{$vo.image|picture='','product'}"></a></li>
+	</volist>
+</ul>
+</body>
+</html>

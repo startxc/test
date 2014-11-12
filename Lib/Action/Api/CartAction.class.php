@@ -15,6 +15,8 @@ class CartAction extends MobileCommonAction {
 		$deliveryTime = $_POST['delivery_time'];
     	if (!empty($deliveryTime)) {
     		$deliveryTime = strtotime($deliveryTime);
+    	} else {
+    		$deliveryTime =  strtotime(date('Ymd', strtotime('+1 day')));
     	}
 		$back = $cartModel->addToCart($goodsId, $goodsQty, $deliveryTime);
 		if ($back->status == 0) {
@@ -28,7 +30,6 @@ class CartAction extends MobileCommonAction {
 		} elseif ($back->status == 4) {
 			$this->error("加入购物车失败");
 		}
-		return $back;
     }
     
     /**
@@ -54,7 +55,9 @@ class CartAction extends MobileCommonAction {
     	foreach ($goodsIdArr as $key => $goodsId) {
     		if (!empty($deliveryTimeArr[$key])) {
     			$deliveryTime = strtotime($deliveryTimeArr[$key]);
-    		}
+    		} else {
+	    		$deliveryTime =  strtotime(date('Ymd', strtotime('+1 day')));
+	    	}
     		$back = $cartModel->addToCart($goodsId, $goodsQtyArr[$key], $deliveryTime);
     		if ($back->status != 1) {
     			$model->rollback();
@@ -73,7 +76,6 @@ class CartAction extends MobileCommonAction {
     	
     	$model->commit();
     	$this->success("操作成功");
-    	return $back;
     }
     
 	/**
@@ -84,7 +86,6 @@ class CartAction extends MobileCommonAction {
     	$cartModel = D('Cart');
 		$cartArr = $cartModel->getCartList();
 		$this->ajaxRespon($cartArr);
-		return $cartArr;
     }
     
 	/**
@@ -116,7 +117,6 @@ class CartAction extends MobileCommonAction {
     	} else {
     		$this->error("删除购物车商品失败");
     	}
-		return $flag;
     }
     
 	/**
@@ -131,6 +131,5 @@ class CartAction extends MobileCommonAction {
     	} else {
     		$this->error("删除购物车商品失败");
     	}
-		return $flag;
     }
 }

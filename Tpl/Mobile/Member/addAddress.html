@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>编辑地址</title>
+<title>添加新地址</title>
 <link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
 <link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
 </head>
@@ -58,16 +58,15 @@
 </div>
 <div class="acc-input">
 	<span class="tit">详细地址</span>
-    <span class="name"><input class="text-input" type="text" id="address" value={$address.address}></span>
+    <span class="name"><input class="text-input" type="text" id="address"></span>
 </div>
 <div class="acc-input">
 	<span class="tit">收件人</span>
-    <span class="name"><input class="text-input" type="text" id="consignee" value="{$address.consignee}"></span>
+    <span class="name"><input class="text-input" type="text" id="consignee"></span>
 </div>
 <div class="acc-input">
 	<span class="tit">移动电话</span>
-    <span class="name"><input class="text-input" type="text" id="mobile" value="{$address.mobile}"></span>
-    <input type="hidden" id="address_id" value="{$address.id}" />
+    <span class="name"><input class="text-input" type="text" id="mobile"></span>
 </div>
 <div class="fixsteps">
 	<a href="javascript:void(0);" class="bigbtn btn-green" id="sure">确认</a>
@@ -79,24 +78,15 @@
 <script type="text/javascript">
 var isSubmitButton = false;
 $(function(){
-    var province_id = "{$address.province_id}";
-    var city_id = "{$address.city_id}";
-    var area_id = "{$address.area_id}";
-    var community_id = "{$address.community_id}";
 
-    myRegion.init(province_id,city_id,area_id,community_id);
+    myRegion.init();
     var $province_text = $("#province_text");
     $("#province_text").siblings(".select-txt").val("请选择");
     $("#city_text").siblings(".select-txt").val("请选择");
     $("#area_text").siblings(".select-txt").val("请选择");
     $("#community_text").siblings(".select-txt").val("请选择");
     $("#province").find("option:gt(0)").each(function(){
-        if(province_id == $(this).val()){
-            $("#province_text").siblings(".select-txt").val($(this).html());
-            province_change();
-        }else{
-            $province_text.append("<dd dataid='"+$(this).val()+"'><a href='javascript:void(0);'>"+$(this).html()+"</a></dd>");
-        }
+        $province_text.append("<dd dataid='"+$(this).val()+"'><a href='javascript:void(0);'>"+$(this).html()+"</a></dd>");
     });  
 
     $("#province_text").delegate("dd","click",function(event){
@@ -104,10 +94,6 @@ $(function(){
         var id = $(this).attr("dataid");
         $(this).parent().siblings(".select-txt").val(value);
         $("#province").val(id); 
-        province_change();
-        
-    }); 
-    function province_change(){
         $("#province").change();
         var $city_text = $("#city_text");
         $city_text.empty();
@@ -117,23 +103,15 @@ $(function(){
         $("#community_text").empty();
         $("#community_text").siblings(".select-txt").val("请选择");
         $("#city").find("option:gt(0)").each(function(){
-            if(city_id == $(this).val()){ 
-                $city_text.siblings(".select-txt").val($(this).html());
-                city_change();
-            }else{
-                $city_text.append("<dd dataid='"+$(this).val()+"'><a href='javascript:void(0);'>"+$(this).html()+"</a></dd>");
-            }
-        });     
-    } 
+            $city_text.append("<dd dataid='"+$(this).val()+"'><a href='javascript:void(0);'>"+$(this).html()+"</a></dd>");
+        });          
+    });  
 
     $("#city_text").delegate("dd","click",function(event){
         var value=$(this).text();
         var id = $(this).attr("dataid");
         $(this).parent().siblings(".select-txt").val(value);
         $("#city").val(id); 
-        city_change(); 
-    }); 
-    function city_change(){
         $("#city").change();
         var $area_text = $("#area_text");
         $area_text.empty();
@@ -141,35 +119,23 @@ $(function(){
         $("#community_text").empty();
         $("#community_text").siblings(".select-txt").val("请选择");
         $("#area").find("option:gt(0)").each(function(){
-            if(area_id == $(this).val()){
-                $area_text.siblings(".select-txt").val($(this).html());
-                area_change();
-            }else{
-                $area_text.append("<dd dataid='"+$(this).val()+"'><a href='javascript:void(0);'>"+$(this).html()+"</a></dd>");
-            }
-        });    
-    }
+            $area_text.append("<dd dataid='"+$(this).val()+"'><a href='javascript:void(0);'>"+$(this).html()+"</a></dd>");
+        });          
+    }); 
 
     $("#area_text").delegate("dd","click",function(event){
         var value=$(this).text();
         var id = $(this).attr("dataid");
         $(this).parent().siblings(".select-txt").val(value);
         $("#area").val(id); 
-        area_change();
-    }); 
-    function area_change(){
         $("#area").change();
         var $community_text = $("#community_text");
         $community_text.empty();
         $community_text.siblings(".select-txt").val("请选择");
         $("#community").find("option:gt(0)").each(function(){
-            if(community_id == $(this).val()){
-                $community_text.siblings(".select-txt").val($(this).html());
-            }else{
-                $community_text.append("<dd dataid='"+$(this).val()+"'><a href='javascript:void(0);'>"+$(this).html()+"</a></dd>");
-            }
-        });      
-    }
+            $community_text.append("<dd dataid='"+$(this).val()+"'><a href='javascript:void(0);'>"+$(this).html()+"</a></dd>");
+        });          
+    }); 
 
     $("#community_text").delegate("dd","click",function(event){
         var value=$(this).text();
@@ -193,10 +159,9 @@ $(function(){
 
     $(document).click(function(){
         $('.areadl').hide(); 
-    });  
+    }); 
 
     $("#sure").click(function(){
-        var address_id = $("#address_id").val();
         var province_id = $("#province").val();
         if(province_id == ""){
             alertPop("省份不能为空哦");
@@ -245,13 +210,13 @@ $(function(){
             isSubmitButton = true;
             $.ajax({
                 type:"post",
-                url:"/Api/Member/setAddress",
-                data:{address_id:address_id,province_id:province_id,city_id:city_id,area_id:area_id,community_id:community_id,consignee:consignee,mobile:mobile,address:address},
+                url:"/Api/Member/addAddress",
+                data:{province_id:province_id,city_id:city_id,area_id:area_id,community_id:community_id,consignee:consignee,mobile:mobile,address:address},
                 async:false,
                 success:function(data){
                     var res = $.parseJSON(data);
                     if(res.status){
-                        alertPop("修改收货地址成功");
+                        alertPop("添加收货地址成功");
                         window.location.href = "__URL__/setAddress";
                     }else{
                         alertPop(res.info);
@@ -260,13 +225,8 @@ $(function(){
             });
             isSubmitButton = false;
         }
-    });      
+    });   
 });
-
-
-
-
-
 </script>
 </body>
 </html>

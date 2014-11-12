@@ -161,6 +161,11 @@ class MemberAction extends CommonAction {
         $this->display();
     }
 
+    //添加收货地址
+    public function addAddress(){
+        $this->display();
+    }
+
     //修改收货地址页面
     public function setAddress(){
         $uid = $_SESSION['uid'];

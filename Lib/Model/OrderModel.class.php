@@ -16,7 +16,7 @@ class OrderModel extends CommonModel {
 	 * @return object $back status属性(0:购物车没有商品 1:提交订单成功 2:收货地址不存在 3:写入订单表失败 4:写入订单商品表失败 5:清空购物车商品失败)
 	 */
 	
-	public function addOrder($addressId, $orderType, $buyerNote) {
+	public function addOrder($addressId, $communityId, $orderType, $buyerNote) {
 		$orderModel = M('Order');
 		$orderGoodsModel = M('OrderGoods');
 		$memberAddress = M('MemberAddress');
@@ -29,58 +29,76 @@ class OrderModel extends CommonModel {
 			$back->status = 0;
 	        return $back;
 		}
-		$goodsAmount = $cartArr['total'];
-		$orderAmount = $goodsAmount;
+		
+		$cartList = array();
+		foreach ($cartArr['data'] as $key => $cart) {
+			$w = date('w', $cart['delivery_time']);
+			$w == 0 ? 7 : $w;
+			$cartList[$w]['data'][] = $cart;
+			$cartList[$w]['subtotal'] = $cart['number'] * $cart['price'];
+		    $cartList[$w]['total'] += $cartList[$w]['subtotal'];
+		}
 		
 		//获取收货地址
 		$memberAddressInfo = $memberAddress->where(array('id' => $addressId, 'member_id' => $_SESSION['uid']))->find();
 		if (!$memberAddressInfo) {
-			$orderModel->rollback();
 			$back->status = 2;
 	        return $back;
 		}
 		
+		$orderAmount = 0;
 		$orderModel->startTrans();
-		$data = array();
-		$data['order_no'] = $this->createOrderNo();
-		$data['member_id'] = $_SESSION['uid'];
-		$data['order_status'] = 'created';
-		$data['consignee'] = $memberAddressInfo['consignee'];
-		$data['province_id'] = $memberAddressInfo['province_id'];
-		$data['city_id'] = $memberAddressInfo['city_id'];
-		$data['area_id'] = $memberAddressInfo['area_id'];
-		$data['address'] = $memberAddressInfo['address'];
-		$data['mobile'] = $memberAddressInfo['mobile'];
-		$data['goods_amount'] = $goodsAmount;
-		$data['order_amount'] = $orderAmount;
-		if (!empty($buyerNote)) {
-			$data['buyer_note'] = $buyerNote;
-		}
-		$data['order_type'] = $orderType;
-		$data['create_time'] = time();
-		$orderId = $orderModel->add($data);
-		if (!$orderId) {
-			$orderModel->rollback();
-			$back->status = 3;
-	        return $back;
-		}
-		
-		foreach ($cartArr['data'] as $key => $cart) {
-			$data = array();
-			$data['member_id'] = $_SESSION['uid'];
-			$data['order_id'] = $orderId;
-			$data['goods_id'] = $cart['goods_id'];
-			$data['goods_name'] = $cart['goods_name'];
-			$data['image'] = $cart['image'];
-			$data['number'] = $cart['number'];
-			$data['price'] = $cart['price'];
-			$data['create_time'] = time();
-			$id = $orderGoodsModel->add($data);
-			if (!$id) {
-				$orderModel->rollback();
-				$back->status = 4;
-	        	return $back;
+		foreach ($cartList as $key => $cart) {
+			if (count($cartList) > 1) {
+				$combinePayNo = 'u'.$this->createOrderNo();
 			}
+			$data = array();
+			if (!empty($combinePayNo)) {
+				$data['combine_pay_no'] = $combinePayNo;
+			}
+			$data['order_no'] = $this->createOrderNo();
+			$data['member_id'] = $_SESSION['uid'];
+			$data['order_status'] = 'created';
+			$data['consignee'] = $memberAddressInfo['consignee'];
+			$data['province_id'] = $memberAddressInfo['province_id'];
+			$data['city_id'] = $memberAddressInfo['city_id'];
+			$data['area_id'] = $memberAddressInfo['area_id'];
+			$data['address'] = $memberAddressInfo['address'];
+			$data['mobile'] = $memberAddressInfo['mobile'];
+			$data['goods_amount'] = $cartList[$key]['total'];
+			$data['order_amount'] = $cartList[$key]['total'];
+			if (!empty($buyerNote)) {
+				$data['buyer_note'] = $buyerNote;
+			}
+			$data['order_type'] = $orderType;
+			$data['create_time'] = time();
+			$data['community_id'] = $communityId;
+			$orderId = $orderModel->add($data);
+			if (!$orderId) {
+				$orderModel->rollback();
+				$back->status = 3;
+		        return $back;
+			}
+			
+			foreach ($cart['data'] as $key => $vo) {
+				$data = array();
+				$data['member_id'] = $_SESSION['uid'];
+				$data['order_id'] = $orderId;
+				$data['goods_id'] = $vo['goods_id'];
+				$data['goods_name'] = $vo['goods_name'];
+				$data['image'] = $vo['image'];
+				$data['number'] = $vo['number'];
+				$data['price'] = $vo['price'];
+				$data['create_time'] = time();
+				$id = $orderGoodsModel->add($data);
+				if (!$id) {
+					$orderModel->rollback();
+					$back->status = 4;
+		        	return $back;
+				}
+			}
+			
+			$orderAmount += $data['order_amount'];
 		}
 		
 		$bool = $cartModel->emptyCart();
@@ -90,9 +108,13 @@ class OrderModel extends CommonModel {
 	        return $back;
 		}
 		
-		$orderModel->commit();
-		S('orderId_'.$_SESSION['uid'], $orderId, C('DATA_CACHE_TIME'));
+		if (!empty($combinePayNo)) {
+			S('orderId_'.$_SESSION['uid'], $combinePayNo, C('DATA_CACHE_TIME'));
+		} else {
+			S('orderId_'.$_SESSION['uid'], $orderId, C('DATA_CACHE_TIME'));
+		}
 		S('orderAmount_'.$_SESSION['uid'], $orderAmount, C('DATA_CACHE_TIME'));
+		$orderModel->commit();
 		$back->status = 1;
 	    return $back;
 	}
@@ -154,10 +176,12 @@ class OrderModel extends CommonModel {
 	 */
 	
 	private function createOrderNo() {
-		//订单号规则：店铺ID+年的后2位+月+日+订单数
-		$count = M('Order')->count();
-		$orderNo = substr(date('Ymd', time()), 2) . $count;
-		return $orderNo;
+		$date = date('ymd');
+        list($s1, $s2) = explode(' ', microtime());
+        $secs = str_pad(intval($s2)%86400, 5, "0", STR_PAD_LEFT);       
+        $msec = str_pad(intval($s1*1000), 3, "0", STR_PAD_LEFT); 
+        $number = $date.$secs.$msec;
+        return $number; 
 	}
 }
 ?>

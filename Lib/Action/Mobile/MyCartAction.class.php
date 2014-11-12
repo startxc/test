@@ -14,8 +14,8 @@ class MyCartAction extends CommonAction {
      */
     
 	public function cart() {
-		$cart = A('Api/Cart');
-		$cartArr = $cart->getCartList();
+		$cartModel = D('Cart');
+		$cartArr = $cartModel->getCartList();
 		$this->assign('cartArr', $cartArr);
 		$this->assign('title', '购物车');
 		$this->display('cart');
@@ -50,24 +50,35 @@ class MyCartAction extends CommonAction {
         $cartModel = D('Cart');
         $cartId = S("h_goto_order_".$_SESSION['uid']);
         if (!empty($cartId)) {
-        	$cartList = $cartModel->getCartList($cartId);
+        	$cartArr = $cartModel->getCartList($cartId);
         } else {
-	    	$cartList = $cartModel->getCartList();
+	    	$cartArr = $cartModel->getCartList();
         }
-        print_r($cartList);
+		$cartList = array();
+		foreach ($cartArr['data'] as $key => $cart) {
+			$w = date('w', $cart['delivery_time']);
+			$w == 0 ? 7 : $w;
+			$cartList[$w]['delivery_date'] = date('Y-m-d', $cart['delivery_time']);
+			$cartList[$w]['data'][] = $cart;
+		}
+		$this->assign('total', $cartArr['total']);
+		$this->assign('total_goods_qty', $cartArr['total_goods_qty']);
         $this->assign('cartList', $cartList);
 		$this->display();
     }
     
     /**
-     * 提交订单
+     * 订单提交完成
      */
     
-    public function addOrder() {
-    	$back = new stdClass();
-		$order = A('Api/Order');
-    	$back = $order->addOrder();
-    	ajax_return($back);
+    public function addOrderSuccess() {
+    	$orderId = S('orderId_'.$_SESSION['uid']);
+        $orderAmount =  S('orderAmount_'.$_SESSION['uid']);
+        if (empty($orderId)) {
+            $this->redirect('Index/index');
+        }
+        $this->assign('orderAmount', $orderAmount);
+        $this->display();
     }
 }
 ?>

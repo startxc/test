@@ -163,18 +163,19 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .rcn-infos .checkbox span{margin-left:10px; color:#888;}
 
 .cart-con{margin-bottom:90px;}
-.cart-item{background-color:#fff; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; padding:12px 0; position:relative; margin-top:14px;}
+.cart-item{background-color:#fff; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; padding:12px 0; position:relative; margin-top:10px;}
 .cart-item .iconlink a{position:absolute; left:20px; width:26px; height:26px; display:block;}
 .cart-item .i-select{background-position:-29px -70px; top:22px;}
 .cart-item .i-selected{background-position:-2px -70px; top:22px;}
 .cart-item .i-delete{top:68px;}
 .i-delete{ background-position:-57px -70px; width:26px; height:26px; display:block;}
-.proinfos{margin-left:150px; margin-right:20px; position:relative; display:block;}
+.proinfos{margin-left:150px; margin-right:14px; position:relative; display:block;}
 .cart-item .pic{position:absolute; left:66px; top:18px;}
 .cart-item .pic img{border-radius:100%; width:74px;}
 .proinfor .tit{height:44px; overflow:hidden;}
-.proinfor .proinfotxt{width:70%; display:inline-block;}
-.proinfor .total{color:#959595; margin-top:10px;}
+.proinfor .proinfotxt{width:78%; display:inline-block; line-height:18px;}
+.proinfor .total{color:#959595; margin-top:5px;}
+.proinfor .total .total-r{margin-left:10px;}
 .proinfor .status{color:#959595; margin-top:3px;}
 .goods-num{margin-top:8px;}
 .goods-num .label{color:#959595;}
@@ -292,8 +293,8 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .cashbresult dt{color:#cc4f00;}
 .cashbresult dd{color:#959595; margin-top:16px; font-size:12px;}
 
-.huopin-div .cart-item .pic{left:20px;}
-.huopin-div .proinfos{margin-left:106px;}
+.huopin-div .cart-item .pic{left:14px;}
+.huopin-div .proinfos{margin-left:100px;}
 
 .huopinedimg{position:relative;}
 .huopinedimg img{width:100%; max-height:500px;}
@@ -359,7 +360,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .areadlcon{height:30px; line-height:30px; display:block; margin-left:88px; position:relative;}
 .areadlcon .select-txt{height:30px; line-height:30px; width:100%; cursor:pointer;}
 .i-selarrow{position:absolute; right:0; top:14px; border-color:#bbb #fff #fff; border-style: solid; border-width: 4px; font-size: 0; height: 0; line-height: 0; width: 0; vertical-align:middle; display:inline; cursor:pointer;}
-.areadl{position:absolute; left:-10px; top:36px; z-index:10; background-color:#fff; border:1px solid #ddd; border-top:1px solid #fff; width:100%; box-sizing:border-box; padding:0 10px 6px; max-height:320px; display:none;}
+.areadl{position:absolute; left:-10px; top:36px; z-index:10; background-color:#fff; border:1px solid #ddd; border-top:1px solid #fff; width:100%; box-sizing:border-box; padding:0 10px 6px; max-height:334px; overflow-y:auto; display:none;}
 .areadl dd a{line-height:18px; display:block; min-height:24px; padding:2px 0;}
 .areadl dd a:hover{color:#f90;}
 .areadl dd.cur a{color:#f90;}
@@ -371,13 +372,20 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .fqhpdiv .conr li:nth-child(2) .conrinput{margin-top:8px;}
 .fqhpdiv .i-selarrow{right:10px;}
 .fqhpdiv .select-txt{width:100%; display:block; height:32px; line-height:32px; padding:0 10px; border:1px solid #fa0; box-sizing:border-box; cursor:pointer;}
-.fqhpdiv .areadl{left:0; top:31px; border:1px solid #fa0; border-top:1px solid #fff;}
+.fqhpdiv .areadl{left:0; top:31px; border:1px solid #fa0; border-top:none;}
 .fqhpdiv .areadl dd a{height:28px; line-height:28px;}
 .adsgegz li{width:50%; display:block; float:left;}
 .adsgegz li .i-seldoted{width:9px; height:9px; border-radius:100%; background-color:#f6ac2f; display:inline-block; margin-right:6px;}
 .adsgegz li .i-seldot{width:7px; height:7px; border-radius:100%; border:1px solid #f6ac2f; display:inline-block; margin-right:6px;}
 .fqhpbtn{padding:0 14px; margin:20px 0;}
 .fqhpbtn .btn-yellow{display:block; height:24px; line-height:24px; width:70px; text-align:center; color:#fff;}
+
+.huopinsearch{margin:10px 14px 14px; border:2px solid #ba9b70; background-color:#dec49b; height:30px; line-height:30px; padding:2px; position:relative;}
+.huopinsearch .text-input{background:none; width:100%; box-sizing:border-box; padding-right:44px; padding-left:6px; display:inline-block;}
+.huopinsearch .text-btn{position:absolute; right:0; top:0; width:44px; height:32px; background:url(../images/icons.png) no-repeat; background-position:-210px -228px; background-size:320px auto; border:none; display:block;}
+
+.weekul{height:30px; line-height:30px;}
+
 
 @media (min-width: 768px){
 .ads-layer .tit02{font-size:22px; letter-spacing:6px;}

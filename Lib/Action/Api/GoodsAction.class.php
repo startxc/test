@@ -8,22 +8,32 @@ class GoodsAction extends MobileCommonAction{
 
 
 	//获取普通商品列表
-	public function getGoodsList($size=19,$order="create_time desc"){
-		$size = empty($_GET['size'])?intval($size):intval($_GET['size']);
-		$condition = array(
-			"is_show"=>1,
-			"is_deleted"=>0
-		);
-		$count = M("Goods")->where($condition)->count();
-		$goodsList = array();
-		if($count>0){
-			import("@.ORG.Util.Page");  
-            $p = new Page($count, $size);
-            $goodsList = M("Goods")->where($condition)->limit($p->firstRow . ',' . $p->listRows)->order($order)->select();
-		}
+	public function getGoodsList(){
+		$param['size'] = empty($_GET['size'])?intval($size):intval($_POST['size']);
+		$param['is_group'] = $_GET['is_group']==1?1:0;
+		$param['is_recommend'] = $_GET['is_recommend']==1?1:0;
+		$param['order'] = empty($_GET['order'])?0:intval($_GET['order']); 
+		$goodsList = D("Goods")->getGoodsList($param);
 		$this->ajaxRespon($goodsList);
-		return $goodsList;
 	}
+
+	//获取伙拼列表
+	public function getGroupList(){
+		$date = empty($_POST['date'])?date("Y-m-d"):trim($_POST['date']);
+		$is_recommend = $_POST['is_recommend'] == 1?1:0;
+		$size = empty($_POST['size'])?10:intval($_POST['size']);
+		$order = empty($_POST['order'])?"create_time desc":trim($_POST['order']);
+		$groupList = D("Goods")->getGroupList($date,$is_recommend,$size,$order);
+		$this->ajaxRespon($groupList);
+	}
+
+	//获取商品产地列表
+	public function getProductionList(){
+		$goods_id = intval($_GET['goods_id']);
+		$productionList = D("Goods")->getProductionList($goods_id);
+		$this->ajaxRespon($productionList);
+	}
+
 
 	//获取商品分类列表
 	public function getCategoryList(){
@@ -92,14 +102,5 @@ class GoodsAction extends MobileCommonAction{
 		}
 	}
 
-	//获取伙拼列表
-	public function getGroupList(){
-		$date = empty($_POST['date'])?date("Y-m-d"):trim($_POST['date']);
-		$is_recommend = $_POST['is_recommend'] == 1?1:0;
-		$size = empty($_POST['size'])?10:intval($_POST['size']);
-		$order = empty($_POST['order'])?"create_time desc":trim($_POST['order']);
-		$groupList = D("Goods")->getGroupList($date,$is_recommend,$size,$order);
-		$this->ajaxRespon($groupList);
-	}
 }
 ?>

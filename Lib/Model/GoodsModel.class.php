@@ -5,6 +5,81 @@
 */
 class GoodsModel extends Model{
 
+	/*@desc:获取商品列表
+	**$param = array(
+	*	"is_recommend"=>"是否推荐"
+	*	"is_group"=>"是否可以伙拼"
+	*	"size"=>"获取商品个数"
+	*	"order"=>"商品排序规则"
+	*)
+	*/
+	public function getGoodsList($param=array()){
+		$condition = array(
+			"is_show"=>1,
+			"is_deleted"=>0
+		);
+		if($param['is_recommend'] == 1){
+			$condition['is_recommend'] = 1;
+		}
+		if($param['is_group'] == 1){
+			$condition['is_group'] = 1;
+		}
+		$size = empty($param['size'])?20:intval($param['size']);
+		switch($param['order']){
+			case 1:$order = "order_index desc";break;
+			default:$order = "create_time desc";
+		}
+		$count = M("Goods")->where($condition)->count();
+		$goodsList = array();
+		if($count>0){		
+            if($size>0){ 
+            	import("@.ORG.Util.Page");  
+            	$p = new Page($count, $size);
+            	$goodsList = M("Goods")->where($condition)->limit($p->firstRow . ',' . $p->listRows)->order($order)->select();
+            }else{
+            	$goodsList = M("Goods")->where($condition)->order($order)->select();
+            }
+		}
+		return $goodsList;
+	}
+
+	//获取伙拼列表
+	public function getGroupList($date,$is_recommend=0,$size=20,$order="create_time desc"){
+		$start_time = strtotime("$date 00:00:00");
+		$end_time = strtotime("$date 23:59:59");
+		$condition = array(
+			"start_time"=>array("elt",$start_time),
+			"end_time"=>array("egt",$end_time),
+			"is_show"=>1,
+		);
+		if($is_recommend == 1){
+			$condition['is_recommend'] = 1;
+		}
+		$count = M("Group")->where($condition)->count();
+		$groupList = array();
+		if($count>0){
+			import("ORG.Util.Page");
+			$p = new Page($count,$size);
+			$groupList = M("Group")->where($condition)->order($order)->limit($p->firstRow.",".$p->listRows)->select();
+		}
+		return $groupList;
+	}
+
+	//获取商品产地列表
+	public function getProductionList($goods_id=0){
+		$productionList = S("production".$goods_id);
+		if(empty($productionList)){
+			$goods_production = M("Goods_production")->where("goods_id={$goods_id}")->select();
+			$production_id = array();
+			foreach($goods_production as $value){
+				$production_id[] = $value['production_id'];
+			}
+			$productionList = M("Production")->where(array("id"=>array("in",$production_id)))->select();
+			SK("production".$goods_id,$productionList);
+		}
+		return $productionList;
+	}	
+
 	//获取我发起的伙拼
 	public function getMyGroupApply($uid,$status=0){
 		$condition = array();
@@ -51,25 +126,7 @@ class GoodsModel extends Model{
 		return $count;
 	}
 
-	//获取伙拼列表
-	public function getGroupList($date,$is_recommend=0,$size=10,$order="create_time desc"){
-		$start_time = strtotime("$date 00:00:00");
-		$end_time = strtotime("$date 23:59:59");
-		$condition = array(
-			"start_time"=>array("elt",$start_time),
-			"end_time"=>array("egt",$end_time),
-			"is_show"=>1,
-			"is_recommend"=>$is_recommend
-		);
-		$count = M("Group")->where($condition)->count();
-		$groupList = array();
-		if($count>0){
-			import("ORG.Util.Page");
-			$p = new Page($count,$size);
-			$groupList = M("Group")->where($condition)->order($order)->limit($p->firstRow.",".$p->listRows)->select();
-		}
-		return $groupList;
-	}
+
 
 }
 ?>

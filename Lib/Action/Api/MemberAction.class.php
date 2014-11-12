@@ -204,16 +204,20 @@ class MemberAction extends MobileCommonAction{
 		$this->isEmpty($data['mobile'],"手机号码不能为空");
 		$data['province_id'] = $_POST['province_id'];
 		$this->isEmpty($data['province_id'],"省份不能为空");
-		$data['province_name'] = trim($_POST['province_name']);
+		$data['province_name'] = M("Region")->where("id={$data['province_id']}")->getField("name");
 		$this->isEmpty($data['province_name'],"省份不能为空");
 		$data['city_id'] = $_POST['city_id'];
 		$this->isEmpty($data['city_id'],"城市不能为空");
-		$data['city_name'] = trim($_POST['city_name']);
+		$data['city_name'] = M("Region")->where("id={$data['city_id']}")->getField("name");
 		$this->isEmpty($data['city_name'],"城市不能为空");
 		$data['area_id'] = $_POST['area_id'];
-		$this->isEmpty($data['area_id'],"区号/县不能为空");		
-		$data['area_name'] = trim($_POST['area_name']);
-		$this->isEmpty($data['area_name'],"区号/县不能为空");
+		$this->isEmpty($data['area_id'],"区县不能为空");		
+		$data['area_name'] = M("Region")->where("id={$data['area_id']}")->getField("name");
+		$this->isEmpty($data['area_name'],"区县不能为空");
+		$data['community_id'] = $_POST['community_id'];
+		$this->isEmpty($data['community_id'],"小区不能为空");		
+		$data['community_name'] = M("Community")->where("id={$data['community_id']}")->getField("name");
+		$this->isEmpty($data['community_name'],"小区不能为空");
 		$data['address'] = trim($_POST['address']);
 		$this->isEmpty($data['address'],"详细地址不能为空");
 		if(!M("Member_address")->where("member_id={$uid}")->find()){
@@ -230,9 +234,11 @@ class MemberAction extends MobileCommonAction{
 					"province_id"=>$data['province_id'],
 					"city_id"=>$data['city_id'],
 					"area_id"=>$data['area_id'],
+					"community_id"=>$data['community_id'],
 					"province_name"=>$data['province_name'],
 					"city_name"=>$data['city_name'],
 					"area_name"=>$data['area_name'],
+					"community_name"=>$data['community_name'],
 					"address"=>$data['address']
 				);
 				M("Member")->where("id={$uid}")->save($member_data);
@@ -257,16 +263,20 @@ class MemberAction extends MobileCommonAction{
 		$this->isEmpty($data['mobile'],"手机号码不能为空");
 		$data['province_id'] = $_POST['province_id'];
 		$this->isEmpty($data['province_id'],"省份不能为空");
-		$data['province_name'] = trim($_POST['province_name']);
+		$data['province_name'] = M("Region")->where("id={$data['province_id']}")->getField("name");
 		$this->isEmpty($data['province_name'],"省份不能为空");
 		$data['city_id'] = $_POST['city_id'];
 		$this->isEmpty($data['city_id'],"城市不能为空");
-		$data['city_name'] = trim($_POST['city_name']);
+		$data['city_name'] = M("Region")->where("id={$data['city_id']}")->getField("name");
 		$this->isEmpty($data['city_name'],"城市不能为空");
 		$data['area_id'] = $_POST['area_id'];
-		$this->isEmpty($data['area_id'],"区号/县不能为空");		
-		$data['area_name'] = trim($_POST['area_name']);
-		$this->isEmpty($data['area_name'],"区号/县不能为空");
+		$this->isEmpty($data['area_id'],"区县不能为空");		
+		$data['area_name'] = M("Region")->where("id={$data['area_id']}")->getField("name");
+		$this->isEmpty($data['area_name'],"区县不能为空");
+		$data['community_id'] = $_POST['community_id'];
+		$this->isEmpty($data['community_id'],"小区不能为空");		
+		$data['community_name'] = M("Community")->where("id={$data['community_id']}")->getField("name");
+		$this->isEmpty($data['community_name'],"小区不能为空");
 		$data['address'] = trim($_POST['address']);
 		$this->isEmpty($data['address'],"详细地址不能为空");
 		$data['update_time'] = time();
@@ -276,9 +286,11 @@ class MemberAction extends MobileCommonAction{
 					"province_id"=>$data['province_id'],
 					"city_id"=>$data['city_id'],
 					"area_id"=>$data['area_id'],
+					"community_id"=>$data['community_id'],
 					"province_name"=>$data['province_name'],
 					"city_name"=>$data['city_name'],
 					"area_name"=>$data['area_name'],
+					"community_name"=>$data['community_name'],
 					"address"=>$data['address']
 				);
 				M("Member")->where("id={$uid}")->save($member_data);
