@@ -12,7 +12,7 @@
 <body>
 <div class="acc-head">
 	<a class="acchead-box" href="javascript:;"><img src="__PUBLIC__/Images/head_216x216.jpg">
-    <span class="iconbox"><i class="icon"></i></span></a>
+    <span class="iconbox"><i class="icon" id="upload_avatar"></i></span></a>
 </div>
 <div class="acc-input">
 	<span class="tit">昵称</span>
@@ -25,43 +25,46 @@
 </div>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+
 <script type="text/javascript">
     var isSubmitButton = false;
     $("#cancel").click(function(){
     	window.history.back();
     });
-    $("#sure").click(function(){
-    	var nickname = $("#nickname").val();
-    	if(nickname == ""){
-    		alertPop("昵称不能为空");
-    		$("#nickname").focus();
-    		return false;
-    	}
-    	var oldnickname = $("#oldnickname").val();
-    	if(oldnickname == nickname){
-    		alertPop("昵称没有修改哦");
-    		$("#nickname").focus();
-    		return false;
-    	}
-    	if(isSubmitButton === false){
-    		isSubmitButton = true;
-    		$.ajax({
-    			type:"post",
-    			url:"/Api/Member/setNickname",
-    			data:{nickname:nickname},
-    			async:false,
-    			success:function(data){
-    				var res = $.parseJSON(data);
-    				if(res.status == 1){
-    					alertPop("修改昵称成功");
-    					window.location.href = "__URL__/editInfo";
-    				}else{
-    					alertPop(res.info);
-    				}
-    			}
-    		});
-    		isSubmitButton = false;
-    	}
+    $(function(){
+        $("#sure").click(function(){
+            var nickname = $("#nickname").val();
+            if(nickname == ""){
+                alertPop("昵称不能为空");
+                $("#nickname").focus();
+                return false;
+            }
+            var oldnickname = $("#oldnickname").val();
+            if(oldnickname == nickname){
+                alertPop("昵称没有修改哦");
+                $("#nickname").focus();
+                return false;
+            }
+            if(isSubmitButton === false){
+                isSubmitButton = true;
+                $.ajax({
+                    type:"post",
+                    url:"/Api/Member/setNickname",
+                    data:{nickname:nickname},
+                    async:false,
+                    success:function(data){
+                        var res = $.parseJSON(data);
+                        if(res.status == 1){
+                            alertPop("修改昵称成功");
+                            window.location.href = "__URL__/editInfo";
+                        }else{
+                            alertPop(res.info);
+                        }
+                    }
+                });
+                isSubmitButton = false;
+            }
+        });  
     });  
 </script>  
 </body>

@@ -1,0 +1,45 @@
+<div class="tscons-viewport">
+            	<div class="tsconsbox clearfix" style="width:3000px;">
+            	<volist name="weekmenuList" id="vo" key="key">
+            	<notempty name="vo.goodsList">
+            		<volist name="vo.goodsList" id="goods" key="k">
+	            	<if condition="$k eq 1 OR ($k-1)%6 eq 0">
+	                <ul class="pro-itemcon" style="">
+	                </if>
+	                	<if condition="$k eq 1 OR $k%2 neq 0">
+	                    <li class="clearfix">
+	                    </if>
+	                        <div class="item" id="goods-{$vo.date}-{$goods.goods_id}-{$goods.goods_image|picture='','product'}">
+	                            <a href="javascript:">
+	                                <img src="{$goods.goods_image|picture='','product'}">
+	                            </a>
+	                            <div class="week-info">
+	                            	<div class="weekinfobox clearfix">
+	                                    <span class="wcont-l"><a id="subtract-{$vo.date}-{$goods.goods_id}-{$goods.goods_image|picture='','product'}" href="javascript:">-</a></span>
+	                                    <em class="wsum">0</em>
+	                                    <span class="wcont-r"><a id="add-{$vo.date}-{$goods.goods_id}-{$goods.goods_image|picture='','product'}" href="javascript:">+</a></span>
+	                                </div>
+	                            </div>
+	                        </div>
+	                    <if condition="$k%2 eq 0">
+	                    </li>
+	                    </if>
+	                <if condition="$k%6 eq 0">
+	                </ul>
+	                </if>
+	                </volist>
+                </notempty>
+                </volist>
+                </div>
+            </div>
+            <ul class="pro-pos">
+            	<volist name="weekmenuList" id="vo" key="key">
+            	<eq name="key" value="1">
+            		<volist name="vo.goodsList" id="goods" key="k">
+	            	<if condition="$k eq 1 OR ($k-1)%6 eq 0">
+                	<li class="tscons-nav-item <eq name="k" value="1">tscons-nav-item-cur</eq>"></li>
+                	</if>
+	                </volist>
+                </eq>
+                </volist>
+            </ul>

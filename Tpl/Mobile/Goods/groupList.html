@@ -11,8 +11,8 @@
 
 <body>
 <div class="huopinsearch">
-	<input class="text-input" type="text">
-    <input class="text-btn" type="button">
+	<input class="text-input" type="text" id="keyword">
+    <input class="text-btn" type="button" id="search">
 </div>
 <volist name="groupList" id="vo">
     <div class="huopin-div">
@@ -31,5 +31,21 @@
         </div>
     </div>
 </volist>
+
+<script src="__PUBLIC__/Js/jquery.min.js"></script>
+<script src="__PUBLIC__/Js/common.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("#search").click(function(){
+            var keyword = $("#keyword").val();
+            if(keyword == ""){
+                alertPop("请先输入关键词");
+                $("#keyword").focus();
+                return false;
+            }
+            window.location.href = "__URL__/groupList/keyword/"+keyword;
+        });
+    });
+</script>
 </body>
 </html>

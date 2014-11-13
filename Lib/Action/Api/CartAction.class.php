@@ -13,12 +13,13 @@ class CartAction extends MobileCommonAction {
     	$goodsId = max(intval($_POST['goods_id']), 0);
 		$goodsQty = max(intval($_POST['goods_qty']), 0);
 		$deliveryTime = $_POST['delivery_time'];
+		$isGroup = $_POST['is_group'];
     	if (!empty($deliveryTime)) {
     		$deliveryTime = strtotime($deliveryTime);
     	} else {
     		$deliveryTime =  strtotime(date('Ymd', strtotime('+1 day')));
     	}
-		$back = $cartModel->addToCart($goodsId, $goodsQty, $deliveryTime);
+		$back = $cartModel->addToCart($goodsId, $goodsQty, $deliveryTime, $isGroup);
 		if ($back->status == 0) {
 			$this->error("商品不存在");
 		} elseif ($back->status == 1) {
@@ -40,9 +41,10 @@ class CartAction extends MobileCommonAction {
     	$model = M();
     	$cartModel = D('Cart');
     	$back = new stdClass();
-    	$goodsIdArr = explode(',', $_POST['goods_id']);
-    	$goodsQtyArr = explode(',', $_POST['goods_qty']);
-    	$deliveryTimeArr = explode(',', $_POST['delivery_time']);
+    	$goodsIdArr = explode(',', trim($_POST['goods_id'], ','));
+    	$goodsQtyArr = explode(',', trim($_POST['goods_qty'], ','));
+    	$deliveryTimeArr = explode(',', trim($_POST['delivery_time'], ','));
+    	$isGroupArr = explode(',', trim($_POST['is_group'], ','));
     	
     	if (empty($goodsIdArr) || empty($goodsQtyArr) || (count($goodsIdArr) != count($goodsQtyArr))) {
     		$this->error("参数错误");
@@ -58,7 +60,7 @@ class CartAction extends MobileCommonAction {
     		} else {
 	    		$deliveryTime =  strtotime(date('Ymd', strtotime('+1 day')));
 	    	}
-    		$back = $cartModel->addToCart($goodsId, $goodsQtyArr[$key], $deliveryTime);
+    		$back = $cartModel->addToCart($goodsId, $goodsQtyArr[$key], $deliveryTime, $isGroup);
     		if ($back->status != 1) {
     			$model->rollback();
     			if ($back->status == 0) {

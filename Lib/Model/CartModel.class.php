@@ -13,10 +13,11 @@ class CartModel extends CommonModel {
 	 * @param integer $goodsId 商品ID
 	 * @param integer $goodsQty 商品数量
 	 * @param integer $deliveryTime 配送日期
+	 * @param integer $isGroup 是否是火拼商品
 	 * @return object $back status属性(1:加入购物车成功 0:商品不存在 2:商品数量有误 3:更新商品数量失败 4:加入购物车失败)
      */
     
-    public function addToCart($goodsId, $goodsQty, $deliveryTime) {
+    public function addToCart($goodsId, $goodsQty, $deliveryTime, $isGroup=0) {
     	$cartModel = M('Cart');
     	$back = new stdClass();
     	
@@ -36,7 +37,14 @@ class CartModel extends CommonModel {
 	    $data['member_id'] = $_SESSION['uid'];
 	    $data['goods_id'] = $goodsId;
 	    $data['goods_name'] = $goodsInfo['name'];
-	    $data['price'] = $goodsInfo['price'];
+	    if ($isGroup == 1) {
+	    	$groupModel = M('Group');
+	    	$groupInfo = $groupModel->where(array('goods_id' => $goodsId))->find('real_price, group_phase_id');
+	    	$data['price'] = $groupInfo['real_price'];
+	    	$data['group_phase_id'] = $groupInfo['group_phase_id'];
+	    } else {
+	    	$data['price'] = $goodsInfo['price'];
+	    }
 	    $data['number'] = $goodsQty;
 	    $data['image'] = $goodsInfo['image'];
 	    $data['create_time'] = time();
@@ -135,7 +143,7 @@ class CartModel extends CommonModel {
     		$map = array();
     		$map['member_id'] = $_SESSION['uid'];
     		if (!empty($cartIds)) {
-    			$map['id'] = array('in', $cartIds);
+    			$map['id'] = array('in', trim($cartIds, ','));
     		}
 	    	$cartList = $cartModel->where($map)->select();
     	} else {

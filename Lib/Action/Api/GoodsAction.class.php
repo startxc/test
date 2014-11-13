@@ -9,21 +9,25 @@ class GoodsAction extends MobileCommonAction{
 
 	//获取普通商品列表
 	public function getGoodsList(){
-		$param['size'] = empty($_GET['size'])?intval($size):intval($_POST['size']);
+		$param['size'] = empty($_GET['size'])?0:intval($_GET['size']);
 		$param['is_group'] = $_GET['is_group']==1?1:0;
 		$param['is_recommend'] = $_GET['is_recommend']==1?1:0;
 		$param['order'] = empty($_GET['order'])?0:intval($_GET['order']); 
+		if(!empty($_GET['cid'])){
+			$param['category_id'] = intval($_GET['cid']);
+		}
 		$goodsList = D("Goods")->getGoodsList($param);
 		$this->ajaxRespon($goodsList);
 	}
 
 	//获取伙拼列表
 	public function getGroupList(){
-		$date = empty($_POST['date'])?date("Y-m-d"):trim($_POST['date']);
-		$is_recommend = $_POST['is_recommend'] == 1?1:0;
-		$size = empty($_POST['size'])?10:intval($_POST['size']);
-		$order = empty($_POST['order'])?"create_time desc":trim($_POST['order']);
-		$groupList = D("Goods")->getGroupList($date,$is_recommend,$size,$order);
+		$param['date'] = trim($_GET['date']);
+		$param['is_recommend'] = $_GET['is_recommend'] == 1?1:0;
+		$param['size'] = empty($_GET['size'])?10:intval($_GET['size']);
+		$param['order'] = empty($_GET['order'])?0:intval($_GET['order']);
+		$param['keyword'] = empty($_GET['keyword'])?"":trim($_GET['keyword']);
+		$groupList = D("Goods")->getGroupList($param);
 		$this->ajaxRespon($groupList);
 	}
 
@@ -37,8 +41,8 @@ class GoodsAction extends MobileCommonAction{
 
 	//获取商品分类列表
 	public function getCategoryList(){
-		$category = A("Admin/Category")->getCategoryList();
-		$this->ajaxRespon($category);
+		$categoryList = D("Goods")->getCategoryList();
+		$this->ajaxRespon($categoryList);
 		return $category;
 	}
 

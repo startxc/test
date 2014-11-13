@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>伙拼详情</title>
+<title>已发伙拼</title>
 <link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
 <link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
 </head>
 
 <body class="bg-white">
 <div class="huopinedimg">
-    <span class="bgimg"><img src="{$group.image|picture='','product'}"></span>
-    <span class="tit">{$group.name}</span>
+	<span class="bgimg"><img src="{$goods.image|picture='','product'}"></span>
+    <span class="tit">{$goods.name}</span>
 </div>
 <div class="huopincon">
     <ul class="hp-deta">
@@ -21,37 +21,13 @@
             </div>
         </li>
         <li>
-            <div class="hpdetacon"><span class="tit">描述：</span><span class="con">{$group.description}</span></div>
+            <div class="hpdetacon"><span class="tit">描述：</span><span class="con">{$goods.description}</span></div>
         </li>
         <li>
-            <div class="hpdetacon"><span class="tit">产地：</span><span class="con">{$production}</span></div>
-        </li>
-    </ul>
-    <div class="progresscon">
-        <div class="progressbox">
-            <div class="valuel">
-                <p class="pric"><span class="pri">¥</span>{$group.price|number_format=1}</p>
-                <p class="pweight">{$group.moq_spec}{$group.spec_unit}</p>
-            </div>
-            <div class="progress">
-                <div class="bar" style="width:{$percent}%;">
-                    <div class="value i-arrow1"><span class="pri">¥</span>{$group.real_price|number_format=1}</div>
-                    <span class="bweight">{$group.sale_spec}{$group.spec_unit}</span>
-                </div>
-            </div>
-            <div class="valuer">
-                <p class="pric"><span class="pri">¥</span>{$group.min_price|number_format=1}</p>
-                <p class="pweight">{$group.min_price_spec}{$group.spec_unit}</p>
-            </div>
-        </div>
-        <span class="patit">起拼量</span>
-    </div>
-    <ul class="hp-deta">
-        <li>
-            <div class="hpdetacon"><span class="tit">剩余时间：</span><span class="con">{$group.end_time|diffTime}</span></div>
+            <div class="hpdetacon"><span class="tit">重量：</span><span class="con">{$goods.spec}{$goods.spec_unit}</span></div>
         </li>
         <li>
-            <div class="hpdetacon"><span class="tit">已拼人数：</span><span class="con">{$group.sale_count}</span></div>
+            <div class="hpdetacon"><span class="tit">价格：</span><span class="con yellow">¥{$goods.price|number_format=1}</span></div>
         </li>
     </ul>
 </div>
@@ -64,16 +40,16 @@
             <span class="totalnum" id="count_price">10</span>
         </div>
         <div class="buybtn fr"><a class="btn-buy" href="javascript:void(0);" id="add_to_cart">立即购买</a></div>
-    </div>
-    <p class="spec">规格：{$spec}{$group.spec_unit}</p>
+    </div>    
+    <p class="spec"></p>
 </div>
 <script src="__PUBLIC__/Js/jquery.min.js"></script>
 <script src="__PUBLIC__/Js/common.js"></script>
 <script type="text/javascript">
-    var price = "{$group.price|number_format=1}";
+    var price = "{$goods.price|number_format=1}";
     var num = 1;
     var isSubmitButton = false;
-    var goods_id = "{$group.goods_id}"
+    var goods_id = "{$goods.id}";
     $(function(){
         $("#count_num").html(num);
         $("#count_price").html(price);
@@ -100,7 +76,7 @@
                 $.ajax({
                     type:"post",
                     url:"/Api/Cart/addToCart",
-                    data:{goods_qty:goods_qty,goods_id:goods_id,is_group:1},
+                    data:{goods_qty:goods_qty,goods_id:goods_id},
                     async:false,
                     success:function(data){
                         var res = $.parseJSON(data);
@@ -115,7 +91,7 @@
             }
 
         });
-    });
+    });    
 </script>
 </body>
 </html>

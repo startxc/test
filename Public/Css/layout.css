@@ -51,7 +51,7 @@ img{vertical-align:top;}
 .h-img{width:100%; height:auto; overflow:hidden; display:block;}
 .tbl-cell:last-child a.tbl-mt{margin-top:8px; position:absolute; right:0; bottom:0;}
 
-.pro-item{width:300px; margin:0 auto; padding-top:2%;}
+.pro-item{width:300px; margin:0 auto; padding-top:14px;}
 .pro-item:last-child{padding-bottom:6%;}
 .pro-item h2{font-size:22px; text-align:center; display:block; padding:5% 0 2%;}
 .pro-itemcon{float:left; width:300px; margin:0 auto;}
@@ -59,14 +59,14 @@ img{vertical-align:top;}
 .pro-itemcon li:last-child{margin-top:4%;}
 .pro-itemcon li .item{margin-right:4%; width:48%; float:left; max-width:262px; position:relative;}
 .pro-itemcon li .item:last-child{margin-right:0; float:right;}
-.pro-itemcon:last-child li:last-child .item:last-child a{font-size:22px; color:#f6ac2f; height:142px; text-align:center; line-height:142px; display:block;}
+.com-home .pro-itemcon:last-child li:last-child .item:last-child a{font-size:22px; color:#f6ac2f; height:142px; text-align:center; line-height:142px; display:block;}
 .pro-itemcon li .item img{width:100%; display:block;}
 .pro-itemcon .pro-info{position:absolute; left:0; bottom:0; width:100%; background:rgba(246, 172, 47, 0.8); padding:2% 3%;box-sizing: border-box;}
 .pro-itemcon .pro-info .tit{font-size:16px; color:#6b3d01;}
 .pro-itemcon .pro-info .pris{font-size:16px; color:#fbff0a; font-weight:bold; line-height:1.3;}
 .pro-itemcon .pro-info .pris .pri{font-size:18px;}
 .pro-itemcon .pro-info .iteminfob{font-size:12px; color:#fff;}
-.com-home .pro-item .tscons-viewport{overflow:hidden; position:relative;}
+.pro-item .tscons-viewport{overflow:hidden; position:relative;}
 
 .pro-pos{width:100%; text-align:center; margin:1.5% 0 0;}
 .pro-pos li{background:#292929; width:10px; height:10px; -webkit-border-radius:5px; border-radius:5px; display:inline-block; margin:0 4px;}
@@ -123,7 +123,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .select-pay{width:100%; margin:30px 0 10px;}
 .select-pay li{width:33%; text-align:center; float:left;}
 .select-pay li a{display:block;}
-.i-aselect,.i-aselected,.select-pay span,.rc-inputs .i-card,.rcn-infos .checkbox i,.cart-item .i-select,.cart-item .i-selected,.i-delete,.i-delete2,.rc-infos .i-select,.acc-head .icon,.bind-head .img,.i-edit,.noorder i,.huopintimg i{background:url(../images/icons.png) no-repeat; background-size:320px auto;}
+.i-aselect,.i-aselected,.select-pay span,.rc-inputs .i-card,.rcn-infos .checkbox i,.cart-item .i-select,.cart-item .i-selected,.i-delete,.i-delete2,.rc-infos .i-select,.acc-head .icon,.bind-head .img,.i-edit,.noorder i,.huopintimg i,.delifood .i-cart,.i-payselected,.othercpay .i-payicon{background:url(../images/icons.png) no-repeat; background-size:320px auto;}
 .select-pay i{vertical-align:top; margin-top:10px;}
 .i-aselect{background-position:-24px -1px; width:20px; height:20px; display:inline-block;}
 .i-aselected{background-position:-1px -1px; width:20px; height:20px; display:inline-block;}
@@ -163,7 +163,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .rcn-infos .checkbox span{margin-left:10px; color:#888;}
 
 .cart-con{margin-bottom:90px;}
-.cart-item{background-color:#fff; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; padding:12px 0; position:relative; margin-top:10px;}
+.cart-item{background-color:#fff; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; padding:12px 0; position:relative; margin-top:10px; min-height:86px;}
 .cart-item .iconlink a{position:absolute; left:20px; width:26px; height:26px; display:block;}
 .cart-item .i-select{background-position:-29px -70px; top:22px;}
 .cart-item .i-selected{background-position:-2px -70px; top:22px;}
@@ -174,6 +174,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .cart-item .pic img{border-radius:100%; width:74px;}
 .proinfor .tit{height:44px; overflow:hidden;}
 .proinfor .proinfotxt{width:78%; display:inline-block; line-height:18px;}
+.order-div .proinfor .proinfotxt{width:68%;}
 .proinfor .total{color:#959595; margin-top:5px;}
 .proinfor .total .total-r{margin-left:10px;}
 .proinfor .status{color:#959595; margin-top:3px;}
@@ -214,7 +215,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .acchead-box{position:relative;}
 
 .ssp-tip{padding:0 20px; color:#8c6239; margin-top:20px;}
-.towbtns{text-align:center; margin-top:30px; padding:0 20px;}
+.towbtns{text-align:center; margin:30px 0; padding:0 20px;}
 .smallbtn{width:49%; display:inline-block; text-align:center; height:38px; line-height:38px; font-size:16px; color:#fff;}
 
 .ltwobtns{padding:0 20px; display:block; box-sizing:border-box; width:100%;}
@@ -238,16 +239,16 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .addresscon .f-delete{position:absolute; right:20px; top:58px;}
 .addresscon .address{line-height:18px;}
 
-.order-div{margin:0 0 20px; display:block;}
-.order-div .order-t{background-color:#f49800; color:#fff; padding:0 20px; height:30px; line-height:30px;}
+.order-div{margin:0 0 14px; display:block;}
+.order-div .order-t{background-color:#f49800; color:#fff; padding:0 14px; height:30px; line-height:30px;}
 .order-div .cart-item{margin:0; border:0; border-bottom:1px dotted #e5e5e5; min-height:86px;}
-.order-div .cart-item .pic{left:20px;}
-.order-div .proinfos{margin-left:106px;}
+.order-div .cart-item .pic{left:14px;}
+.order-div .proinfos{margin-left:96px;}
 .orderlinks{padding:10px 20px; background-color:#fff; border-bottom:1px dotted #e5e5e5;}
 .i-delete2{width:66px; height:24px; display:block; background-position:-76px -139px;}
 .btn-pay{width:64px; height:22px; line-height:22px; border:1px solid #e5e5e5; display:block; text-align:center; color:#959595; border-radius:2px;}
 .mb10{margin-bottom:10px;}
-.order-div .total .total-r{margin-left:30px;}
+.order-div .total .total-r{margin-left:14px;}
 .order-div .proinfos .refundbtn{position:absolute; right:0; top:60px;}
 
 .noorder{width:100px; height:100px; background-color:#e5e5e5; border-radius:100%; margin:80px auto 20px; position:relative;}
@@ -294,7 +295,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .cashbresult dd{color:#959595; margin-top:16px; font-size:12px;}
 
 .huopin-div .cart-item .pic{left:14px;}
-.huopin-div .proinfos{margin-left:100px;}
+.huopin-div .proinfos{margin-left:96px;}
 
 .huopinedimg{position:relative;}
 .huopinedimg img{width:100%; max-height:500px;}
@@ -384,7 +385,74 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .huopinsearch .text-input{background:none; width:100%; box-sizing:border-box; padding-right:44px; padding-left:6px; display:inline-block;}
 .huopinsearch .text-btn{position:absolute; right:0; top:0; width:44px; height:32px; background:url(../images/icons.png) no-repeat; background-position:-210px -228px; background-size:320px auto; border:none; display:block;}
 
-.weekul{height:30px; line-height:30px;}
+.weekul{height:40px; line-height:40px; border-bottom:1px solid #e5e5e5;}
+.weekul li{float:left; width:14.2%; text-align:center;}
+.weekul li a{display:block; margin:0 auto; width:46px;}
+.weekul li.cur a{color:#eb6100; border-bottom:3px solid #eb6100; height:38px;}
+.com-week{background:#fcfced;}
+.week-item .pro-itemcon li .item{width:49.5%; margin-right:1%; position:relative;}
+.week-item .pro-itemcon li .item:last-child{margin-right:0;}
+.week-item .pro-itemcon:last-child li:last-child .item:last-child{background-color:#f0d5b3; height:149px;}
+.week-item .pro-itemcon li{margin-top:1%;}
+.week-item .week-info{position:absolute; left:0; top:0; background:rgba(0,0,0,0.5); width:100%; height:100%; display:none;}
+.week-item .week-info span{display:inline; width:30px; height:30px; border-radius:100%; background-color:#fff; text-align:center; line-height:30px; font-size:28px; font-weight:700; float:left;}
+.week-item .week-info span a{display:block; color:#eb6100; font-family:"Courier New",Courier,monospace; height:30px; line-height:32px; overflow:hidden;}
+.week-item .week-info em{display:inline; float:left; height:30px; line-height:30px; text-align:center; color:#fff; width:30px;}
+.weekinfobox{margin-top:54px; display:table; margin:58px auto 0;}
+.witembox .wcont-r{display:inline-block; width:30px; height:30px; border-radius:100%; background-color:#fff; text-align:center; line-height:30px; font-size:28px; font-weight:700;}
+.week-item .pro-itemcon:last-child li:last-child .item:last-child a{line-height:30px; height:30px; font-size:28px; font-family:"Courier New",Courier,monospace; color:#f6ac2f; display:block;}
+.week-item .witembox{text-align:center; margin-top:42px;}
+.week-item .witembox .wtip{font-size:15px; margin-top:3px;}
+.com-week .week-item .pro-item:last-child{padding-bottom:20px;}
+.delifood{width:300px; margin:0 auto 10px;}
+.delifood .tit{font-size:16px;}
+.delifood .wfoods{position:relative;}
+.delifood .wfoods .wdata{position:absolute; left:0; top:0; line-height:50px;}
+.delifood .wfoods .wfoodul{margin-left:50px; margin-top:8px;}
+.delifood .wfoods .wfoodul li{float:left; width:25%; margin-bottom:5px;}
+.delifood .wfoods .wfoodul img{width:50px; border-radius:100%; }
+.delifood .i-cart{background-position:-89px 0; width:34px; height:28px; display:inline-block; position:relative;}
+.delifood .i-cart .csum{width:20px; height:20px; text-align:center; line-height:20px; display:block; position:absolute; right:-6px; top:-8px; background-color:#eb6100; color:#fff; border-radius:100%;}
+.delifood .tinfo{font-size:16px; margin-left:10px; display:inline-block; vertical-align:top;}
+.delimtop{margin-top:30px; padding:0 10px; box-sizing:border-box;}
+.addfood-item h2{padding:0;}
+
+.toptit{height:38px; line-height:38px; background-color:#f6ac2f; font-size:18px; text-align:center;}
+.toptit a{display:block; color:#fff;}
+.i-arrow2{width:16px; height:16px; border:#fff solid; border-width:0 0 2px 2px; -webkit-transform: rotate(-45deg); -moz-transform: rotate(-45deg); transform: rotate(-45deg); display:inline-block; margin-left:10px; position:relative;  top:-2px;}
+.addfoodlist{background:rgba(246,172,47,0.95); position:absolute; left:0; top:38px; width:100%; z-index:1; display:none;}
+.addfoodlist li{width:33.3%; float:left; text-align:center; border-right:1px solid #fff; box-sizing:border-box; margin:12px 0;}
+.addfoodlist li:nth-child(3n){border-right:none;}
+.addfoodlist li a{display:block; height:28px; line-height:28px; font-size:16px; color:#73471b;}
+
+.addfood-item .week-info{position:absolute; left:0; top:0; background:rgba(0,0,0,0.5); width:100%; height:96px; display:none;}
+.addfood-item .week-info span{display:inline; width:30px; height:30px; border-radius:100%; background-color:#fff; text-align:center; line-height:30px; font-size:28px; font-weight:700; float:left;}
+.addfood-item .week-info span a{display:block; color:#eb6100; font-family:"Courier New",Courier,monospace; height:30px; line-height:32px; overflow:hidden;}
+.addfood-item .week-info em{display:inline; float:left; height:30px; line-height:30px; text-align:center; color:#fff; width:30px;}
+.addfood-item .weekinfobox{margin-top:36px;}
+.addfood-item .witembox{text-align:center; margin-top:42px;}
+.addfood-item .witembox .wtip{font-size:15px; margin-top:3px;}
+.addfood-item .pro-itemcon li,.salefood-item .pro-itemcon li{margin-top:4%;}
+
+.i-payselected{background-position:-1px -308px; width:30px; height:30px; display:block;}
+.rc-inputs .payselect{position:absolute; right:10px; top:6px;}
+.rc-inputs .payitem{width:100%; display:block; padding:5px 0; padding-right:16px; box-sizing:border-box;}
+.i-payselect{border:1px solid #dcdcdc; border-radius:100%; width:24px; height:24px; display:block; margin:2px 1px;}
+.rc-inputs .othercpay .i-payicon{display:block; width:54px; height:34px; position:absolute; left:14px; top:12px;}
+.rc-inputs .othercpay .unionpay{background-position:-168px 0;}
+.rc-inputs .othercpay .alipay{background-position:-231px 0;}
+.rc-inputs .othercpay .weixin{background-position:-48px -307px;}
+.othercpay .paytit{font-size:15px;}
+.othercpay .tip{color:#a1a1a1; line-height:18px;}
+.rc-inputs .othercpay .payitem{padding-left:54px;}
+.rc-inputs .othercpay{border-bottom:none;}
+.rc-inputs a{display:block;}
+.rc-inputs a:last-child{margin-bottom:60px; border-bottom:1px solid #e7e7e7;}
+.salefood-item{margin-bottom:30px;}
+.salefood-item h2{padding:0;}
+.week-item{padding-top:10px;}
+.pro-itemcon li:last-child .item:last-child{float:left;}
+
 
 
 @media (min-width: 768px){

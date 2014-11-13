@@ -24,6 +24,9 @@ class GoodsModel extends Model{
 		if($param['is_group'] == 1){
 			$condition['is_group'] = 1;
 		}
+		if(!empty($param['category_id'])){
+			$condition['category_id'] = intval($param['category_id']);
+		}
 		$size = empty($param['size'])?20:intval($param['size']);
 		switch($param['order']){
 			case 1:$order = "order_index desc";break;
@@ -44,23 +47,36 @@ class GoodsModel extends Model{
 	}
 
 	//获取伙拼列表
-	public function getGroupList($date,$is_recommend=0,$size=20,$order="create_time desc"){
-		$start_time = strtotime("$date 00:00:00");
-		$end_time = strtotime("$date 23:59:59");
+	public function getGroupList($param=array()){
 		$condition = array(
-			"start_time"=>array("elt",$start_time),
-			"end_time"=>array("egt",$end_time),
 			"is_show"=>1,
 		);
-		if($is_recommend == 1){
+		if(!empty($param['date'])){
+			$start_time = strtotime("{$param['date']} 00:00:00");
+			$end_time = strtotime("{$param['date']} 23:59:59");
+			$condition['start_time'] = array("elt",$start_time);
+			$condition['end_time'] = array("egt",$end_time);
+		}
+		if($param['is_recommend'] == 1){
 			$condition['is_recommend'] = 1;
+		}
+		if(!empty($param['keyword'])){
+			$condition['name'] = array("like","%{$param['keyword']}%");
+		}
+		$size = empty($param['size'])?0:intval($param['size']);
+		switch($param['order']){
+			default:$order="create_time desc";
 		}
 		$count = M("Group")->where($condition)->count();
 		$groupList = array();
 		if($count>0){
-			import("ORG.Util.Page");
-			$p = new Page($count,$size);
-			$groupList = M("Group")->where($condition)->order($order)->limit($p->firstRow.",".$p->listRows)->select();
+			if($size>0){
+				import("ORG.Util.Page");
+				$p = new Page($count,$size);
+				$groupList = M("Group")->where($condition)->order($order)->limit($p->firstRow.",".$p->listRows)->select();
+			}else{
+				$groupList = M("Group")->where($condition)->order($order)->select();
+			}
 		}
 		return $groupList;
 	}
@@ -78,6 +94,12 @@ class GoodsModel extends Model{
 			SK("production".$goods_id,$productionList);
 		}
 		return $productionList;
+	}
+
+	//获取商品分类列表
+	public function getCategoryList(){
+        $categoryList = M("Category")->where("is_show=1")->order("order_index desc")->select();
+        return $categoryList;	
 	}	
 
 	//获取我发起的伙拼
@@ -117,9 +139,9 @@ class GoodsModel extends Model{
 		$group_apply = $model->query($sql);
 		foreach($group_apply as $value){
 			switch($value['status']){
-				case 1: $count['wait'] = $value['num'];
-				case 2: $count['fail'] = $value['num'];
-				case 3: $count['success'] = $value['num'];
+				case 1: $count['wait'] = $value['num'];break;
+				case 2: $count['fail'] = $value['num'];break;
+				case 3: $count['success'] = $value['num'];break;
 			}
 		}
 		$count['all'] = $count['wait']+$count['fail']+$count['success'];

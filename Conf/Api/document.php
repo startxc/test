@@ -234,12 +234,12 @@ $apis[] = array(
 							'is_group'=>array('desc'=>'是否可以伙拼'),
 							'size'=>array('desc'=>'商品个数'),
 							'order'=>array('desc'=>'商品排序规则'),
+							'cid'=>array('desc'=>'商品分类id')
 					),
-					'response'=>'{"status":1,"info":"",{id:1,category_id:1,production_id:1,name:"蔬菜1",price:10.00,image:201410305451ed907043a.jpg,description:"好吃的蔬菜",sale_count:0,spec:100}}',
+					'response'=>'{"status":1,"info":"",{id:1,category_id:1,name:"蔬菜1",price:10.00,image:201410305451ed907043a.jpg,description:"好吃的蔬菜",sale_count:0,spec:100}}',
 					'res_field'=>array(
 						array('field'=>'id','desc'=>'商品id'),
 						array('field'=>'category_id','desc'=>'分类id'),
-						array('field'=>'production_id','desc'=>'产地id'),
 						array('field'=>'name','desc'=>'商品名称'),
 						array('field'=>'price','desc'=>'商品价格'),
 						array('field'=>'image','desc'=>'商品图片'),
@@ -269,7 +269,9 @@ $apis[] = array(
 					'field'=>array(
 							'size'=>array('desc'=>'条数'),
 							'order'=>array('desc'=>'排序'),
-							'is_recommend'=>array('desc'=>'是否推荐：1推荐、0不推荐')
+							'is_recommend'=>array('desc'=>'是否推荐：1推荐、0不推荐'),
+							'date'=>array('desc'=>'日期'),
+							'keyword'=>array('desc'=>'查询关键词')
 					),
 					'response'=>'{"status":1,"info":"",{id:1,goods_id:1,category_id:1,production_id:3,name:"蔬菜2",description:"dddgda",price:30,min_price:15.00,min_price_spec:3000,real_price:30.00,image:"201410305451ed907043a.jpg",moq_spec:1000,sale_count:0,sale_spec:0,sale_total_count:0,sale_total_spec:0,start_time:1414684800,end_time:1418399999}}',
 					'res_field'=>array(

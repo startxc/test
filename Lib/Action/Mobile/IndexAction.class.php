@@ -31,10 +31,14 @@ class IndexAction extends Action{
 		$this->assign("index_middle_rightBottom",$index_middle_rightBottom);		
 
 		//每个分类下的商品
-		$category = A("Api/Goods")->getCategoryList();
+		$category = D("Goods")->getCategoryList();
 		$goodsList = array();
 		foreach($category as $value){
-			$goods = A("Api/Goods")->getGoodsByCategoryId($value['id'],19);
+			$param = array(
+				"category_id"=>$value['id'],
+				"size"=>19
+			);
+			$goods = D("Goods")->getGoodsList($param);
 			$goodsList[] = array(
 				              "cid"=>$value['id'],
 				              "cname"=>$value['name'],
