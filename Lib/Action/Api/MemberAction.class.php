@@ -149,6 +149,21 @@ class MemberAction extends MobileCommonAction{
 		}
 	}
 
+	//修改昵称跟头像
+	public function setAccount(){
+		$uid = $_SESSION['uid'];
+		if(empty($uid)){
+			$this->error("你还没有登录哦");
+		}
+		$data['nickname'] = trim($_POST['nickname']);
+		$data['avatar'] = trim($_POST['avatar']);
+		if(M("Member")->where("id={$uid}")->save($data)){
+			$this->success("修改帐户信息成功");
+		}else{
+			$this->error("修改帐户信息失败");
+		}
+	}
+
 	//修改手机号码
 	public function setMobile(){
 		$uid = $_SESSION['uid'];

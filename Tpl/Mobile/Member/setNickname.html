@@ -11,13 +11,15 @@
 
 <body>
 <div class="acc-head">
-	<a class="acchead-box" href="javascript:;"><img src="__PUBLIC__/Images/head_216x216.jpg">
+	<a class="acchead-box" href="javascript:;"><img width='150' height='150' src="<empty name='memberinfo.avatar'>__PUBLIC__/Images/head_216x216.jpg<else/>{$memberinfo.avatar|picture='','avatar'}</empty>" id="avatar" wid="{$memberinfo.avatar}">
     <span class="iconbox"><i class="icon" id="upload_avatar"></i></span></a>
+    <input type="file" id="avatar_image" style="display:none" name="avatar_image" />
 </div>
 <div class="acc-input">
 	<span class="tit">昵称</span>
     <span class="name"><input class="text-input" type="text" value="{$memberinfo.nickname}" id="nickname"></span>
     <input type="hidden" value="{$memberinfo.nickname}" id="oldnickname"> 
+    <input type="hidden" value="{$memberinfo.avatar}" id="oldavatar">
 </div>
 <div class="fixsteps">
 	<a class="bigbtn btn-green" href="javascript:void(0);" id="sure">确认</a>
@@ -25,23 +27,26 @@
 </div>
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
 <script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/ajaxfileupload.js"></script>
 
 <script type="text/javascript">
     var isSubmitButton = false;
     $("#cancel").click(function(){
-    	window.history.back();
+    	window.location.href = "__URL__/editInfo";
     });
     $(function(){
         $("#sure").click(function(){
             var nickname = $("#nickname").val();
+            var avatar = $("#avatar").attr("wid");
             if(nickname == ""){
                 alertPop("昵称不能为空");
                 $("#nickname").focus();
                 return false;
             }
             var oldnickname = $("#oldnickname").val();
-            if(oldnickname == nickname){
-                alertPop("昵称没有修改哦");
+            var oldavatar = $("#oldavatar").val();
+            if(oldnickname == nickname && oldavatar == avatar){
+                alertPop("帐户信息没有修改哦");
                 $("#nickname").focus();
                 return false;
             }
@@ -49,13 +54,13 @@
                 isSubmitButton = true;
                 $.ajax({
                     type:"post",
-                    url:"/Api/Member/setNickname",
-                    data:{nickname:nickname},
+                    url:"/Api/Member/setAccount",
+                    data:{nickname:nickname,avatar:avatar},
                     async:false,
                     success:function(data){
                         var res = $.parseJSON(data);
                         if(res.status == 1){
-                            alertPop("修改昵称成功");
+                            alertPop("修改帐户信息成功");
                             window.location.href = "__URL__/editInfo";
                         }else{
                             alertPop(res.info);
@@ -64,7 +69,29 @@
                 });
                 isSubmitButton = false;
             }
-        });  
+        }); 
+        $("#upload_avatar").click(function(){
+            $("#avatar_image").click();
+           
+        });
+        $("#avatar_image").live("change",function(){
+            $.ajaxFileUpload({
+                    type:"post",
+                    url: '/Api/Image/uploadImage', 
+                    secureuri: false,
+                    fileElementId: 'avatar_image', 
+                    data:{dir:"avatar"},
+                    dataType: 'json',
+                    success: function(data, status){
+                        if(data.status === 1){
+                            $("#avatar").attr("src",data.src);
+                            $("#avatar").attr("wid",data.name);
+                        }else{
+                            alertPop(data.info);
+                        }
+                    }
+            });            
+        });
     });  
 </script>  
 </body>

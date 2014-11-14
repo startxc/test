@@ -16,7 +16,7 @@ class OrderModel extends CommonModel {
 	 * @return object $back status属性(0:购物车没有商品 1:提交订单成功 2:收货地址不存在 3:写入订单表失败 4:写入订单商品表失败 5:清空购物车商品失败)
 	 */
 	
-	public function addOrder($addressId, $communityId, $orderType, $buyerNote) {
+	public function addOrder($addressId, $orderType, $buyerNote) {
 		$orderModel = M('Order');
 		$orderGoodsModel = M('OrderGoods');
 		$memberAddress = M('MemberAddress');
@@ -72,7 +72,7 @@ class OrderModel extends CommonModel {
 			}
 			$data['order_type'] = $orderType;
 			$data['create_time'] = time();
-			$data['community_id'] = $communityId;
+			$data['community_id'] = $memberAddressInfo['community_id'];
 			$orderId = $orderModel->add($data);
 			if (!$orderId) {
 				$orderModel->rollback();

@@ -81,8 +81,8 @@
 </div>
 </volist>
 <div class="delifood delimtop">
-    <span class="i-cart"><i class="csum">2</i></span>
-    <span class="tinfo">你今天已经选择2人份菜量</span>
+    <span class="i-cart"><i class="csum">0</i></span>
+    <span class="tinfo">你今天已经选择0人份菜量</span>
 </div>
 <div class="towbtns">
 	<a class="smallbtn btn-orange" href="#">营养师推荐</a>
@@ -125,6 +125,7 @@ $(function() {
 	});
 	$('[id^="getWeekMenu-"]').click(function() {
 		var week = $(this).attr('id').split('-')[1];
+		var date = $(this).attr('id').split('-')[2];
 		$('.weekul li').removeClass('cur');
 		$(this).parent().addClass('cur');
 		$.ajax({
@@ -135,6 +136,14 @@ $(function() {
 	        	$('.pro-lists').empty().html(result);
 	        	addWeekMenu();
 	        	$(".tscons-demo").touchSlider();
+	        	$.each($('[id^="goods-' + date + '-"]'), function(i, n) {
+	        		var goodsId = $(n).attr('id').split('-')[2];
+	        		$.each($('[id^="choose-' + date + '"]').find('input[name="goods_id[]"]'), function(j, o) {
+	        			if (goodsId == $(o).val()) {
+	        				$(n).find('.wsum').html($(o).next().val());
+		        		}
+	        		});
+	    		});
 			}
 		});
 		return false;
@@ -153,6 +162,10 @@ $(function() {
 		$.each(deliveryTime, function(i, n) {
 			deliveryTimeStr += $(n).val() + ',';
 		});
+		if (goodsIdStr == '' || goodsQtyStr == '' || deliveryTimeStr == '') {
+			alertPop('请至少选中一件商品');
+			return false;
+		}
 		$.ajax({
 		    type: 'POST',
 		    data: 'goods_id='+goodsIdStr+'&goods_qty='+goodsQtyStr+'&delivery_time='+deliveryTimeStr,

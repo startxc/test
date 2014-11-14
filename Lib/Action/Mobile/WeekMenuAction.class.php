@@ -85,6 +85,7 @@ class WeekMenuAction extends CommonAction {
     	}
     	
     	$model->startTrans();
+    	$cartIds = array();
     	foreach ($goodsIdArr as $key => $goodsId) {
     		if (!empty($deliveryTimeArr[$key])) {
     			$deliveryTime = strtotime($deliveryTimeArr[$key]);
@@ -107,10 +108,15 @@ class WeekMenuAction extends CommonAction {
 		    		$back->prompt = '加入购物车失败';
 		    		ajax_return($back);
 				}
+    		} else {
+    			$cartIds[] = $back->cartId;
     		}
     	}
     	$model->commit();
-		ajax_return($back);
+        $cartId = implode(',', $cartIds);
+        S("h_goto_order_".$_SESSION['uid'], $cartId, C('DATA_CACHE_TIME'));
+        $back->cartId = S("h_goto_order_".$_SESSION['uid']);
+        ajax_return($back);
     }
 }
 ?>

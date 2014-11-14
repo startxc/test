@@ -12,50 +12,105 @@
 </head>
 
 <body>
-<div class="cart-con">
-	<form id="addOrderForm" action="" method="post">
-	<volist name="cartList" id="cart">
-	<div class="cart-item">{$cart.delivery_date}配送</div>
-		<volist name="cart.data" id="vo">
-	    <div class="cart-item">
-	        <span class="pic"><a class="pro-img" href="#"><img src="{$vo.image|picture='','product'}"></a></span>
-	        <div class="proinfos clearfix">
-	            <div class="proinfor">
-	                <a class="proinfotxt" href="javascript:">
-	                    <p class="tit">{$vo.goods_name}</p>
-	                    <p class="total">总量：{$vo.spec}{$vo.spec_unit}</p>
-	                </a>
-	                <div class="goods-num">
-	                    <span class="label">数量：</span>
-	                    <em class="num-data">{$vo.number}</em>
-	                </div>
-	            </div>
-	            <span class="pri" id="subtotal-{$vo.cart_id}-{$vo.subtotal}">{$vo.subtotal}元</span>
-	        </div>
-	    </div>
-	    </volist>
+<volist name="cartList" id="cart">
+<div class="order-div">
+	<div class="order-t clearfix">配送时间：{$cart.delivery_date}</div>
+	<volist name="cart.data" id="vo">
+    <div class="cart-item">
+        <span class="pic"><a class="pro-img" href="#"><img src="{$vo.image|picture='','product'}"></a></span>
+        <div class="proinfos clearfix">
+            <div class="proinfor">
+                <a class="proinfotxt" href="#">
+                    <p class="tit">{$vo.goods_name}</p>
+					<p class="total"><span class="total-l">总量：{$vo.spec}{$vo.spec_unit}</span><span class="total-r">数量：{$vo.number}</span></p>
+                </a>
+            </div>
+            <span class="pri">{$vo.subtotal}元</span>
+        </div>
+    </div>
     </volist>
-    <div class="cart-item">您绑定的手机号：139*****9975<br /><a href="#">绑定新号码</a></div>
-	<div class="cart-item">选择支付方式<br />银行卡支付<input type="radio" name="" value="" /><br />支付宝客户端支付<input type="radio" name="" value="" /><br />微信支付<input type="radio" name="" value="" /></div>
-	</form>
+</div>
+</volist>
+<div class="rc-inputs mt10 js-selpay">
+	<p class="tit">配送信息</p>
+    <ul class="input coinfoul">
+		<li>
+        	<span class="label">配送地址：</span>
+        	<span class="con">{$addressInfo.province_name}{$addressInfo.city_name}{$addressInfo.area_name}{$addressInfo.address}</span>
+        </li>
+		<li>
+        	<span class="label">收件人：</span>
+        	<span class="con">{$addressInfo.consignee}</span>
+        </li>
+		<li>
+        	<span class="label">联系号码：</span>
+        	<span class="con">{$addressInfo.mobile}</span>
+        </li>
+    </ul>
+    <form id="addOrderForm" action="" method="post">
+    <input type="hidden" id="address_id" name="address_id" value="{$addressInfo.id}" />
+	<p class="tit mt10">选择支付方式</p>
+    <a href="javascript:;">
+        <div class="input othercpay">
+                <span class="i-payicon cardpay"></span>
+                <div class="payitem clearfix">
+                    <p class="paytit">会员卡支付</p>
+                    <p class="tip">139****9975</p>
+                </div>
+                <span class="payselect"><i class="i-payselected"></i></span>
+        </div>
+    </a>
+    <a href="javascript:;">
+        <div class="input othercpay">
+                <span class="i-payicon unionpay"></span>
+                <div class="payitem clearfix">
+                    <p class="paytit">银行卡支付</p>
+                    <p class="tip">支持储蓄卡信用卡，无需开通网银</p>
+                </div>
+                <span class="payselect"><i class="i-payselect"></i></span>
+        </div>
+    </a>
+    <a href="javascript:;">
+    	<div class="input othercpay">
+            <span class="i-payicon alipay"></span>
+            <div class="payitem clearfix">
+                <p class="paytit">支付宝客户端支付</p>
+                <p class="tip">推荐安装支付宝客户端的用户使用</p>
+            </div>
+            <span class="payselect"><i class="i-payselect"></i></span>
+    	</div>
+    </a>
+    <a href="javascript:;">
+    	<div class="input othercpay">
+            <span class="i-payicon weixin"></span>
+            <div class="payitem clearfix">
+                <p class="paytit">微信支付</p>
+                <p class="tip">推荐安装微信5.0及以上版本的使用</p>
+            </div>
+            <span class="payselect"><i class="i-payselect"></i></span>
+    	</div>
+    </a>
+    </form>
 </div>
 <div class="total-pris">
 	<div class="pricon">
     	<span class="tit">合计<br>包邮</span>
-        <span class="pri" id="total-{$total}">{$total}元</span>
+        <span class="pri">{$total}元</span>
     </div>
-    <div class="end"><a href="javascript:" id="total_goods_qty-{$total_goods_qty}">结算（{$total_goods_qty}）</a></div>
+    <div class="end"><a href="javascript:" id="addOrder">结算（{$total_goods_qty}）</a></div>
 </div>
-<script type="text/javascript">
-$(function() {
-	$('[id^="total_goods_qty-"]').click(function() {
-		var addressId = $('#addressId').val();
-		var communityId = $('#communityId').val();
-		var orderType = $('#orderType').val();
-		var buyerNote = $('#buyerNote').val();
+<script>
+$(function(){
+	$(".js-selpay a").click(function(){
+		$(this).find("i").addClass("i-payselected").removeClass("i-payselect");	
+		$(this).siblings().find("i").addClass("i-payselect").removeClass("i-payselected");
+	});
+	$('#addOrder').click(function() {
+		var addressId = $('#address_id').val();
+		var orderType = $('#order_type').val();
 		$.ajax({
 		    type: 'POST',
-		    data: 'address_id=6&community_id=1&order_type=normal&buyer_note=123',
+		    data: 'address_id=' + addressId,
 		    url: '__APP__/Api/Order/addOrder',
 		    success: function(json) {
 				var result = eval('('+json+')');

@@ -13,7 +13,7 @@
 <div class="userinfos">
 	<a href="__URL__/editInfo">
         <div class="infobox clearfix">
-            <span class="infohead fl"><img src="__PUBLIC__/Images/avater_76x76.jpg"></span>
+            <span class="infohead fl"><img src="<empty name='memberinfo.avatar'>__PUBLIC__/Images/avater_76x76.jpg<else/>{$memberinfo.avatar|picture='','avatar'}</empty>" width='76' height='76' /></span>
             <div class="infotxt fl">
                 <p class="txt01">{$memberinfo.nickname}</p>
                 <p class="txt02">我负责{$memberinfo.area_name}</p>

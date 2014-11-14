@@ -77,14 +77,15 @@ class CartModel extends CommonModel {
 		    		$back->status = 3;
 	        		return $back;
 		    	}
+		    	$back->cartId = $cartId;
 		    } else {
 				$id = $cartModel->add($data);
 				if (!$id) {
 					$back->status = 4;
 	        		return $back;
 				}
+				$back->cartId = $id;
 		    }
-		    
         } else {
         	
 	    	//获取购物车的所有商品
@@ -112,7 +113,7 @@ class CartModel extends CommonModel {
 		    
 		    cookie('cartList', serialize($cartList), 3600 * 24);
         }
-    	
+        
 	    $back->status = 1;
         return $back;
     }

@@ -43,7 +43,7 @@ class MyCartAction extends CommonAction {
      * 确认订单信息
      */
     
-	public function confirmOrder() {
+	public function confirmOrder() {$_GET['address_id']=6;
 		if (empty($_SESSION['uid'])) {
             $this->redirect('Public/login');
         }
@@ -54,6 +54,14 @@ class MyCartAction extends CommonAction {
         } else {
 	    	$cartArr = $cartModel->getCartList();
         }
+        if (empty($cartArr)) {
+        	$this->redirect('Index/index');
+        }
+        $addressModel = M('MemberAddress');
+		$addressInfo = $addressModel->where(array('id' => $_GET['address_id']))->find();
+		if (!$addressInfo) {
+			$this->redirect('Index/index');
+		}
 		$cartList = array();
 		foreach ($cartArr['data'] as $key => $cart) {
 			$w = date('w', $cart['delivery_time']);
@@ -64,6 +72,8 @@ class MyCartAction extends CommonAction {
 		$this->assign('total', $cartArr['total']);
 		$this->assign('total_goods_qty', $cartArr['total_goods_qty']);
         $this->assign('cartList', $cartList);
+        $this->assign('addressInfo', $addressInfo);
+        $this->assign('title', '确认订单');
 		$this->display();
     }
     

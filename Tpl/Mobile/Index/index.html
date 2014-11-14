@@ -104,10 +104,8 @@
                 <div class="pro-lists tscons-demo">
                     <div class="tscons-viewport">
                         <div class="tsconsbox clearfix" style="width:3000px;">
-                 <volist name="goods['goods']" id="vo" mod="5">
-                         <eq name="mod" value="0"><ul class="pro-itemcon" style=""><li class="clearfix"></eq>
-                         <eq name="mod" value="2"></li><li class="clearfix"></eq>
-                         <eq name="mod" value="4"></li></ul><ul class="pro-itemcon" style=""><li class="clearfix"></eq>
+                 <volist name="goods['goods']" id="vo" mod="4">
+                         <eq name="mod" value="0"><eq name="key" value="0"><ul class="pro-itemcon" style=""><li class="clearfix"></eq></eq>
                          <div class="item">
                             <a href="__APP__/Mobile/Goods/detail/id/{$vo.id}">
                                 <img src="{$vo.image|picture='','product'}">
@@ -116,22 +114,32 @@
                                     <p class="iteminfob">当前已售：{$vo.sale_count}件</p>
                                 </div>
                             </a>
-                        </div>               
+                        </div> 
+                         <eq name="mod" value="1"></li><li class="clearfix"></eq> 
+
+                         <eq name="mod" value="3"></li></ul>
+                         <if condition="($goods['count']%4 neq 0) or ($i neq $goods['count'])">
+                         <ul class="pro-itemcon" style=""><li class="clearfix">
+                         </if></eq>              
                  </volist>
-                        <div class="item">
-                            <a class="f-lookmore" href="__APP__/Mobile/Goods/index/cid/{$goods.cid}">查看更多</a>
-                        </div>
-                        </li>
-                        </ul>
+                       <if condition="$goods['count']%4 neq 0">
+                          <div class="item moreitem">
+                              <a class="f-lookmore" href="__APP__/Mobile/Goods/index/cid/{$goods.cid}">查看更多</a>
+                          </div>
+                          </li>
+                          </ul>
+                      </if>
                     </div>
                 </div>
                     <ul class="pro-pos">
-                        <volist name="goods['goods']" id="vo">
-                            <eq name="i" value="1">
-                                <li class="tscons-nav-item tscons-nav-item-cur"></li>
-                            <else/>
-                                <li class="tscons-nav-item"></li>
-                            </eq>
+                        <volist name="goods['goods']" id="vo" mod="4">
+                            <eq name="mod" value="0">
+                                <eq name="i" value="1">
+                                    <li class="tscons-nav-item tscons-nav-item-cur"></li>
+                                <else/>
+                                    <li class="tscons-nav-item"></li>
+                                </eq>
+                             </eq>
                         </volist>
                     </ul>
                 </div>
