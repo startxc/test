@@ -33,15 +33,19 @@ class GoodsModel extends Model{
 			default:$order = "create_time desc";
 		}
 		$count = M("Goods")->where($condition)->count();
-		$goodsList = array();
+		$goodsList = array(
+			'count'=>$count,
+			'data'=>array()
+		);
 		if($count>0){		
             if($size>0){ 
             	import("@.ORG.Util.Page");  
             	$p = new Page($count, $size);
-            	$goodsList = M("Goods")->where($condition)->limit($p->firstRow . ',' . $p->listRows)->order($order)->select();
+            	$goodsList['data'] = M("Goods")->where($condition)->limit($p->firstRow . ',' . $p->listRows)->order($order)->select();
             }else{
-            	$goodsList = M("Goods")->where($condition)->order($order)->select();
+            	$goodsList['data'] = M("Goods")->where($condition)->order($order)->select();
             }
+
 		}
 		return $goodsList;
 	}
@@ -68,14 +72,17 @@ class GoodsModel extends Model{
 			default:$order="create_time desc";
 		}
 		$count = M("Group")->where($condition)->count();
-		$groupList = array();
+		$groupList = array(
+			'count'=>$count,
+			'data'=>array()
+		);
 		if($count>0){
 			if($size>0){
 				import("ORG.Util.Page");
 				$p = new Page($count,$size);
-				$groupList = M("Group")->where($condition)->order($order)->limit($p->firstRow.",".$p->listRows)->select();
+				$groupList['data'] = M("Group")->where($condition)->order($order)->limit($p->firstRow.",".$p->listRows)->select();
 			}else{
-				$groupList = M("Group")->where($condition)->order($order)->select();
+				$groupList['data'] = M("Group")->where($condition)->order($order)->select();
 			}
 		}
 		return $groupList;

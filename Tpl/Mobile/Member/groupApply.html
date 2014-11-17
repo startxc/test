@@ -26,7 +26,7 @@
 						<a class="proinfotxt" href="__APP__/Mobile/Goods/groupDetail/id/{$vo.group.id}">
 							<p class="tit">{$vo.group.name}</p>
 							<p class="total"><span class="total-l">起订量：{$vo.group.moq_spec}</span>&nbsp;&nbsp;<span class="total-r">已订量：{$vo.group.sale_spec}</span></p>
-							<p class="status">剩余时间：{$vo.group.end_time|diffTime}<br>购买人数：{$vo.group.sale_count}</p>
+							<p class="status">剩余时间：{$vo.group.end_time|diffTime=$group['start_time'],###}<br>购买人数：{$vo.group.sale_count}</p>
 						</a>
 					</div>
 					<span class="pri">{$vo.group.price}元</span>

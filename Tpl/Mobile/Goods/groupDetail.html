@@ -48,7 +48,7 @@
     </div>
     <ul class="hp-deta">
         <li>
-            <div class="hpdetacon"><span class="tit">剩余时间：</span><span class="con">{$group.end_time|diffTime}</span></div>
+            <div class="hpdetacon"><span class="tit">剩余时间：</span><span class="con">{$group.end_time|diffTime=$group['start_time'],###}</span></div>
         </li>
         <li>
             <div class="hpdetacon"><span class="tit">已拼人数：</span><span class="con">{$group.sale_count}</span></div>
@@ -74,6 +74,7 @@
     var num = 1;
     var isSubmitButton = false;
     var goods_id = "{$group.goods_id}"
+    var group_buy_status = "{$group_buy_status}";
     $(function(){
         $("#count_num").html(num);
         $("#count_price").html(price);
@@ -93,28 +94,39 @@
             $("#count_num").html(num);
             $("#count_price").html(new_price);   
         });
-        $("#add_to_cart").click(function(){
-            var goods_qty = num;
-            if(isSubmitButton === false){
-                isSubmitButton = true;
-                $.ajax({
-                    type:"post",
-                    url:"/Api/Cart/addToCart",
-                    data:{goods_qty:goods_qty,goods_id:goods_id,is_group:1},
-                    async:false,
-                    success:function(data){
-                        var res = $.parseJSON(data);
-                        if(res.status === 1){
-                            window.location.href = "/Mobile/MyCart/cart";
-                        }else{
-                            alertPop(res.info);
+        if(group_buy_status == 1){
+            $("#add_to_cart").click(function(){
+                var goods_qty = num;
+                if(isSubmitButton === false){
+                    isSubmitButton = true;
+                    $.ajax({
+                        type:"post",
+                        url:"/Api/Cart/addToCart",
+                        data:{goods_qty:goods_qty,goods_id:goods_id,is_group:1},
+                        async:false,
+                        success:function(data){
+                            var res = $.parseJSON(data);
+                            if(res.status === 1){
+                                window.location.href = "/Mobile/MyCart/cart";
+                            }else{
+                                alertPop(res.info);
+                            }
                         }
-                    }
-                });
-                isSubmitButton = false;
-            }
+                    });
+                    isSubmitButton = false;
+                }
 
-        });
+            });
+        }else{
+            $("#add_to_cart").click(function(){
+                if(group_buy_status == 0){
+                    alertPop("伙拼还未开始");
+                }else{
+                    alertPop("伙拼已经结束");
+                }
+            });
+           $("#add_to_cart").css("background","gray"); 
+        }
     });
 </script>
 </body>

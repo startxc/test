@@ -24,7 +24,7 @@
     <div class="cart-item">
         <span id="js-selectcart" class="iconlink"><a id="cart-{$vo.cart_id}" class="i-selected" href="javascript:"><input type="hidden" name="cart_id[]" value="{$vo.cart_id}" /></a></span>
         <span class="iconlink"><a class="i-delete" href="javascript:" id="delete-{$vo.cart_id}"></a></span>
-        <span class="pic"><a class="pro-img" href="#"><img src="{$vo.image|picture='','product'}"></a></span>
+        <span class="pic"><a class="pro-img" href="__APP__/MOBILE/Goods/detail/id/{$vo.goods_id}"><img src="{$vo.image|picture='','product'}"></a></span>
         <div class="proinfos clearfix">
             <div class="proinfor">
                 <a class="proinfotxt" href="javascript:">
@@ -112,7 +112,7 @@ $(function() {
 	    		if (result.status == 0) {
 	    			window.location.href = '__APP__/Mobile/Public/login';
 	        	} else if (result.status == 1)  {
-	        		window.location.href = '__URL__/confirmOrder';
+	        		window.location.href = '__URL__/chooseAddress';
 	            }
     		}
 		});

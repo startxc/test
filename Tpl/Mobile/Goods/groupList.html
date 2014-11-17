@@ -23,7 +23,7 @@
                     <a class="proinfotxt" href="__URL__/groupDetail/id/{$vo.id}">
                         <p class="tit">{$vo.name}</p>
                         <p class="total"><span class="total-l">起订量：{$vo.moq_spec}{$vo.spec_unit}</span><span class="total-r">已订量：{$vo.sale_spec}{$vo.spec_unit}</span></p>
-                        <p class="status">剩余时间：{$vo.end_time|diffTime}<br>购买人数：{$vo.sale_count}</p>
+                        <p class="status">剩余时间：{$vo.end_time|diffTime=$group['start_time'],###}<br>购买人数：{$vo.sale_count}</p>
                     </a>
                 </div>
                 <span class="pri">{$vo.price|number_format=1}元</span>

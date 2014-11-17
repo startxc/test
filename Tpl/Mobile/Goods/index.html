@@ -20,61 +20,77 @@
     </ul>
 </div>
 
-
-    <div class="pro-item salefood-item">
-    	<notempty name="category"><h2><a href="javascript:void(0);">{$category}</a></h2></notempty>
-        <div class="pro-lists tscons-demo">
-        	<div class="tscons-viewport">
-                <ul class="pro-itemcon" style="">
-                <volist name="goodsList" id="vo" mod="2">
-                <eq name="mod" value="0"><neq name="key" value="0"></li></neq><li class="clearfix"></eq>
-                        <div class="item">
-                            <a href="__URL__/detail/id/{$vo.id}">
-                                <img src="{$vo.image|picture='','product'}">
-                                <div class="pro-info">
-                                    <p class="iteminfot clearfix"><span class="tit fl">{$vo.name}</span><span class="pris fr">￥<span class="pri">{$vo.price|number_format=1}</span></span></p>
-                                    <p class="iteminfob">当前已售：{$vo.sale_count}件</p>
-                                </div>
-                            </a>                                
-                        </div>
-                </volist>                   
+<div class="pro-item salefood-item">
+    <notempty name="category"><h2><a href="javascript:void(0);">{$category}</a></h2></notempty>
+    <div class="pro-listsb">
+            <ul class="pro-itemconb clearfix">
+            <volist name="goodsList" id="vo">
+                <li>
+                    <div class="item">
+                        <a href="__URL__/detail/id/{$vo.id}">
+                            <img src="{$vo.image|picture='','product'}">
+                            <div class="pro-info">
+                                <p class="iteminfot clearfix"><span class="tit fl">{$vo.name}</span><span class="pris fr">￥<span class="pri">{$vo.price|number_format=1}</span></span></p>
+                                <p class="iteminfob">当前已售：{$vo.sale_count}件</p>
+                            </div>
+                        </a>                                
+                    </div>
                 </li>
-                </ul>
-            </div>
-
+            </volist>
+            </ul>
         </div>
-    </div>
 
-
-
-
-
+</div>
 
 <script src="__PUBLIC__/Js/jquery.min.js"></script>
 <script type="text/javascript">
     var isSubmitButton = false;
+    var size = "{$size}";
     var page = 1;
+    var totalPage = "{$totalPage}";
     $(function(){
         $(".toptit").click(function(){
             $(this).siblings(".addfoodlist").slideToggle();
         });
 
         $(window).scroll(function(){
-            var oLastLi = $(".pro-itemcon").find("li:last");
+            var oLastLi = $(".pro-itemconb").find("li:last");
             if(oLastLi.offset().top+oLastLi.height()<$(window).scrollTop()+$(window).height()){
                 if(isSubmitButton === false){ 
                     isSubmitButton = true;
                     page++;
-                    $.ajax({
-                        type:"get",
-                        url:"/Api/Goods/getGoodsList",
-                        data:{size:20,p:5},
-                        async:false,
-                        success:function(data){
-                            var res = $.parseJSON(data);
-                        }
-                    });
+                    if(page<=totalPage){ 
+                        $.ajax({
+                            type:"get",
+                            url:"/Api/Goods/getGoodsList",
+                            data:{size:size,p:page},
+                            async:false,
+                            success:function(data){
+                                var res = $.parseJSON(data);
+                                var goodsData = res.data;
+                                var html = "";
+                                for(var i in goodsData){
+                                        html += "<li>";
+                                        html += "<div class='item'>";
+                                        html += "<a href='/Mobile/Goods/detail/id/"+goodsData[i].id+"'>";
+                                        html += "<img src='"+goodsData[i].imgsrc+"'>";
+                                        html += "<div class='pro-info'>";
+                                        html += "<p class='iteminfot clearfix'><span class='tit fl'>"+goodsData[i].name+"</span><span class='pris fr'>￥<span class='pri'>"+goodsData[i].price+"</span></span></p>";
+                                        html += "<p class='iteminfob'>当前已售："+goodsData[i].sale_count+"件</p>";
+                                        html += "</div>";
+                                        html += "</a>";                                
+                                        html += "</div>";
+                                        html += "</li>";
+                                }
+                                $(".pro-itemconb").append(html);
 
+                            }
+                        });
+                    }else{
+                        isSubmitButton = true;
+                        return false;
+                    }
+                    isSubmitButton = false;
                 }               
             }
         });

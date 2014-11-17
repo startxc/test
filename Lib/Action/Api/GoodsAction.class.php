@@ -17,6 +17,10 @@ class GoodsAction extends MobileCommonAction{
 			$param['category_id'] = intval($_GET['cid']);
 		}
 		$goodsList = D("Goods")->getGoodsList($param);
+		$goodsList = $goodsList['data'];
+		foreach($goodsList as $key=>$value){
+ 			$goodsList[$key]['imgsrc']  = picture($value['image'],'', 'product');
+		}
 		$this->ajaxRespon($goodsList);
 	}
 
@@ -28,6 +32,10 @@ class GoodsAction extends MobileCommonAction{
 		$param['order'] = empty($_GET['order'])?0:intval($_GET['order']);
 		$param['keyword'] = empty($_GET['keyword'])?"":trim($_GET['keyword']);
 		$groupList = D("Goods")->getGroupList($param);
+		$groupList = $groupList['data'];
+		foreach($groupList as $key=>$value){
+ 			$groupList[$key]['imgsrc']  = picture($value['image'],'', 'product');
+		}
 		$this->ajaxRespon($groupList);
 	}
 

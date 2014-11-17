@@ -450,11 +450,14 @@ function msubstr($str, $start=0, $length, $charset="utf-8", $suffix=false) {
 
 
 //计算剩余时间
-function diffTime($time){
-    if(time()>$time){
+function diffTime($start_time,$end_time){
+    $time = time();
+    if($start_time>$time){
+        return "还未开始";
+    }else if($time>$end_time){
         return "已结束";
     }else{
-        return ceil(($time-time())/3600/24)."天";
+        return ceil(($end_time-$time)/3600/24)."天";
     }
 }
 

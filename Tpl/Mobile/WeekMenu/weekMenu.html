@@ -27,7 +27,7 @@
             	<eq name="key" value="1">
             		<volist name="vo.goodsList" id="goods" key="k">
 	            	<if condition="$k eq 1 OR ($k-1)%6 eq 0">
-	                <ul class="pro-itemcon" style="">
+	                <ul class="pro-itemcon" style="" id="ul-{$vo.date}">
 	                </if>
 	                	<if condition="$k eq 1 OR $k%2 neq 0">
 	                    <li class="clearfix">
@@ -69,29 +69,43 @@
         </div>
     </div>
 </div>
+<form id="selectedGoodsForm" action="" method="post">
 <volist name="weekmenuList" id="vo" key="key">
-<div class="delifood" id="choose-{$vo.date}" style="display:none;">
+<div class="delifood" id="choose-{$vo.date}" <notin name="vo.date" value="$dates">style="display:none;"</notin>>
 	<p class="tit">星期<if condition="$vo.week eq 1">一<elseif condition="$vo.week eq 2"/>二<elseif condition="$vo.week eq 3"/>三<elseif condition="$vo.week eq 4"/>四<elseif condition="$vo.week eq 5"/>五<elseif condition="$vo.week eq 6"/>六<elseif condition="$vo.week eq 7"/>日</if>派送菜色
 	</p>
     <div class="wfoods">
     	<span class="wdata">{$vo.dm}</span>
         <ul class="wfoodul clearfix">
+        	<volist name="selectedGoods" id="goods" key="k">
+        	<if condition="$vo['date'] eq $goods['date']">
+        	<volist name="goods.goodsList" id="g" key="k">
+        	<li>
+				<img src="{$g.image|picture='','product'}" image="{$g.image}" />
+				<input type="hidden" name="delivery_time[]" value="{$goods.date}" />
+				<input type="hidden" name="goods_id[]" value="{$g.goods_id}" />
+				<input type="hidden" name="goods_qty[]" value="{$g.goods_qty}" />
+			</li>
+			</volist>
+			</if>
+			</volist>
         </ul>
     </div>
 </div>
 </volist>
+</form>
 <div class="delifood delimtop">
     <span class="i-cart"><i class="csum">0</i></span>
     <span class="tinfo">你今天已经选择0人份菜量</span>
 </div>
 <div class="towbtns">
-	<a class="smallbtn btn-orange" href="#">营养师推荐</a>
+	<a class="smallbtn btn-orange" href="javascript:">营养师推荐</a>
 	<a class="smallbtn btn-orange" href="javascript:" id="goToOrder">结算</a>
 </div>
 <script id="addTemplate" type="text/html">
 <div class="item">
     <div class="witembox">
-         <span class="wcont-r"><a href="javascript:;">+</a></span>
+         <span class="wcont-r"><a href="javascript:">+</a></span>
          <p class="wtip">添加其他菜色</p>
     </div>
 </div>
@@ -104,9 +118,29 @@
 	<input type="hidden" name="goods_qty[]" value="{{goodsQty}}" />
 </li>
 </script>
+<script id="delimtopTemplate" type="text/html">
+<span class="i-cart"><i class="csum">{{num}}</i></span>
+<span class="tinfo">你今天已经选择{{num}}人份菜量</span>
+</script>
 <script src="__PUBLIC__/Js/jquery.touchslider.js"></script>
 <script>
 $(function() {
+	//恢复操作
+	<volist name="selectedGoods" id="goods" key="k">
+	$.each($('[id^="goods-{$goods.date}-"]'), function(i, n) {
+		var goodsId = $(n).attr('id').split('-')[2];
+		$.each($('[id^="choose-{$goods.date}"]').find('input[name="goods_id[]"]'), function(j, o) {
+			if (goodsId == $(o).val()) {
+				$(n).find('.wsum').html($(o).next().val());
+    		}
+		});
+	});
+	var num = 0;
+	$.each($('input[name="goods_qty[]"]'), function(i, n) {
+		num += parseInt($(n).val());
+	});
+	$('.delimtop').html(template('delimtopTemplate', {num: num}));
+	</volist>
 	$(".pro-itemcon li .item").live('click', function() {
 		$(this).find(".week-info").show();
 		$(this).siblings().find(".week-info").hide();
@@ -181,6 +215,18 @@ $(function() {
 		});
 		return false;
 	});
+	$('.witembox').find('a').live('click', function() {
+		var date = $(this).parents('ul').attr('id').split('-')[1];
+		$.ajax({
+		    type: 'POST',
+		    data: $('#selectedGoodsForm').serialize(),
+		    url: '__URL__/saveChooseGoods',
+		    success: function(json) {
+				window.location.href = '__URL__/addWeekMenu/date/' + date;
+    		}
+		});
+		return false;
+	});
 });
 function addWeekMenu() {
 	var length = $('.pro-itemcon:last').find('li:last .item').length;
@@ -207,8 +253,10 @@ function updateNumber(thisobj, type) {
 	var src = thisobj.attr('id').split('-')[3];
 	if (type == 'increase') {
 		thisobj.parent().prev().html(goodsQty);
+		$('.delimtop').html(template('delimtopTemplate', {num: parseInt($('.csum').html()) + 1}));
 	} else if (type == 'subtract') {
 		thisobj.parent().next().html(goodsQty);
+		$('.delimtop').html(template('delimtopTemplate', {num: parseInt($('.csum').html()) - 1}));
 	}
 	if (type == 'increase' && goodsQty == 1) {
 		$('#choose-' + deliveryTime).show();
@@ -224,7 +272,7 @@ function updateNumber(thisobj, type) {
 			$('#choose-' + deliveryTime).hide();
 		}
 	} else if ((type == 'increase' && goodsQty > 1) || (type == 'subtract' && goodsQty > 0)) {
-		$.each($('#choose-' + deliveryTime).find('input[name="goods_id[]"]'), function(i, n){
+		$.each($('#choose-' + deliveryTime).find('input[name="goods_id[]"]'), function(i, n) {
 			if ($(n).val() == goodsId) {
 				$(n).next().val(goodsQty);
 			}

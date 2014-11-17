@@ -24,5 +24,44 @@
 		<li><a href="__URL__/groupDetail/id/{$vo.id}"><img src="{$vo.image|picture='','product'}"></a></li>
 	</volist>
 </ul>
+<script src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript">
+    var isSubmitButton = false;
+    var size = "{$size}";
+    var page = 1;
+    var totalPage = "{$totalPage}";
+    $(function(){
+        $(window).scroll(function(){
+            var oLastLi = $(".huopinlists").find("li:last");
+            if(oLastLi.offset().top+oLastLi.height()<=$(window).scrollTop()+$(window).height()){
+                if(isSubmitButton === false){ 
+                    isSubmitButton = true;
+                    page++;
+                    if(page<=totalPage){ 
+                        $.ajax({
+                            type:"get",
+                            url:"/Api/Goods/getGroupList",
+                            data:{size:size,p:page},
+                            async:false,
+                            success:function(data){
+                                var res = $.parseJSON(data);
+                                var groupData = res.data;
+                                var html = "";
+                                for(var i in groupData){
+                                        html += "<li><a href='/Mobile/Goods/groupDetail/id/"+groupData[i].id+"'><img src='"+groupData[i].imgsrc+"'></a></li>";
+                                }
+                                $(".huopinlists").append(html);
+                            }
+                        });
+                    }else{
+                        isSubmitButton = true;
+                        return false;
+                    }
+                    isSubmitButton = false;
+                }               
+            }
+        });
+    });
+</script>
 </body>
 </html>

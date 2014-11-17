@@ -37,6 +37,7 @@ class OrderModel extends CommonModel {
 			$cartList[$w]['data'][] = $cart;
 			$cartList[$w]['subtotal'] = $cart['number'] * $cart['price'];
 		    $cartList[$w]['total'] += $cartList[$w]['subtotal'];
+		    $cartList[$w]['delivery_time'] = $cart['delivery_time'];
 		}
 		
 		//获取收货地址
@@ -72,6 +73,7 @@ class OrderModel extends CommonModel {
 			}
 			$data['order_type'] = $orderType;
 			$data['create_time'] = time();
+			$data['delivery_time'] = $cartList[$key]['delivery_time'];
 			$data['community_id'] = $memberAddressInfo['community_id'];
 			$orderId = $orderModel->add($data);
 			if (!$orderId) {
@@ -79,8 +81,10 @@ class OrderModel extends CommonModel {
 				$back->status = 3;
 		        return $back;
 			}
+			$orderAmount += $data['order_amount'];
 			
 			foreach ($cart['data'] as $key => $vo) {
+				$goodsInfo = M('Goods')->where(array('id' => $vo['goods_id']))->field('spec, spec_unit')->find();
 				$data = array();
 				$data['member_id'] = $_SESSION['uid'];
 				$data['order_id'] = $orderId;
@@ -90,6 +94,8 @@ class OrderModel extends CommonModel {
 				$data['number'] = $vo['number'];
 				$data['price'] = $vo['price'];
 				$data['create_time'] = time();
+				$data['spec'] = $goodsInfo['spec'];
+				$data['spec_unit'] = $goodsInfo['spec_unit'];
 				$id = $orderGoodsModel->add($data);
 				if (!$id) {
 					$orderModel->rollback();
@@ -97,8 +103,6 @@ class OrderModel extends CommonModel {
 		        	return $back;
 				}
 			}
-			
-			$orderAmount += $data['order_amount'];
 		}
 		
 		$bool = $cartModel->emptyCart();

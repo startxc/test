@@ -39,11 +39,23 @@ class MyCartAction extends CommonAction {
         ajax_return($back);
     }
     
+    /**
+     * 选择收货地址
+     */
+    
+    public function chooseAddress() {
+    	$uid = $_SESSION['uid'];
+        $address = D("Member")->getAddress($uid);
+        $this->assign("address",$address);
+    	$this->assign('title', '选择收货地址');
+    	$this->display();
+    }
+    
 	/**
      * 确认订单信息
      */
     
-	public function confirmOrder() {$_GET['address_id']=6;
+	public function confirmOrder() {
 		if (empty($_SESSION['uid'])) {
             $this->redirect('Public/login');
         }
@@ -58,7 +70,7 @@ class MyCartAction extends CommonAction {
         	$this->redirect('Index/index');
         }
         $addressModel = M('MemberAddress');
-		$addressInfo = $addressModel->where(array('id' => $_GET['address_id']))->find();
+		$addressInfo = $addressModel->where(array('member_id' => $_SESSION['uid'], 'is_default' => 1))->find();
 		if (!$addressInfo) {
 			$this->redirect('Index/index');
 		}
@@ -86,6 +98,13 @@ class MyCartAction extends CommonAction {
         $orderAmount =  S('orderAmount_'.$_SESSION['uid']);
         if (empty($orderId)) {
             $this->redirect('Index/index');
+        }
+    	if (substr($orderId, 0, 1) == 'u') {
+            $this->assign('orderNo', $orderId);
+        } else {
+            $order = M('order');
+            $orderNo = $order->where("member_id = '{$_SESSION['uid']}' AND id = '$orderId'")->getField('order_no');
+            $this->assign('orderNo', $orderNo);           
         }
         $this->assign('orderAmount', $orderAmount);
         $this->display();

@@ -187,7 +187,7 @@ class CouponAction extends CommonAction {
 	public function createCouponExcel() {
 		$couponModel = M('Coupon');
 		$couponTypeModel = M('CouponType');
-		$fileName = $this->couponDir.'/c'.date('YmdHis').$this->random(8).'.xls';;
+		$fileName = $this->couponDir.'/c'.date('YmdHis').$this->random(8).'.xls';
 		
 		$couponList = $couponModel->where(array('coupon_type_id' => $_GET['id']))->order('create_time desc')->select();
 		$excelStr = '<table><tr><th>名称</th><th>券号</th><th>面值</th>

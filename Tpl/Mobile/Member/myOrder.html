@@ -45,7 +45,7 @@
     <div class="order-t clearfix"><span class="fl">订单号：{$vo.order_no}</span><span class="fr">{$vo.create_time|date='Y-m-d H:i',###}</span></div>
     <volist name="vo.goodsList" id="goods">
     <div class="cart-item">
-        <span class="pic"><a class="pro-img" href="#"><img src="{$goods.image|picture='','product'}"></a></span>
+        <span class="pic"><a class="pro-img" href="__APP__/MOBILE/Goods/detail/id/{$goods.goods_id}"><img src="{$goods.image|picture='','product'}"></a></span>
         <div class="proinfos clearfix">
             <div class="proinfor">
                 <a class="proinfotxt" href="#">

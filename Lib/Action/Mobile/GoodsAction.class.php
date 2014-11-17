@@ -4,8 +4,9 @@ class GoodsAction extends CommonAction{
 	//商品列表
 	public function index(){
 		$categoryList = D("Goods")->getCategoryList();
+		$size = 20;
 		$param = array(
-			"size"=>20,
+			"size"=>$size,
 		);
 		if(!empty($_GET['cid'])){
 			$param['category_id'] = intval($_GET['cid']);
@@ -13,8 +14,11 @@ class GoodsAction extends CommonAction{
 			$this->assign("category",$category);
 		}
 		$goodsList = D("Goods")->getGoodsList($param);
+		$totalPage = ceil($goodsList['count']/$size);
+		$this->assign("totalPage",$totalPage);
+		$this->assign("size",$size);
+		$this->assign("goodsList",$goodsList['data']);
 		$this->assign("categoryList",$categoryList);
-		$this->assign("goodsList",$goodsList);
 		$this->display();
 	}
 
@@ -35,13 +39,17 @@ class GoodsAction extends CommonAction{
 
 	//伙拼商品首页
 	public function group(){
+		$size = 20;
 		$param = array(
 			"date"=>date("Y-m-d",time()),
 			"is_recommend"=>1,
-			"size"=>20
+			"size"=>$size
 		);
 		$groupList = D("Goods")->getGroupList($param);
-		$this->assign("groupList",$groupList);
+		$totalPage = ceil($groupList['count']/$size);
+		$this->assign("totalPage",$totalPage);
+		$this->assign("size",$size);
+		$this->assign("groupList",$groupList['data']);
 		$this->display();
 	}
 
@@ -65,7 +73,7 @@ class GoodsAction extends CommonAction{
 			$param['keyword'] = trim($_GET['keyword']);
 		}
 		$groupList = D("Goods")->getGroupList($param);
-		$this->assign("groupList",$groupList);
+		$this->assign("groupList",$groupList['data']);
 		$this->display();
 	}
 
@@ -77,6 +85,17 @@ class GoodsAction extends CommonAction{
 			$this->error("伙拼商品不存在");
 			exit();
 		}
+		$group_buy_status = 1;
+		$time = time();
+		if($group['start_time']>$time){
+			$group_buy_status = 0; //伙拼还未开始
+		}
+		if($group['end_time']<$time){
+			$group_buy_status = -1; //伙拼已经结束
+		}
+		$this->assign("group_buy_status",$group_buy_status);
+
+
 		$spec = M("Goods")->where("id={$group['goods_id']}")->getField("spec");
 		$category = M("Category")->where("id={$group['category_id']}")->getField("name");
 		$production = M("Production")->where("id={$group['production_id']}")->getField("name");
