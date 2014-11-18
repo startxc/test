@@ -334,6 +334,74 @@ class GoodsAction extends CommonAction {
         $this->display();
     }  
 
+    //查看每一期的伙拼
+    public function group_phase(){
+        $group_id = intval($_GET['id']);
+        $group = M("Group")->where("id={$group_id}")->find();
+        if(empty($group)){
+            $this->error("伙拼信息不存在");
+            exit();
+        }
+        $group_phase = M("Group_phase")->where("group_id={$group_id}")->select();
+        $this->assign("group",$group);
+        $this->assign("group_phase",$group_phase);
+        $this->display();
+    }
+
+    //发起新的一期伙拼
+    public function addGroupPhase(){
+        $group_id = intval($_GET['id']);
+        $group = M("Group")->where("id={$group_id}")->find();
+        if(empty($group)){
+            $this->error("伙拼不存在");
+            exit();
+        }
+        if($group['end_time']>time()){
+            $this->error("最新一期的伙拼时间还未结束");
+            exit();
+        }
+        $time = time();
+        $group_phase = M("Group_phase");
+        $group_phase->startTrans();
+        $group_phase->where("id={$group['group_phase_id']}")->save(array("is_finish"=>1,"finish_time"=>$time));
+        $start_time = strtotime(date("Y-m-d")." 00:00:00");
+        $end_time = strtotime(date("Y-m-d",strtotime("+3 days"))." 23:59:59");
+        $group_phase_data = array(
+            "group_id"=>$group['id'],
+            "price"=>$group['price'],
+            "min_price"=>$group['min_price'],
+            "min_price_spec"=>$group['min_price_spec'],
+            "real_price"=>$group['price'],
+            "moq_spec"=>$group['moq_spec'],
+            "start_time"=>$start_time,
+            "end_time"=>$end_time,
+            "create_time"=>$time,
+            "update_time"=>$time
+        );
+        if(!$group_phase_id = $group_phase->add($group_phase_data)){
+            $group_phase->rollback();
+            $this->error("发起新的伙拼失败");
+            exit();
+        }
+        $group_data = array(
+            "real_price"=>$group['price'],
+            "sale_count"=>0,
+            "sale_spec"=>0,
+            "start_time"=>$start_time,
+            "end_time"=>$end_time,
+            "create_time"=>$time,
+            "update_time"=>$time,
+            "group_phase_id"=>$group_phase_id
+        );
+        if(!M("Group")->where("id={$group['id']}")->save($group_data)){
+            $group_phase->rollback();
+            $this->error("发起新的伙拼失败");
+            exit();
+        }
+        $group_phase->commit();
+        $this->success("发起新的伙拼成功");
+    }
+
     //编辑伙拼信息
     public function groupEdit(){
         $id = intval($_GET['id']);

@@ -51,6 +51,7 @@
 <script type="text/javascript" src="__PUBLIC__/Js/verify.js"></script>
 <script type="text/javascript">
     var isSubmitButton = false;
+    var isSubmitButton2 = false;
     $(function(){
 
         //获取验证号
@@ -68,6 +69,20 @@
             }
             if(isSubmitButton === false){
                 isSubmitButton = true;
+                var obj = $(this);
+                obj.css("background","#ccc");
+                var timeout = 60;
+                var timer = setInterval(function(){
+                    if(timeout === 0){
+                        clearInterval(timer);
+                        obj.css("background","#8fc31f");
+                        obj.html("获取验证");
+                        isSubmitButton = false;
+                    }else{ 
+                        obj.html(timeout);
+                        timeout--;
+                    }
+                },1000);                
                 $.ajax({
                     type:"get",
                     url:"/Api/Member/getVerify",
@@ -75,13 +90,12 @@
                     success:function(data){
                         var res = $.parseJSON(data);
                         if(res.status == 1){
-                            alert("验证号为："+res.info);
+                            alertPop(res.info);
                         }else{
                             alertPop(res.info);
                         }
                     }
                 });
-                isSubmitButton = false;
             }
         });
 
@@ -126,8 +140,8 @@
                 $("#nickname").focus();
                 return false;
             }
-            if(isSubmitButton === false){
-                isSubmitButton = true;
+            if(isSubmitButton2 === false){
+                isSubmitButton2 = true;
                 $.ajax({
                     type:"post",
                     url:"/Api/Member/register",
@@ -142,7 +156,7 @@
                         }
                     }
                 });
-                isSubmitButton = false;
+                isSubmitButton2 = false;
             }
         });
 

@@ -1,0 +1,31 @@
+<notempty name="category"><h2><a href="javascript:void(0);">{$category}</a></h2></notempty>
+    <div class="pro-lists tscons-demo">
+    	<div class="tscons-viewport">
+            <ul class="pro-itemcon" style="">
+            	<volist name="goodsList" id="vo" key="k">
+                <if condition="$k eq 1 OR $k%2 neq 0">
+                <li class="clearfix">
+                </if>
+                    <div class="item" id="goods-{$vo.id}">
+                        <a href="javascript:">
+                            <img src="{$vo.image|picture='','product'}">
+                            <div class="pro-info">
+                                <p class="iteminfot clearfix"><span class="tit fl">{$vo.name}</span><span class="pris fr">￥<span class="pri">{$vo.price|number_format=1}</span></span></p>
+                                <p class="iteminfob">当前已售：{$vo.sale_count}件</p>
+                            </div>
+                        </a>                                
+                        <div class="week-info">
+                        	<div class="weekinfobox clearfix">
+                                <span class="wcont-l"><a id="subtract-{$vo.id}" href="javascript:">-</a></span>
+                                <em class="wsum">0</em>
+                                <span class="wcont-r"><a id="add-{$vo.id}" href="javascript:">+</a></span>
+                            </div>
+                        </div>
+                    </div>
+               	<if condition="$k%2 eq 0">
+                </li>
+                </if>
+                </volist>
+            </ul>
+        </div>
+    </div>

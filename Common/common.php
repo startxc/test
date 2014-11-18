@@ -461,6 +461,30 @@ function diffTime($start_time,$end_time){
     }
 }
 
+/*
+*@desc:发送短信
+*@返回信息：returnstatus：Success(成功)，Faild(失败)
+*           message:提示信息
+*/
+function send_message($mobile,$content){
+    $param = array(
+        'action'=>'send',
+        'userid'=>204,
+        'account'=>'uoa',
+        'password'=>'123123',
+        'mobile'=>$mobile,
+        'content'=>urlencode($content),
+        'sendTime'=>'',
+        'extno'=>''
+    );
+    $query = http_build_query($param);
+    $ch = curl_init("http://106.3.37.122:8088/sms.aspx?".$query) ;  
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true) ; // 获取数据返回    
+    $output = curl_exec($ch) ; 
+    return simplexml_load_string($output); 
+}
+
+
 /**
  * 读取分层的配置参数
  * @param string $path 参数路径(如QIS/vars.Offices读取Conf/QIS/vars.php下键值为Offices变量值

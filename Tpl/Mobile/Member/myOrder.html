@@ -48,43 +48,77 @@
         <span class="pic"><a class="pro-img" href="__APP__/MOBILE/Goods/detail/id/{$goods.goods_id}"><img src="{$goods.image|picture='','product'}"></a></span>
         <div class="proinfos clearfix">
             <div class="proinfor">
-                <a class="proinfotxt" href="#">
+                <a class="proinfotxt" href="__APP__/MOBILE/Goods/detail/id/{$goods.goods_id}">
                     <p class="tit">{$goods.goods_name}</p>
                     <p class="total"><span class="total-l">总量：{$goods.spec}{$goods.spec_unit}</span><span class="total-r">数量：{$goods.number}</span></p>
-                    <p class="status">状态：
-                    <eq name="vo.order_status" value="created">待付款</eq>
-                    <eq name="vo.order_status" value="payed">待发货</eq>
-                    <eq name="vo.order_status" value="shipped">配送路上</eq>
-                    <eq name="vo.order_status" value="received">交易完成</eq>
-                    <eq name="vo.order_status" value="canceled">已取消</eq>
-                    <eq name="vo.order_status" value="refund">已退款</eq>
-                    <eq name="vo.order_status" value="refund_appiled">已申请退款</eq>
-                    </p>
                 </a>
             </div>
             <span class="pri">{$goods.price}元</span>
         </div>
     </div>
     </volist>
+    <ul class="coinfoul detorderul" style="display:none;">
+		<li>
+        	<span class="label">配送地址：</span>
+        	<span class="con">{$vo.province_name}{$vo.city_name}{$vo.area_name}{$vo.address}</span>
+        </li>
+		<li>
+        	<span class="label">收件人：</span>
+        	<span class="con">{$vo.consignee}</span>
+        </li>
+		<li>
+        	<span class="label">联系号码：</span>
+        	<span class="con">{$vo.mobile}</span>
+        </li>
+		<li>
+        	<span class="label">配送时间：</span>
+        	<span class="con">{$vo.delivery_time|date='Y-m-d',###}</span>
+        </li>
+		<li>
+        	<span class="label">状态：</span>
+        	<span class="con">
+        	<eq name="vo.order_status" value="created">待付款</eq>
+            <eq name="vo.order_status" value="payed">待发货</eq>
+            <eq name="vo.order_status" value="shipped">配送路上</eq>
+            <eq name="vo.order_status" value="received">交易完成</eq>
+            <eq name="vo.order_status" value="canceled">已取消</eq>
+            <eq name="vo.order_status" value="refund">已退款</eq>
+            <eq name="vo.order_status" value="refund_appiled">申请退款中</eq>
+        	</span>
+        </li>
+    </ul>
+    <div class="ototal"><span class="pri">总额：{$vo.order_amount}元</span></div>
     <div class="orderlinks clearfix">
-    	<!-- 删除订单 -->
-    	<if condition="$vo.order_status eq 'created' || $vo.order_status eq 'canceled' || $vo.order_status eq 'refund' || $vo.order_status eq 'received'">
-    	<a id="deleteOrder-{$vo.id}" class="i-delete2" href="javascript:;"></a>
-    	</if>
-    	<!-- 付款 -->
-    	<if condition="$vo.order_status eq 'created'">
-        <span class="f-opay fr"><a class="btn-pay" href="javascript:;">付款</a></span>
-        </if>
-        <!-- 确认收货 -->
-    	<if condition="$vo.order_status eq 'shipped'">
-        <span class="f-opay fr"><a id="confirmOrder-{$vo.id}" class="btn-pay" href="javascript:;">确认收货</a></span>
-        </if>
+    	<span class="f-odel fl"><a class="btn-pay js-toggle" href="javascript:;">展开</a></span>
+        <span class="f-opay fr">
+        	<!-- 取消 -->
+	    	<if condition="$vo.order_status eq 'created'">
+	    	<a id="cancelOrder-{$vo.id}" class="btn-pay" href="javascript:;">取消</a>
+	    	</if>
+	    	<!-- 付款 -->
+	    	<if condition="$vo.order_status eq 'created'">
+	        <a class="btn-pay" href="javascript:;">付款</a>
+	        </if>
+	        <!-- 确认收货 -->
+	    	<if condition="$vo.order_status eq 'shipped'">
+	        <a id="confirmOrder-{$vo.id}" class="btn-pay" href="javascript:;">确认收货</a>
+	        </if>
+        </span>
     </div>
 </div>
 </volist>
 </if>
 <script type="text/javascript">
 $(function() {
+	$(".js-toggle").click(function() {
+		if ($(this).text()=="收起") {
+			$(".detorderul").slideUp();
+			$(this).text("展开");
+		} else {
+			$(".detorderul").slideDown();
+			$(this).text("收起");
+		}
+	});
 	$.ajax({
 	    type: 'GET',
 	    url: '__APP__/Api/Order/getOrderStatusCount',
@@ -96,14 +130,14 @@ $(function() {
     		$('.userorder li a').eq(3).html(result.data.shipped_num + '<br>待收货');
 		}
 	});
-	$('[id^="deleteOrder-"]').click(function() {
+	$('[id^="cancelOrder-"]').click(function() {
         var id = $(this).attr('id').split('-')[1];
-        var r = confirm("你确认要删除订单吗？")
+        var r = confirm("你确认要取消订单吗？")
         if (r == true) {
         	$.ajax({
     		    type: 'POST',
     		    data: 'id=' + id,
-    		    url: '__APP__/Api/Order/deleteOrder',
+    		    url: '__APP__/Api/Order/cancelOrder',
     		    success: function(json) {
         			var result = eval('('+json+')');
     	    		if (result.status == 0) {

@@ -42,10 +42,35 @@ class MemberAction extends CommonAction {
         	$groupNum = intval($groupApplyModel->where(array('member_id' => $_SESSION['uid']))->count('id'));
         	$this->assign('couponNum', $couponNum);
         	$this->assign('groupNum', $groupNum);
-        	$this->assign('title', '我的');
+        	$this->assign('title', '个人主页');
         	$this->display('myInfo');
         }else{ //业务员
-
+        	$memberModel = M('Member');
+			$orderModel = M('Order');
+			$communityId = $memberModel->where(array('id' => $_SESSION['uid']))->getField('community_id');
+			$orderList = $orderModel->where(array('community_id' => $communityId))->select();
+			foreach ($orderList as $key => $order) {
+				$orderList[$key]['province_name'] = M('Region')->where(array('id' => $order['province_id']))->getField('name');
+				$orderList[$key]['city_name'] = M('Region')->where(array('id' => $order['city_id']))->getField('name');
+				$orderList[$key]['area_name'] = M('Region')->where(array('id' => $order['area_id']))->getField('name');
+				$names = '';
+				$goodsNames = M('OrderGoods')->where(array('order_id' => $order['id']))->field('goods_name')->select();
+				foreach ($goodsNames as $k => $name) {
+					$names .= $name['goods_name'] . ' | ';
+				}
+				$orderList[$key]['names'] = trim($names, ' |');
+				if (in_array($order['order_status'], array('payed'))) {
+	    			$notSend[] = $order;
+	    		} elseif (in_array($order['order_status'], array('shipped', 'received'))) {
+	    			$send[] = $order;
+	    		}
+			}
+			$customer = $memberModel->where(array('community_id' => $communityId, 'member_type' => 'normal'))->count();
+			$this->assign('customer', $customer);
+			$this->assign('notSend', count($notSend));
+			$this->assign('send', count($send));
+			$this->assign('orderList', $orderList);
+			$this->assign('title', '个人主页');
             $this->display("salemanInfo");
         }
     }
@@ -61,28 +86,6 @@ class MemberAction extends CommonAction {
     	$this->assign('title', '所有订单');
 		$this->display();
     }
-    
-	/**
-	 * 删除订单
-	 */
-	
-	public function deleteOrder() {
-		$back = new stdClass();
-		$order = A('Api/Order');
-		$back = $order->deleteOrder();
-    	ajax_return($back);
-	}
-	
-	/**
-	 * 确认收货
-	 */
-	
-	public function confirmOrder() {
-		$back = new stdClass();
-		$order = A('Api/Order');
-		$back = $order->confirmOrder();
-    	ajax_return($back);
-	}
 	
 	/**
      * 我的代金券
@@ -97,22 +100,13 @@ class MemberAction extends CommonAction {
     }
     
 	/**
-     * 添加代金券
-     */
-    
-    public function addCoupon() {
-		$coupon = A('Api/Coupon');
-		$back = $coupon->addCoupon();
-    	ajax_return($back);
-    }
-    
-	/**
      * 代金券详情
      */
     
     public function couponInfo() {
-    	$coupon = A('Api/Coupon');
-    	$memberCouponInfo = $coupon->getCouponById();
+    	$memberCouponModel = M('MemberCoupon');
+		$id = max(intval($_GET['id']), 0);
+		$memberCouponInfo = $memberCouponModel->where(array('id' => $id, 'member_id' => $_SESSION['uid']))->find();
     	if ($memberCouponInfo['used'] == 1) {
     		$memberModel = M('Member');
     		$orderModel = M('Order');
@@ -133,6 +127,7 @@ class MemberAction extends CommonAction {
 
     //充值页面
     public function recharge(){
+        
         $this->display();
     }
 
@@ -163,6 +158,7 @@ class MemberAction extends CommonAction {
 
     //添加收货地址
     public function addAddress(){
+    	$this->assign('jumpurl', base64_decode($_GET['jumpurl']));
         $this->display();
     }
 
@@ -189,10 +185,19 @@ class MemberAction extends CommonAction {
         $uid = $_SESSION['uid'];
         $status = empty($_GET['status'])?0:intval($_GET['status']);
         if($status<1 || $status>3){
-            $$status = 0;
+            $status = 0;
         } 
-        $groupApply = D("Goods")->getMyGroupApply($uid,$status);
-        $this->assign("groupApply",$groupApply);
+        $this->assign("status",$status);
+        $size = 20;
+        $param = array(
+            'status'=>$status,
+            'size'=>$size
+        );
+        $groupApply = D("Goods")->getMyGroupApply($param);
+        $totalPage = ceil($groupApply['count']/$size);
+        $this->assign("totalPage",$totalPage);
+        $this->assign("size",$size);
+        $this->assign("groupApply",$groupApply['data']);
 
         $groupApplyNum = D("Goods")->countMyGroupApply($uid);
         $this->assign("groupApplyNum",$groupApplyNum);

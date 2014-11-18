@@ -124,6 +124,26 @@ class OrderModel extends CommonModel {
 	}
 
 	/**
+	 * 删除订单
+	 * @param integer $orderId 订单ID
+	 * @return boolean
+	 */
+	
+	public function deleteOrder($orderId) {
+		$orderModel = M('Order');
+        $orderStatus = $orderModel->where(array('id' => $orderId, 'member_id' => $_SESSION['uid']))->getField('order_status');
+        $orderStatusArr = array('created', 'canceled', 'refund', 'received');
+        if (!in_array($orderStatus, $orderStatusArr)) {
+        	return false;
+        }
+        $res = $orderModel->where(array('id' => $id, 'member_id' => $_SESSION['uid']))->setField('is_show', 0);
+        if ($res === false) {
+            return false;
+        }
+        return true;
+    }
+    
+	/**
 	 * 确认收货
 	 * @param integer $orderId 订单ID
 	 * @return boolean

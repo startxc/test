@@ -10,35 +10,33 @@
 </head>
 
 <body>
-<div class="recharge-box">
-    <ul id="js-selectpay" class="select-pay clearfix">
-        <li class="cur"><a href="#"><i class="i-aselected"></i><span class="unionpay">银联</span></a></li>
-        <li><a href="#"><i class="i-aselect"></i><span class="alipay">支付宝</span></a></li>
-        <li><a href="#"><i class="i-aselect"></i><span class="other">其他</span></a></li>
-    </ul>
+<div class="rcn-timg"><span class="rcnimgbox"><span>NO.34343055</span></span></div>
+<ul class="userorder clearfix">
+	<li><a href="#">消费金额<br>0元</a></li>
+	<li><a href="#">帐户积分<br>0分</a></li>
+	<li><a href="#">帐户余额<br>0元</a></li>
+</ul>
+<div class="rcn-infos">
+    <div class="phone">
+    	<span class="label">手机号码</span>
+        <span class="input"><input class="text-input" type="text" value="{$memberinfo.mobile}" placeholder="{$memberinfo.mobile}" disabled></span>
+    </div>
+    <div class="money">
+    	<span class="label">充值金额</span>
+        <ul id="js-selectsum" class="checkbox">
+        	<li class="cur"><a href="javascript:;"><p><i></i>100元</p><span>赠送：10</span></a></li>
+        	<li><a href="javascript:;"><p><i></i>200元</p><span>赠送：20</span></a></li>
+        	<li><a href="javascript:;"><p><i></i>500元</p><span>赠送：50</span></a></li>
+        	<li><a href="javascript:;"><p><i></i>1000元</p><span>赠送：100</span></a></li>
+        </ul>
+    </div>
 </div>
-<div class="rc-inputs">
-	<p class="tit">请输入银行卡号</p>
-    <p class="input">
-    	<i class="i-card"></i>
-        <span class="rc-input mr"><input class="text-input" type="text"></span>
-    </p>
-</div>
-<a class="seepaycard" href="#">查看支持银行卡号</a>
-<div class="rc-inputs mt10">
-	<p class="tit">请输入密码</p>
-    <p class="input">
-        <span class="rc-input"><input class="text-input" type="password"></span>
-    </p>
-</div>
-
-<div class="nextstep mt60"><a class="bigbtn btn-orange" href="#">下一步</a></div>
+<div class="nextstep mt10"><a class="bigbtn btn-orange" href="#">下一步</a></div>
 <script src="__PUBLIC__/Js/jquery.min.js"></script>
 <script>
 $(function(){
-	$("#js-selectpay li a").click(function(){
-		$(this).find(".i-aselect").removeClass().addClass("i-aselected");
-		$(this).parent().siblings().find(".i-aselected").removeClass().addClass("i-aselect");
+	$("#js-selectsum li").click(function(){
+		$(this).addClass("cur").siblings().removeClass("cur");
 	});
 });
 </script>

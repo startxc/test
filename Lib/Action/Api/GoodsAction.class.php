@@ -35,6 +35,7 @@ class GoodsAction extends MobileCommonAction{
 		$groupList = $groupList['data'];
 		foreach($groupList as $key=>$value){
  			$groupList[$key]['imgsrc']  = picture($value['image'],'', 'product');
+ 			$groupList[$key]['diffTime']  = diffTime($value['start_time'],$value['end_time']);
 		}
 		$this->ajaxRespon($groupList);
 	}

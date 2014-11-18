@@ -23,25 +23,30 @@
     </a>
 </div>
 <ul class="userorder clearfix">
-	<li><a href="#">4<br>未派送</a></li>
-	<li><a href="#">0<br>已派送</a></li>
-	<li><a href="#">0<br>我的客户</a></li>
+	<li><a href="javascript:">{$notSend}<br>未派送</a></li>
+	<li><a href="javascript:">{$send}<br>已派送</a></li>
+	<li><a href="javascript:">{$customer}<br>我的客户</a></li>
 </ul>
 <ul class="order-state">
+	<volist name="orderList" id="vo">
 	<li>
     	<div class="order-det">
-        	<p class="tit">订单号：</p>
-            <p class="detcon">菜名：白菜 | 萝卜 | 青瓜<br>配送地址：广东省南山区<br>配送时间：2014-11-11</p>
+        	<p class="tit">订单号：{$vo.order_no}</p>
+            <p class="detcon">菜名：{$vo.names}<br>配送地址：{$vo.province_name}{$vo.city_name}{$vo.area_name}{$vo.address}<br>配送时间：{$vo.delivery_time|date='Y-m-d',###}</p>
         </div>
-        <span class="subbtn"><a href="javascript:;">已送达</a></span>
+        <span class="subbtn">
+        	<a href="javascript:">
+	        	<eq name="vo.order_status" value="created">待付款</eq>
+	            <eq name="vo.order_status" value="payed">待发货</eq>
+	            <eq name="vo.order_status" value="shipped">配送路上</eq>
+	            <eq name="vo.order_status" value="received">交易完成</eq>
+	            <eq name="vo.order_status" value="canceled">已取消</eq>
+	            <eq name="vo.order_status" value="refund">已退款</eq>
+	            <eq name="vo.order_status" value="refund_appiled">已申请退款</eq>
+        	</a>
+        </span>
     </li>
-	<li>
-    	<div class="order-det">
-        	<p class="tit">订单号：</p>
-            <p class="detcon">菜名：白菜 | 萝卜 | 青瓜<br>配送地址：广东省南山区<br>配送时间：2014-11-11</p>
-        </div>
-        <span class="subbtn"><a href="javascript:;">已送达</a></span>
-    </li>
+	</volist>
 </ul>
 </body>
 </html>

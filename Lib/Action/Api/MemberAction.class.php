@@ -226,7 +226,7 @@ class MemberAction extends MobileCommonAction{
 		$data['city_name'] = M("Region")->where("id={$data['city_id']}")->getField("name");
 		$this->isEmpty($data['city_name'],"城市不能为空");
 		$data['area_id'] = $_POST['area_id'];
-		$this->isEmpty($data['area_id'],"区县不能为空");		
+		$this->isEmpty($data['area_id'],"区县不能为空");
 		$data['area_name'] = M("Region")->where("id={$data['area_id']}")->getField("name");
 		$this->isEmpty($data['area_name'],"区县不能为空");
 		$data['community_id'] = $_POST['community_id'];
@@ -432,9 +432,25 @@ class MemberAction extends MobileCommonAction{
 		$_SESSION['verifytime'] = time();
 
 		$verify = rand(0,9).rand(0,9).rand(0,9).rand(0,9);
-		$_SESSION['verify'] = $mobile.$verify;
-		//echo $verify;
-		$this->success($verify);
-	}	
+		$res = send_message($mobile,$verify);
+		if($res->returnstatus == "Success"){
+			$_SESSION['verify'] = $mobile.$verify;
+			$this->success('验证号已发送到你的手机，请查收');
+		}else{
+			$this->error($res->message);
+		}
+	}
+
+	//获取我发起的伙拼
+	public function getMyGroupApply(){
+		$status = empty($_GET['status'])?0:intval($_GET['status']);
+        if($status<1 || $status>3){
+            $status = 0;
+        } 
+        $param['status'] = $status;
+        $param['size'] = empty($_GET['size'])?10:intval($_GET['size']);
+        $groupApply = D("Goods")->getMyGroupApply($param);
+        $this->ajaxRespon($groupApply['data']);
+	}
 }
 ?>

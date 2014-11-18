@@ -47,5 +47,73 @@
         </notempty>
     </div>
 </volist>
+<script src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript">
+    var isSubmitButton = false;
+    var size = "{$size}";
+    var status = "{$status}";
+    var page = 1;
+    var totalPage = "{$totalPage}";
+    $(function(){
+        $(window).scroll(function(){
+            var oLastDiv = $(".huopin-div:last");
+            if(oLastDiv.offset().top+oLastDiv.height()<=$(window).scrollTop()+$(window).height()+100){
+                if(isSubmitButton === false){ 
+                    isSubmitButton = true;
+                    page++;
+                    if(page<=totalPage){ 
+                        $.ajax({
+                            type:"get",
+                            url:"/Api/Member/getMyGroupApply",
+                            data:{size:size,p:page,status:status},
+                            async:false,
+                            success:function(data){
+                                var res = $.parseJSON(data);
+                                var groupApplyData = res.data;
+                                var html = "";
+                                for(var i in groupApplyData){
+                                        html += '<div class="huopin-div">';
+                                        if(groupApplyData[i].group != undefined){
+                                             html += '<div class="cart-item">';
+                                             html += '<span class="pic"><a class="pro-img" href="/Mobile/Goods/groupDetail/id/'+groupApplyData[i].group.id+'"><img src="'+groupApplyData[i].group.imgsrc+'"></a></span>';
+                                             html += '<div class="proinfos clearfix">';
+                                             html += '<div class="proinfor">';
+                                             html += '<a class="proinfotxt" href="/Mobile/Goods/groupDetail/id/'+groupApplyData[i].group.id+'">';
+                                             html += '<p class="tit">'+groupApplyData[i].group.name+'</p>';
+                                             html += '<p class="total"><span class="total-l">起订量：'+groupApplyData[i].group.moq_spec+groupApplyData[i].group.spec_unit+'</span>&nbsp;&nbsp;<span class="total-r">已订量：'+groupApplyData[i].group.sale_spec+groupApplyData[i].group.spec_unit+'</span></p>';
+                                             html += '<p class="status">剩余时间：'+groupApplyData[i].group.diffTime+'<br>购买人数：'+groupApplyData[i].group.sale_count+'</p>';
+                                             html += '</a>';
+                                             html += '</div>';
+                                             html += '<span class="pri">'+groupApplyData[i].group.price+'元</span>';
+                                             html += '</div>';
+                                             html += '</div>';
+                                        }else{
+                                             html += '<div class="cart-item">';
+                                             html += '<span class="pic"><a class="pro-img" href="/Mobile/Goods/detail/id/'+groupApplyData[i].id+'"><img src="'+groupApplyData[i].imgsrc+'"></a></span>';
+                                             html += '<div class="proinfos clearfix">';
+                                             html += '<div class="proinfor">';
+                                             html += '<a class="proinfotxt" href="/Mobile/Goods/detail/id/'+groupApplyData[i].id+'">';
+                                             html += '<p class="tit">'+groupApplyData[i].name+'</p>';
+                                             html += '</a>';
+                                             html += '</div>';
+                                             html += '<span class="pri">'+groupApplyData[i].price+'元</span>';
+                                             html += '</div>';
+                                             html += '</div>';                                        
+                                        }
+                                        html += '</div>';
+                                }
+                                $(".huopin-div:last").after(html);
+                            }
+                        });
+                    }else{
+                        isSubmitButton = true;
+                        return false;
+                    }
+                    isSubmitButton = false;
+                }               
+            }
+        });
+    });
+</script>
 </body>
 </html>

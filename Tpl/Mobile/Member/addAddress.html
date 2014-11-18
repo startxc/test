@@ -217,7 +217,11 @@ $(function(){
                     var res = $.parseJSON(data);
                     if(res.status){
                         alertPop("添加收货地址成功");
+                        <empty name="jumpurl">
                         window.location.href = "__URL__/setAddress";
+                        <else />
+                        window.location.href = "{$jumpurl}";
+                        </empty>
                     }else{
                         alertPop(res.info);
                     }

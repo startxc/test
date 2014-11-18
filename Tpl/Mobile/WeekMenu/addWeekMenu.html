@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>{$title}</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+<script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/template.js"></script>
+</head>
+
+<body>
+<div class="addfoods">
+	<div class="toptit"><a href="javascript:"><span class="tit">可添加的菜品</span><span class="i-arrow2"></span></a></div>
+    <ul class="addfoodlist">
+    	<volist name="categoryList" id="vo">
+    	   <li><a href="javascript:"  id="getGoodsList-{$vo.id}">{$vo.name}</a></li>
+        </volist>
+    </ul>
+</div>
+<div class="pro-item addfood-item">
+	<notempty name="category"><h2><a href="javascript:void(0);">{$category}</a></h2></notempty>
+    <div class="pro-lists tscons-demo">
+    	<div class="tscons-viewport">
+            <ul class="pro-itemcon" style="">
+            	<volist name="goodsList" id="vo" key="k">
+                <if condition="$k eq 1 OR $k%2 neq 0">
+                <li class="clearfix">
+                </if>
+                    <div class="item" id="goods-{$date}-{$vo.id}">
+                        <a href="javascript:">
+                            <img src="{$vo.image|picture='','product'}">
+                            <div class="pro-info">
+                                <p class="iteminfot clearfix"><span class="tit fl">{$vo.name}</span><span class="pris fr">￥<span class="pri">{$vo.price|number_format=1}</span></span></p>
+                                <p class="iteminfob">当前已售：{$vo.sale_count}件</p>
+                            </div>
+                        </a>                                
+                        <div class="week-info">
+                        	<div class="weekinfobox clearfix">
+                                <span class="wcont-l"><a id="subtract-{$vo.id}" href="javascript:">-</a></span>
+                                <em class="wsum">0</em>
+                                <span class="wcont-r"><a id="add-{$vo.id}" href="javascript:">+</a></span>
+                            </div>
+                        </div>
+                    </div>
+               	<if condition="$k%2 eq 0">
+                </li>
+                </if>
+                </volist>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="delifood delimtop">
+    <div class="wcart">
+    	<span class="i-cart"><i class="csum">0</i></span>
+        <span class="tinfo">你今天已经选择0人份菜量</span>
+    </div>
+</div>
+<div class="nextstep mt30"><a href="javascript:" id="addWeekMenu" class="bigbtn btn-orange">确定添加到周菜谱</a></div>
+<form id="selectedGoodsForm" action="" method="post">
+<volist name="selectedGoods" id="goods">
+<div class="delifood" id="choose-{$goods.date}" style="display:none;">
+  	<volist name="goods.goodsList" id="g" key="k">
+	  	<li>
+			<input type="hidden" name="delivery_time[]" value="{$goods.date}" />
+			<input type="hidden" name="goods_id[]" value="{$g.goods_id}" />
+			<input type="hidden" name="goods_qty[]" value="{$g.goods_qty}" />
+		</li>
+	</volist>
+</div>
+</volist>
+<notempty name="flag">
+<div class="delifood" id="choose-{$date}" style="display:none;">
+</div>
+</notempty>
+</form>
+<script id="hiddenTemplate" type="text/html">
+<li>
+	<input type="hidden" name="delivery_time[]" value="{$date}" />
+	<input type="hidden" name="goods_id[]" value="{{goodsId}}" />
+	<input type="hidden" name="goods_qty[]" value="{{goodsQty}}" />
+</li>
+</script>
+<script id="delimtopTemplate" type="text/html">
+<div class="wcart">
+    <span class="i-cart"><i class="csum">{{num}}</i></span>
+    <span class="tinfo">你今天已经选择{{num}}人份菜量</span>
+</div>
+</script>
+<script>
+$(function() {
+	//恢复操作
+	<volist name="selectedGoods" id="goods" key="k">
+	$.each($('[id^="goods-{$goods.date}-"]'), function(i, n) {
+		var goodsId = $(n).attr('id').split('-')[2];
+		$.each($('[id^="choose-{$goods.date}"]').find('input[name="goods_id[]"]'), function(j, o) {
+			if (goodsId == $(o).val()) {
+				$(n).find('.wsum').html($(o).next().val());
+    		}
+		});
+	});
+	var num = 0;
+	$.each($('#choose-{$date}').find('input[name="goods_qty[]"]'), function(i, n) {
+		num += parseInt($(n).val());
+	});
+	$('.delimtop').html(template('delimtopTemplate', {num: num}));
+	</volist>
+	$(".toptit").click(function(){
+		$(this).siblings().slideToggle();
+	});
+	$(".pro-itemcon li .item").live('click', function() {
+		$(this).find(".week-info").show();
+		$(this).siblings().find(".week-info").hide();
+		$(this).parent().siblings().find(".week-info").hide();
+		$(this).parent().parent().siblings().find(".week-info").hide();
+	});
+	$('[id^="add-"]').live('click', function() {
+		updateNumber($(this), 'increase');
+        return false;
+	});
+	$('[id^="subtract-"]').live('click', function() {
+		updateNumber($(this), 'subtract');
+		return false;
+	});
+	$('[id^="getGoodsList-"]').click(function() {
+		var cid = $(this).attr('id').split('-')[1];
+		$.ajax({
+		    type: 'GET',
+		    url: '__URL__/addWeekMenu/cid/' + cid,
+		    success: function(json) {
+	        	var result = eval(json);
+	        	$('.addfood-item').empty().html(result);
+	        	$(".toptit").siblings().slideToggle();
+	        	$.each($('[id^="goods-"]'), function(i, n) {
+	        		var goodsId = $(n).attr('id').split('-')[2];
+	        		$.each($('input[name="goods_id[]"]'), function(j, o) {
+	        			if (goodsId == $(o).val()) {
+	        				$(n).find('.wsum').html($(o).next().val());
+		        		}
+	        		});
+	    		});
+			}
+		});
+		return false;
+	});
+	$('#addWeekMenu').click(function() {
+		$.ajax({
+		    type: 'POST',
+		    data: $('#selectedGoodsForm').serialize(),
+		    url: '__URL__/saveChooseGoods',
+		    success: function(json) {
+				window.location.href = '__URL__/weekMenu';
+    		}
+		});
+		return false;
+	});
+});
+function updateNumber(thisobj, type) {
+	var goodsId = thisobj.attr('id').split('-')[1];
+	if (type == 'increase') {
+		var goodsQty = parseInt(thisobj.parent().prev().html()) + 1;
+	} else if (type == 'subtract') {
+		var goodsQty = parseInt(thisobj.parent().next().html()) - 1;
+		if (goodsQty < 0) {
+			return false;
+        }
+	} else {
+		return false;
+    }
+	if (type == 'increase') {
+		thisobj.parent().prev().html(goodsQty);
+		$('.delimtop').html(template('delimtopTemplate', {num: parseInt($('.csum').html()) + 1}));
+	} else if (type == 'subtract') {
+		thisobj.parent().next().html(goodsQty);
+		$('.delimtop').html(template('delimtopTemplate', {num: parseInt($('.csum').html()) - 1}));
+	}
+	if (type == 'increase' && goodsQty == 1) {
+		$('#choose-{$date}').append(template('hiddenTemplate', {goodsId: goodsId, goodsQty: goodsQty}));
+	} else if (type == 'subtract' && goodsQty == 0) {
+		$.each($('#choose-{$date}').find('input[name="goods_id[]"]'), function(i, n) {
+			if ($(n).val() == goodsId) {
+				$(n).parent().remove();
+			}
+		});
+	} else if ((type == 'increase' && goodsQty > 1) || (type == 'subtract' && goodsQty > 0)) {
+		$.each($('#choose-{$date}').find('input[name="goods_id[]"]'), function(i, n) {
+			if ($(n).val() == goodsId) {
+				$(n).next().val(goodsQty);
+			}
+		});
+	}
+}
+</script>
+</body>
+</html>

@@ -110,23 +110,36 @@ class GoodsModel extends Model{
 	}	
 
 	//获取我发起的伙拼
-	public function getMyGroupApply($uid,$status=0){
-		$condition = array();
-		$condition['member_id'] = $uid;
-		switch($status){
+	public function getMyGroupApply($param){
+		$condition = array(
+			"member_id"=>$_SESSION['uid']
+		);
+		switch($param['status']){
 			case 1:$condition['status'] = 1;break;
 			case 2:$condition['status'] = 2;break;
 			case 3:$condition['status'] = 3;break;
 		}
+		$size = empty($param['size'])?0:intval($param['size']);
 		$count = M("Group_apply")->where($condition)->count();
-		$groupApply = array();
+		$groupApply = array(
+			'count'=>$count,
+			'data'=>array()
+		);
 		if($count>0){
-			//import("ORG.Util.Page");
-			//$p = new Page($count,$size);
-			$groupApply = M("Group_apply")->where($condition)->order("create_time desc")->select();
-			foreach($groupApply as $key=>$value){
+			if($size>0){
+				import("ORG.Util.Page");
+				$p = new Page($count,$size);
+				$groupApply['data'] = M("Group_apply")->where($condition)->order("create_time desc")->limit($p->firstRow.",".$p->listRows)->select();
+			}else{
+				$groupApply['data'] = M("Group_apply")->where($condition)->order("create_time desc")->select();
+			}
+			foreach($groupApply['data'] as $key=>$value){
 				if(!empty($value['group_id'])){
-					$groupApply[$key]['group'] = M("Group")->where("id={$value['group_id']}")->find();
+					$groupApply['data'][$key]['group'] = M("Group")->where("id={$value['group_id']}")->find();
+					$groupApply['data'][$key]['group']['diffTime'] = diffTime($groupApply['data'][$key]['group']['start_time'],$groupApply['data'][$key]['group']['end_time']);
+					$groupApply['data'][$key]['group']['imgsrc'] = picture($groupApply['data'][$key]['group']['image'],'', 'product');
+				}else{ 
+					$groupApply['data'][$key]['imgsrc'] = picture($value['image'],'', 'product');
 				}
 			}
 		}
@@ -155,7 +168,38 @@ class GoodsModel extends Model{
 		return $count;
 	}
 
-
+	//更新伙拼的数量
+	public function updateGroupNum($group_phase_id,$num){
+		$group_phase = M("Group_phase")->where("id={$group_phase_id}")->find();
+		$group = M("Group")->where("id={$group_phase['group_id']}")->find();
+		$spec = M("Goods")->where("id={$group['goods_id']}")->getField("spec");
+		$add_spec = $spec*$num;
+		$percent =	min(max(0,$group_phase['sale_spec']+$add_spec-$group_phase['moq_spec']), $group['min_price_spec']-$group['moq_spec'])/($group['min_price_spec']-$group['moq_spec']);
+		$real_price = $group_phase['price']-($group_phase['price']-$group_phase['min_price'])*$percent;
+		$sale_count = $group_phase['sale_count']+$num;
+		$sale_spec = $group_phase['sale_spec']+$add_spec;
+		$time = time();
+		$group_phase_data = array(
+			"real_price"=>$real_price,
+			"sale_count"=>$sale_count,
+			"sale_spec"=>$sale_spec,
+			"update_time"=>$time
+		);
+		M("Group_phase")->where("id={$group_phase['id']}")->save($group_phase_data);
+		if($group['group_phase_id'] == $group_phase['id']){
+			$sale_total_count = $group['sale_total_count']+$num;
+			$sale_total_spec = $group['sale_total_spec']+$add_spec;
+			$group_data = array(
+				"real_price"=>$real_price,
+				"sale_count"=>$sale_count,
+				"sale_spec"=>$sale_spec,
+				"sale_total_spec"=>$sale_total_spec,
+				"sale_total_count"=>$sale_total_count,
+				"update_time"=>$time
+			);
+			M("Group")->where("id={$group['id']}")->save($group_data);
+		}
+	}
 
 }
 ?>

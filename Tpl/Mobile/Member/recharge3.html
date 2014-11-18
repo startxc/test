@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="zh-CH">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>充值</title>
+<link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
+<link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
+</head>
+
+<body>
+<div class="recharge-box">
+    <ul id="js-selectpay" class="select-pay clearfix">
+        <li class="cur"><a href="#"><i class="i-aselected"></i><span class="unionpay">银联</span></a></li>
+        <li><a href="#"><i class="i-aselect"></i><span class="alipay">支付宝</span></a></li>
+        <li><a href="#"><i class="i-aselect"></i><span class="other">其他</span></a></li>
+    </ul>
+</div>
+<div class="rc-inputs">
+	<p class="tit">请输入银行卡号</p>
+    <p class="input">
+    	<i class="i-card"></i>
+        <span class="rc-input mr"><input class="text-input" type="text"></span>
+    </p>
+</div>
+<a class="seepaycard" href="#">查看支持银行卡号</a>
+<div class="rc-inputs mt10">
+	<p class="tit">请输入密码</p>
+    <p class="input">
+        <span class="rc-input"><input class="text-input" type="password"></span>
+    </p>
+</div>
+
+<div class="nextstep mt60"><a class="bigbtn btn-orange" href="#">下一步</a></div>
+<script src="__PUBLIC__/Js/jquery.min.js"></script>
+<script>
+$(function(){
+	$("#js-selectpay li a").click(function(){
+		$(this).find(".i-aselect").removeClass().addClass("i-aselected");
+		$(this).parent().siblings().find(".i-aselected").removeClass().addClass("i-aselect");
+	});
+});
+</script>
+</body>
+</html>

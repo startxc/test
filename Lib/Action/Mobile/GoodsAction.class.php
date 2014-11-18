@@ -66,13 +66,18 @@ class GoodsAction extends CommonAction{
 
 	//伙拼商品列表
 	public function groupList(){
+		$size = 20;
 		$param = array(
-			"size"=>20
+			"size"=>$size
 		);
 		if($_GET['keyword']){
 			$param['keyword'] = trim($_GET['keyword']);
 		}
+		$this->assign("keyword",$param['keyword']);
 		$groupList = D("Goods")->getGroupList($param);
+		$totalPage = ceil($groupList['count']/$size);
+		$this->assign("totalPage",$totalPage);
+		$this->assign("size",$size);
 		$this->assign("groupList",$groupList['data']);
 		$this->display();
 	}
@@ -108,5 +113,6 @@ class GoodsAction extends CommonAction{
 		$this->assign("production",$production);
 		$this->display();
 	}
+
 }
 ?>

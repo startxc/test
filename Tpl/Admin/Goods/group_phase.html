@@ -28,26 +28,12 @@
     <span class="action_title"> <a href="__URL__/group">伙拼管理</a></span> <span class="action_module"> - 伙拼列表 </span>
     <div class="clear"> </div>
 </div>
-<div class="header">
-    <form  method="get" action="__URL__/group">
-        <img  class="action_title" src="__PUBLIC__/Images/icon_search.gif" height="22" border="0" alt="SEARCH">
-        <span class="action_title"> 
-            <input id="text_keywords" class="input_keywords" type="text" name="keywords" value="输入关键字" />
-        </span>
-
-        <span class="action_title"> 
-            <input id="btn_search" class="input_keywords button" type="button" value="点击搜索" />
-        </span>
-        <div class="clear"> </div>
-    </form>
-</div>
-
 <div id="middle">
         <!--列表-->
         <div class="list_div">
             <table class="list_table" cellspacing="1" cellpadding="3">
                 <tr>
-                    <th width="65"> 项目编号 </th>
+                    <th width="65"> 分期号 </th>
                     <th width="150"> 商品名称 </th>
                     <th width="150"> 商品价格 </th>
                     <th width="60"> 起订规格 </th>
@@ -57,15 +43,12 @@
                     <th width="60"> 商品最低价格对应的规格 </th>
                     <th width="205"> 开始时间 </th>
                     <th width="205"> 结束时间 </th>
-                    <th width="205"> 是否显示 </th>
-                    <th width="205"> 是否推荐 </th>
-                    <th width="200">操作</th>
                 </tr>    
                 
-                <volist name="list" id="vo">
+                <volist name="group_phase" id="vo">
                     <tr class="list_tr">
-                        <td class="td_items"> {$vo.id} </td>
-                        <td> {$vo.name} </td>
+                        <td class="td_items"> {$i} </td>
+                        <td> {$group.name} </td>
                         <td> {$vo.price} </td>
                         <td> {$vo.moq_spec}  </td>
                         <td> {$vo.sale_spec} </td>
@@ -74,19 +57,6 @@
                         <td> {$vo.min_price_spec} </td>
                         <td> {$vo.start_time|date='Y-m-d',###} </td>
                         <td> {$vo.end_time|date='Y-m-d',###} </td>
-                        <td><eq name="vo.is_show" value="1">显示<else/>隐藏</eq></td>
-                        <td><eq name="vo.is_recommend" value="1">推荐<else/>不推荐</eq></td>
-                        <td class="td_center_show"> 
-                            <span class="control_span">
-                                <a href="__URL__/group_phase/id/{$vo.id}" title="查看分期伙拼"><img border="0" src="__ROOT__/Public/Images/icon_view.gif"/></a>
-                            </span>
-                            <span class="control_span">
-                                <a href="__URL__/groupEdit/id/{$vo.id}" title="编辑伙拼"><img border="0" src="__ROOT__/Public/Images/icon_edit.gif"/></a>
-                            </span>
-                            <span class="control_span">
-                                <a href="javascript:void(0);" dataid="{$vo.id}" class="add_new_group_phase" title="发起新的一期伙拼"><img border="0" src="__ROOT__/Public/Images/icon_add.gif"/></a>
-                            </span>
-                        </td>
                     </tr>
                 </volist>
             </table>
@@ -102,47 +72,14 @@
 </div>
 
 <script type="text/javascript">
-    var isSubmitButton = false;
-    
-
-    $(function(){
-        //点击
-        $("#btn_search").bind("click", function(){
-            var cat = $("#wh_cat").val();
-            var key = $("#text_keywords").val();         
-            var words = "";
-            if(key==="输入关键字") {
-                words = "";
-            }else {
-                words = key;
-            }
-            window.location.href="__URL__/group/cid/"+ cat + "/keywords/" + words;
-        });
-        
-        //搜索
-        $("#text_keywords").bind("click", function(){
-            var val = $(this).val();
-            if(val==="输入关键字") {
-                $(this).val("");
-            }
-        });
-        
+    $(function(){       
         //表格变色
         $(".list_tr").hover(function(){
             $(this).find("td").css("background", "#F4FAFB");
         },function(){
             $(this).find("td").css("background", "#FFFFFF");
-        });  
-
-        $(".add_new_group_phase").click(function(){
-            if(confirm("确定要发起新的一期伙拼?")){
-                var dataid = $(this).attr("dataid");
-                window.location.href = "__URL__/addGroupPhase/id/"+dataid;
-            }
-        });
-     
-    });
-    
+        });      
+    });   
 </script>
 
 <!--加载页面脚部文件-->

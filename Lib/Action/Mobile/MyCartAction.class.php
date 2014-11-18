@@ -46,6 +46,9 @@ class MyCartAction extends CommonAction {
     public function chooseAddress() {
     	$uid = $_SESSION['uid'];
         $address = D("Member")->getAddress($uid);
+        if (!$address) {
+        	$this->redirect('Member/addAddress', array('jumpurl' => base64_encode(U('Mobile/MyCart/chooseAddress'))));
+        }
         $this->assign("address",$address);
     	$this->assign('title', '选择收货地址');
     	$this->display();

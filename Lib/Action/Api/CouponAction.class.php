@@ -62,7 +62,6 @@ class CouponAction extends MobileCommonAction {
 		$id = max(intval($_GET['id']), 0);
 		$memberCouponInfo = $memberCouponModel->where(array('id' => $id, 'member_id' => $_SESSION['uid']))->find();
 		$this->ajaxRespon($memberCouponInfo);
-		return $memberCouponInfo;
     }
     
 	/**
@@ -74,7 +73,6 @@ class CouponAction extends MobileCommonAction {
 		$code = $_GET['code'];
 		$memberCouponInfo = $memberCouponModel->where(array('coupon_code' => $code, 'member_id' => $_SESSION['uid']))->find();
 		$this->ajaxRespon($memberCouponInfo);
-		return $memberCouponInfo;
     }
     
 	/**
@@ -136,7 +134,6 @@ class CouponAction extends MobileCommonAction {
 	    	'exceed_num' => count($exceedArr)
     	);
     	$this->ajaxRespon($couponStatusCount);
-		ajax_return($couponStatusCount);
     }
     
     /**
@@ -153,6 +150,5 @@ class CouponAction extends MobileCommonAction {
 		$map['used'] = 0;
 		$couponNumber = $memberCouponModel->where($map)->count('id');
 		$this->ajaxRespon($couponNumber);
-		return $couponNumber;
     }
 }
