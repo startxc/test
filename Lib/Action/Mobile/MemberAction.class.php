@@ -127,7 +127,24 @@ class MemberAction extends CommonAction {
 
     //充值页面
     public function recharge(){
-        
+        $step = intval($_GET['step']);
+        if($step == 2){
+            $type = intval($_GET['type']);
+            switch($type){
+                case 2:$charge_amount=200;$extra_amount=20;break;
+                case 3:$charge_amount=500;$extra_amount=50;break;
+                case 4:$charge_amount=1000;$extra_amount=100;break;
+                default:$charge_amount=100;$extra_amount=10;break;
+            }
+            $this->assign("type",$type);
+            $this->assign("charge_amount",$charge_amount);
+            $this->assign("extra_amount",$extra_amount);
+            $this->display("recharge2");
+            exit();  
+        }else if($step == 3){
+            $this->display("recharge3");
+            exit(); 
+        }
         $this->display();
     }
 

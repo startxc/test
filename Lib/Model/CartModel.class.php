@@ -39,7 +39,7 @@ class CartModel extends CommonModel {
 	    $data['goods_name'] = $goodsInfo['name'];
 	    if ($isGroup == 1) {
 	    	$groupModel = M('Group');
-	    	$groupInfo = $groupModel->where(array('goods_id' => $goodsId))->find('real_price, group_phase_id');
+	    	$groupInfo = $groupModel->where(array('goods_id' => $goodsId))->field('real_price, group_phase_id')->find();
 	    	$data['price'] = $groupInfo['real_price'];
 	    	$data['group_phase_id'] = $groupInfo['group_phase_id'];
 	    } else {

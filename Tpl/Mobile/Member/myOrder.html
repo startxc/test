@@ -97,7 +97,7 @@
 	    	</if>
 	    	<!-- 付款 -->
 	    	<if condition="$vo.order_status eq 'created'">
-	        <a class="btn-pay" href="javascript:;">付款</a>
+	        <a class="btn-pay" href="__APP__/Mobile/Pay/orderPay/id/{$vo.order_no}">付款</a>
 	        </if>
 	        <!-- 确认收货 -->
 	    	<if condition="$vo.order_status eq 'shipped'">

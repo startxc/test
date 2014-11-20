@@ -72,7 +72,7 @@ img{vertical-align:top;}
 .pro-pos li{background:#292929; width:10px; height:10px; -webkit-border-radius:5px; border-radius:5px; display:inline-block; margin:0 4px;}
 .pro-pos li.tscons-nav-item-cur{background:#f6ac2f;}
 
-.body-setinfo{background:url(../images/bg_600x1000.jpg) no-repeat; background-size:100%;  background-attachment:fixed; width:100%; height:100%;}
+.body-setinfo{background:url(../images/bg_600x1000.jpg) no-repeat center center; background-size:100%;  background-attachment:fixed; width:100%; height:100%;}
 .com-setinfo{padding:14px;}
 .setinfot-link{margin-top:30px; display:table; width:100%;}
 .setinfot-link span{display:table-cell;}
@@ -90,7 +90,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 
 .userinfos{width:100%; height:110px; background:url(../images/bg_640x220.jpg) no-repeat; background-size:100%;}
 .infobox{margin:0 auto; width:320px; height:100px; padding-top:10px; position:relative;}
-.infohead{padding-left:20px;}
+.infohead{padding-left:20px; margin-top:6px;}
 .infohead img{border-radius:100%;}
 .infotxt .txt01{font-size:18px; font-weight:bold;}
 .infotxt .mt{margin-top:5px;}
@@ -105,7 +105,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .user-links{padding:12px 0;}
 .user-links a{padding:6px 20px; display:block;}
 .user-links .icon01{background:url(../images/linksicon_60x60.jpg) no-repeat; border-radius:100%; width:60px; height:60px; display:inline-block;}
-.user-links .titinfo{display:inline-block; vertical-align:top; margin-left:30px; margin-top:5px;}
+.user-links .titinfo{display:inline-block; vertical-align:top; margin-left:26px; margin-top:5px;}
 .user-links .titinfo p{font-size:16px;}
 .user-links .titinfo span{color:#959595;}
 .user-links .arrow{float:right; margin-top:20px; width:14px; height:14px; border:#fbcd8a solid; border-width:0 0 1px 1px; -webkit-transform: rotate(-135deg); -moz-transform: rotate(-135deg); transform: rotate(-135deg);}
@@ -117,7 +117,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .infoedit .arrow{width:14px; height:14px; border:#a84200 solid; border-width:0 0 1px 1px; -webkit-transform: rotate(-135deg); -moz-transform: rotate(-135deg); transform: rotate(-135deg); float:right; display:block; margin-top:15px; margin-left:3px;}
 .btn-red{background-color:#ff0000;}
 .bigbtn{height:38px; line-height:38px; background-color:#ff0000; text-align:center; width:100%; color:#fff; display:block; font-size:16px;}
-.exit{padding:0 10px;}
+.exit{padding:0 20px; margin:30px 0;}
 
 .recharge-box{padding:0 20px;}
 .select-pay{width:100%; margin:30px 0 10px;}
@@ -164,15 +164,15 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 
 .cart-con{margin-bottom:90px;}
 .cart-item{background-color:#fff; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; padding:12px 0; position:relative; margin-top:10px; min-height:86px;}
-.cart-item .iconlink a{position:absolute; left:20px; width:26px; height:26px; display:block;}
+.cart-item .iconlink a{position:absolute; left:14px; width:26px; height:26px; display:block;}
 .cart-item .i-select{background-position:-29px -70px; top:22px;}
 .cart-item .i-selected{background-position:-2px -70px; top:22px;}
 .cart-item .i-delete{top:68px;}
 .i-delete{ background-position:-57px -70px; width:26px; height:26px; display:block;}
-.proinfos{margin-left:150px; margin-right:14px; position:relative; display:block;}
-.cart-item .pic{position:absolute; left:66px; top:16px;}
+.proinfos{margin-left:134px; margin-right:14px; position:relative; display:block;}
+.cart-item .pic{position:absolute; left:54px; top:16px;}
 .cart-item .pic img{border-radius:100%; width:74px;}
-.proinfor .tit{height:44px; overflow:hidden;}
+.proinfor .tit{height:38px; overflow:hidden;}
 .proinfor .proinfotxt{width:78%; display:inline-block; line-height:18px;}
 .order-div .proinfor .proinfotxt{width:68%;}
 .proinfor .total{color:#959595; margin-top:5px;}
@@ -180,8 +180,8 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .proinfor .status{color:#959595; margin-top:3px;}
 .goods-num{margin-top:8px;}
 .goods-num .label{color:#959595;}
-.goods-num .gn a{background-color:#f49800; width:42px; height:22px; line-height:22px; display:inline-block; text-align:center; color:#fff; font-size:15px;}
-.goods-num .num-data{border:1px solid #e5e5e5; height:22px; line-height:22px; width:44px; text-align:center; display:inline-block;}
+.goods-num .gn a{background-color:#f49800; width:38px; height:22px; line-height:22px; display:inline-block; text-align:center; color:#fff; font-size:15px;}
+.goods-num .num-data{border:1px solid #e5e5e5; height:22px; line-height:22px; width:38px; text-align:center; display:inline-block;}
 .proinfos .pri{position:absolute; right:0; top:0; font-size:16px; color:#f49800; text-align:right;}
 .proinfos .pri .opri{font-size:14px; color:#959595;}
 .total-pris{position:fixed; left:0; bottom:0; width:100%; height:50px; display:table; overflow:hidden;}
@@ -214,7 +214,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .acc-head .icon{background-position:-90px -52px; width:78px; height:78px; display:block; margin:0 auto; display:block;}
 .acchead-box{position:relative;}
 
-.ssp-tip{padding:0 20px; color:#8c6239; margin-top:20px;}
+.ssp-tip{padding:0 10px; color:#8c6239; margin-top:20px;}
 .towbtns{text-align:center; margin:30px 0; padding:0 20px;}
 .smallbtn{width:49%; display:inline-block; text-align:center; height:38px; line-height:38px; font-size:16px; color:#fff;}
 

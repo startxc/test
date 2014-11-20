@@ -29,10 +29,14 @@
 <script type="text/javascript">
     var isSubmitButton = false;
     $(function(){
+    	/*$(".js-seladdress").click(function(){
+    		$(this).find("i").addClass("i-aselected").removeClass("i-aselect");
+    		$(this).parent().siblings().find("i").removeClass("i-aselected").addClass("i-aselect");
+    	});*/
         //设置默认收货地址
         $(".default_address").click(function(){
             if($(this).find(".i-aselect").length>0){
-                if(confirmPop("确认设置这个地址为默认地址?")){                 
+                //if(confirmPop("确认设置这个地址为默认地址?")){                 
                     if(isSubmitButton === false){
                         isSubmitButton = true;
                         var obj = $(this);
@@ -45,7 +49,7 @@
                             success:function(data){
                                 var res = $.parseJSON(data);
                                 if(res.status === 1){
-                                    alertPop("修改默认收货地址成功");
+                                    //alertPop("修改默认收货地址成功");
                                     $(".i-aselected").attr("class","i-aselect");
                                     obj.find(".i-aselect").attr("class","i-aselected");
                                 }else{
@@ -55,7 +59,7 @@
                         });
                         isSubmitButton = false;
                     }
-                }
+                //}
             }
         });
 
@@ -85,7 +89,8 @@
 
         //去结算
         $('#goToOrder').click(function() {
-        	 window.location.href = "__URL__/confirmOrder";
+        	var id = $(".i-aselected").parent().attr('dataid');
+        	window.location.href = "__URL__/confirmOrder/address_id/"+id;
         });
     });
 </script>

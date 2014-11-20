@@ -288,7 +288,7 @@
             </table> 
         </div>
 </div>
-
+<include file="Mobile:Public:cutImage" />
 <link rel="stylesheet" href="__PUBLIC__/Js/kindeditor-4.1.7/themes/default/default.css" />
 <script type="text/javascript" src="__PUBLIC__/Js/kindeditor-4.1.7/kindeditor-min.js"></script>
 
@@ -353,7 +353,7 @@
         });        
 
         //商品图片排序
-        $('#box_goods_img_list ul').dragsort({dragSelector: "li"});
+        //$('#box_goods_img_list ul').dragsort({dragSelector: "li"});
                           
         //提交保存
         $("#btn_submit").bind("click", function(){
@@ -460,7 +460,11 @@
             
         });
         
-                             
+        $("#box_goods_img_list").find("img").live("click",function(){
+            var obj = $(this);
+            myImage.cutImage(obj.attr("src"),{width:262,height:262},"product",obj);
+        });  
+
     });
   
 </script>

@@ -25,7 +25,7 @@
 					<p class="total"><span class="total-l">总量：{$vo.spec}{$vo.spec_unit}</span><span class="total-r">数量：{$vo.number}</span></p>
                 </a>
             </div>
-            <span class="pri">{$vo.subtotal}元</span>
+            <span class="pri">¥{$vo.subtotal}</span>
         </div>
     </div>
     </volist>
@@ -95,7 +95,7 @@
 <div class="total-pris">
 	<div class="pricon">
     	<span class="tit">合计<br>包邮</span>
-        <span class="pri">{$total}元</span>
+        <span class="pri">¥{$total}</span>
     </div>
     <div class="end"><a href="javascript:" id="addOrder">结算（{$total_goods_qty}）</a></div>
 </div>
@@ -110,7 +110,7 @@ $(function(){
 		var orderType = $('#order_type').val();
 		$.ajax({
 		    type: 'POST',
-		    data: 'address_id=' + addressId,
+		    data: 'cartId={$cartId}&address_id=' + addressId,
 		    url: '__APP__/Api/Order/addOrder',
 		    success: function(json) {
 				var result = eval('('+json+')');

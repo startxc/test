@@ -32,7 +32,11 @@ class WeekMenuAction extends CommonAction {
     		}
     	}
     	$dates = array();
-    	$selectedGoods = unserialize(S("h_selected_goods_".$_SESSION['uid']));
+    	if (!empty($_SESSION['uid'])) {
+    		$selectedGoods = unserialize(S("h_selected_goods_".$_SESSION['uid']));
+    	} else {
+    		$selectedGoods = unserialize(stripslashes(cookie('h_selected_goods_')));
+    	}
     	foreach ($selectedGoods as $key => $vo) {
     		$dates[] = $vo['date'];
     		foreach ($vo['goodsList'] as $k => $goods) {
@@ -94,7 +98,11 @@ class WeekMenuAction extends CommonAction {
 			$content = $this->fetch('getGoodsList');
     		ajax_return($content);
 		}
-		$selectedGoods = unserialize(S("h_selected_goods_".$_SESSION['uid']));
+    	if (!empty($_SESSION['uid'])) {
+    		$selectedGoods = unserialize(S("h_selected_goods_".$_SESSION['uid']));
+    	} else {
+    		$selectedGoods = unserialize(stripslashes(cookie('h_selected_goods_')));
+    	}
 		$flag = false;
 		foreach ($selectedGoods as $key => $vo) {
 			if ($vo['date'] == $_GET['date']) {
@@ -141,7 +149,12 @@ class WeekMenuAction extends CommonAction {
 	    		);
     		}
     	}
-    	S("h_selected_goods_".$_SESSION['uid'], serialize($selectedGoods), C('DATA_CACHE_TIME'));
+    	if (!empty($_SESSION['uid'])) {
+    		S("h_selected_goods_".$_SESSION['uid'], serialize($selectedGoods), C('DATA_CACHE_TIME'));
+    	} else {
+    		cookie('h_selected_goods_', serialize($selectedGoods), 3600 * 24);
+    	}
+    	
     }
     
 	/**

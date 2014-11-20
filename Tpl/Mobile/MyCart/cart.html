@@ -38,7 +38,7 @@
                     <span class="gn gn-r"><a href="javascript:" id="add-{$vo.cart_id}-{$vo.price}">+</a></span>
                 </div>
             </div>
-            <span class="pri" id="subtotal-{$vo.cart_id}-{$vo.subtotal}">{$vo.subtotal}元</span>
+            <span class="pri" id="subtotal-{$vo.cart_id}-{$vo.subtotal}">¥{$vo.subtotal}</span>
         </div>
     </div>
     </volist>
@@ -47,7 +47,7 @@
 <div class="total-pris">
 	<div class="pricon">
     	<span class="tit">合计<br>包邮</span>
-        <span class="pri" id="total-{$cartArr.total}">{$cartArr.total}元</span>
+        <span class="pri" id="total-{$cartArr.total}">¥{$cartArr.total}</span>
     </div>
     <div class="end"><a href="javascript:" id="total_goods_qty-{$cartArr.total_goods_qty}">结束（{$cartArr.total_goods_qty}）</a></div>
 </div>
@@ -148,8 +148,8 @@ function updateCart(thisobj, type) {
     		} else if (type == 'subtract') {
     			thisobj.parent().next().html(goodsQty);
     		}
-			$('[id^="total-"]').attr('id', 'total-' + total).html(total.toFixed(2) + '元');
-			$('[id^="subtotal-' + cartId + '-"]').attr('id', 'subtotal-' + cartId + '-' + subtotal).html(subtotal.toFixed(2) + '元');
+			$('[id^="total-"]').attr('id', 'total-' + total).html('¥' + total.toFixed(2));
+			$('[id^="subtotal-' + cartId + '-"]').attr('id', 'subtotal-' + cartId + '-' + subtotal).html('¥' + subtotal.toFixed(2) );
 			$('[id^="total_goods_qty-"]').attr('id', 'total_goods_qty-' + totalGoodsQty).html('结束（' + totalGoodsQty + '）');
         }
     });

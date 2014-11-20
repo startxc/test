@@ -4,17 +4,16 @@
  */
 class OrderAction extends MobileCommonAction {
 	
-	
 	/**
 	 * 提交订单
 	 */
 	
-	public function addOrder($addressId, $orderType, $buyerNote) {
+	public function addOrder() {
 		$orderModel = D('Order');
+		$cartId = $_POST['cartId'];
 		$addressId = max(intval($_POST['address_id']), 0);
     	$orderType = $_POST['order_type'];
-    	$buyerNote = $_POST['buyer_note'];
-		$back = $orderModel->addOrder($addressId, $orderType, $buyerNote);
+		$back = $orderModel->addOrder($cartId, $addressId, $orderType);
 		if ($back->status == 0) {
 			$this->error("购物车没有商品");
 		} elseif ($back->status == 1) {
@@ -22,10 +21,14 @@ class OrderAction extends MobileCommonAction {
 		} elseif ($back->status == 2) {
 			$this->error("收货地址不存在");
 		} elseif ($back->status == 3) {
-			$this->error("写入订单表失败");
+			$this->error("代金券不存在或已失效");
 		} elseif ($back->status == 4) {
-			$this->error("写入订单商品表失败");
+			$this->error("总金额小于代金券最小使用金额");
 		} elseif ($back->status == 5) {
+			$this->error("写入订单表失败");
+		} elseif ($back->status == 6) {
+			$this->error("写入订单商品表失败");
+		} elseif ($back->status == 7) {
 			$this->error("清空购物车商品失败");
 		}
 	}

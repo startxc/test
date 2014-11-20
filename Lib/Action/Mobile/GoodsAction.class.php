@@ -40,8 +40,10 @@ class GoodsAction extends CommonAction{
 	//伙拼商品首页
 	public function group(){
 		$size = 20;
+		$time = time();
+		$this->assign("time",$time);
 		$param = array(
-			"date"=>date("Y-m-d",time()),
+			"date"=>date("Y-m-d",$time),
 			"is_recommend"=>1,
 			"size"=>$size
 		);

@@ -12,9 +12,9 @@
 <body>
 <div class="rcn-timg"><span class="rcnimgbox"><span>NO.34343055</span></span></div>
 <ul class="userorder clearfix">
-	<li><a href="#">消费金额<br>0元</a></li>
-	<li><a href="#">帐户积分<br>0分</a></li>
-	<li><a href="#">帐户余额<br>0元</a></li>
+	<li><a href="#">消费金额<br>{$memberinfo.consume_money}元</a></li>
+	<li><a href="#">帐户积分<br>{$memberinfo.score}分</a></li>
+	<li><a href="#">帐户余额<br>{$memberinfo.money}元</a></li>
 </ul>
 <div class="rcn-infos">
     <div class="phone">
@@ -24,20 +24,24 @@
     <div class="money">
     	<span class="label">充值金额</span>
         <ul id="js-selectsum" class="checkbox">
-        	<li class="cur"><a href="javascript:;"><p><i></i>100元</p><span>赠送：10</span></a></li>
-        	<li><a href="javascript:;"><p><i></i>200元</p><span>赠送：20</span></a></li>
-        	<li><a href="javascript:;"><p><i></i>500元</p><span>赠送：50</span></a></li>
-        	<li><a href="javascript:;"><p><i></i>1000元</p><span>赠送：100</span></a></li>
+        	<li class="cur" dataid="1"><a href="javascript:void(0);"><p><i></i>100元</p><span>赠送：10</span></a></li>
+        	<li dataid="2"><a href="javascript:void(0);"><p><i></i>200元</p><span>赠送：20</span></a></li>
+        	<li dataid="3"><a href="javascript:void(0);"><p><i></i>500元</p><span>赠送：50</span></a></li>
+        	<li dataid="4"><a href="javascript:void(0);"><p><i></i>1000元</p><span>赠送：100</span></a></li>
         </ul>
     </div>
 </div>
-<div class="nextstep mt10"><a class="bigbtn btn-orange" href="#">下一步</a></div>
+<div class="nextstep mt10"><a class="bigbtn btn-orange" href="javascript:void(0);" id="next_step">下一步</a></div>
 <script src="__PUBLIC__/Js/jquery.min.js"></script>
 <script>
 $(function(){
 	$("#js-selectsum li").click(function(){
 		$(this).addClass("cur").siblings().removeClass("cur");
 	});
+    $("#next_step").click(function(){
+        var type = $("#js-selectsum").find(".cur").attr("dataid");
+        window.location.href = "__URL__/recharge/step/2/type/"+type;
+    });
 });
 </script>
 </body>

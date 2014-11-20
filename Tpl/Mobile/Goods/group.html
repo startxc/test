@@ -10,12 +10,14 @@
 </head>
 
 <body>
+<div id="slider">
+<div>
 <div class="huopintimg">
 	<span class="lbtn ltbtn"><a href="__URL__/groupApply">发起伙拼<span class="ricon ricon1"><i class="i-fqhp"></i></span></a></span>
 	<span class="lbtn lbbtn"><a href="#">伙拼规则<span class="ricon ricon2"><i class="i-hpgz"></i></span></a></span>
     <div class="ldate">
-    	<em class="day">14</em>
-        <p class="time">2014 sep</p>
+    	<em class="day">{$time|date="d",###}</em>
+        <p class="time">{$time|date="Y M",###}</p>
         <p class="tip"><i class="i-linel"></i><span>今日火拼推荐</span><i class="i-liner"></i></p>
     </div>
 </div>
@@ -24,7 +26,10 @@
 		<li><a href="__URL__/groupDetail/id/{$vo.id}"><img src="{$vo.image|picture='','product'}"></a></li>
 	</volist>
 </ul>
+</div>
+</div>
 <script src="__PUBLIC__/Js/jquery.min.js"></script>
+<script src="__PUBLIC__/Js/touchslider.dev.js"></script>
 <script type="text/javascript">
     var isSubmitButton = false;
     var size = "{$size}";
@@ -61,6 +66,14 @@
                 }               
             }
         });
+
+        var slider = new TouchSlider("slider",{
+                'auto':false,
+                'after':function(){
+                    console.log(this.direction);
+                }
+
+            });
     });
 </script>
 </body>

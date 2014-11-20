@@ -143,7 +143,7 @@ var myImage = (function(my){
                          isSubmitButton = true;
                          $.ajax({
                              type:"post",
-                             url:"/Image/cutImage",
+                             url:"/Api/Image/cutImage",
                              data:{picpath: picpath, x: x, y: y, org_w: w, org_h: h,dst_w:opt.width,dst_h:opt.height,dst_dir:dir},
                              async:false,
                              success:function(data){

@@ -42,8 +42,8 @@ class IndexAction extends Action{
 			$goodsList[] = array(
 				              "cid"=>$value['id'],
 				              "cname"=>$value['name'],
-				              "goods"=>$goods,
-				              "count"=>count($goods)
+				              "goods"=>$goods['data'],
+				              "count"=>count($goods['data'])
 				           );
 		}
 		$this->assign("goodsList",$goodsList);

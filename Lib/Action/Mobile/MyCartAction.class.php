@@ -16,6 +16,14 @@ class MyCartAction extends CommonAction {
 	public function cart() {
 		$cartModel = D('Cart');
 		$cartArr = $cartModel->getCartList();
+		foreach ($cartArr['data'] as $key => $cart) {
+			$date = date("Ymd", strtotime("+1 day"));
+			$deliveryTime = date("Ymd", $cart['delivery_time']);
+			if ($deliveryTime != $date) {
+				$cartArr['total'] -= $cartArr['data'][$key]['price'];
+				unset($cartArr['data'][$key]);
+			}
+		}
 		$this->assign('cartArr', $cartArr);
 		$this->assign('title', '购物车');
 		$this->display('cart');
@@ -73,9 +81,9 @@ class MyCartAction extends CommonAction {
         	$this->redirect('Index/index');
         }
         $addressModel = M('MemberAddress');
-		$addressInfo = $addressModel->where(array('member_id' => $_SESSION['uid'], 'is_default' => 1))->find();
+		$addressInfo = $addressModel->where(array('member_id' => $_SESSION['uid'], 'id' => $_GET['address_id']))->find();
 		if (!$addressInfo) {
-			$this->redirect('Index/index');
+			$this->redirect('MyCart/chooseAddress');
 		}
 		$cartList = array();
 		foreach ($cartArr['data'] as $key => $cart) {
@@ -84,6 +92,7 @@ class MyCartAction extends CommonAction {
 			$cartList[$w]['delivery_date'] = date('Y-m-d', $cart['delivery_time']);
 			$cartList[$w]['data'][] = $cart;
 		}
+		$this->assign('cartId', $cartId);
 		$this->assign('total', $cartArr['total']);
 		$this->assign('total_goods_qty', $cartArr['total_goods_qty']);
         $this->assign('cartList', $cartList);

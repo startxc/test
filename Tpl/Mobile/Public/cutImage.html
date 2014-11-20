@@ -1,0 +1,39 @@
+<style type="text/css">
+   /*裁剪样式start*/
+    .fl{float:left;}
+    .clearfloat:after{display:block;clear:both;content:"";visibility:hidden;height:0}
+    .clearfloat{zoom:1}
+    .tb_cutimg_bone{padding:20px; width:1000px; position:absolute; overflow:hidden;}
+    .tb_cutimg_canvas { background-color: #333; opacity: 0.8; filter: alpha(opacity=80); position: absolute; z-index: 1; left: 0; top: 0; width:1040px; height: 480px; }
+    .tb_cutimg_content {position: relative; z-index: 2;}
+    .tb_cutimg_shut{position:absolute; right:-8px; top:-8px; background:url(__PUBLIC__/Images/check_box.png.png) no-repeat 0 -121px; width:26px; height:26px;}
+	.tb_cutimg_content .m-cutimgbox{width:1000px;}
+    .tb_cutimg_content .u-cutimgl{width:650px; height:440px; overflow:hidden; position:relative; text-align:center; display:table;}
+    .tb_cutimg_content .u-cutimgl span{display:table-cell; vertical-align:middle;}
+    .tb_cutimg_content .u-cutimgl img{vertical-align:middle; border:none;}
+    .tb_cutimg_content .u-cutimgr{width:294px; margin-left:36px; margin-top:160px;}
+    .m-cutimgbox .s-preview{width:294px; height:210px; overflow:hidden; display:block;}
+    .tb_cutimg_content .f-cutimgbtn a{font-size:16px;width:294px; height:38px; background-color:#ff9300; line-height:38px; text-align:center; margin-top:26px; border-radius:2px; display:block; color:#fff; text-decoration:none; font-family:"微软雅黑";}
+    .tb_cutimg_content .f-cutimgbtn a:hover{color:#fff;}
+    /*裁剪样式end*/     
+</style>
+<!-- 裁剪封面 start -->
+<div id="js_cutimg_box" class="tb_layout_bone tb_cutimg_bone" style="z-index:99; top:2400px; left: 160px;display:none;"> 
+    <div class="tb_cutimg_canvas"></div>
+    <div class="tb_cutimg_content">
+        <a href="javascript:void(0);" class="tb_cutimg_shut" id="js_close_reimg"></a>
+        <div class="m-cutimgbox clearfloat">
+                        <div class="u-cutimgl fl"><img id="js_cutimg_src" src=""></div>
+            <div class="u-cutimgr fl">
+                <div class="s-preview" style="overflow:hidden;"><img id="preview" src="" /></div>
+                <div class="f-cutimgbtn"><a href="javascript:void(0);" id="js_cutimg_btn">确定裁剪</a></div>
+            </div>
+        </div>
+    </div>
+</div>
+<input id="picpath" type="hidden" value="0" />
+<input id="x" type="hidden" value="0" />
+<input id="y" type="hidden" value="0" />
+<input id="w" type="hidden" value="0" />
+<input id="h" type="hidden" value="0" />        
+<!-- 裁剪封面 end -->

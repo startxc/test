@@ -18,6 +18,10 @@ table tr td .tip{ padding-left:5px; color:#999;}
                     <td><input type="text" class="add_input_text" id="name" name="name" value="{$couponTypeInfo.name}"><span class="tip">请为此组代金券命名</span></td>
                 </tr>
                 <tr>
+                    <td width="100" align="center">代金券面值</td>
+                    <td><input type="text" class="add_input_text" id="face_value" name="face_value" value="{$couponTypeInfo.face_value}" disabled="disabled"><span class="tip">请填写此组代金券所能抵销的金额</span></td>
+                </tr>
+                <tr>
                     <td width="100" align="center">有效时间段</td>
                     <td>
                     	<input type="text" class="add_input_text" id="start_time" name="start_time" value="{$couponTypeInfo.start_time|date='Y-m-d',###}"> - 

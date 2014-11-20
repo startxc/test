@@ -10,21 +10,27 @@ class OrderModel extends CommonModel {
     
 	/**
 	 * 提交订单
+	 * @param string $cartId 购物车商品ID
 	 * @param string $addressId 收货地址ID
 	 * @param integer $orderType 订单类型
-	 * @param string $buyerNote 买家备注
-	 * @return object $back status属性(0:购物车没有商品 1:提交订单成功 2:收货地址不存在 3:写入订单表失败 4:写入订单商品表失败 5:清空购物车商品失败)
+	 * @param string $couponCode 代金券号
+	 * @return object $back status属性(0:购物车没有商品 1:提交订单成功 2:收货地址不存在 3:代金券不存在或已失效 4:总金额小于代金券最小使用金额 5:写入订单表失败 6:写入订单商品表失败 7:清空购物车商品失败)
 	 */
 	
-	public function addOrder($addressId, $orderType, $buyerNote) {
+	public function addOrder($cartId, $addressId, $orderType, $couponCode=null) {$couponCode='CP82743d16';
 		$orderModel = M('Order');
 		$orderGoodsModel = M('OrderGoods');
 		$memberAddress = M('MemberAddress');
+		$groupModel = M('Group');
 		$cartModel = D('Cart');
 		$orderType = in_array($orderType, array('normal', 'group')) ? $orderType : 'normal';
 		$back = new stdClass();
 		
-		$cartArr = $cartModel->getCartList();
+		if (!empty($cartId)) {
+        	$cartArr = $cartModel->getCartList($cartId);
+        } else {
+	    	$cartArr = $cartModel->getCartList();
+        }
 		if (empty($cartArr)) {
 			$back->status = 0;
 	        return $back;
@@ -40,6 +46,11 @@ class OrderModel extends CommonModel {
 		    $cartList[$w]['delivery_time'] = $cart['delivery_time'];
 		}
 		
+		$orderAmount = 0;
+		foreach ($cartList as $key => $cart) {
+			$orderAmount += $cartList[$key]['total'];
+		}
+		
 		//获取收货地址
 		$memberAddressInfo = $memberAddress->where(array('id' => $addressId, 'member_id' => $_SESSION['uid']))->find();
 		if (!$memberAddressInfo) {
@@ -47,7 +58,27 @@ class OrderModel extends CommonModel {
 	        return $back;
 		}
 		
-		$orderAmount = 0;
+		if ($couponCode != null) {
+			$map = array();
+			$map['member_id'] = $_SESSION['uid'];
+			$map['coupon_code'] = $couponCode;
+			$map['start_time'] = array('elt', time());
+			$map['end_time'] = array('egt', time());
+			$map['used'] = 0;
+			$memberCouponInfo = M('MemberCoupon')->where($map)->find();
+			if (!$memberCouponInfo) {
+				$back->status = 3;
+	        	return $back;
+			}
+			$minUseValue = M('Coupon')->where(array('code' => "$couponCode"))->getField('min_use_value');
+			if ($orderAmount < $minUseValue) {
+				$back->status = 4;
+	        	return $back;
+			}
+			$orderAmount -= $memberCouponInfo['face_value'];
+			$orderAmount = max(floatval($orderAmount), 0);
+		}
+		
 		$orderModel->startTrans();
 		foreach ($cartList as $key => $cart) {
 			if (count($cartList) > 1) {
@@ -68,20 +99,25 @@ class OrderModel extends CommonModel {
 			$data['mobile'] = $memberAddressInfo['mobile'];
 			$data['goods_amount'] = $cartList[$key]['total'];
 			$data['order_amount'] = $cartList[$key]['total'];
-			if (!empty($buyerNote)) {
-				$data['buyer_note'] = $buyerNote;
-			}
 			$data['order_type'] = $orderType;
 			$data['create_time'] = time();
 			$data['delivery_time'] = $cartList[$key]['delivery_time'];
 			$data['community_id'] = $memberAddressInfo['community_id'];
+			if ($orderType == 'group') {
+				$groupInfo = $groupModel->where(array('goods_id' => $cart['data'][0]['goods_id']))->field('group_phase_id')->find();
+				$data['is_group'] = 1;
+		    	$data['group_phase_id'] = $groupInfo['group_phase_id'];
+			}
+			if ($couponCode != null) {
+				$data['coupon_code'] = $couponCode;
+				$data['discount_amount'] = $memberCouponInfo['face_value'];
+			}
 			$orderId = $orderModel->add($data);
 			if (!$orderId) {
 				$orderModel->rollback();
-				$back->status = 3;
+				$back->status = 5;
 		        return $back;
 			}
-			$orderAmount += $data['order_amount'];
 			
 			foreach ($cart['data'] as $key => $vo) {
 				$goodsInfo = M('Goods')->where(array('id' => $vo['goods_id']))->field('spec, spec_unit')->find();
@@ -92,14 +128,19 @@ class OrderModel extends CommonModel {
 				$data['goods_name'] = $vo['goods_name'];
 				$data['image'] = $vo['image'];
 				$data['number'] = $vo['number'];
-				$data['price'] = $vo['price'];
+				if ($orderType == 'group') {
+			    	$groupInfo = $groupModel->where(array('goods_id' => $vo['goods_id']))->field('real_price')->find();
+			    	$data['price'] = $groupInfo['real_price'];
+				} else {
+					$data['price'] = $vo['price'];
+				}
 				$data['create_time'] = time();
 				$data['spec'] = $goodsInfo['spec'];
 				$data['spec_unit'] = $goodsInfo['spec_unit'];
 				$id = $orderGoodsModel->add($data);
 				if (!$id) {
 					$orderModel->rollback();
-					$back->status = 4;
+					$back->status = 6;
 		        	return $back;
 				}
 			}
@@ -108,7 +149,7 @@ class OrderModel extends CommonModel {
 		$bool = $cartModel->emptyCart();
 		if (!$bool) {
 			$orderModel->rollback();
-			$back->status = 5;
+			$back->status = 7;
 	        return $back;
 		}
 		
