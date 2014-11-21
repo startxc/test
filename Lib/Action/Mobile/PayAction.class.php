@@ -55,31 +55,48 @@ class PayAction extends CommonAction {
     
     private function getPayInfo($orderNo) {
         $infoArr = array();
-        if (substr($orderNo, 0, 1) == 'u') {
-            $orderList = M('Order')->where("member_id = '{$_SESSION['uid']}' AND combine_pay_no = '$orderNo'")->select();
-            if (!$orderList) {
+        $orderNo = trim($orderNo, ',');
+        $orderNoArr = explode(',', $orderNo);
+        if (count($orderNoArr) > 1) {
+        	$orderList = M('Order')->where("member_id = '{$_SESSION['uid']}' AND order_no IN($orderNo)")->select();
+        	if (!$orderList) {
                 return false;
             }
             foreach ($orderList as $key => $order) {
             	if (!$order || $order['pay_status'] != 0 || $order['order_status'] != 'created') {
-                    return false;                       
+                	return false;
                 }
                 $infoArr['total'] += $order['order_amount'];
             }
             $infoArr['number'] = $orderNo;
-            $infoArr['title'] = 'lvjie商品合并付款';
+            $infoArr['title'] = '商品合并付款';
         } else {
-            $orderInfo = M('order')->where("member_id = '{$_SESSION['uid']}' AND order_no = '$orderNo'")->find();  
-            if (!$orderInfo || $orderInfo['pay_status'] != 0 || $orderInfo['order_status'] != 'created') {
-                return false;
-            }
-            $infoArr['total'] = $orderInfo['order_amount'];
-            $infoArr['number'] = $orderInfo['order_no'];
-            $orderGoodsList = M('OrderGoods')->where("order_id = '{$orderInfo['id']}'")->field('goods_name')->select();
-            foreach ($orderGoodsList as $key => $vo) {
-            	$goodsNames .= $vo['goods_name'] . ',';
-            }
-            $infoArr['title'] = trim($goodsNames, ','); 
+	        if (substr($orderNo, 0, 1) == 'u') {
+	            $orderList = M('Order')->where("member_id = '{$_SESSION['uid']}' AND combine_pay_no = '$orderNo'")->select();
+	            if (!$orderList) {
+	                return false;
+	            }
+	            foreach ($orderList as $key => $order) {
+	            	if (!$order || $order['pay_status'] != 0 || $order['order_status'] != 'created') {
+	                	return false;                       
+	                }
+	                $infoArr['total'] += $order['order_amount'];
+	            }
+	            $infoArr['number'] = $orderNo;
+	            $infoArr['title'] = '商品合并付款';
+	        } else {
+	            $orderInfo = M('order')->where("member_id = '{$_SESSION['uid']}' AND order_no = '$orderNo'")->find();  
+	            if (!$orderInfo || $orderInfo['pay_status'] != 0 || $orderInfo['order_status'] != 'created') {
+	                return false;
+	            }
+	            $infoArr['total'] = $orderInfo['order_amount'];
+	            $infoArr['number'] = $orderInfo['order_no'];
+	            $orderGoodsList = M('OrderGoods')->where("order_id = '{$orderInfo['id']}'")->field('goods_name')->select();
+	            foreach ($orderGoodsList as $key => $vo) {
+	            	$goodsNames .= $vo['goods_name'] . ',';
+	            }
+	            $infoArr['title'] = trim($goodsNames, ','); 
+	        }
         }
         return $infoArr;
     }

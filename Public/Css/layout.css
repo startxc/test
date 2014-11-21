@@ -56,9 +56,9 @@ img{vertical-align:top;}
 .pro-item h2{font-size:22px; text-align:center; display:block; padding:5% 0 2%;}
 .pro-itemcon{float:left; width:300px; margin:0 auto;}
 .pro-itemcon li{margin:1% auto 0;}
-.pro-itemcon li:last-child{margin-top:4%;}
+.pro-itemcon li:nth-child(2){margin-top:4%;}
 .pro-itemcon li .item{margin-right:4%; width:48%; float:left; max-width:262px; position:relative;}
-.pro-itemcon li .item:last-child{margin-right:0; float:right;}
+.pro-itemcon li .item:last-child{margin-right:0; float:left;}
 .com-home .pro-itemcon li .item.moreitem a{font-size:20px; color:#f6ac2f; height:142px; text-align:center; line-height:142px; display:block;}
 .pro-itemcon li .item img{width:100%; display:block;}
 .pro-itemcon .pro-info{position:absolute; left:0; bottom:0; width:100%; background:rgba(246, 172, 47, 0.8); padding:2% 3%;box-sizing: border-box;}
@@ -123,7 +123,7 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .select-pay{width:100%; margin:30px 0 10px;}
 .select-pay li{width:33%; text-align:center; float:left;}
 .select-pay li a{display:block;}
-.i-aselect,.i-aselected,.select-pay span,.rc-inputs .i-card,.rcn-infos .checkbox i,.cart-item .i-select,.cart-item .i-selected,.i-delete,.i-delete2,.rc-infos .i-select,.acc-head .icon,.bind-head .img,.i-edit,.noorder i,.huopintimg i,.delifood .i-cart,.i-payselected,.othercpay .i-payicon,.cardpaydiv .phone .cardbtn a,.paysucdiv .psicon,.i-success,.btn-conshop{background:url(../images/icons.png) no-repeat; background-size:320px auto;}
+.i-aselect,.i-aselected,.select-pay span,.rc-inputs .i-card,.rcn-infos .checkbox i,.cart-item .i-select,.cart-item .i-selected,.i-delete,.i-delete2,.rc-infos .i-select,.acc-head .icon,.bind-head .img,.i-edit,.noorder i,.huopintimg i,.delifood .i-cart,.i-payselected,.othercpay .i-payicon,.cardpaydiv .phone .cardbtn a,.paysucdiv .psicon,.i-success,.btn-conshop,.i-merge,.i-merged{background:url(../images/icons.png) no-repeat; background-size:320px auto;}
 .select-pay i{vertical-align:top; margin-top:10px;}
 .i-aselect{background-position:-24px -1px; width:20px; height:20px; display:inline-block;}
 .i-aselected{background-position:-1px -1px; width:20px; height:20px; display:inline-block;}
@@ -185,10 +185,10 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .proinfos .pri{position:absolute; right:0; top:0; font-size:16px; color:#f49800; text-align:right;}
 .proinfos .pri .opri{font-size:14px; color:#959595;}
 .total-pris{position:fixed; left:0; bottom:0; width:100%; height:50px; display:table; overflow:hidden;}
-.total-pris .pricon{width:70%; background-color:#e5e5e5; display:table-cell;}
+.total-pris .pricon{width:66%; background-color:#e5e5e5; display:table-cell;}
 .total-pris .pricon .tit{position:absolute; left:14px; top:8px; line-height:16px;}
 .total-pris .pricon .pri{margin-left:60px; font-size:18px; color:#f49800}
-.total-pris .end{width:30%; background-color:#f49800; display:table-cell; text-align:center; line-height:50px;}
+.total-pris .end{width:34%; background-color:#f49800; display:table-cell; text-align:center; line-height:50px;}
 .total-pris .end a{display:block; color:#fff; font-size:18px;}
 
 .rc-head{text-align:center; padding:16px 0;}
@@ -497,17 +497,41 @@ input[type="text"],input[type="password"], select{padding:0; margin:0; border:0;
 .ototal .pri{color:#f49800;}
 .orderlinks .f-opay a{display:inline-block; margin-left:5px;}
 
+.mergepaydiv{padding:3px 14px 10px 14px;}
+.mergepaydiv .btn-yellow{height:24px; line-height:24px; padding:0 10px; color:#fff; display:inline-block; font-size:16px;}
+.mergepaydiv .mergesum{color:#f49800; font-size:16px; margin-left:3px;}
+.mergecon a{color:#959595;}
+.mergecon i{position:relative; top:3px;}
+.i-merged{background-position:-45px -352px; width:18px; height:18px; display:inline-block; }
+.i-merge{background-position:-84px -352px; width:18px; height:18px; display:inline-block; }
+.order-div .i-merged,.order-div .i-merge{position:relative; top:7px; margin-right:2px;}
+
+
 @media (min-width: 768px){
 .ads-layer .tit02{font-size:22px; letter-spacing:6px;}
 .ads-layer .tit03{font-size:18px;}
+.pro-item,.pro-itemcon{width:548px;}
+.pro-item h2{font-size:30px;}
+.pro-itemcon .pro-info .tit{font-size:20px;}
+.pro-itemcon .pro-info .pris{font-size:20px;}
+.pro-itemcon .pro-info .pris .pri{font-size:24px;}
+.pro-itemcon .pro-info .iteminfob{font-size:14px;}
+.com-home .pro-itemcon li .item.moreitem a{height:260px; line-height:260px; font-size:24px;}
+.salefood-item .pro-itemconb li{width:48%; margin:4% 4% 0 0; height:auto; max-width:262px;}
+.salefood-item .pro-itemconb li:nth-child(2n){margin-right:0;}
+.pro-itemconb img{width:100%;}
+.pro-itemconb .pro-info .tit{font-size:20px;}
+.pro-itemconb .pro-info .pris{font-size:20px;}
+.pro-itemconb .pro-info .pris .pri{font-size:24px;}
+.pro-itemconb .pro-info .iteminfob{font-size:14px;}
+.pro-itemconb li .item{max-width:262px;}
+.week-item .pro-itemcon li .item{margin-right:1%;}
+.delifood{width:518px;}
+.addfood-item .week-info{height:199px;}
+.addfood-item .weekinfobox{margin-top:86px;}
+.week-item .pro-itemcon:last-child li:last-child .item:last-child{height:262px;}
+.week-item .witembox{margin-top:102px;}
+.weekinfobox{margin-top:108px;}
+.week-item{width:518px;}
+.pro-item{padding-top:20px;}
 }
-@media (min-width: 768px){
-    .manager-view li label{width:15%;}
-    .manager-view li .fr-area{width:70%;}
-    .search-result li{padding:10px 0 10px 8%;min-height:45px;}
-    .search-result .icon{display:block;position:absolute;left:5px;width:45px;height:45px;}
-    .search-result .progress{margin-top:22px;}
-}
-
-#loading{text-align:center;color:#fff;}
-#loading img{vertical-align: middle;margin-right:5px;}

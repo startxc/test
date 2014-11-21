@@ -26,7 +26,7 @@
     <div class="pro-lists tscons-demo">
     	<div class="tscons-viewport">
             <ul class="pro-itemcon" style="">
-            	<volist name="goodsList" id="vo" key="k">
+            	<volist name="goodsList.data" id="vo" key="k">
                 <if condition="$k eq 1 OR $k%2 neq 0">
                 <li class="clearfix">
                 </if>
@@ -35,7 +35,7 @@
                             <img src="{$vo.image|picture='','product'}">
                             <div class="pro-info">
                                 <p class="iteminfot clearfix"><span class="tit fl">{$vo.name}</span><span class="pris fr">￥<span class="pri">{$vo.price|number_format=1}</span></span></p>
-                                <p class="iteminfob">当前已售：{$vo.sale_count}件</p>
+                                <p class="iteminfob">当前已售：{$vo.sale_count|intval}件</p>
                             </div>
                         </a>                                
                         <div class="week-info">

@@ -20,7 +20,8 @@ class MyCartAction extends CommonAction {
 			$date = date("Ymd", strtotime("+1 day"));
 			$deliveryTime = date("Ymd", $cart['delivery_time']);
 			if ($deliveryTime != $date) {
-				$cartArr['total'] -= $cartArr['data'][$key]['price'];
+				$cartArr['total'] -= $cartArr['data'][$key]['price'] * $cartArr['data'][$key]['number'];
+				$cartArr['total_goods_qty'] -= $cartArr['data'][$key]['number'];
 				unset($cartArr['data'][$key]);
 			}
 		}
@@ -114,8 +115,8 @@ class MyCartAction extends CommonAction {
     	if (substr($orderId, 0, 1) == 'u') {
             $this->assign('orderNo', $orderId);
         } else {
-            $order = M('order');
-            $orderNo = $order->where("member_id = '{$_SESSION['uid']}' AND id = '$orderId'")->getField('order_no');
+            $orderModel = M('Order');
+            $orderNo = $orderModel->where("member_id = '{$_SESSION['uid']}' AND id = '$orderId'")->getField('order_no');
             $this->assign('orderNo', $orderNo);           
         }
         $this->assign('orderAmount', $orderAmount);

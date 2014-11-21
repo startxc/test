@@ -118,7 +118,7 @@ class OrderAction extends MobileCommonAction {
 		$count = $orderModel->where($map)->count('id');
     	if ($count > 0) {
             import("@.ORG.Util.Page");
-            $p = new Page($count, 10);
+            $p = new Page($count, 20);
             $page = $p->show();
             $orderList = $orderModel->where($map)->limit($p->firstRow . ',' . $p->listRows)->order('create_time desc')->select();
 	    	foreach ($orderList as $key => $order) {

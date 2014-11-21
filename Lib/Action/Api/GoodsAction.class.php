@@ -26,7 +26,14 @@ class GoodsAction extends MobileCommonAction{
 
 	//获取伙拼列表
 	public function getGroupList(){
-		$param['date'] = trim($_GET['date']);
+		if(!empty($_GET['day'])){
+			$day = intval($_GET['day']);
+			if($day<1 || $day>7) $day = 1;
+			$day = $day-1;
+			$param['date'] = date("Y-m-d",strtotime("+{$day} days"));
+		}else{ 
+			$param['date'] = trim($_GET['date']);
+		}
 		$param['is_recommend'] = $_GET['is_recommend'] == 1?1:0;
 		$param['size'] = empty($_GET['size'])?10:intval($_GET['size']);
 		$param['order'] = empty($_GET['order'])?0:intval($_GET['order']);

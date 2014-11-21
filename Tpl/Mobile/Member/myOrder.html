@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="__PUBLIC__/Css/bootstrap.css" />
 <link rel="stylesheet" href="__PUBLIC__/Css/layout.css" />
 <script type="text/javascript" src="__PUBLIC__/Js/jquery.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Js/common.js"></script>
 </head>
 
 <body <if condition="empty($orderList)">class="bg-white"</if>>
@@ -40,9 +41,25 @@
 
 <!-- 订单列表 -->
 <else />
+<div class="mergepaydiv clearfix" style="display:none;">
+	<div class="settleorder fl">
+        <a id="goToOrder" class="btn-yellow" href="javascript:">去结算</a>
+        <span class="mergesum">合并总额：¥0.00</span>
+    </div>
+    <div class="mergecon fr">
+        <a href="javascript:;">
+            <i id="checkAll" class="i-merge"></i>
+            <span class="mergetxt">合并付款</span>
+        </a>
+    </div>
+</div>
 <volist name="orderList" id="vo">
 <div class="order-div">
-    <div class="order-t clearfix"><span class="fl">订单号：{$vo.order_no}</span><span class="fr">{$vo.create_time|date='Y-m-d H:i',###}</span></div>
+    <a href="javascript:;">
+    	<div class="order-t clearfix">
+    		<if condition="$vo.order_status eq 'created'"><i id="total-{$vo.order_amount}-{$vo.order_no}" class="i-merge fl"></i></if><span class="fl">订单号：{$vo.order_no}</span><span class="fr">{$vo.create_time|date='Y-m-d H:i',###}</span>
+    	</div>
+    </a>
     <volist name="vo.goodsList" id="goods">
     <div class="cart-item">
         <span class="pic"><a class="pro-img" href="__APP__/MOBILE/Goods/detail/id/{$goods.goods_id}"><img src="{$goods.image|picture='','product'}"></a></span>
@@ -128,6 +145,11 @@ $(function() {
     		$('.userorder li a').eq(1).html(result.data.created_num + '<br>待付款');
     		$('.userorder li a').eq(2).html(result.data.payed_num + '<br>待发货');
     		$('.userorder li a').eq(3).html(result.data.shipped_num + '<br>待收货');
+    		<if condition="empty($order_status) || $order_status eq 'created'">
+    		if (parseInt(result.data.created_num) > 0) {
+				$('.mergepaydiv').show();
+    		}
+    		</if>
 		}
 	});
 	$('[id^="cancelOrder-"]').click(function() {
@@ -169,6 +191,51 @@ $(function() {
     		});
         }
 		return false;
+    });
+    $('#checkAll').click(function() {
+		if ($(this).hasClass('i-merged')) {
+			$(this).addClass('i-merge').removeClass('i-merged');
+			$('.order-div i').addClass('i-merge').removeClass('i-merged');
+		} else {
+			$(this).addClass('i-merged').removeClass('i-merge');
+			$('.order-div i').addClass('i-merged').removeClass('i-merge');
+		}
+		var total = 0;
+    	$.each($('.order-div .i-merged'), function(i, n) {
+    		total += parseFloat($(n).attr('id').split('-')[1]);
+		});
+		$('.mergesum').html('合并总额：¥' + total.toFixed(2));
+    });
+    $('.order-div i').click(function() {
+    	if ($(this).hasClass('i-merged')) {
+			$(this).addClass('i-merge').removeClass('i-merged');
+		} else {
+			$(this).addClass('i-merged').removeClass('i-merge');
+		}
+    	var length = $('.order-div .i-merged').length;
+    	var count = '{$orderList|count}';
+    	if (parseInt(length) == parseInt(count)) {
+    		$('#checkAll').addClass('i-merged').removeClass('i-merge');
+        } else {
+        	$('#checkAll').addClass('i-merge').removeClass('i-merged');
+        }
+    	var total = 0;
+    	$.each($('.order-div .i-merged'), function(i, n) {
+    		total += parseFloat($(n).attr('id').split('-')[1]);
+		});
+		$('.mergesum').html('合并总额：¥' + total.toFixed(2));
+    });
+    $('#goToOrder').click(function() {
+    	var length = $('.order-div .i-merged').length;
+		if (parseInt(length) == 0) {
+			alertPop('请至少选中一个订单');
+			return false;
+		}
+		var orderNo = '';
+		$.each($('.order-div .i-merged'), function(i, n) {
+			orderNo += $(n).attr('id').split('-')[2] + ',';
+		});
+    	window.location.href = "__APP__/Mobile/Pay/orderPay/id/"+orderNo;
     });
 });
 </script>

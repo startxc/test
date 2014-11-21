@@ -396,6 +396,7 @@
 					
 					this.playing && this.play();
 				}
+				this.offset = offset;
 				delete this._pos;
 				delete this.stopPos;
 				delete this.startPos;

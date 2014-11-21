@@ -62,7 +62,11 @@ class GoodsAction extends CommonAction{
 			"size"=>0
 		);
 		$goodsList = D("Goods")->getGoodsList($param);
-		$this->assign("goodsList",$goodsList);
+		$this->assign("goodsList",$goodsList['data']);
+		
+		//发起伙拼顶部广告
+		$groupApply_top = D("Adv")->getAdvList("groupApply_top");
+		$this->assign("groupApply_top",$groupApply_top);
 		$this->display();
 	}
 

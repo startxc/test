@@ -147,7 +147,9 @@ $(function() {
 		$(this).parent().siblings().find(".week-info").hide();
 		$(this).parent().parent().siblings().find(".week-info").hide();
 	});
+	<if condition="!empty($weekmenuList[0]['goodsList'])">
 	$(".tscons-demo").touchSlider();
+	</if>
 	addWeekMenu();
 	$('[id^="add-"]').live('click', function() {
 		updateNumber($(this), 'increase');
@@ -227,6 +229,7 @@ $(function() {
 		});
 		return false;
 	});
+	//营养师推荐
 });
 function addWeekMenu() {
 	var length = $('.pro-itemcon:last').find('li:last .item').length;
